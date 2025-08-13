@@ -137,7 +137,8 @@ export default function PracticeAreasShowcase({ language }: PracticeAreasShowcas
                   {currentArea.features.map(feature => (
                     <span
                       key={feature}
-                      className="rounded-full bg-white/10 px-3 py-1 text-sm text-white backdrop-blur-sm"
+
+                className="rounded-full bg-white/10 px-3 py-1 text-sm text-white backdrop-blur-sm"
                     >
                       {feature}
                     </span>
@@ -164,6 +165,7 @@ export default function PracticeAreasShowcase({ language }: PracticeAreasShowcas
               {/* CTA Button */}
               <Link
                 href={`/practice-areas/${currentArea.id}`}
+
                 className="mt-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#C9974D] to-[#E5B568] px-6 py-3 font-bold text-black transition-all hover:scale-105"
               >
                 {language === 'en' ? 'Learn More' : 'Aprende Más'} →
@@ -176,11 +178,14 @@ export default function PracticeAreasShowcase({ language }: PracticeAreasShowcas
                 {areas.map((_, index) => (
                   <button
                     key={index}
-                    onClick={() => setActiveArea(index)}
-                    className={`h-2 w-8 rounded-full transition-all ${
+
+                onClick={() => setActiveArea(index)}
+
+                className={`h-2 w-8 rounded-full transition-all ${
                       activeArea === index ? 'bg-[#C9974D]' : 'bg-white/20'
                     }`}
-                    aria-label={`View ${areas[index].title}`}
+
+                aria-label={`View ${areas[index].title}`}
                   />
                 ))}
               </div>
@@ -193,11 +198,13 @@ export default function PracticeAreasShowcase({ language }: PracticeAreasShowcas
               <div
                 key={area.id}
                 onMouseEnter={() => setActiveArea(index)}
+
                 className={`group relative overflow-hidden rounded-2xl border transition-all cursor-pointer animate-slideUp ${
                   activeArea === index
                     ? 'border-[#C9974D] bg-gradient-to-br from-[#6B1F2E]/20 to-transparent'
                     : 'border-white/10 bg-white/5 hover:border-white/20'
                 }`}
+
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="p-6">

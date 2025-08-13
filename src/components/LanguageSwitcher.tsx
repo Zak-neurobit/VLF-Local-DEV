@@ -40,23 +40,23 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ className = 
     <div className={`flex space-x-2 ${className}`}>
       <button
         onClick={() => handleLanguageChange('en')}
-        className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
+
+                className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
           currentLang === 'en'
             ? 'bg-blue-600 text-white'
             : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-        }`}
-        aria-label="Switch to English"
+        }` aria-label="Switch to English"
       >
         EN
       </button>
       <button
         onClick={() => handleLanguageChange('es')}
-        className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
+
+                className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
           currentLang === 'es'
             ? 'bg-blue-600 text-white'
             : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-        }`}
-        aria-label="Cambiar a Español"
+        }` aria-label="Cambiar a Español"
       >
         ES
       </button>

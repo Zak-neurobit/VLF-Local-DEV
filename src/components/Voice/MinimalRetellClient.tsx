@@ -493,6 +493,7 @@ export const MinimalRetellClient: React.FC<MinimalRetellClientProps> = ({
             {soundBars.map((height, index) => (
               <div
                 key={index}
+
                 style={{
                   width: '3px',
                   backgroundColor: isAgentTalking 
@@ -530,7 +531,8 @@ export const MinimalRetellClient: React.FC<MinimalRetellClientProps> = ({
         {isConnected && (
           <div style={controlsStyle}>
             <button 
-              onClick={handleMute} 
+              onClick={handleMute}
+
               style={{
                 ...buttonStyle,
                 background: isMuted ? 'rgba(255, 0, 0, 0.3)' : buttonStyle.background,
@@ -544,6 +546,7 @@ export const MinimalRetellClient: React.FC<MinimalRetellClientProps> = ({
             <div style={{ position: 'relative' }}>
               <button 
                 onClick={() => setShowVolumeSlider(!showVolumeSlider)}
+
                 style={buttonStyle}
                 title={t[language].volume}
               >
@@ -569,14 +572,17 @@ export const MinimalRetellClient: React.FC<MinimalRetellClientProps> = ({
                     min="0"
                     max="100"
                     value={volume}
+
                     onChange={(e) => setVolume(parseInt(e.target.value))}
+
                     style={{ width: '100%' }}
                   />
                 </div>
               )}
             </div>
 
-            <button onClick={handleEndCall} style={endButtonStyle}>
+            <button onClick={handleEndCall}
+ style={endButtonStyle}>
               <PhoneOff size={20} />
               <span>{t[language].endCall}</span>
             </button>

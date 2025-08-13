@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { logger } from '@/lib/safe-logger';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import {
   FileText,
   Upload,
@@ -190,7 +190,8 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
         <h2 className="text-2xl font-bold text-gray-900">Document Manager</h2>
         <button
           onClick={() => setUploadModalOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
+
+                className="flex items-center gap-2 px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
         >
           <Upload className="w-4 h-4" />
           Upload Documents
@@ -206,18 +207,19 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
               type="text"
               placeholder="Search documents..."
               value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+      onChange={e => setSearchTerm(e.target.value)} className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
             />
           </div>
-          <div className="flex gap-2 overflow-x-auto">
+          <div} className="flex gap-2 overflow-x-auto">
             {categories.map(category => {
               const Icon = category.icon;
               return (
                 <button
                   key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${
+
+                onClick={() => setSelectedCategory(category.id)}
+
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${
                     selectedCategory === category.id
                       ? 'bg-[#6B1F2E] text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -236,12 +238,11 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredDocuments.map(document => {
           return (
-            <motion.div
+            <div
               key={document.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="bg-white rounded-lg shadow-sm border p-4 hover:shadow-md transition-shadow cursor-pointer"
-              onClick={() => setSelectedDocument(document)}
+
+                className="bg-white rounded-lg shadow-sm border p-4 hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => setSelectedDocument(document)}
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
@@ -270,7 +271,7 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
                   {document.status}
                 </span>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </div>
@@ -288,20 +289,14 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
       )}
 
       {/* Document Preview Modal */}
-      <AnimatePresence>
+      <>
         {selectedDocument && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          <div
+className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
             onClick={() => setSelectedDocument(null)}
           >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ scale: 0.9 }}
-              className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            <div
+className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
               onClick={e => e.stopPropagation()}
             >
               <div className="p-6 border-b">
@@ -315,7 +310,8 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
                   </div>
                   <button
                     onClick={() => setSelectedDocument(null)}
-                    className="p-2 hover:bg-gray-100 rounded-lg"
+
+                className="p-2 hover:bg-gray-100 rounded-lg"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -372,46 +368,43 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
                 <div className="flex gap-3">
                   <button
                     onClick={() => window.open(selectedDocument.url, '_blank')}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
+
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
                   >
                     <Eye className="w-4 h-4" />
                     View Document
                   </button>
                   <button
                     onClick={() => handleDownload(selectedDocument)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     <Download className="w-4 h-4" />
                     Download
                   </button>
                   <button
                     onClick={() => handleDelete(selectedDocument.id)}
-                    className="p-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+
+                className="p-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
 
       {/* Upload Modal */}
-      <AnimatePresence>
+      <>
         {uploadModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          <div
+className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
             onClick={() => setUploadModalOpen(false)}
           >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ scale: 0.9 }}
-              className="bg-white rounded-lg shadow-xl max-w-md w-full"
+            <div
+className="bg-white rounded-lg shadow-xl max-w-md w-full"
               onClick={e => e.stopPropagation()}
             >
               <div className="p-6">
@@ -420,8 +413,8 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
                 <div
                   className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-[#6B1F2E] transition-colors cursor-pointer"
                   onClick={() => fileInputRef.current?.click()}
-                  onDragOver={e => e.preventDefault()}
-                  onDrop={e => {
+                onDragOver={e => e.preventDefault()}
+                onDrop={e => {
                     e.preventDefault();
                     if (e.dataTransfer.files.length > 0) {
                       handleFileUpload(e.dataTransfer.files);
@@ -435,30 +428,30 @@ export default function DocumentManager({ clientData }: { clientData: ClientData
 
                 <input
                   ref={fileInputRef}
-                  type="file"
+
+                type="file"
                   multiple
                   accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                   onChange={e => {
                     if (e.target.files && e.target.files.length > 0) {
-                      handleFileUpload(e.target.files);
-                    }
-                  }}
-                  className="hidden"
+                      handleFileUpload(e.target.files);}
+      className="hidden"
                 />
 
-                <div className="mt-6 flex gap-3">
+                <div} className="mt-6 flex gap-3">
                   <button
-                    onClick={() => setUploadModalOpen(false)}
-                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                onClick={() => setUploadModalOpen(false)}
+
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     Cancel
                   </button>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
     </div>
   );
 }

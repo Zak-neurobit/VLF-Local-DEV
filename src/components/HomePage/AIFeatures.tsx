@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 // React Three Fiber removed - 3D not needed;
 // React Three Fiber removed - 3D not needed;
 // Three.js removed - 3D not needed;
@@ -163,23 +163,22 @@ export default function AIFeatures({ language }: AIFeaturesProps) {
   const t = features[language];
 
   return (
-    <section ref={containerRef} className="relative overflow-hidden bg-black py-24">
+    <section ref={containerRef}
+
+                className="relative overflow-hidden bg-black py-24">
       {/* 3D Background */}
-      <motion.div style={{ opacity }} className="absolute inset-0">
+      <div className="absolute inset-0">
         <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
           <AIBrain />
         </Canvas>
-      </motion.div>
+      </div>
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16 text-center"
+        <div
+className="mb-16 text-center"
         >
           <h2 className="mb-4 text-5xl font-black text-white md:text-6xl">
             {language === 'en' ? 'AI-Powered Legal Services' : 'Servicios Legales con IA'}
@@ -189,18 +188,14 @@ export default function AIFeatures({ language }: AIFeaturesProps) {
               ? 'The future of law is here. Experience legal services enhanced by cutting-edge artificial intelligence.'
               : 'El futuro del derecho está aquí. Experimente servicios legales mejorados con inteligencia artificial de vanguardia.'}
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {t.map((feature, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-6 backdrop-blur-sm"
+
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-6 backdrop-blur-sm"
             >
               {/* Glow Effect */}
               <div className="absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100">
@@ -225,29 +220,19 @@ export default function AIFeatures({ language }: AIFeaturesProps) {
               </div>
 
               {/* Animated Border */}
-              <motion.div
+              <div
                 className="absolute inset-0 rounded-2xl"
-                style={{
-                  background: `linear-gradient(90deg, transparent, #C9974D, transparent)`,
-                  opacity: 0.5,
-                }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  repeatDelay: 1,
-                }}
+               }
+               }
+               }
               />
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-12 text-center"
+        <div
+className="mt-12 text-center"
         >
           <button className="group relative overflow-hidden rounded-full bg-gradient-to-r from-[#C9974D] to-[#E5B568] px-8 py-4 font-bold text-black transition-all hover:scale-105">
             <span className="relative z-10">
@@ -255,7 +240,7 @@ export default function AIFeatures({ language }: AIFeaturesProps) {
             </span>
             <div className="absolute inset-0 bg-white opacity-0 transition-opacity group-hover:opacity-20" />
           </button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

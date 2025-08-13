@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useTextScramble, useGlitchText, useTypewriter } from '@/hooks/useTextScramble';
 
 interface MorphingTextProps {
@@ -36,7 +35,9 @@ export function MorphingText({
   if (type === 'scramble') {
     const { ref, displayText } = scrambleResult;
     return (
-      <span ref={ref as React.RefObject<HTMLSpanElement>} className={className}>
+      <span ref={ref as React.RefObject<HTMLSpanElement>}
+
+                className={className}>
         {displayText}
       </span>
     );
@@ -45,7 +46,9 @@ export function MorphingText({
   if (type === 'glitch') {
     const { ref, glitchedText } = glitchResult;
     return (
-      <span ref={ref as React.RefObject<HTMLSpanElement>} className={className}>
+      <span ref={ref as React.RefObject<HTMLSpanElement>}
+
+                className={className}>
         {glitchedText}
       </span>
     );
@@ -54,7 +57,9 @@ export function MorphingText({
   if (type === 'typewriter') {
     const { ref, displayText } = typewriterResult;
     return (
-      <span ref={ref as React.RefObject<HTMLSpanElement>} className={className}>
+      <span ref={ref as React.RefObject<HTMLSpanElement>}
+
+                className={className}>
         {displayText}
       </span>
     );
@@ -62,18 +67,15 @@ export function MorphingText({
 
   // Default morph animation
   return (
-    <AnimatePresence mode="wait">
-      <motion.span
+    <>
+      <span
         key={currentIndex}
-        initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
-        transition={{ duration: 0.5 }}
-        className={className}
+
+                className={className}
       >
         {currentText}
-      </motion.span>
-    </AnimatePresence>
+      </span>
+    </>
   );
 }
 
@@ -91,22 +93,14 @@ export function SplitText({ text, className = '', delay = 0, stagger = 0.03 }: S
   return (
     <span className={className}>
       {words.map((word, wordIndex) => (
-        <span key={wordIndex} className="inline-block">
+        <span key={wordIndex}
+
+                className="inline-block">
           {word.split('').map((char, charIndex) => (
-            <motion.span
-              key={`${wordIndex}-${charIndex}`}
-              className="inline-block"
-              initial={{ opacity: 0, y: 50, rotateZ: -10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                delay: delay + (wordIndex * word.length + charIndex) * stagger,
-                type: 'spring',
-                damping: 12,
-              }}
-            >
+            <span
+                key={`${wordIndex}-${charIndex}` className="inline-block"            >
               {char}
-            </motion.span>
+            </span>
           ))}
           {wordIndex < words.length - 1 && <span>&nbsp;</span>}
         </span>
@@ -126,19 +120,10 @@ export function GradientText({
   className?: string;
 }) {
   return (
-    <motion.span
-      className={`bg-gradient-to-r ${gradient} bg-clip-text text-transparent ${className}`}
-      animate={{ opacity: 1 }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        ease: 'linear',
-      }}
-      style={{
-        backgroundSize: '200% 200%',
-      }}
+    <span
+      className={`bg-gradient-to-r ${gradient} bg-clip-text text-transparent ${className}`     }
     >
       {text}
-    </motion.span>
+    </span>
   );
 }

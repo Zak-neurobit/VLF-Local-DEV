@@ -117,17 +117,18 @@ export const CrewLogsViewer: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{analytics.successRate.toFixed(1)}%</div>
-              <Progress value={analytics.successRate} className="mt-2" />
+              <Progress value={analytics.successRate className="mt-2" />
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Avg Duration</CardTitle>
-              <Clock className="h-4 w-4 text-muted-foreground" />
+              <Clock}
+      className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{analytics.averageDuration}</div>
+              <div} className="text-2xl font-bold">{analytics.averageDuration}</div>
               <p className="text-xs text-muted-foreground mt-1">Per execution</p>
             </CardContent>
           </Card>
@@ -172,7 +173,7 @@ export const CrewLogsViewer: React.FC = () => {
               {autoRefresh && (
                 <Select
                   value={refreshInterval.toString()}
-                  onValueChange={(value: string) => setRefreshInterval(parseInt(value))}
+                onValueChange={(value: string) => setRefreshInterval(parseInt(value))}
                 >
                   <SelectTrigger className="w-24">
                     <SelectValue />
@@ -204,7 +205,9 @@ export const CrewLogsViewer: React.FC = () => {
                 <SelectContent>
                   <SelectItem value="all">All agents</SelectItem>
                   {analytics?.agentActivity.map(agent => (
-                    <SelectItem key={agent.agent} value={agent.agent}>
+                    <SelectItem key={agent.agent}
+
+                value={agent.agent}>
                       {agent.agent} ({agent.totalExecutions})
                     </SelectItem>
                   ))}
@@ -260,9 +263,9 @@ export const CrewLogsViewer: React.FC = () => {
                     variant="outline"
                     size="sm"
                     onClick={handleDeleteSelected}
-                    className="text-destructive"
+      className="text-destructive"
                   >
-                    <Trash2 className="h-4 w-4 mr-1" />
+                    <Trash2} className="h-4 w-4 mr-1" />
                     Delete ({selectedLogs.size})
                   </Button>
                   <Button variant="outline" size="sm" onClick={handleExportSelected}>
@@ -334,34 +337,36 @@ export const CrewLogsViewer: React.FC = () => {
                     <th className="p-4 w-10">
                       <input
                         type="checkbox"
-                        checked={selectedLogs.size === logs.length}
-                        onChange={handleSelectAll}
-                        className="rounded"
+                        checked={selectedLogs.size === logs.length} onChange={handleSelectAll className="rounded"
                       />
                     </th>
                     <th className="p-4">Status</th>
                     <th className="p-4">Agent</th>
                     <th className="p-4">Type</th>
                     <th className="p-4">Duration</th>
-                    <th className="p-4">Timestamp</th>
-                    <th className="p-4 w-20">Actions</th>
+                    <th}
+      className="p-4">Timestamp</th>
+                    <th} className="p-4 w-20">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {logs.map(log => (
-                    <tr key={log.id} className="border-b hover:bg-muted/50 transition-colors">
+                    <tr key={log.id}
+
+                className="border-b hover:bg-muted/50 transition-colors">
                       <td className="p-4">
                         <input
                           type="checkbox"
                           checked={selectedLogs.has(log.id)}
-                          onChange={() => handleSelectLog(log.id)}
-                          className="rounded"
+
+                onChange={() => handleSelectLog(log.id)}
+
+                className="rounded"
                         />
                       </td>
                       <td className="p-4">
                         <Badge
-                          variant={log.status === 'success' ? 'default' : 'destructive'}
-                          className="gap-1"
+                          variant={log.status === 'success' ? 'default' : 'destructive' className="gap-1"
                         >
                           {log.status === 'success' ? (
                             <CheckCircle className="h-3 w-3" />
@@ -402,7 +407,7 @@ export const CrewLogsViewer: React.FC = () => {
               <div className="flex items-center gap-2">
                 <Select
                   value={pagination.pageSize.toString()}
-                  onValueChange={(value: string) => setPageSize(parseInt(value))}
+                onValueChange={(value: string) => setPageSize(parseInt(value))}
                 >
                   <SelectTrigger className="w-20">
                     <SelectValue />
@@ -417,16 +422,14 @@ export const CrewLogsViewer: React.FC = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={previousPage}
-                  disabled={!pagination.hasPreviousPage}
+                  onClick={previousPage} disabled={!pagination.hasPreviousPage}
                 >
                   Previous
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={nextPage}
-                  disabled={!pagination.hasNextPage}
+                  onClick={nextPage} disabled={!pagination.hasNextPage}
                 >
                   Next
                 </Button>

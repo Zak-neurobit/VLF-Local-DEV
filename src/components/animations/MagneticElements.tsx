@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { useMagneticHover, useMagneticCursor } from '@/hooks/useMagneticHover';
 
 interface MagneticButtonProps {
@@ -20,25 +20,26 @@ export function MagneticButton({
   const { ref, x, y, scale, isHovered } = useMagneticHover({ strength });
 
   return (
-    <motion.button
+    <button
       ref={ref as React.RefObject<HTMLButtonElement>}
-      onClick={onClick}
-      className={`relative overflow-hidden rounded-lg bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] px-8 py-4 font-semibold text-white ${className}`}
-      style={{ x, y, scale }}
-      // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-      whileTap={{ scale: 0.95 }}
+
+                onClick={onClick}
+
+                className={`relative overflow-hidden rounded-lg bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] px-8 py-4 font-semibold text-white ${className}`}
+     }
+     }
     >
       {/* Ripple effect on hover */}
-      <motion.div
+      <div
         className="absolute inset-0 bg-white"
-        initial={{ scale: 0, opacity: 0.3 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        style={{ borderRadius: '50%' }}
+       }
+       }
+       }
+       }
       />
 
       <span className="relative z-10">{children}</span>
-    </motion.button>
+    </button>
   );
 }
 
@@ -55,15 +56,15 @@ export function MagneticIcon({
   const { ref, x, y, scale, isHovered } = useMagneticHover({ strength: 0.3 });
 
   return (
-    <motion.div
+    <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className={`inline-flex items-center justify-center rounded-full p-3 ${className}`}
-      style={{ x, y, scale }}
-      // TODO: Convert whileHover={{ rotate: 360 }} to react-spring
-      transition={{ rotate: { duration: 0.6 } }}
+
+                className={`inline-flex items-center justify-center rounded-full p-3 ${className}`}
+     }
+      }}
     >
-      <Icon size={size} className={isHovered ? 'text-[#C9974D]' : 'text-[#6B1F2E]'} />
-    </motion.div>
+      <Icon size={size className={isHovered ? 'text-[#C9974D]' : 'text-[#6B1F2E]'} />
+    </div>
   );
 }
 
@@ -78,18 +79,17 @@ export function MagneticCard({
   const { ref, x, y, scale, isHovered } = useMagneticHover({ strength: 0.2, radius: 300 });
 
   return (
-    <motion.div
+    <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className={`relative overflow-hidden rounded-xl bg-white shadow-lg ${className}`}
-      style={{ x, y, scale }}
+
+                className={`relative overflow-hidden rounded-xl bg-white shadow-lg ${className}`}
+     }
     >
       {/* Background gradient that follows mouse */}
-      <motion.div
+      <div
         className="absolute inset-0 bg-gradient-radial from-[#6B1F2E]/10 to-transparent"
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        style={{
-          background: isHovered
-            ? `radial-gradient(circle at ${x.get() + 50}% ${y.get() + 50}%, rgba(107, 31, 46, 0.1) 0%, transparent 70%)`
+       }
+       % ${y.get() + 50}%, rgba(107, 31, 46, 0.1) 0%, transparent 70%)`
             : undefined,
         }}
       />
@@ -97,13 +97,13 @@ export function MagneticCard({
       {children}
 
       {/* Border glow effect */}
-      <motion.div
+      <div
         className="pointer-events-none absolute inset-0 rounded-xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
+       }
+       }
+       }
       />
-    </motion.div>
+    </div>
   );
 }
 
@@ -114,29 +114,20 @@ export function MagneticCursor() {
   return (
     <>
       {/* Main cursor */}
-      <motion.div
+      <div
         ref={cursorRef}
-        className="pointer-events-none fixed z-50 h-4 w-4 rounded-full bg-[#6B1F2E] mix-blend-difference"
-        style={{
-          x: x,
-          y: y,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
+
+                className="pointer-events-none fixed z-50 h-4 w-4 rounded-full bg-[#6B1F2E] mix-blend-difference"
+       }
+       }
       />
 
       {/* Cursor trail */}
-      <motion.div
+      <div
         className="pointer-events-none fixed z-40 h-8 w-8 rounded-full border-2 border-[#6B1F2E]/30"
-        style={{
-          x: x,
-          y: y,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ delay: 0.05 }}
+       }
+       }
+       }
       />
     </>
   );
@@ -151,27 +142,29 @@ function MagneticNavItem({
   const { ref, x, y, isHovered } = useMagneticHover({ strength: 0.3 });
 
   return (
-    <motion.a
+    <a
       ref={ref as React.RefObject<HTMLAnchorElement>}
-      href={item.href}
-      className="group relative flex items-center space-x-2 text-gray-700 transition-colors hover:text-[#6B1F2E]"
-      style={{ x, y }}
+
+                href={item.href}
+
+                className="group relative flex items-center space-x-2 text-gray-700 transition-colors hover:text-[#6B1F2E]"
+
     >
       {item.icon && (
-        <motion.span animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+        <span}>
           <item.icon className="h-5 w-5" />
-        </motion.span>
+        </span>
       )}
       <span className="font-medium">{item.label}</span>
 
       {/* Underline effect */}
-      <motion.div
+      <div
         className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#6B1F2E] to-[#C9974D]"
-        initial={{ width: '0%' }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
+       }
+       }
+       }
       />
-    </motion.a>
+    </a>
   );
 }
 

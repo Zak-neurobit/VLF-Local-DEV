@@ -156,14 +156,14 @@ export default function CompetitorDashboard({ className = '' }: CompetitorDashbo
           <div className="flex space-x-3">
             <button
               onClick={generateAnalysis}
-              disabled={isAnalyzing}
-              className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50"
+      disabled={isAnalyzing} className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50"
             >
               {isAnalyzing ? 'Analyzing...' : 'Generate Analysis'}
             </button>
             <button
               onClick={() => setShowAddForm(true)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
             >
               Add Competitor
             </button>
@@ -175,8 +175,10 @@ export default function CompetitorDashboard({ className = '' }: CompetitorDashbo
           {['overview', 'activities', 'analysis'].map(tab => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab as any)}
-              className={`px-4 py-2 rounded-t-lg capitalize ${
+
+                onClick={() => setActiveTab(tab as any)}
+
+                className={`px-4 py-2 rounded-t-lg capitalize ${
                 activeTab === tab
                   ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-700'
                   : 'text-gray-600 hover:text-gray-900'
@@ -238,7 +240,7 @@ export default function CompetitorDashboard({ className = '' }: CompetitorDashbo
       {showAddForm && (
         <AddCompetitorForm
           onClose={() => setShowAddForm(false)}
-          onAdd={() => {
+                onAdd={() => {
             fetchCompetitors();
             setShowAddForm(false);
           }}
@@ -275,7 +277,9 @@ function CompetitorCard({ competitor, onSelect, onCheck }: CompetitorCardProps) 
 
       <div className="flex flex-wrap gap-1 mb-3">
         {competitor.practiceAreas?.slice(0, 3).map((area: string, index: number) => (
-          <span key={index} className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded">
+          <span key={index}
+
+                className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded">
             {area}
           </span>
         ))}
@@ -287,12 +291,9 @@ function CompetitorCard({ competitor, onSelect, onCheck }: CompetitorCardProps) 
       <div className="flex items-center justify-between text-sm text-gray-500">
         <span>{competitor._count?.activities || 0} activities</span>
         <div className="flex space-x-2">
-          <button
-            onClick={e => {
+          <button onClick={e => {
               e.stopPropagation();
-              onCheck();
-            }}
-            className="text-blue-600 hover:text-blue-800"
+              onCheck();} className="text-blue-600 hover:text-blue-800"
           >
             Check Now
           </button>
@@ -382,9 +383,12 @@ function CompetitiveAnalysisView({ analysis }: { analysis: CompetitiveAnalysis }
       <div className="space-y-4">
         <h4 className="text-lg font-semibold text-gray-900">Competitor Analysis</h4>
         {analysis.competitors.map(comp => (
-          <div key={comp.competitorId} className="border rounded-lg p-4">
+          <div key={comp.competitorId}
+
+                className="border rounded-lg p-4">
             <div className="flex justify-between items-center mb-3">
-              <h5 className="font-medium text-gray-900">{comp.name}</h5>
+              <h5
+                className="font-medium text-gray-900">{comp.name}</h5>
               <span className="text-sm font-semibold text-blue-600">
                 Score: {comp.overallScore}/100
               </span>
@@ -433,10 +437,12 @@ function CompetitiveAnalysisView({ analysis }: { analysis: CompetitiveAnalysis }
         <h4 className="text-lg font-semibold text-gray-900">Recommended Actions</h4>
         <div className="space-y-2">
           {analysis.actionItems.map((item, index) => (
-            <div key={index} className="flex items-center justify-between border rounded-lg p-3">
+            <div key={index}
+
+                className="flex items-center justify-between border rounded-lg p-3">
               <div className="flex items-center space-x-3">
                 <span
-                  className={`px-2 py-1 text-xs rounded-full ${
+                className={`px-2 py-1 text-xs rounded-full ${
                     item.priority === 'high'
                       ? 'bg-red-100 text-red-800'
                       : item.priority === 'medium'
@@ -502,15 +508,14 @@ function AddCompetitorForm({ onClose, onAdd }: AddCompetitorFormProps) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label} className="block text-sm font-medium text-gray-700 mb-1">
               Competitor Name *
             </label>
             <input
               type="text"
               required
-              value={formData.name}
-              onChange={e => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })
+        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -519,9 +524,8 @@ function AddCompetitorForm({ onClose, onAdd }: AddCompetitorFormProps) {
             <input
               type="url"
               required
-              value={formData.website}
-              onChange={e => setFormData({ ...formData, website: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={formData.website} onChange={e => setFormData({ ...formData, website: e.target.value })
+        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="https://example.com"
             />
           </div>
@@ -530,12 +534,9 @@ function AddCompetitorForm({ onClose, onAdd }: AddCompetitorFormProps) {
             <label className="block text-sm font-medium text-gray-700 mb-1">Practice Areas</label>
             <select
               multiple
-              value={formData.practiceAreas}
-              onChange={e => {
+              value={formData.practiceAreas} onChange={e => {
                 const selected = Array.from(e.target.selectedOptions, option => option.value);
-                setFormData({ ...formData, practiceAreas: selected });
-              }}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                setFormData({ ...formData, practiceAreas: selected }); className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="immigration">Immigration</option>
               <option value="personal_injury">Personal Injury</option>
@@ -550,8 +551,7 @@ function AddCompetitorForm({ onClose, onAdd }: AddCompetitorFormProps) {
             <label className="block text-sm font-medium text-gray-700 mb-1">Locations</label>
             <input
               type="text"
-              value={formData.locations.join(', ')}
-              onChange={e =>
+              value={formData.locations.join(', ')} onChange={e =>
                 setFormData({
                   ...formData,
                   locations: e.target.value
@@ -559,8 +559,7 @@ function AddCompetitorForm({ onClose, onAdd }: AddCompetitorFormProps) {
                     .map(l => l.trim())
                     .filter(Boolean),
                 })
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Charlotte, Raleigh, Durham"
             />
           </div>
@@ -569,13 +568,13 @@ function AddCompetitorForm({ onClose, onAdd }: AddCompetitorFormProps) {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50"
+      className="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+             } className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
             >
               Add Competitor
             </button>

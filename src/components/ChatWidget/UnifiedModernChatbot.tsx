@@ -409,8 +409,8 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
           console.log('Chat button clicked, toggling chat...');
           setIsOpen(!isOpen);
         }}
-        className="fixed bottom-6 right-6 z-[10000] bg-[#C9974D] text-white p-4 rounded-full shadow-2xl hover:bg-[#E5B568] transition-all duration-300 cursor-pointer animate-fadeInScale"
-        style={{ zIndex: 10000, pointerEvents: 'auto' }}
+
+                className="fixed bottom-6 right-6 z-[10000] bg-[#C9974D] text-white p-4 rounded-full shadow-2xl hover:bg-[#E5B568] transition-all duration-300 cursor-pointer animate-fadeInScale"
         aria-label="Open chat"
       >
         {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
@@ -420,7 +420,6 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
       {isOpen && (
         <div
           className="fixed bottom-24 right-6 z-[9999] w-[320px] h-[480px] bg-gray-900 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-slideUp"
-          style={{ zIndex: 9999 }}
         >
             {/* Header */}
             <div className="bg-[#C9974D] text-black p-3 flex items-center justify-between">
@@ -433,6 +432,7 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
               </div>
               <button
                 onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
+
                 className="text-xs px-2 py-1 bg-black/20 rounded-full hover:bg-black/30 transition-colors"
               >
                 {language === 'en' ? 'ES' : 'EN'}
@@ -444,7 +444,8 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
               {messages.map(message => (
                 <div
                   key={message.id}
-                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
+
+                className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
                 >
                   <div
                     className={`max-w-[80%] p-3 rounded-2xl ${
@@ -494,14 +495,16 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
               <div className="flex items-center gap-1 mb-2">
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="p-1.5 text-gray-400 hover:text-white transition-colors"
+
+                className="p-1.5 text-gray-400 hover:text-white transition-colors"
                   disabled={isLoading}
                 >
                   <Paperclip className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setShowVoiceAssistant(true)}
-                  className="p-1.5 text-gray-400 hover:text-white transition-colors"
+
+                className="p-1.5 text-gray-400 hover:text-white transition-colors"
                   disabled={isLoading}
                   title={language === 'es' ? 'Asistente de voz' : 'Voice assistant'}
                 >
@@ -509,7 +512,8 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
                 </button>
                 <button
                   onClick={handleScheduleAppointment}
-                  className="p-1.5 text-gray-400 hover:text-white transition-colors"
+
+                className="p-1.5 text-gray-400 hover:text-white transition-colors"
                   disabled={isLoading || !contactInfo.email}
                 >
                   <Calendar className="w-4 h-4" />
@@ -520,26 +524,32 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
                   e.preventDefault();
                   handleSendMessage(inputValue);
                 }}
+
                 className="flex gap-2"
               >
                 <input
                   type="text"
                   value={inputValue}
-                  onChange={e => setInputValue(e.target.value)}
-                  placeholder={t[language].placeholder}
-                  className="flex-1 bg-gray-800 text-white px-3 py-1.5 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+
+                onChange={e => setInputValue(e.target.value)}
+
+                placeholder={t[language].placeholder}
+
+                className="flex-1 bg-gray-800 text-white px-3 py-1.5 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   disabled={isLoading || isRecording}
                 />
                 <button
                   type="submit"
                   disabled={!inputValue.trim() || isLoading}
-                  className="bg-primary text-black p-1.5 rounded-full hover:bg-primary-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+
+                className="bg-primary text-black p-1.5 rounded-full hover:bg-primary-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Send className="w-4 h-4" />
                 </button>
               </form>
               <input
                 ref={fileInputRef}
+
                 type="file"
                 onChange={handleFileUpload}
                 accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png"
@@ -552,14 +562,14 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
       {/* Voice Assistant Modal - Minimal stable version */}
       <MinimalRetellClient
         isActive={showVoiceAssistant}
-        onClose={() => setShowVoiceAssistant(false)}
+                onClose={() => setShowVoiceAssistant(false)}
         language={language}
-        onTranscript={(transcript) => {
+                onTranscript={(transcript) => {
           // Don't add the message here - handleSendMessage will add it with type 'voice'
           // Just send to chat service
           handleSendMessage(transcript, 'voice');
         }}
-        onResponse={(response) => {
+                onResponse={(response) => {
           // Add AI response as a message (this one we DO want to add since it's from Retell)
           const aiMessage: Message = {
             id: Date.now().toString(),

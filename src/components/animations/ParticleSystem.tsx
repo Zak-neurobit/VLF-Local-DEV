@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 // Canvas confetti removed;
 
 interface Particle {
@@ -175,8 +175,9 @@ export function ParticleSystem({
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-0"
-      style={{ mixBlendMode: 'screen' }}
+
+                className="pointer-events-none fixed inset-0 z-0"
+     }
     />
   );
 }
@@ -226,21 +227,14 @@ export function FloatingParticles({ density = 30 }: { density?: number }) {
   return (
     <div className="pointer-events-none fixed inset-0 overflow-hidden">
       {particles.map(particle => (
-        <motion.div
+        <div
           key={particle.id}
-          className="absolute rounded-full bg-gradient-to-br from-[#6B1F2E] to-[#C9974D]"
-          style={{
-            width: particle.size,
-            height: particle.size,
-            left: `${particle.x}%`,
+
+                className="absolute rounded-full bg-gradient-to-br from-[#6B1F2E] to-[#C9974D]"
+         %`,
           }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{
-            duration: particle.duration,
-            delay: particle.delay,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+         }
+         }
         />
       ))}
     </div>

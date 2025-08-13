@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { logger } from '@/lib/safe-logger';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import {
   Briefcase,
   Clock,
@@ -84,7 +84,6 @@ export default function CaseStatus({ clientData }: { clientData: ClientData }) {
     fetchCases();
   }, [clientId]);
 
-
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'active':
@@ -133,8 +132,10 @@ export default function CaseStatus({ clientData }: { clientData: ClientData }) {
           {['all', 'active', 'pending', 'closed'].map(status => (
             <button
               key={status}
-              onClick={() => setFilter(status)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+
+                onClick={() => setFilter(status)}
+
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 filter === status
                   ? 'bg-[#6B1F2E] text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -150,14 +151,12 @@ export default function CaseStatus({ clientData }: { clientData: ClientData }) {
         {/* Cases List */}
         <div className="lg:col-span-1 space-y-4">
           {filteredCases.map(caseItem => (
-            <motion.div
+            <div
               key={caseItem.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className={`bg-white rounded-lg shadow-sm border p-4 cursor-pointer transition-all ${
+
+                className={`bg-white rounded-lg shadow-sm border p-4 cursor-pointer transition-all ${
                 selectedCase?.id === caseItem.id ? 'border-[#6B1F2E] shadow-md' : 'hover:shadow-md'
-              }`}
-              onClick={() => setSelectedCase(caseItem)}
+              }` onClick={() => setSelectedCase(caseItem)}
             >
               <div className="flex justify-between items-start mb-2">
                 <div>
@@ -184,7 +183,7 @@ export default function CaseStatus({ clientData }: { clientData: ClientData }) {
                   </div>
                 </div>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -206,7 +205,8 @@ export default function CaseStatus({ clientData }: { clientData: ClientData }) {
                 </div>
                 <Link
                   href={`/portal/cases/${selectedCase.id}`}
-                  className="flex items-center gap-2 text-[#6B1F2E] hover:text-[#8B2635] font-medium"
+
+                className="flex items-center gap-2 text-[#6B1F2E] hover:text-[#8B2635] font-medium"
                 >
                   View Full Details
                   <ExternalLink className="w-4 h-4" />
@@ -226,10 +226,12 @@ export default function CaseStatus({ clientData }: { clientData: ClientData }) {
                     {selectedCase.attorney.photo ? (
                       <Image
                         src={selectedCase.attorney.photo}
-                        alt={selectedCase.attorney.name}
+
+                alt={selectedCase.attorney.name}
                         width={48}
                         height={48}
-                        className="w-full h-full rounded-full object-cover"
+
+                className="w-full h-full rounded-full object-cover"
                       />
                     ) : (
                       <span className="text-gray-600 font-medium">
@@ -246,13 +248,15 @@ export default function CaseStatus({ clientData }: { clientData: ClientData }) {
                     <div className="flex gap-4 mt-1">
                       <a
                         href={`mailto:${selectedCase.attorney.email}`}
-                        className="text-xs text-[#6B1F2E] hover:underline"
+
+                className="text-xs text-[#6B1F2E] hover:underline"
                       >
                         {selectedCase.attorney.email}
                       </a>
                       <a
                         href={`tel:${selectedCase.attorney.phone}`}
-                        className="text-xs text-[#6B1F2E] hover:underline"
+
+                className="text-xs text-[#6B1F2E] hover:underline"
                       >
                         {selectedCase.attorney.phone}
                       </a>
@@ -274,7 +278,8 @@ export default function CaseStatus({ clientData }: { clientData: ClientData }) {
                       <p className="text-sm text-gray-600">Paralegal</p>
                       <a
                         href={`mailto:${selectedCase.paralegal.email}`}
-                        className="text-xs text-[#6B1F2E] hover:underline"
+
+                className="text-xs text-[#6B1F2E] hover:underline"
                       >
                         {selectedCase.paralegal.email}
                       </a>
@@ -317,10 +322,12 @@ export default function CaseStatus({ clientData }: { clientData: ClientData }) {
                 {selectedCase.timeline.slice(0, 5).map((event, index) => {
                   const Icon = getTimelineIcon(event.type);
                   return (
-                    <div key={index} className="flex gap-4">
+                    <div key={index}
+
+                className="flex gap-4">
                       <div className="flex-shrink-0">
                         <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                className={`w-10 h-10 rounded-full flex items-center justify-center ${
                             event.type === 'milestone'
                               ? 'bg-green-100'
                               : event.type === 'hearing'

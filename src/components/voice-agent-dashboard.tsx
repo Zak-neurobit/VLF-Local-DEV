@@ -142,22 +142,22 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
           <h2 className="text-2xl font-bold text-gray-900">Voice Agent Analytics</h2>
           <div className="flex space-x-3">
             <select
-              value={selectedPeriod}
-              onChange={e => setSelectedPeriod(e.target.value as 'daily' | 'weekly' | 'monthly')}
-              className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={selectedPeriod onChange={e => setSelectedPeriod(e.target.value as 'daily' | 'weekly' | 'monthly')}
+      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="daily">Daily</option>
               <option value="weekly">Weekly</option>
               <option value="monthly">Monthly</option>
             </select>
             <select
-              value={selectedAgent}
-              onChange={e => setSelectedAgent(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+             } value={selectedAgent}
+      onChange={e => setSelectedAgent(e.target.value)} className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">All Agents</option>
               {analytics.agentMetrics?.map(agent => (
-                <option key={agent.agentId} value={agent.agentId}>
+                <option key={agent.agentId}
+
+                value={agent.agentId}>
                   {agent.agentName}
                 </option>
               ))}
@@ -170,10 +170,11 @@ export default function VoiceAgentDashboard({ className = '' }: VoiceAgentDashbo
           {['overview', 'quality', 'insights', 'recommendations'].map(tab => (
             <button
               key={tab}
-              onClick={() =>
-                setActiveTab(tab as 'overview' | 'quality' | 'insights' | 'recommendations')
-              }
-              className={`px-4 py-2 rounded-t-lg capitalize ${
+
+                onClick={() =>
+                setActiveTab(tab as 'overview' | 'quality' | 'insights' | 'recommendations')}
+
+                className={`px-4 py-2 rounded-t-lg capitalize ${
                 activeTab === tab
                   ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-700'
                   : 'text-gray-600 hover:text-gray-900'
@@ -342,9 +343,12 @@ function QualityTab({ analytics }: { analytics: VoiceAnalytics }) {
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Common Issues</h3>
         <div className="space-y-4">
           {analytics.commonIssues.map((issue, index: number) => (
-            <div key={index} className="flex items-center justify-between">
+            <div key={index}
+
+                className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-gray-900">{issue.issue}</p>
+                <p
+                className="font-medium text-gray-900">{issue.issue}</p>
                 <p className="text-sm text-gray-500">Frequency: {issue.frequency} calls</p>
               </div>
               <div className="text-right">
@@ -369,9 +373,12 @@ function InsightsTab({ analytics }: { analytics: VoiceAnalytics }) {
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Call Intents</h3>
         <div className="space-y-3">
           {analytics.topIntents.map((intent, index: number) => (
-            <div key={index} className="flex items-center justify-between">
+            <div key={index}
+
+                className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <span className="text-2xl">{getIntentIcon(intent.intent)}</span>
+                <span
+                className="text-2xl">{getIntentIcon(intent.intent)}</span>
                 <div>
                   <p className="font-medium text-gray-900 capitalize">{intent.intent}</p>
                   <p className="text-sm text-gray-500">{intent.count} calls</p>
@@ -396,8 +403,11 @@ function InsightsTab({ analytics }: { analytics: VoiceAnalytics }) {
               .sort((a, b) => b.calls - a.calls)
               .slice(0, 5)
               .map(hour => (
-                <div key={hour.hour} className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">
+                <div key={hour.hour}
+
+                className="flex items-center justify-between">
+                  <span
+                className="text-sm text-gray-600">
                     {hour.hour}:00 - {hour.hour + 1}:00
                   </span>
                   <div className="flex items-center space-x-2">
@@ -420,8 +430,11 @@ function InsightsTab({ analytics }: { analytics: VoiceAnalytics }) {
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Call Volume by Day</h3>
           <div className="space-y-2">
             {analytics.callVolumeByDay.map(day => (
-              <div key={day.day} className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">{day.day}</span>
+              <div key={day.day}
+
+                className="flex items-center justify-between">
+                <span
+                className="text-sm text-gray-600">{day.day}</span>
                 <div className="flex items-center space-x-2">
                   <div className="w-32 bg-gray-200 rounded-full h-2">
                     <div
@@ -513,8 +526,11 @@ function RecommendationsTab({ recommendations }: { recommendations: Recommendati
           </h3>
           <div className="space-y-4">
             {recommendations.agentRecommendations.map((agent: AgentRecommendation) => (
-              <div key={agent.agentId} className="border-l-4 border-blue-500 pl-4">
-                <h4 className="font-medium text-gray-900 mb-2">Agent {agent.agentId}</h4>
+              <div key={agent.agentId}
+
+                className="border-l-4 border-blue-500 pl-4">
+                <h4
+                className="font-medium text-gray-900 mb-2">Agent {agent.agentId}</h4>
                 <ul className="space-y-1 text-sm text-gray-600">
                   {agent.recommendations.map((rec, index: number) => (
                     <li key={index}>• {rec}</li>
@@ -527,7 +543,8 @@ function RecommendationsTab({ recommendations }: { recommendations: Recommendati
                       {agent.trainingNeeded.map((training, index: number) => (
                         <span
                           key={index}
-                          className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded"
+
+                className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded"
                         >
                           {training}
                         </span>
@@ -550,10 +567,13 @@ function RecommendationsTab({ recommendations }: { recommendations: Recommendati
           <div className="space-y-3">
             {recommendations.conversationPatterns.map(
               (pattern: ConversationPattern, index: number) => (
-                <div key={index} className="flex items-start space-x-3">
+                <div key={index}
+
+                className="flex items-start space-x-3">
                   <span className="text-2xl">💡</span>
                   <div className="flex-1">
-                    <p className="font-medium text-gray-900">{pattern.pattern}</p>
+                    <p
+                className="font-medium text-gray-900">{pattern.pattern}</p>
                     <p className="text-sm text-gray-600 mt-1">{pattern.recommendation}</p>
                   </div>
                 </div>

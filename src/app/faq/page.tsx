@@ -23,7 +23,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function FAQPage() {
   return (
     <FAQPageContent />

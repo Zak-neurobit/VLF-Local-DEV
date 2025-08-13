@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import {
   Phone,
   Mail,
@@ -121,10 +121,10 @@ export default function ModernServiceLocationTemplate({
         {/* Dynamic Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-secondary/10" />
-          <motion.div
+          <div
             className="absolute inset-0"
-            animate={{ opacity: 1 }}
-            transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+           }
+           }
           />
         </div>
 
@@ -133,53 +133,39 @@ export default function ModernServiceLocationTemplate({
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               {/* Location Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                className="mb-8 inline-flex items-center gap-2 rounded-full bg-primary/20 px-6 py-3 backdrop-blur-sm"
+              <div
+className="mb-8 inline-flex items-center gap-2 rounded-full bg-primary/20 px-6 py-3 backdrop-blur-sm"
               >
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="text-sm font-bold text-primary uppercase tracking-wider">
                   {data.cityName} {data.serviceName} Experts
                 </span>
-              </motion.div>
+              </div>
 
               {/* Title */}
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="mb-6 text-4xl sm:text-5xl md:text-7xl font-black text-white leading-tight"
+              <h1
+className="mb-6 text-4xl sm:text-5xl md:text-7xl font-black text-white leading-tight"
               >
                 {data.heroTitle}
-              </motion.h1>
+              </h1>
 
               {/* Trademark Subtitle */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="mb-8 text-3xl sm:text-4xl md:text-5xl font-bold text-primary"
+              <p
+className="mb-8 text-3xl sm:text-4xl md:text-5xl font-bold text-primary"
               >
                 {data.heroSubtitle}
-              </motion.p>
+              </p>
 
               {/* Description */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="mb-12 max-w-3xl mx-auto text-lg sm:text-xl text-gray-300 leading-relaxed"
+              <p
+className="mb-12 max-w-3xl mx-auto text-lg sm:text-xl text-gray-300 leading-relaxed"
               >
                 {data.heroDescription}
-              </motion.p>
+              </p>
 
               {/* CTAs */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center"
+              <div
+className="flex flex-col sm:flex-row gap-4 justify-center"
               >
                 <Button href="/contact" size="lg" className="text-lg px-8 py-4">
                   Get Free Case Evaluation
@@ -194,7 +180,7 @@ export default function ModernServiceLocationTemplate({
                   <Phone className="mr-2 h-5 w-5" />
                   Call Now: 1-844-YO-PELEO
                 </Button>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
@@ -202,20 +188,13 @@ export default function ModernServiceLocationTemplate({
         {/* Animated Particles */}
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(40)].map((_, i) => (
-            <motion.div
+            <div
               key={i}
-              className="absolute h-1 w-1 rounded-full bg-primary/40"
-              initial={{
-                x: Math.random() * 1920,
-                y: Math.random() * 1080,
-              }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{
-                duration: Math.random() * 10 + 10,
-                repeat: Infinity,
-                delay: Math.random() * 10,
-                ease: 'linear',
-              }}
+
+                className="absolute h-1 w-1 rounded-full bg-primary/40"
+             }
+             }
+             }
             />
           ))}
         </div>
@@ -226,19 +205,17 @@ export default function ModernServiceLocationTemplate({
         <div className="mx-auto max-w-7xl px-4">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {Object.values(data.localStats).map((stat, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+
                 className="text-center"
               >
-                <div className="text-4xl sm:text-5xl md:text-6xl font-black text-primary mb-2">
+                <div
+                className="text-4xl sm:text-5xl md:text-6xl font-black text-primary mb-2">
                   {stat.value}
                 </div>
                 <div className="text-sm sm:text-base text-gray-400 font-medium">{stat.label}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -247,35 +224,32 @@ export default function ModernServiceLocationTemplate({
       {/* Service Details Section */}
       <section className="relative py-20 bg-neutral-950">
         <div className="mx-auto max-w-7xl px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
+          <div
+className="text-center mb-16"
           >
-            <Heading level={2} className="text-white mb-4">
+            <Heading level={2}
+
+                className="text-white mb-4">
               {data.serviceDetails.title}
             </Heading>
             <Text size="lg" className="text-gray-400 max-w-3xl mx-auto">
               {data.serviceDetails.description}
             </Text>
-          </motion.div>
+          </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {data.serviceDetails.services.map((service, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+
                 className="group relative"
               >
                 <div className="h-full bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-8 border border-primary/20 hover:border-primary/40 transition-all duration-300">
                   <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary/20 group-hover:bg-primary/30 transition-colors">
                     <Scale className="h-7 w-7 text-primary" />
                   </div>
-                  <h3 className="mb-3 text-xl font-bold text-white">{service.name}</h3>
+                  <h3
+                className="mb-3 text-xl font-bold text-white">{service.name}</h3>
                   <p className="text-gray-400 mb-4">{service.description}</p>
                   <div className="pt-4 border-t border-primary/10">
                     <p className="text-sm text-primary font-medium">
@@ -284,7 +258,7 @@ export default function ModernServiceLocationTemplate({
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -294,38 +268,35 @@ export default function ModernServiceLocationTemplate({
       <section className="relative py-20 bg-black">
         <div className="mx-auto max-w-7xl px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+            <div
+             }
+             }
+             }
             >
-              <Heading level={2} className="text-white mb-8">
+              <Heading level={2}
+
+                className="text-white mb-8">
                 {data.localExpertise.title}
               </Heading>
               <div className="space-y-4">
                 {data.localExpertise.points.map((point, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-3"
+
+                className="flex items-start gap-3"
                   >
                     <CheckCircle className="h-6 w-6 text-primary mt-0.5 flex-shrink-0" />
-                    <Text className="text-gray-300">{point}</Text>
-                  </motion.div>
+                    <Text
+                className="text-gray-300">{point}</Text>
+                  </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
             {/* Court Info Card */}
             {data.courtInfo && (
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-8 border border-primary/20"
+              <div
+className="bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-8 border border-primary/20"
               >
                 <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary/20">
                   <Building className="h-7 w-7 text-primary" />
@@ -352,7 +323,7 @@ export default function ModernServiceLocationTemplate({
                     <p className="text-sm text-gray-400 italic">{data.courtInfo.additionalInfo}</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             )}
           </div>
         </div>
@@ -361,33 +332,31 @@ export default function ModernServiceLocationTemplate({
       {/* Testimonials Section */}
       <section className="relative py-20 bg-neutral-950">
         <div className="mx-auto max-w-7xl px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
+          <div
+className="text-center mb-16"
           >
-            <Heading level={2} className="text-white mb-4">
+            <Heading level={2}
+
+                className="text-white mb-4">
               What {data.cityName} Clients Say
             </Heading>
             <Text size="lg" className="text-gray-400">
               Real reviews from real people we&apos;ve helped
             </Text>
-          </motion.div>
+          </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {data.testimonials.map((testimonial, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+
                 className="bg-black/50 backdrop-blur-sm rounded-2xl p-8 border border-primary/20"
               >
                 <div className="flex mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-primary fill-primary" />
+                    <Star key={i}
+
+                className="h-5 w-5 text-primary fill-primary" />
                   ))}
                 </div>
                 <p className="text-gray-300 mb-6 italic">&ldquo;{testimonial.text}&rdquo;</p>
@@ -400,7 +369,7 @@ export default function ModernServiceLocationTemplate({
                     <p className="text-sm text-gray-400">{testimonial.location}</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -409,35 +378,32 @@ export default function ModernServiceLocationTemplate({
       {/* Case Results Section */}
       <section className="relative py-20 bg-black">
         <div className="mx-auto max-w-7xl px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
+          <div
+className="text-center mb-16"
           >
-            <Heading level={2} className="text-white mb-4">
+            <Heading level={2}
+
+                className="text-white mb-4">
               Recent {data.cityName} Case Results
             </Heading>
             <Text size="lg" className="text-gray-400">
               Fighting and winning for our community
             </Text>
-          </motion.div>
+          </div>
 
           <div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
               <div className="space-y-4">
                 {data.caseResults.map((result, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-3 pb-4 border-b border-primary/10 last:border-0 last:pb-0"
+
+                className="flex items-start gap-3 pb-4 border-b border-primary/10 last:border-0 last:pb-0"
                   >
                     <Award className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                    <Text className="text-gray-300">{result}</Text>
-                  </motion.div>
+                    <Text
+                className="text-gray-300">{result}</Text>
+                  </div>
                 ))}
               </div>
             </div>
@@ -448,32 +414,32 @@ export default function ModernServiceLocationTemplate({
       {/* FAQs Section */}
       <section className="relative py-20 bg-neutral-950">
         <div className="mx-auto max-w-4xl px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
+          <div
+className="text-center mb-16"
           >
-            <Heading level={2} className="text-white mb-4">
+            <Heading level={2}
+
+                className="text-white mb-4">
               Frequently Asked Questions
             </Heading>
             <Text size="lg" className="text-gray-400">
               Get answers about {data.serviceName} in {data.cityName}
             </Text>
-          </motion.div>
+          </div>
 
           <div className="space-y-4">
             {data.faqs.map((faq, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+               }
+               }
+               }
+               }
               >
                 <button
                   onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
-                  className="w-full bg-black/50 backdrop-blur-sm rounded-xl p-6 border border-primary/20 hover:border-primary/40 transition-all text-left"
+
+                className="w-full bg-black/50 backdrop-blur-sm rounded-xl p-6 border border-primary/20 hover:border-primary/40 transition-all text-left"
                 >
                   <div className="flex justify-between items-center">
                     <h3 className="text-lg font-semibold text-white pr-4">{faq.question}</h3>
@@ -483,21 +449,17 @@ export default function ModernServiceLocationTemplate({
                       }`}
                     />
                   </div>
-                  <AnimatePresence>
+                  <>
                     {openFaqIndex === index && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
+                      <div
+className="overflow-hidden"
                       >
                         <p className="text-gray-400 mt-4">{faq.answer}</p>
-                      </motion.div>
+                      </div>
                     )}
-                  </AnimatePresence>
+                  </>
                 </button>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -507,19 +469,18 @@ export default function ModernServiceLocationTemplate({
       {data.whyHireUs && (
         <section className="relative py-20 bg-black">
           <div className="mx-auto max-w-4xl px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-primary/20"
+            <div
+className="bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-primary/20"
             >
-              <Heading level={2} className="text-white mb-6">
+              <Heading level={2}
+
+                className="text-white mb-6">
                 {data.whyHireUs.title}
               </Heading>
               <Text size="lg" className="text-gray-300 leading-relaxed">
                 {data.whyHireUs.content}
               </Text>
-            </motion.div>
+            </div>
           </div>
         </section>
       )}
@@ -528,18 +489,20 @@ export default function ModernServiceLocationTemplate({
       {data.localChallenges && (
         <section className="relative py-20 bg-neutral-950">
           <div className="mx-auto max-w-4xl px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <div
+             }
+             }
+             }
             >
-              <Heading level={2} className="text-white mb-6">
+              <Heading level={2}
+
+                className="text-white mb-6">
                 {data.localChallenges.title}
               </Heading>
               <Text size="lg" className="text-gray-300 leading-relaxed">
                 {data.localChallenges.content}
               </Text>
-            </motion.div>
+            </div>
           </div>
         </section>
       )}
@@ -547,32 +510,29 @@ export default function ModernServiceLocationTemplate({
       {/* Serving Areas Section */}
       <section className="relative py-20 bg-black">
         <div className="mx-auto max-w-7xl px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
+          <div
+className="text-center mb-12"
           >
-            <Heading level={2} className="text-white mb-4">
+            <Heading level={2}
+
+                className="text-white mb-4">
               Serving All of Greater {data.cityName}
             </Heading>
             <Text size="lg" className="text-gray-400">
               We proudly serve clients throughout the region
             </Text>
-          </motion.div>
+          </div>
 
           <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
             {data.servingAreas.map((area, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.02 }}
+
                 className="bg-black/50 backdrop-blur-sm rounded-lg px-4 py-3 border border-primary/20 hover:border-primary/40 transition-all text-center"
               >
-                <Text className="text-gray-300 font-medium">{area}</Text>
-              </motion.div>
+                <Text
+                className="text-gray-300 font-medium">{area}</Text>
+              </div>
             ))}
           </div>
         </div>
@@ -585,15 +545,14 @@ export default function ModernServiceLocationTemplate({
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Office Info */}
               <div>
-                <Heading level={3} className="text-white mb-8">
+                <Heading level={3}
+
+                className="text-white mb-8">
                   Contact Our {data.officeInfo.name}
                 </Heading>
                 <div className="space-y-6">
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    className="flex items-start gap-4"
+                  <div
+className="flex items-start gap-4"
                   >
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20">
                       <MapPin className="h-6 w-6 text-primary" />
@@ -605,14 +564,10 @@ export default function ModernServiceLocationTemplate({
                         {data.officeInfo.city}, {data.officeInfo.state} {data.officeInfo.zip}
                       </p>
                     </div>
-                  </motion.div>
+                  </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 }}
-                    className="flex items-start gap-4"
+                  <div
+className="flex items-start gap-4"
                   >
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20">
                       <Phone className="h-6 w-6 text-primary" />
@@ -621,7 +576,8 @@ export default function ModernServiceLocationTemplate({
                       <p className="font-semibold text-white text-lg">Phone</p>
                       <a
                         href={`tel:${data.officeInfo.phone}`}
-                        className="text-primary hover:text-primary-400 transition-colors text-xl font-bold"
+
+                className="text-primary hover:text-primary-400 transition-colors text-xl font-bold"
                       >
                         {data.officeInfo.phone}
                       </a>
@@ -630,21 +586,18 @@ export default function ModernServiceLocationTemplate({
                           Local:{' '}
                           <a
                             href={`tel:${data.officeInfo.localPhone}`}
-                            className="text-primary hover:text-primary-400"
+
+                className="text-primary hover:text-primary-400"
                           >
                             {data.officeInfo.localPhone}
                           </a>
                         </p>
                       )}
                     </div>
-                  </motion.div>
+                  </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 }}
-                    className="flex items-start gap-4"
+                  <div
+className="flex items-start gap-4"
                   >
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20">
                       <Mail className="h-6 w-6 text-primary" />
@@ -653,19 +606,16 @@ export default function ModernServiceLocationTemplate({
                       <p className="font-semibold text-white text-lg">Email</p>
                       <a
                         href={`mailto:${data.officeInfo.email}`}
-                        className="text-primary hover:text-primary-400 transition-colors"
+
+                className="text-primary hover:text-primary-400 transition-colors"
                       >
                         {data.officeInfo.email}
                       </a>
                     </div>
-                  </motion.div>
+                  </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
-                    className="flex items-start gap-4"
+                  <div
+className="flex items-start gap-4"
                   >
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20">
                       <Clock className="h-6 w-6 text-primary" />
@@ -676,13 +626,15 @@ export default function ModernServiceLocationTemplate({
                       <p className="text-gray-300">{data.officeInfo.hours.saturday}</p>
                       <p className="text-gray-300">{data.officeInfo.hours.sunday}</p>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
 
               {/* CTA */}
               <div className="flex flex-col justify-center text-center lg:text-left">
-                <Heading level={3} className="text-white mb-4">
+                <Heading level={3}
+
+                className="text-white mb-4">
                   Ready to Fight for Your Rights?
                 </Heading>
                 <Text size="lg" className="text-gray-300 mb-8">
@@ -718,23 +670,20 @@ export default function ModernServiceLocationTemplate({
       {data.mapEmbedUrl && (
         <section className="relative py-20 bg-black">
           <div className="mx-auto max-w-7xl px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="relative h-[500px] rounded-2xl overflow-hidden border border-primary/20"
+            <div
+className="relative h-[500px] rounded-2xl overflow-hidden border border-primary/20"
             >
               <iframe
                 src={data.mapEmbedUrl}
                 width="100%"
                 height="100%"
-                style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg)' }}
+               }
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title={`${data.officeInfo.name} Location Map`}
               />
-            </motion.div>
+            </div>
           </div>
         </section>
       )}
@@ -742,12 +691,14 @@ export default function ModernServiceLocationTemplate({
       {/* Final CTA Section */}
       <section className="relative py-20 bg-gradient-to-t from-black to-neutral-950">
         <div className="mx-auto max-w-4xl px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
+          <div
+           }
+           }
+           }
           >
-            <Heading level={2} className="text-white mb-6">
+            <Heading level={2}
+
+                className="text-white mb-6">
               Don&apos;t Face {data.serviceName} Issues Alone
             </Heading>
             <Text size="xl" className="text-gray-300 mb-8">
@@ -757,7 +708,7 @@ export default function ModernServiceLocationTemplate({
               Start Your Free Case Evaluation Now
               <ArrowRight className="ml-3 h-6 w-6" />
             </Button>
-          </motion.div>
+          </div>
         </div>
       </section>
 

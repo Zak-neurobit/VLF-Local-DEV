@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import Link from 'next/link';
 
 interface CardProps {
@@ -42,18 +42,18 @@ export const Card: React.FC<CardProps> = ({
   const classes = `${baseClasses} ${variantClasses[variant]} ${paddingClasses[padding]} ${hoverClasses} ${className}`;
 
   const CardContent = (
-    <motion.div
-      whileHover={hover ? { scale: 1.02 } : {}}
-      transition={{ duration: 0.2 }}
-      className={classes}
+    <div
+      : { className={classes}
     >
       {children}
-    </motion.div>
+    </div>
   );
 
   if (href) {
     return (
-      <Link href={href} className="block">
+      <Link href={href}
+
+                className="block">
         {CardContent}
       </Link>
     );

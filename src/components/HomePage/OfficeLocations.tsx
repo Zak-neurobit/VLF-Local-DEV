@@ -9,7 +9,6 @@ interface OfficeLocationsProps {
   language: 'en' | 'es';
 }
 
-
 export default function OfficeLocations({ language }: OfficeLocationsProps) {
   const content = {
     en: {
@@ -127,7 +126,8 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
               alt="Vasquez Law Firm"
               width={150}
               height={150}
-              className="opacity-80"
+
+                className="opacity-80"
             />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{t.title}</h2>
@@ -154,6 +154,7 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
             return (
               <div
                 key={index}
+
                 className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-[#6B1F2E]/20 to-[#C9974D]/10 border border-[#C9974D]/30 hover:border-[#C9974D] transition-all duration-300 animate-slideUp"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
@@ -161,7 +162,8 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={officeImages[office.city] || '/images/offices/default-office.jpg'}
-                    alt={`${office.city} office exterior`}
+
+                alt={`${office.city} office exterior`}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -190,7 +192,8 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
                     <Phone className="h-5 w-5 text-[#C9974D]" />
                     <a
                       href={`tel:${office.phone.replace(/[^0-9]/g, '')}`}
-                      className="text-white font-semibold hover:text-[#C9974D] transition-colors"
+
+                className="text-white font-semibold hover:text-[#C9974D] transition-colors"
                     >
                       {office.phone}
                     </a>

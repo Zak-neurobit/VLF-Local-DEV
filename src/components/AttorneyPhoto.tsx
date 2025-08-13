@@ -20,7 +20,8 @@ export default function AttorneyPhoto({
       <div className={`relative ${className}`}>
         <Image
           src={imagePath}
-          alt={altText}
+
+                alt={altText}
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

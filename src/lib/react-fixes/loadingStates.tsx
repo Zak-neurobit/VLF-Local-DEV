@@ -53,8 +53,7 @@ export function LoadingState({
             <p className="text-gray-700 text-center mb-4">{errorMessage || 'An error occurred'}</p>
             {retry && (
               <button
-                onClick={retry}
-                className="px-4 py-2 bg-[#6B1F2E] text-white rounded-md hover:bg-[#8B2635] transition-colors"
+                onClick={retry} className="px-4 py-2 bg-[#6B1F2E] text-white rounded-md hover:bg-[#8B2635] transition-colors"
               >
                 Try Again
               </button>
@@ -74,8 +73,7 @@ export function LoadingState({
 export function Skeleton({ className = '' }: { className?: string }) {
   return (
     <div
-      className={`animate-pulse bg-gray-200 rounded ${className}`}
-      role="status"
+      className={`animate-pulse bg-gray-200 rounded ${className}` role="status"
       aria-label="Loading"
     />
   );
@@ -87,7 +85,9 @@ export function Skeleton({ className = '' }: { className?: string }) {
 export const SkeletonText = ({ lines = 3 }: { lines?: number }) => (
   <div className="space-y-2">
     {Array.from({ length: lines }).map((_, i) => (
-      <Skeleton key={i} className="h-4 w-full" />
+      <Skeleton key={i}
+
+                className="h-4 w-full" />
     ))}
   </div>
 );

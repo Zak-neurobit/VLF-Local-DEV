@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import Link from 'next/link';
 import { ArrowRight, Shield, Car, Briefcase, Users, Scale, AlertTriangle } from 'lucide-react';
 
@@ -104,31 +104,29 @@ export default function RelatedServices({
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
+        <div
+className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.title}</h2>
           <p className="text-gray-600">{t.subtitle}</p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-6">
           {relatedServices.map((service, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
+             }
+             }
+             }
+             }
             >
               <Link
                 href={language === 'es' ? service.linkEs : service.link}
+
                 className="block h-full"
               >
-                <div className="bg-gray-50 rounded-lg p-6 h-full hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer">
+                <div
+                className="bg-gray-50 rounded-lg p-6 h-full hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer">
                   {React.createElement(service.icon, {
                     className: 'w-12 h-12 text-[#6B1F2E] mb-4',
                   })}
@@ -144,7 +142,7 @@ export default function RelatedServices({
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

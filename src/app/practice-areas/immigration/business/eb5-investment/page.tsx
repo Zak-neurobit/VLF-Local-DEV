@@ -185,9 +185,12 @@ export default function EB5InvestmentPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {eb5Options.map((option, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-8">
+              <div key={index}
+
+                className="bg-gray-50 rounded-lg p-8">
                 <div className="flex items-center mb-6">
-                  <div className="mr-4">{option.icon}</div>
+                  <div
+                className="mr-4">{option.icon}</div>
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900">{option.title}</h3>
                     <p className="text-blue-600 font-bold text-xl">{option.investment} minimum</p>
@@ -199,9 +202,12 @@ export default function EB5InvestmentPage() {
                   <h4 className="font-semibold text-gray-900 mb-3">Benefits:</h4>
                   <ul className="space-y-2">
                     {option.benefits.map((benefit, idx) => (
-                      <li key={idx} className="flex items-start">
+                      <li key={idx}
+
+                className="flex items-start">
                         <span className="text-green-600 mr-2">✓</span>
-                        <span className="text-gray-600">{benefit}</span>
+                        <span
+                className="text-gray-600">{benefit}</span>
                       </li>
                     ))}
                   </ul>
@@ -211,9 +217,12 @@ export default function EB5InvestmentPage() {
                   <h4 className="font-semibold text-gray-900 mb-3">Considerations:</h4>
                   <ul className="space-y-2">
                     {option.considerations.map((consideration, idx) => (
-                      <li key={idx} className="flex items-start">
+                      <li key={idx}
+
+                className="flex items-start">
                         <span className="text-yellow-600 mr-2">!</span>
-                        <span className="text-gray-600">{consideration}</span>
+                        <span
+                className="text-gray-600">{consideration}</span>
                       </li>
                     ))}
                   </ul>
@@ -232,13 +241,19 @@ export default function EB5InvestmentPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {eb5Process.map((phase, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-md">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{phase.phase}</h3>
+              <div key={index}
+
+                className="bg-white rounded-lg p-6 shadow-md">
+                <h3
+                className="text-xl font-bold text-gray-900 mb-4">{phase.phase}</h3>
                 <ul className="space-y-2 mb-4">
                   {phase.steps.map((step, idx) => (
-                    <li key={idx} className="flex items-start">
+                    <li key={idx}
+
+                className="flex items-start">
                       <span className="text-blue-600 mr-2 mt-1">•</span>
-                      <span className="text-gray-600">{step}</span>
+                      <span
+                className="text-gray-600">{step}</span>
                     </li>
                   ))}
                 </ul>
@@ -264,8 +279,11 @@ export default function EB5InvestmentPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {jobCreationRequirements.map((req, index) => (
-                <div key={index} className="bg-gray-50 rounded-lg p-6">
-                  <h3 className="font-bold text-gray-900 mb-2">{req.title}</h3>
+                <div key={index}
+
+                className="bg-gray-50 rounded-lg p-6">
+                  <h3
+                className="font-bold text-gray-900 mb-2">{req.title}</h3>
                   <p className="text-gray-600 mb-3">{req.description}</p>
                   <p className="text-sm text-blue-600 font-semibold">{req.applicable}</p>
                 </div>
@@ -287,9 +305,12 @@ export default function EB5InvestmentPage() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {dueDiligenceChecklist.map((item, index) => (
-                <div key={index} className="flex items-start">
+                <div key={index}
+
+                className="flex items-start">
                   <span className="text-blue-600 mr-2 mt-1">✓</span>
-                  <span className="text-gray-600">{item}</span>
+                  <span
+                className="text-gray-600">{item}</span>
                 </div>
               ))}
             </div>
@@ -319,9 +340,12 @@ export default function EB5InvestmentPage() {
                     'Investment returns',
                     'Loan proceeds (secured)',
                   ].map((source, idx) => (
-                    <li key={idx} className="flex items-center">
+                    <li key={idx}
+
+                className="flex items-center">
                       <span className="text-green-600 mr-2">✓</span>
-                      <span className="text-gray-600">{source}</span>
+                      <span
+                className="text-gray-600">{source}</span>
                     </li>
                   ))}
                 </ul>
@@ -337,9 +361,12 @@ export default function EB5InvestmentPage() {
                     'Gift affidavits',
                     'Loan documents',
                   ].map((doc, idx) => (
-                    <li key={idx} className="flex items-center">
+                    <li key={idx}
+
+                className="flex items-center">
                       <span className="text-blue-600 mr-2">📄</span>
-                      <span className="text-gray-600">{doc}</span>
+                      <span
+                className="text-gray-600">{doc}</span>
                     </li>
                   ))}
                 </ul>

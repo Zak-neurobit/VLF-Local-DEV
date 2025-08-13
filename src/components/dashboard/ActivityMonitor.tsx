@@ -83,7 +83,8 @@ const ActivityMonitor: React.FC = () => {
         {data.recentActivity.map(activity => (
           <div
             key={activity.id}
-            className={`flex items-start space-x-3 p-3 rounded-lg border transition-all duration-500 ${
+
+                className={`flex items-start space-x-3 p-3 rounded-lg border transition-all duration-500 ${
               animatingItems.has(activity.id)
                 ? 'scale-105 border-blue-300 bg-blue-50'
                 : 'border-gray-200 hover:border-gray-300'

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, AlertCircle, CheckCircle, Settings, RefreshCw } from 'lucide-react';
 
 interface MicrophoneTroubleshootingGuideProps {
@@ -104,19 +103,11 @@ export const MicrophoneTroubleshootingGuide: React.FC<MicrophoneTroubleshootingG
   if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+    <>
+      <div        className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
         onClick={onClose}
       >
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ scale: 0.9, opacity: 0 }}
-          className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
+        <div          className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="p-6">
@@ -125,27 +116,22 @@ export const MicrophoneTroubleshootingGuide: React.FC<MicrophoneTroubleshootingG
                 <AlertCircle className="w-6 h-6 text-yellow-500" />
                 {language === 'es' ? 'Solución de problemas de micrófono' : 'Microphone Troubleshooting'}
               </h2>
-              <button
-                onClick={onClose}
-                className="text-gray-400 hover:text-gray-600 text-xl"
+              <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl"
               >
                 ×
               </button>
             </div>
 
-            <div className="space-y-4">
+            <div} className="space-y-4">
               {steps.map((step, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+
+                className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
                     currentStep === index
                       ? 'border-blue-500 bg-blue-50'
                       : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                  onClick={() => setCurrentStep(currentStep === index ? -1 : index)}
+                  }` onClick={() => setCurrentStep(currentStep === index ? -1 : index)}
                 >
                   <div className="flex items-center gap-3">
                     <div className={`p-2 rounded-full ${
@@ -164,26 +150,25 @@ export const MicrophoneTroubleshootingGuide: React.FC<MicrophoneTroubleshootingG
                     </div>
                   </div>
 
-                  <AnimatePresence>
+                  <>
                     {currentStep === index && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="mt-4 pt-4 border-t border-gray-200"
+                      <div                        className="mt-4 pt-4 border-t border-gray-200"
                       >
                         <ul className="space-y-2">
                           {step.instructions.map((instruction, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
-                              <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                            <li key={idx}
+
+                className="flex items-start gap-2 text-sm text-gray-700">
+                              <CheckCircle
+                className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                               {instruction}
                             </li>
                           ))}
                         </ul>
-                      </motion.div>
+                      </div>
                     )}
-                  </AnimatePresence>
-                </motion.div>
+                  </>
+                </div>
               ))}
             </div>
 
@@ -203,15 +188,14 @@ export const MicrophoneTroubleshootingGuide: React.FC<MicrophoneTroubleshootingG
 
             <div className="mt-6 flex justify-end">
               <button
-                onClick={onClose}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                onClick={onClose} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 {language === 'es' ? 'Cerrar' : 'Close'}
               </button>
             </div>
           </div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+        </div>
+      </div>
+    </>
   );
 };

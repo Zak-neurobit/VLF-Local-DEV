@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { logger } from '@/lib/safe-logger';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Phone, Mail, User, MessageSquare, FileText, CheckCircle2, Loader2 } from 'lucide-react';
@@ -96,16 +96,13 @@ export default function GHLContactForm({
     return (
       <Card className="w-full max-w-2xl mx-auto">
         <CardContent className="py-16 text-center">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ type: 'spring', duration: 0.5 }}
-            className="mb-6"
+          <div
+className="mb-6"
           >
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-10 h-10 text-green-600" />
             </div>
-          </motion.div>
+          </div>
           <h3 className="text-2xl font-bold mb-2">Thank You!</h3>
           <p className="text-gray-600 mb-4">
             Your information has been received. We&apos;ll contact you within 1 business hour.
@@ -147,8 +144,7 @@ export default function GHLContactForm({
                   type="text"
                   required
                   className="w-full pl-10 pr-3 py-3 border rounded-lg focus:ring-2 focus:ring-burgundy-500"
-                  value={formData.firstName}
-                  onChange={e => setFormData({ ...formData, firstName: e.target.value })}
+                  value={formData.firstName} onChange={e => setFormData({ ...formData, firstName: e.target.value })}
                 />
               </div>
             </div>
@@ -160,8 +156,7 @@ export default function GHLContactForm({
                 type="text"
                 required
                 className="w-full px-3 py-3 border rounded-lg focus:ring-2 focus:ring-burgundy-500"
-                value={formData.lastName}
-                onChange={e => setFormData({ ...formData, lastName: e.target.value })}
+                value={formData.lastName} onChange={e => setFormData({ ...formData, lastName: e.target.value })}
               />
             </div>
           </div>
@@ -178,8 +173,7 @@ export default function GHLContactForm({
                   type="email"
                   required
                   className="w-full pl-10 pr-3 py-3 border rounded-lg focus:ring-2 focus:ring-burgundy-500"
-                  value={formData.email}
-                  onChange={e => setFormData({ ...formData, email: e.target.value })}
+                  value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })}
                 />
               </div>
             </div>
@@ -193,8 +187,7 @@ export default function GHLContactForm({
                   type="tel"
                   required
                   className="w-full pl-10 pr-3 py-3 border rounded-lg focus:ring-2 focus:ring-burgundy-500"
-                  value={formData.phone}
-                  onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                  value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })}
                 />
               </div>
             </div>
@@ -210,12 +203,13 @@ export default function GHLContactForm({
               <select
                 required
                 className="w-full pl-10 pr-3 py-3 border rounded-lg focus:ring-2 focus:ring-burgundy-500 appearance-none"
-                value={formData.caseType}
-                onChange={e => setFormData({ ...formData, caseType: e.target.value })}
+                value={formData.caseType} onChange={e => setFormData({ ...formData, caseType: e.target.value })}
               >
                 <option value="">Select your case type</option>
                 {caseTypes.map(type => (
-                  <option key={type} value={type}>
+                  <option key={type}
+
+                value={type}>
                     {type}
                   </option>
                 ))}
@@ -230,10 +224,10 @@ export default function GHLContactForm({
               <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
               <textarea
                 rows={4}
+
                 className="w-full pl-10 pr-3 py-3 border rounded-lg focus:ring-2 focus:ring-burgundy-500"
                 placeholder="Please provide a brief description of your legal matter..."
-                value={formData.message}
-                onChange={e => setFormData({ ...formData, message: e.target.value })}
+                value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
               />
             </div>
           </div>
@@ -248,9 +242,8 @@ export default function GHLContactForm({
                     type="radio"
                     name="contact"
                     value="phone"
-                    checked={formData.preferredContact === 'phone'}
-                    onChange={e => setFormData({ ...formData, preferredContact: e.target.value })}
-                    className="mr-2"
+                    checked={formData.preferredContact === 'phone'} onChange={e => setFormData({ ...formData, preferredContact: e.target.value })
+        className="mr-2"
                   />
                   Phone Call
                 </label>
@@ -259,9 +252,8 @@ export default function GHLContactForm({
                     type="radio"
                     name="contact"
                     value="email"
-                    checked={formData.preferredContact === 'email'}
-                    onChange={e => setFormData({ ...formData, preferredContact: e.target.value })}
-                    className="mr-2"
+                    checked={formData.preferredContact === 'email'} onChange={e => setFormData({ ...formData, preferredContact: e.target.value })
+        className="mr-2"
                   />
                   Email
                 </label>
@@ -270,9 +262,8 @@ export default function GHLContactForm({
                     type="radio"
                     name="contact"
                     value="text"
-                    checked={formData.preferredContact === 'text'}
-                    onChange={e => setFormData({ ...formData, preferredContact: e.target.value })}
-                    className="mr-2"
+                    checked={formData.preferredContact === 'text'} onChange={e => setFormData({ ...formData, preferredContact: e.target.value })
+        className="mr-2"
                   />
                   Text Message
                 </label>
@@ -282,8 +273,7 @@ export default function GHLContactForm({
               <label className="block text-sm font-medium mb-2">How urgent is your matter?</label>
               <select
                 className="w-full px-3 py-3 border rounded-lg focus:ring-2 focus:ring-burgundy-500"
-                value={formData.urgency}
-                onChange={e => setFormData({ ...formData, urgency: e.target.value })}
+                value={formData.urgency} onChange={e => setFormData({ ...formData, urgency: e.target.value })}
               >
                 <option value="normal">Normal (1-2 days)</option>
                 <option value="urgent">Urgent (Within 24 hours)</option>

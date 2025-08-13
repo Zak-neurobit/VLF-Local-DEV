@@ -173,21 +173,26 @@ export default function BusinessInmigraciónPage() {
             {businessVisaTypes.map((visa, index) => (
               <div
                 key={index}
+
                 className="bg-gray-50 rounded-lg p-6 hover:shadow-lg transition duration-300"
               >
-                <div className="mb-4">{visa.icon}</div>
+                <div
+                className="mb-4">{visa.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{visa.title}</h3>
                 <p className="text-gray-600 mb-4">{visa.description}</p>
                 <ul className="mb-6">
                   {visa.highlights.map((highlight, idx) => (
-                    <li key={idx} className="text-sm text-gray-600 mb-1">
+                    <li key={idx}
+
+                className="text-sm text-gray-600 mb-1">
                       • {highlight}
                     </li>
                   ))}
                 </ul>
                 <Link
                   href={visa.link}
-                  className="text-blue-600 font-semibold hover:text-blue-700 transition duration-300"
+
+                className="text-blue-600 font-semibold hover:text-blue-700 transition duration-300"
                 >
                   Learn More →
                 </Link>
@@ -205,14 +210,20 @@ export default function BusinessInmigraciónPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {employerServices.map((service, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-md">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
+              <div key={index}
+
+                className="bg-white rounded-lg p-6 shadow-md">
+                <h3
+                className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
                 <p className="text-gray-600 mb-4">{service.description}</p>
                 <ul className="space-y-2">
                   {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start">
+                    <li key={idx}
+
+                className="flex items-start">
                       <span className="text-blue-600 mr-2">✓</span>
-                      <span className="text-gray-600">{feature}</span>
+                      <span
+                className="text-gray-600">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -239,8 +250,11 @@ export default function BusinessInmigraciónPage() {
               'Education',
               'Retail',
             ].map((industry, index) => (
-              <div key={index} className="text-center p-4 bg-gray-50 rounded-lg">
-                <div className="font-semibold text-gray-900">{industry}</div>
+              <div key={index}
+
+                className="text-center p-4 bg-gray-50 rounded-lg">
+                <div
+                className="font-semibold text-gray-900">{industry}</div>
               </div>
             ))}
           </div>

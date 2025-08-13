@@ -286,17 +286,21 @@ export default function EmploymentBasedImmigrationPage() {
               {content.visaCategories.categories.map((category, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20"
                 >
-                  <h3 className="text-2xl font-bold text-primary mb-4">{category.title}</h3>
+                  <h3
+                className="text-2xl font-bold text-primary mb-4">{category.title}</h3>
                   <p className="text-gray-300 mb-6">{category.description}</p>
                   <div className="grid md:grid-cols-2 gap-4">
                     {category.visas.map((visa, vIndex) => (
                       <div
                         key={vIndex}
-                        className="bg-white/5 rounded-lg p-4 border border-primary/10"
+
+                className="bg-white/5 rounded-lg p-4 border border-primary/10"
                       >
-                        <h4 className="font-bold text-white text-lg mb-2">{visa.name}</h4>
+                        <h4
+                className="font-bold text-white text-lg mb-2">{visa.name}</h4>
                         <p className="text-gray-300 text-sm mb-2">{visa.purpose}</p>
                         <p className="text-primary text-sm font-medium">
                           Duration: {visa.duration}

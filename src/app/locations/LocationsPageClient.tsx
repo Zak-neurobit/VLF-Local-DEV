@@ -16,7 +16,6 @@ import {
   Shield,
   Award,
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { TRADEMARK } from '@/lib/constants/trademark';
 import { officeLocations } from '@/data/locations';
 
@@ -87,20 +86,14 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
         {/* Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-secondary/10" />
-          <motion.div
+          <div
             className="absolute inset-0"
-            animate={{ opacity: 1 }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
           />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
+            <div>
               <div className="inline-flex items-center px-6 py-3 bg-primary/20 backdrop-blur-sm rounded-full mb-6">
                 <Building2 className="w-5 h-5 text-primary mr-2" />
                 <span className="text-primary font-semibold">
@@ -129,7 +122,7 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
                   ? 'Con cuatro oficinas estratégicamente ubicadas en Carolina del Norte y Florida, el Bufete de Abogados Vasquez siempre está a su alcance. Cada oficina proporciona los mismos servicios legales excepcionales con personal bilingüe listo para asistirle.'
                   : 'With four strategically located offices across North Carolina and Florida, Vasquez Law Firm is always within reach. Each office provides the same exceptional legal services with bilingual staff ready to assist you.'}
               </p>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -137,10 +130,7 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
       {/* Interactive Map Section */}
       <section className="py-20 bg-gradient-to-b from-black to-neutral-950">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
@@ -159,25 +149,24 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
                 ? 'Haga clic en cualquier tarjeta de ubicación a continuación para ver detalles y obtener direcciones'
                 : 'Click on any location card below to view details and get directions'}
             </p>
-          </motion.div>
+          </div>
 
           {/* Locations Grid */}
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {locations.map((location, index) => (
-              <motion.div
+              <div
                 key={location.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+
                 className="group relative"
               >
-                <div className="bg-gradient-to-b from-neutral-900 to-neutral-950 rounded-2xl overflow-hidden border border-primary/20 hover:border-primary/40 transition-all h-full">
+                <div
+                className="bg-gradient-to-b from-neutral-900 to-neutral-950 rounded-2xl overflow-hidden border border-primary/20 hover:border-primary/40 transition-all h-full">
                   {/* Office Image */}
                   <div className="relative h-56 overflow-hidden">
                     <Image
                       src={location.image}
-                      alt={`${location.name} exterior`}
+
+                alt={`${location.name} exterior`}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -216,7 +205,8 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
                         <div>
                           <a
                             href={`tel:${location.phone.replace(/[^0-9]/g, '')}`}
-                            className="text-gray-300 hover:text-primary transition-colors"
+
+                className="text-gray-300 hover:text-primary transition-colors"
                           >
                             {location.phone}
                           </a>
@@ -237,7 +227,8 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
                         <Mail className="w-5 h-5 text-primary mr-3" />
                         <a
                           href={`mailto:${location.email}`}
-                          className="text-gray-300 hover:text-primary transition-colors text-sm"
+
+                className="text-gray-300 hover:text-primary transition-colors text-sm"
                         >
                           {location.email}
                         </a>
@@ -261,9 +252,11 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
                           return (
                             <div
                               key={idx}
-                              className="flex items-center text-xs text-gray-400 bg-primary/10 px-3 py-1 rounded-full"
+
+                className="flex items-center text-xs text-gray-400 bg-primary/10 px-3 py-1 rounded-full"
                             >
-                              <span className="mr-1">{icon}</span>
+                              <span
+                className="mr-1">{icon}</span>
                               {feature}
                             </div>
                           );
@@ -292,7 +285,7 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -301,10 +294,7 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
       {/* Features Section */}
       <section className="py-20 bg-black">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
@@ -323,7 +313,7 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
                 ? 'Cada ubicación está diseñada pensando en su comodidad y conveniencia'
                 : 'Every location is designed with your comfort and convenience in mind'}
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {(language === 'es'
@@ -396,20 +386,18 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
                   },
                 ]
             ).map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+
                 className="text-center"
               >
                 <div className="bg-gradient-to-b from-primary/20 to-transparent p-6 rounded-2xl mb-4 inline-block">
-                  <div className="text-primary">{feature.icon}</div>
+                  <div
+                className="text-primary">{feature.icon}</div>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
                 <p className="text-gray-400">{feature.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -418,10 +406,7 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-b from-neutral-950 to-black">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
             className="max-w-4xl mx-auto text-center"
           >
             <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
@@ -441,26 +426,22 @@ export default function LocationsPageClient({ language = 'en' }: LocationsPageCl
                 : 'Visit any of our offices or schedule a virtual consultation today'}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.a
+              <a
                 href="tel:1-844-967-3536"
-                // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold rounded-full transition-all hover:bg-primary-300"
+                className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold rounded-full transition-all hover:bg-primary-300 hover:scale-105 active:scale-95"
               >
                 <Phone className="mr-2 w-5 h-5" />
                 {language === 'es' ? 'Llame' : 'Call'} 1-844-YO-PELEO
-              </motion.a>
-              <motion.a
+              </a>
+              <a
                 href="/contact"
-                // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-black transition-all"
               >
                 {language === 'es' ? 'Programar Consulta' : 'Schedule Consultation'}
                 <ArrowRight className="ml-2 w-5 h-5" />
-              </motion.a>
+              </a>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

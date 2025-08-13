@@ -34,9 +34,11 @@ export default function ResourceLeadCaptureExamples() {
               {capturedLeads.map((lead, index) => (
                 <li
                   key={index}
-                  className="flex items-center gap-2 text-green-700 dark:text-green-300"
+
+                className="flex items-center gap-2 text-green-700 dark:text-green-300"
                 >
-                  <CheckCircle className="w-4 h-4" />
+                  <CheckCircle
+                className="w-4 h-4" />
                   <span>
                     {lead.email} - {lead.resource}
                   </span>

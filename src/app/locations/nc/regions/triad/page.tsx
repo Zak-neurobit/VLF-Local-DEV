@@ -50,8 +50,10 @@ export default function TriadRegionPage() {
               {counties.map(county => (
                 <Link
                   key={county}
-                  href={`/locations/nc/counties/${county.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow text-center hover:bg-gray-50"
+
+                href={`/locations/nc/counties/${county.toLowerCase().replace(/\s+/g, '-')}`}
+
+                className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow text-center hover:bg-gray-50"
                 >
                   <span className="font-semibold text-[#6B1F2E]">{county} County</span>
                 </Link>
@@ -62,8 +64,11 @@ export default function TriadRegionPage() {
             <h2 className="text-3xl font-bold mb-6 text-[#6B1F2E]">Major Cities in Triad</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
               {cities.map(city => (
-                <div key={city} className="text-center">
-                  <h3 className="font-semibold text-lg text-[#C9974D]">{city}</h3>
+                <div key={city}
+
+                className="text-center">
+                  <h3
+                className="font-semibold text-lg text-[#C9974D]">{city}</h3>
                   <p className="text-gray-600">Full legal services</p>
                 </div>
               ))}

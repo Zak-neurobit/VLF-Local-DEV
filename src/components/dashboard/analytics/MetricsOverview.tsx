@@ -83,13 +83,16 @@ export function MetricsOverview({ metrics, isLoading = false }: MetricsOverviewP
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {Array.from({ length: 8 }).map((_, index) => (
-          <Card key={index} className="animate-pulse">
+          <Card key={index}
+
+                className="animate-pulse">
             <CardContent className="p-6">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-gray-200 rounded-lg"></div>
                 <div className="space-y-2">
                   <div className="h-4 bg-gray-200 rounded w-20"></div>
-                  <div className="h-6 bg-gray-200 rounded w-16"></div>
+                  <div
+                className="h-6 bg-gray-200 rounded w-16"></div>
                 </div>
               </div>
             </CardContent>
@@ -106,8 +109,7 @@ export function MetricsOverview({ metrics, isLoading = false }: MetricsOverviewP
         <h2 className="text-2xl font-bold text-gray-900">Analytics Overview</h2>
         <div className="flex items-center space-x-2">
           <Badge 
-            variant={metrics.overview.systemHealth >= 95 ? "default" : "destructive"}
-            className="px-3 py-1"
+            variant={metrics.overview.systemHealth >= 95 ? "default" : "destructive" className="px-3 py-1"
           >
             <Activity className="w-3 h-3 mr-1" />
             System Health: {metrics.overview.systemHealth.toFixed(1)}%

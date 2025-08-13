@@ -69,7 +69,9 @@ export function AreaChart({
           <RechartsAreaChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <defs>
               {areas.map((area) => (
-                <linearGradient key={area.key} id={`gradient-${area.key}`} x1="0" y1="0" x2="0" y2="1">
+                <linearGradient key={area.key}
+
+                id={`gradient-${area.key}`} x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={area.color} stopOpacity={0.8}/>
                   <stop offset="95%" stopColor={area.color} stopOpacity={0.1}/>
                 </linearGradient>
@@ -102,10 +104,12 @@ export function AreaChart({
             {areas.map((area) => (
               <Area
                 key={area.key}
+
                 type="monotone"
                 dataKey={area.key}
                 stackId={stacked ? (area.stackId || 'default') : undefined}
                 stroke={area.color}
+
                 fill={`url(#gradient-${area.key})`}
                 strokeWidth={2}
                 name={area.name}

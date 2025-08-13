@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, memo } from 'react';
 import { Button } from '@/design-system/components/Button';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Phone, MessageCircle, ChevronRight, Shield, Award, Clock, Users } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
@@ -104,14 +104,13 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
     <>
       <div className="min-h-screen bg-black">
         {/* Language Toggle */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          className="fixed right-4 top-20 z-40 flex gap-2 rounded-full bg-black/50 p-1 backdrop-blur-sm"
+        <div
+className="fixed right-4 top-20 z-40 flex gap-2 rounded-full bg-black/50 p-1 backdrop-blur-sm"
         >
           <button
             onClick={() => setLanguage('en')}
-            className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
               language === 'en' ? 'bg-primary text-black' : 'text-white hover:text-primary'
             }`}
           >
@@ -119,32 +118,30 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
           </button>
           <button
             onClick={() => setLanguage('es')}
-            className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
               language === 'es' ? 'bg-primary text-black' : 'text-white hover:text-primary'
             }`}
           >
             ES
           </button>
-        </motion.div>
+        </div>
 
         {/* Hero Section */}
         <section className="relative overflow-hidden py-24">
           {/* Animated Background */}
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-black to-primary/10" />
-            <motion.div
+            <div
               className="absolute inset-0"
-              animate={{ opacity: 1 }}
-              transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+             }
+             }
             />
           </div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center"
+            <div
+className="text-center"
             >
               <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
                 {title}
@@ -173,29 +170,25 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                   1-844-YO-PELEO
                 </Button>
               </div>
-            </motion.div>
+            </div>
 
             {/* Stats Grid */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
+            <div
+className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
             >
               {stats.map((stat, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 text-center border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 text-center border border-primary/20"
                 >
                   <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
-                  <div className="text-3xl font-black text-primary">{stat.value}</div>
+                  <div
+                className="text-3xl font-black text-primary">{stat.value}</div>
                   <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -203,26 +196,20 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
         {services.length > 0 && (
           <section className="py-20 bg-gradient-to-b from-black to-neutral-950">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <motion.h2
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-black text-center text-white mb-12"
+              <h2
+className="text-3xl md:text-4xl font-black text-center text-white mb-12"
               >
                 {language === 'en' ? 'Our Services' : 'Nuestros Servicios'}
-              </motion.h2>
+              </h2>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {services.map((service, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    // TODO: Convert whileHover={{ scale: 1.03 }} to react-spring
-                    onClick={() => setActiveService(activeService === index ? -1 : index)}
-                    className={`cursor-pointer p-6 rounded-lg border transition-all ${
+
+                onClick={() => setActiveService(activeService === index ? -1 : index)}
+
+                className={`cursor-pointer p-6 rounded-lg border transition-all ${
                       activeService === index
                         ? 'bg-primary/10 border-primary'
                         : 'bg-white/5 border-white/10 hover:border-primary/50'
@@ -237,41 +224,37 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                       />
                     </div>
 
-                    <AnimatePresence>
+                    <>
                       {activeService === index && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
+                        <div
+className="overflow-hidden"
                         >
                           <p className="text-gray-300 mb-3">{service.description}</p>
                           {service.features && service.features.length > 0 && (
                             <ul className="space-y-2">
                               {service.features.map((feature, fIndex) => (
-                                <li key={fIndex} className="flex items-start">
+                                <li key={fIndex}
+
+                className="flex items-start">
                                   <span className="text-primary mr-2">•</span>
-                                  <span className="text-sm text-gray-400">{feature}</span>
+                                  <span
+                className="text-sm text-gray-400">{feature}</span>
                                 </li>
                               ))}
                             </ul>
                           )}
-                        </motion.div>
+                        </div>
                       )}
-                    </AnimatePresence>
-                  </motion.div>
+                    </>
+                  </div>
                 ))}
               </div>
 
               {/* Service Details Panel - Alternative Display Option */}
-              <AnimatePresence>
+              <>
                 {activeService >= 0 && activeService < services.length && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20"
+                  <div
+className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8 border border-primary/20"
                   >
                     <h3 className="text-2xl font-bold text-primary mb-4">
                       {services[activeService]?.title || ''}
@@ -287,9 +270,12 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                           </h4>
                           <div className="grid md:grid-cols-2 gap-3">
                             {services[activeService].features.map((feature, index) => (
-                              <div key={index} className="flex items-center">
+                              <div key={index}
+
+                className="flex items-center">
                                 <Shield className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
-                                <span className="text-gray-300">{feature}</span>
+                                <span
+                className="text-gray-300">{feature}</span>
                               </div>
                             ))}
                           </div>
@@ -313,9 +299,9 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                         {language === 'en' ? 'Call Now' : 'Llame Ahora'}
                       </Button>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
-              </AnimatePresence>
+              </>
             </div>
           </section>
         )}
@@ -323,11 +309,8 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
         {/* Main Content */}
         <section className="py-20 bg-neutral-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="space-y-16"
+            <div
+className="space-y-16"
             >
               {/* Render custom ReactElement content or structured object content */}
               {React.isValidElement(content) ? (
@@ -359,22 +342,20 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                         </h2>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                           {content.process.map((step, index) => (
-                            <motion.div
+                            <div
                               key={index}
-                              initial={{ opacity: 0, y: 20 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: index * 0.1 }}
-                              className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                             >
-                              <div className="text-3xl font-black text-primary mb-3">
+                              <div
+                className="text-3xl font-black text-primary mb-3">
                                 {step.step}
                               </div>
                               <h3 className="text-xl font-semibold text-white mb-3">
                                 {step.title}
                               </h3>
                               <p className="text-gray-300">{step.description}</p>
-                            </motion.div>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -402,19 +383,17 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                     content.successStats && (
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {content.successStats.map((stat, index) => (
-                          <motion.div
+                          <div
                             key={index}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="text-center"
+
+                className="text-center"
                           >
-                            <div className="text-4xl md:text-5xl font-black text-primary mb-2">
+                            <div
+                className="text-4xl md:text-5xl font-black text-primary mb-2">
                               {stat.number}
                             </div>
                             <div className="text-gray-400">{stat.label}</div>
-                          </motion.div>
+                          </div>
                         ))}
                       </div>
                     )}
@@ -432,17 +411,15 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                         </h2>
                         <div className="grid md:grid-cols-2 gap-4">
                           {content.whyChoosePoints.map((point, index) => (
-                            <motion.div
+                            <div
                               key={index}
-                              initial={{ opacity: 0, x: -20 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: index * 0.1 }}
-                              className="flex items-center gap-3"
+
+                className="flex items-center gap-3"
                             >
                               <Shield className="w-5 h-5 text-primary flex-shrink-0" />
-                              <span className="text-gray-300">{point}</span>
-                            </motion.div>
+                              <span
+                className="text-gray-300">{point}</span>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -461,15 +438,13 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                         </h2>
                         <div className="grid md:grid-cols-2 gap-8">
                           {content.penalties.map((penalty, index) => (
-                            <motion.div
+                            <div
                               key={index}
-                              initial={{ opacity: 0, y: 20 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: index * 0.2 }}
-                              className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-red-500/30"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-red-500/30"
                             >
-                              <h3 className="text-xl font-bold text-red-400 mb-6">
+                              <h3
+                className="text-xl font-bold text-red-400 mb-6">
                                 {penalty.title}
                               </h3>
                               <div className="grid gap-6">
@@ -479,8 +454,11 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                                   </h4>
                                   <ul className="space-y-2">
                                     {penalty.criminal.map((item: string, i: number) => (
-                                      <li key={i} className="flex items-center gap-2 text-gray-300">
-                                        <span className="text-red-400">•</span>
+                                      <li key={i}
+
+                className="flex items-center gap-2 text-gray-300">
+                                        <span
+                className="text-red-400">•</span>
                                         {item}
                                       </li>
                                     ))}
@@ -492,15 +470,18 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                                   </h4>
                                   <ul className="space-y-2">
                                     {penalty.license.map((item: string, i: number) => (
-                                      <li key={i} className="flex items-center gap-2 text-gray-300">
-                                        <span className="text-red-400">•</span>
+                                      <li key={i}
+
+                className="flex items-center gap-2 text-gray-300">
+                                        <span
+                className="text-red-400">•</span>
                                         {item}
                                       </li>
                                     ))}
                                   </ul>
                                 </div>
                               </div>
-                            </motion.div>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -517,31 +498,32 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                         </h2>
                         <div className="grid md:grid-cols-2 gap-8">
                           {content.stateComparison.states.map((state, index) => (
-                            <motion.div
+                            <div
                               key={index}
-                              initial={{ opacity: 0, y: 20 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: index * 0.2 }}
-                              className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                             >
-                              <h3 className="text-xl font-bold text-primary mb-6">{state.name}</h3>
+                              <h3
+                className="text-xl font-bold text-primary mb-6">{state.name}</h3>
                               <ul className="space-y-3">
                                 {state.points.map((point: string, i: number) => (
-                                  <li key={i} className="flex items-start gap-2 text-gray-300">
-                                    <span className="text-primary mt-1">•</span>
+                                  <li key={i}
+
+                className="flex items-start gap-2 text-gray-300">
+                                    <span
+                className="text-primary mt-1">•</span>
                                     {point}
                                   </li>
                                 ))}
                               </ul>
-                            </motion.div>
+                            </div>
                           ))}
                         </div>
                       </div>
                     )}
                 </>
               )}
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -549,28 +531,23 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
         {faqs.length > 0 && (
           <section className="py-20 bg-gradient-to-b from-neutral-950 to-black">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-              <motion.h2
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-black text-center text-white mb-12"
+              <h2
+className="text-3xl md:text-4xl font-black text-center text-white mb-12"
               >
                 {language === 'en' ? 'Frequently Asked Questions' : 'Preguntas Frecuentes'}
-              </motion.h2>
+              </h2>
 
               <div className="space-y-4">
                 {faqs.map((faq, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10"
                   >
-                    <h3 className="text-xl font-semibold text-primary mb-3">{faq.question}</h3>
+                    <h3
+                className="text-xl font-semibold text-primary mb-3">{faq.question}</h3>
                     <p className="text-gray-300">{faq.answer}</p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -580,10 +557,10 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
         {/* CTA Section */}
         <section className="py-20 bg-gradient-to-r from-primary to-primary-300">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+            <div
+             }
+             }
+             }
             >
               <h2 className="text-3xl md:text-4xl font-black text-black mb-6">
                 {language === 'en'
@@ -614,7 +591,7 @@ export const ModernPracticeAreaTemplate: React.FC<ModernPracticeAreaTemplateProp
                   {language === 'en' ? 'Start Live Chat' : 'Iniciar Chat en Vivo'}
                 </Button>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 

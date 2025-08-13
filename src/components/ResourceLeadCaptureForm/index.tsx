@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Check, AlertCircle, Loader2, Download, Mail, Shield } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -244,43 +244,31 @@ export default function ResourceLeadCaptureForm({
 
   if (success) {
     return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        className={`bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-8 rounded-xl text-center ${className}`}
+      <div
+className={`bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-8 rounded-xl text-center ${className}`}
       >
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.2, type: 'spring' }}
-          className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
+        <div
+className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
         >
           <Check className="w-10 h-10 text-white" />
-        </motion.div>
+        </div>
 
         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{t.successTitle}</h3>
 
         <p className="text-gray-600 dark:text-gray-300 mb-6">{t.successMessage}</p>
 
         {resourceType === 'download' && resourceUrl && (
-          <motion.a
+          <a
             href={resourceUrl}
-            download={resourceTitle}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="inline-flex items-center gap-2 bg-[#6B1F2E] hover:bg-[#8B2635] text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+            download={resourceTitle className="inline-flex items-center gap-2 bg-[#6B1F2E] hover:bg-[#8B2635] text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
           >
-            <Download className="w-5 h-5" />
+            <Download} className="w-5 h-5" />
             {t.successDownload}
-          </motion.a>
+          </a>
         )}
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="mt-6 flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400"
+        <div
+className="mt-6 flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400"
         >
           <Mail className="w-4 h-4" />
           <span>
@@ -288,8 +276,8 @@ export default function ResourceLeadCaptureForm({
               ? 'Revise su correo para más detalles'
               : 'Check your email for more details'}
           </span>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     );
   }
 
@@ -311,13 +299,10 @@ export default function ResourceLeadCaptureForm({
         <input
           type="text"
           id="name"
-          value={formData.name}
-          onChange={e => setFormData({ ...formData, name: e.target.value })}
-          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors ${
+          value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })
+        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors ${
             validationErrors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-          }`}
-          aria-invalid={!!validationErrors.name}
-          aria-describedby={validationErrors.name ? 'name-error' : undefined}
+          }` aria-invalid={!!validationErrors.name aria-describedby={validationErrors.name ? 'name-error' : undefined}
         />
         {validationErrors.name && (
           <p id="name-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
@@ -337,13 +322,10 @@ export default function ResourceLeadCaptureForm({
         <input
           type="email"
           id="email"
-          value={formData.email}
-          onChange={e => setFormData({ ...formData, email: e.target.value })}
-          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors ${
+          value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })
+        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors ${
             validationErrors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-          }`}
-          aria-invalid={!!validationErrors.email}
-          aria-describedby={validationErrors.email ? 'email-error' : undefined}
+          }` aria-invalid={!!validationErrors.email aria-describedby={validationErrors.email ? 'email-error' : undefined}
         />
         {validationErrors.email && (
           <p id="email-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
@@ -363,9 +345,8 @@ export default function ResourceLeadCaptureForm({
         <input
           type="tel"
           id="phone"
-          value={formData.phone}
-          onChange={e => setFormData({ ...formData, phone: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors"
+          value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })
+        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors"
           placeholder={language === 'es' ? '(919) 555-0123' : '(919) 555-0123'}
         />
       </div>
@@ -381,15 +362,13 @@ export default function ResourceLeadCaptureForm({
         <input
           type="text"
           id="zipCode"
-          value={formData.zipCode}
-          onChange={e => setFormData({ ...formData, zipCode: e.target.value })}
-          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors ${
+          value={formData.zipCode} onChange={e => setFormData({ ...formData, zipCode: e.target.value })
+        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors ${
             validationErrors.zipCode ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-          }`}
-          placeholder="27601"
+          }` placeholder="27601"
           maxLength={10}
-          aria-invalid={!!validationErrors.zipCode}
-          aria-describedby={validationErrors.zipCode ? 'zip-error' : undefined}
+
+                aria-invalid={!!validationErrors.zipCode aria-describedby={validationErrors.zipCode ? 'zip-error' : undefined}
         />
         {validationErrors.zipCode && (
           <p id="zip-error" className="mt-1 text-sm text-red-600 dark:text-red-400">
@@ -404,13 +383,10 @@ export default function ResourceLeadCaptureForm({
           <input
             type="checkbox"
             id="privacyConsent"
-            checked={formData.privacyConsent}
-            onChange={e => setFormData({ ...formData, privacyConsent: e.target.checked })}
-            className={`mt-1 w-4 h-4 text-[#6B1F2E] border-gray-300 rounded focus:ring-[#6B1F2E] ${
+            checked={formData.privacyConsent} onChange={e => setFormData({ ...formData, privacyConsent: e.target.checked })
+        className={`mt-1 w-4 h-4 text-[#6B1F2E] border-gray-300 rounded focus:ring-[#6B1F2E] ${
               validationErrors.privacyConsent ? 'border-red-500' : ''
-            }`}
-            aria-invalid={!!validationErrors.privacyConsent}
-            aria-describedby={validationErrors.privacyConsent ? 'privacy-error' : undefined}
+            }` aria-invalid={!!validationErrors.privacyConsent aria-describedby={validationErrors.privacyConsent ? 'privacy-error' : undefined}
           />
           <label htmlFor="privacyConsent" className="text-sm text-gray-600 dark:text-gray-300">
             {t.privacyLabel} *
@@ -427,9 +403,8 @@ export default function ResourceLeadCaptureForm({
           <input
             type="checkbox"
             id="marketingConsent"
-            checked={formData.marketingConsent}
-            onChange={e => setFormData({ ...formData, marketingConsent: e.target.checked })}
-            className="mt-1 w-4 h-4 text-[#6B1F2E] border-gray-300 rounded focus:ring-[#6B1F2E]"
+            checked={formData.marketingConsent} onChange={e => setFormData({ ...formData, marketingConsent: e.target.checked })
+        className="mt-1 w-4 h-4 text-[#6B1F2E] border-gray-300 rounded focus:ring-[#6B1F2E]"
           />
           <label htmlFor="marketingConsent" className="text-sm text-gray-600 dark:text-gray-300">
             {t.marketingLabel}
@@ -438,29 +413,25 @@ export default function ResourceLeadCaptureForm({
       </div>
 
       {/* Error Message */}
-      <AnimatePresence mode="wait">
+      <>
         {error && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg flex items-start gap-3"
+          <div
+className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg flex items-start gap-3"
           >
             <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
             <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
 
       {/* Submit Button */}
       <button
         type="submit"
-        disabled={loading}
-        className="w-full bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] hover:from-[#8B2635] hover:to-[#A02E3F] text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+        disabled={loading className="w-full bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] hover:from-[#8B2635] hover:to-[#A02E3F] text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
       >
         {loading ? (
           <>
-            <Loader2 className="w-5 h-5 animate-spin" />
+            <Loader2} className="w-5 h-5 animate-spin" />
             {t.submitting}
           </>
         ) : (

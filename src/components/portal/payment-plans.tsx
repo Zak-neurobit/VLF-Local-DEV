@@ -95,10 +95,13 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
       {/* Active Plans */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {plans.map(plan => (
-          <div key={plan.id} className="bg-white rounded-lg border border-gray-200 p-6">
+          <div key={plan.id}
+
+                className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h3 className="text-lg font-medium text-gray-900">{plan.name}</h3>
+                <h3
+                className="text-lg font-medium text-gray-900">{plan.name}</h3>
                 <p className="text-sm text-gray-500">{plan.caseTitle}</p>
               </div>
               <span
@@ -154,6 +157,7 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
             <div className="flex space-x-3">
               <button
                 onClick={() => setSelectedPlan(plan)}
+
                 className="flex-1 text-sm text-blue-600 hover:text-blue-700 font-medium"
               >
                 View Schedule
@@ -182,7 +186,8 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
                 </div>
                 <button
                   onClick={() => setSelectedPlan(null)}
-                  className="text-gray-400 hover:text-gray-500"
+
+                className="text-gray-400 hover:text-gray-500"
                 >
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
@@ -212,7 +217,9 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {selectedPlan.schedule.map((payment, index) => (
-                      <tr key={index} className={payment.status === 'overdue' ? 'bg-red-50' : ''}>
+                      <tr key={index}
+
+                className={payment.status === 'overdue' ? 'bg-red-50' : ''}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {formatDate(payment.date)}
                         </td>
@@ -250,7 +257,8 @@ export default function PaymentPlans({ clientId }: PaymentPlansProps) {
               <div className="mt-6 flex justify-end space-x-3">
                 <button
                   onClick={() => setSelectedPlan(null)}
-                  className="px-4 py-2 text-sm border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+
+                className="px-4 py-2 text-sm border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
                 >
                   Close
                 </button>

@@ -331,14 +331,19 @@ export default function WrongfulDeathPage() {
               {content.damageTypes.categories.map((category, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
-                  <h3 className="text-xl font-bold text-primary mb-3">{category.category}</h3>
+                  <h3
+                className="text-xl font-bold text-primary mb-3">{category.category}</h3>
                   <p className="text-gray-300 mb-4">{category.description}</p>
                   <ul className="space-y-2">
                     {category.damages.map((damage, dIndex) => (
-                      <li key={dIndex} className="text-gray-300 text-sm flex items-start gap-2">
-                        <span className="text-primary mt-1">•</span>
+                      <li key={dIndex}
+
+                className="text-gray-300 text-sm flex items-start gap-2">
+                        <span
+                className="text-primary mt-1">•</span>
                         {damage}
                       </li>
                     ))}

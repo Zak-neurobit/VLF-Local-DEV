@@ -147,7 +147,7 @@ export function LazyLoadWrapper({ children, fallback, minHeight = '200px' }: Laz
     <React.Suspense
       fallback={
         fallback || (
-          <div style={{ minHeight }} className="flex items-center justify-center">
+          <div style={{ minHeight}} className="flex items-center justify-center">
             <LoadingSpinner />
           </div>
         )

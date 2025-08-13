@@ -21,14 +21,16 @@ export function InteractiveLink({
   return (
     <Link
       href={href}
-      className={className}
-      style={style}
-      onMouseEnter={e => {
+
+                className={className}
+
+                style={style}
+                onMouseEnter={e => {
         if (hoverStyle) {
           Object.assign(e.currentTarget.style, hoverStyle);
         }
       }}
-      onMouseLeave={e => {
+                onMouseLeave={e => {
         if (style) {
           Object.assign(e.currentTarget.style, style);
         }
@@ -61,16 +63,18 @@ export function InteractiveButton({
   return (
     <a
       href={href}
-      className={className}
-      style={style}
+
+                className={className}
+
+                style={style}
       target={target}
       rel={rel}
-      onMouseEnter={e => {
+                onMouseEnter={e => {
         if (hoverStyle) {
           Object.assign(e.currentTarget.style, hoverStyle);
         }
       }}
-      onMouseLeave={e => {
+                onMouseLeave={e => {
         if (style) {
           Object.assign(e.currentTarget.style, style);
         }

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import Link from 'next/link';
 
 interface ContactCTAProps {
@@ -48,32 +48,17 @@ export function ContactCTA({
       {/* Animated Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[url('/images/justice-pattern.svg')] opacity-10" />
-        <motion.div
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-white/10 blur-3xl"
+        <div
+className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-white/10 blur-3xl"
         />
-        <motion.div
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-black/10 blur-3xl"
+        <div
+className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-black/10 blur-3xl"
         />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center"
+        <div
+className="text-center"
         >
           {/* Main Content */}
           <h2
@@ -90,13 +75,10 @@ export function ContactCTA({
           {features && features.length > 0 && (
             <div className={`mb-${compact ? '8' : '12'} flex flex-wrap justify-center gap-6`}>
               {features.map((feature, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex items-center gap-2 rounded-full bg-white/20 px-6 py-3 backdrop-blur-sm"
+
+                className="flex items-center gap-2 rounded-full bg-white/20 px-6 py-3 backdrop-blur-sm"
                 >
                   <svg className="h-5 w-5 text-[#FFF8E7]" fill="currentColor" viewBox="0 0 20 20">
                     <path
@@ -105,8 +87,9 @@ export function ContactCTA({
                       clipRule="evenodd"
                     />
                   </svg>
-                  <span className="font-semibold text-white">{feature}</span>
-                </motion.div>
+                  <span
+                className="font-semibold text-white">{feature}</span>
+                </div>
               ))}
             </div>
           )}
@@ -114,10 +97,8 @@ export function ContactCTA({
           {/* CTAs */}
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link href={primaryButtonLink}>
-              <motion.button
-                // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                whileTap={{ scale: 0.95 }}
-                className="group relative overflow-hidden rounded-full bg-white px-8 py-4 font-bold text-[#6B1F2E] shadow-2xl transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]"
+              <button
+className="group relative overflow-hidden rounded-full bg-white px-8 py-4 font-bold text-[#6B1F2E] shadow-2xl transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   {primaryButtonText}
@@ -136,14 +117,13 @@ export function ContactCTA({
                   </svg>
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#FFF8E7] to-white opacity-0 transition-opacity group-hover:opacity-100" />
-              </motion.button>
+              </button>
             </Link>
 
-            <motion.a
+            <a
               href={`tel:${secondaryButtonPhone}`}
-              // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-              whileTap={{ scale: 0.95 }}
-              className="group flex items-center gap-3 rounded-full border-2 border-white bg-white/10 px-8 py-4 font-bold text-white backdrop-blur-sm transition-all hover:bg-white hover:text-[#6B1F2E]"
+
+                className="group flex items-center gap-3 rounded-full border-2 border-white bg-white/10 px-8 py-4 font-bold text-white backdrop-blur-sm transition-all hover:bg-white hover:text-[#6B1F2E]"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
@@ -154,54 +134,41 @@ export function ContactCTA({
                 />
               </svg>
               <span>{secondaryButtonText}</span>
-            </motion.a>
+            </a>
           </div>
 
           {/* Office Locations */}
           {showOffices && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+            <div
+className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
             >
               {offices.map((office, index) => (
-                <div key={index} className="rounded-lg bg-white/10 p-4 backdrop-blur-sm">
-                  <h4 className="font-bold text-white">{office.city}</h4>
+                <div key={index}
+
+                className="rounded-lg bg-white/10 p-4 backdrop-blur-sm">
+                  <h4
+                className="font-bold text-white">{office.city}</h4>
                   <p className="text-sm text-white/80">{office.address}</p>
                 </div>
               ))}
-            </motion.div>
+            </div>
           )}
-        </motion.div>
+        </div>
       </div>
 
       {/* Floating Elements */}
       {!compact && (
         <>
-          <motion.div
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="absolute top-10 left-10 text-6xl opacity-20"
+          <div
+className="absolute top-10 left-10 text-6xl opacity-20"
           >
             ⚖️
-          </motion.div>
-          <motion.div
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="absolute bottom-10 right-10 text-6xl opacity-20"
+          </div>
+          <div
+className="absolute bottom-10 right-10 text-6xl opacity-20"
           >
             🛡️
-          </motion.div>
+          </div>
         </>
       )}
     </section>

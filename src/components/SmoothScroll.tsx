@@ -56,8 +56,11 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   }, []);
 
   return (
-    <div ref={scrollRef} className="fixed inset-0 overflow-hidden">
-      <div ref={contentRef}>{children}</div>
+    <div ref={scrollRef}
+
+                className="fixed inset-0 overflow-hidden">
+      <div
+                ref={contentRef}>{children}</div>
     </div>
   );
 }

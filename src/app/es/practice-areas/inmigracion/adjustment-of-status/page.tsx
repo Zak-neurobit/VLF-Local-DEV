@@ -293,9 +293,11 @@ export default function AdjustmentOfStatusPage() {
               {content.adjustmentCategories.categories.map((category, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
-                  <h3 className="text-xl font-bold text-primary mb-3">{category.title}</h3>
+                  <h3
+                className="text-xl font-bold text-primary mb-3">{category.title}</h3>
                   <p className="text-gray-300 mb-4">{category.description}</p>
                   <div className="mb-4">
                     <span className="text-sm font-medium text-white">Processing Time: </span>
@@ -303,8 +305,11 @@ export default function AdjustmentOfStatusPage() {
                   </div>
                   <ul className="space-y-1">
                     {category.benefits.map((benefit, bIndex) => (
-                      <li key={bIndex} className="text-sm text-gray-400 flex items-start gap-2">
-                        <span className="text-primary mt-1">•</span>
+                      <li key={bIndex}
+
+                className="text-sm text-gray-400 flex items-start gap-2">
+                        <span
+                className="text-primary mt-1">•</span>
                         {benefit}
                       </li>
                     ))}

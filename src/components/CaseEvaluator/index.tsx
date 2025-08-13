@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -374,23 +374,21 @@ export default function CaseEvaluator({ language }: CaseEvaluatorProps) {
     <section className="relative bg-gradient-to-br from-black via-[#1a0a0f] to-black py-24">
       <div className="mx-auto max-w-4xl px-4">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          className="mb-12 text-center"
+        <div
+className="mb-12 text-center"
         >
           <h2 className="mb-4 text-5xl font-black text-white">{t.title}</h2>
           <p className="text-xl text-gray-300">{t.subtitle}</p>
-        </motion.div>
+        </div>
 
         {/* Progress Bar */}
         <div className="mb-8">
           <div className="h-2 rounded-full bg-white/10">
-            <motion.div
+            <div
               className="h-full rounded-full bg-gradient-to-r from-[#C9974D] to-[#E5B568]"
-              initial={{ width: 0 }}
-              animate={{ width: `${((step + 1) / t.steps.length) * 100}%` }}
-              transition={{ duration: 0.5 }}
+             }
+             %` }}
+             }
             />
           </div>
           <div className="mt-2 flex justify-between text-sm text-gray-400">
@@ -402,42 +400,39 @@ export default function CaseEvaluator({ language }: CaseEvaluatorProps) {
         </div>
 
         {/* Form Content */}
-        <AnimatePresence mode="wait">
+        <>
           {!showResults && !isCalculating && currentStep && (
-            <motion.div
+            <div
               key={step}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.3 }}
-              className="rounded-2xl bg-white/5 p-8 backdrop-blur-sm"
+
+                className="rounded-2xl bg-white/5 p-8 backdrop-blur-sm"
             >
-              <h3 className="mb-8 text-2xl font-bold text-white">{currentStep.question}</h3>
+              <h3
+                className="mb-8 text-2xl font-bold text-white">{currentStep.question}</h3>
 
               {currentStep.type === 'input' ? (
                 <div>
                   <input
-                    {...register('location')}
-                    type="text"
+                    {...register('location') type="text"
                     placeholder={currentStep.placeholder}
-                    className="w-full rounded-lg bg-white/10 px-4 py-3 text-white placeholder-gray-400 backdrop-blur-sm focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-[#C9974D]"
+      className="w-full rounded-lg bg-white/10 px-4 py-3 text-white placeholder-gray-400 backdrop-blur-sm focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-[#C9974D]"
                   />
                   {errors.location && (
-                    <p className="mt-2 text-sm text-red-400">{errors.location.message}</p>
+                    <p} className="mt-2 text-sm text-red-400">{errors.location.message}</p>
                   )}
                 </div>
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2">
                   {currentStep.options?.map(option => (
-                    <label key={option.value.toString()} className="group relative cursor-pointer">
+                    <label key={option.value.toString() className="group relative cursor-pointer">
                       <input
-                        {...register(currentStep.field as keyof EvaluationData)}
-                        type={currentStep.field === 'previousAttorney' ? 'checkbox' : 'radio'}
-                        value={option.value.toString()}
-                        className="sr-only"
+                        {...register(currentStep.field as keyof EvaluationData) type={currentStep.field === 'previousAttorney' ? 'checkbox' : 'radio' value={option.value.toString()}
+      className="sr-only"
                       />
-                      <div className="rounded-xl border-2 border-white/10 bg-white/5 p-6 transition-all hover:border-[#C9974D]/50 hover:bg-white/10 group-has-[:checked]:border-[#C9974D] group-has-[:checked]:bg-[#C9974D]/20">
-                        <div className="mb-2 text-3xl">{option.icon}</div>
+                      <div
+               } className="rounded-xl border-2 border-white/10 bg-white/5 p-6 transition-all hover:border-[#C9974D]/50 hover:bg-white/10 group-has-[:checked]:border-[#C9974D] group-has-[:checked]:bg-[#C9974D]/20">
+                        <div
+               } className="mb-2 text-3xl">{option.icon}</div>
                         <h4 className="mb-1 font-semibold text-white">{option.label}</h4>
                         <p className="text-sm text-gray-400">{option.description}</p>
                       </div>
@@ -450,9 +445,8 @@ export default function CaseEvaluator({ language }: CaseEvaluatorProps) {
               <div className="mt-8 flex justify-between">
                 <button
                   type="button"
-                  onClick={prevStep}
-                  disabled={step === 0}
-                  className="rounded-full px-6 py-3 font-semibold text-white transition-opacity disabled:opacity-50"
+                  onClick={prevStep disabled={step === 0}
+      className="rounded-full px-6 py-3 font-semibold text-white transition-opacity disabled:opacity-50"
                 >
                   ← Back
                 </button>
@@ -460,69 +454,56 @@ export default function CaseEvaluator({ language }: CaseEvaluatorProps) {
                 {step === t.steps.length - 1 ? (
                   <button
                     type="button"
-                    onClick={handleSubmit(onSubmit)}
-                    className="rounded-full bg-[#C9974D] px-8 py-3 font-semibold text-black transition-all hover:bg-[#E5B568]"
+                    onClick={handleSubmit(onSubmit)} className="rounded-full bg-[#C9974D] px-8 py-3 font-semibold text-black transition-all hover:bg-[#E5B568]"
                   >
                     Get Results
                   </button>
                 ) : (
                   <button
                     type="button"
-                    onClick={nextStep}
-                    className="rounded-full bg-[#C9974D] px-8 py-3 font-semibold text-black transition-all hover:bg-[#E5B568]"
+                    onClick={nextStep} className="rounded-full bg-[#C9974D] px-8 py-3 font-semibold text-black transition-all hover:bg-[#E5B568]"
                   >
                     Next →
                   </button>
                 )}
               </div>
-            </motion.div>
+            </div>
           )}
 
           {/* Calculating Animation */}
           {isCalculating && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="flex min-h-[400px] flex-col items-center justify-center"
+            <div
+className="flex min-h-[400px] flex-col items-center justify-center"
             >
               <div className="mb-8 h-32 w-32">
-                <motion.div
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                  className="h-full w-full rounded-full border-4 border-[#C9974D] border-t-transparent"
+                <div
+className="h-full w-full rounded-full border-4 border-[#C9974D] border-t-transparent"
                 />
               </div>
               <h3 className="text-2xl font-bold text-white">{t.calculating}</h3>
               <div className="mt-4 flex gap-1">
                 {[0, 1, 2].map(i => (
-                  <motion.div
+                  <div
                     key={i}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.2 }}
-                    className="h-2 w-2 rounded-full bg-[#C9974D]"
+
+                className="h-2 w-2 rounded-full bg-[#C9974D]"
                   />
                 ))}
               </div>
-            </motion.div>
+            </div>
           )}
 
           {/* Results */}
           {showResults && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="rounded-2xl bg-gradient-to-br from-[#C9974D]/20 to-transparent p-8 text-center backdrop-blur-sm"
+            <div
+className="rounded-2xl bg-gradient-to-br from-[#C9974D]/20 to-transparent p-8 text-center backdrop-blur-sm"
             >
               <div className="mb-6">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ type: 'spring', duration: 0.5 }}
-                  className="mx-auto mb-4 flex h-32 w-32 items-center justify-center rounded-full bg-[#C9974D]"
+                <div
+className="mx-auto mb-4 flex h-32 w-32 items-center justify-center rounded-full bg-[#C9974D]"
                 >
                   <span className="text-5xl font-black text-black">{eligibility}%</span>
-                </motion.div>
+                </div>
                 <h3 className="mb-2 text-3xl font-bold text-white">
                   {t.results[getResultTier()].title}
                 </h3>
@@ -531,16 +512,14 @@ export default function CaseEvaluator({ language }: CaseEvaluatorProps) {
                 </p>
               </div>
 
-              <motion.button
-                // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                whileTap={{ scale: 0.95 }}
-                className="rounded-full bg-white px-8 py-4 font-bold text-black transition-all hover:bg-gray-100"
+              <button
+className="rounded-full bg-white px-8 py-4 font-bold text-black transition-all hover:bg-gray-100"
               >
                 {t.results[getResultTier()].cta}
-              </motion.button>
-            </motion.div>
+              </button>
+            </div>
           )}
-        </AnimatePresence>
+        </>
       </div>
     </section>
   );

@@ -50,8 +50,7 @@ export default function ClientPortalDashboard({ data }: { data: DashboardData })
         <StatCard
           title="Active Cases"
           value={data.cases.active}
-          subtitle={`${data.cases.total} total cases`}
-          href="/portal/cases?status=active"
+          subtitle={`${data.cases.total} total cases` href="/portal/cases?status=active"
           color="blue"
         />
         <StatCard
@@ -71,8 +70,7 @@ export default function ClientPortalDashboard({ data }: { data: DashboardData })
         <StatCard
           title="Balance Due"
           value={`$${data.billing.outstandingBalance.toLocaleString()}`}
-          subtitle={data.billing.nextPaymentDue ? `Due ${new Date(data.billing.nextPaymentDue.date).toLocaleDateString()}` : ''}
-          href="/portal/billing"
+          subtitle={data.billing.nextPaymentDue ? `Due ${new Date(data.billing.nextPaymentDue.date).toLocaleDateString()}` : '' href="/portal/billing"
           color="purple"
         />
       </div>
@@ -92,16 +90,20 @@ export default function ClientPortalDashboard({ data }: { data: DashboardData })
           ) : (
             <div className="space-y-3">
               {data.appointments.upcoming.slice(0, 3).map((apt) => (
-                <div key={apt.id} className="flex items-center justify-between py-3 border-b last:border-0">
+                <div key={apt.id}
+
+                className="flex items-center justify-between py-3 border-b last:border-0">
                   <div>
-                    <p className="font-medium text-gray-900">{apt.type}</p>
+                    <p
+                className="font-medium text-gray-900">{apt.type}</p>
                     <p className="text-sm text-gray-600">
                       {new Date(apt.date).toLocaleDateString()} at {apt.time} with {apt.attorney}
                     </p>
                   </div>
                   <Link
                     href={`/portal/appointments/${apt.id}`}
-                    className="text-sm text-blue-600 hover:text-blue-700"
+
+                className="text-sm text-blue-600 hover:text-blue-700"
                   >
                     Details
                   </Link>
@@ -125,8 +127,11 @@ export default function ClientPortalDashboard({ data }: { data: DashboardData })
           ) : (
             <div className="space-y-3">
               {data.recentActivity.slice(0, 5).map((activity) => (
-                <div key={activity.id} className="flex items-start space-x-3 py-2">
-                  <ActivityIcon type={activity.type} />
+                <div key={activity.id}
+
+                className="flex items-start space-x-3 py-2">
+                  <ActivityIcon
+                type={activity.type} />
                   <div className="flex-1">
                     <p className="text-sm font-medium text-gray-900">{activity.title}</p>
                     <p className="text-xs text-gray-600">{activity.description}</p>

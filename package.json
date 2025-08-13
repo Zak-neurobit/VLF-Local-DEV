@@ -9,10 +9,12 @@
   "packageManager": "pnpm@10.13.1",
   "scripts": {
     "dev": "node scripts/simple-dev.js",
+    "dev:turbo": "next dev --turbo -p 3002",
     "dev:https": "node server-https.js",
     "dev:fast": "node scripts/dev-fast.js",
     "dev:minimal": "node scripts/unified-dev.js --minimal",
     "dev:mock": "node scripts/unified-dev.js --mock",
+    "clean:cache": "rm -rf .next/cache && rm -rf node_modules/.cache",
     "build": "node scripts/unified-build.js",
     "build:static": "node scripts/unified-build.js --static",
     "build:deploy": "node scripts/unified-build.js --deploy",

@@ -179,9 +179,12 @@ const additionalContent = (
           'Psychological trauma',
           'Wrongful death',
         ].map((injury, index) => (
-          <div key={index} className="flex items-center gap-2">
+          <div key={index}
+
+                className="flex items-center gap-2">
             <Shield className="w-5 h-5 text-primary" />
-            <span className="text-gray-300">{injury}</span>
+            <span
+                className="text-gray-300">{injury}</span>
           </div>
         ))}
       </div>

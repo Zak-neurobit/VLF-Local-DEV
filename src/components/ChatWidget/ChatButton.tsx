@@ -17,7 +17,8 @@ export const ChatButton: React.FC<ChatButtonProps> = ({ onClick, language = 'en'
   return (
     <button
       onClick={onClick}
-      className="fixed bottom-6 right-6 bg-gradient-to-r from-primary to-primary-dark text-white rounded-full p-4 shadow-2xl hover:scale-110 transition-all duration-300 hover:shadow-primary/50 group z-50"
+
+                className="fixed bottom-6 right-6 bg-gradient-to-r from-primary to-primary-dark text-white rounded-full p-4 shadow-2xl hover:scale-110 transition-all duration-300 hover:shadow-primary/50 group z-50"
       aria-label={labels[language]}
     >
       <div className="relative">

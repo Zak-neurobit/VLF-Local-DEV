@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { RetellWebClient } from 'retell-client-js-sdk';
 import { toast } from 'react-hot-toast';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Phone, PhoneOff, Mic, MicOff, Loader2, X, Volume2, VolumeX } from 'lucide-react';
 
 interface IsolatedRetellClientProps {
@@ -357,65 +357,36 @@ export const IsolatedRetellClient: React.FC<IsolatedRetellClientProps> = ({
   if (!isActive || !portalElement) return null;
 
   const modalContent = (
-    <AnimatePresence>
+    <>
       {isActive && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100000] flex items-center justify-center p-4"
-          style={{
-            background: 'rgba(0, 0, 0, 0.7)',
-            backdropFilter: 'blur(10px)',
-          }}
+        <div
+className="fixed inset-0 z-[100000] flex items-center justify-center p-4"
+
         >
           {/* Glassmorphic Card */}
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-md"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
-              backdropFilter: 'blur(20px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              borderRadius: '24px',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.1)',
-            }}
+          <div
+className="relative w-full max-w-md"
+
           >
             {/* Animated gradient background */}
             <div
               className="absolute inset-0 rounded-3xl opacity-50"
-              style={{
-                background: 'linear-gradient(45deg, #FFD700, #FFA500, #FF6347, #FFD700)',
-                backgroundSize: '300% 300%',
-                animation: 'liquidGlass 8s ease infinite',
-                filter: 'blur(40px)',
-                zIndex: -1,
-              }}
+             }
             />
 
             {/* Content */}
             <div className="relative p-8">
               {/* Close button */}
-              <button
-                onClick={onClose}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 transition-colors"
+              <button onClick={onClose} className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 transition-colors"
                 title="Close window"
               >
-                <X className="w-5 h-5 text-white/70" />
+                <X} className="w-5 h-5 text-white/70" />
               </button>
 
               {/* Header */}
               <div className="text-center mb-6">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-4"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.3))',
-                    backdropFilter: 'blur(10px)',
-                    border: '2px solid rgba(255, 215, 0, 0.5)',
-                  }}
+
                 >
                   {isConnecting ? (
                     <Loader2 className="w-10 h-10 text-white animate-spin" />
@@ -443,9 +414,9 @@ export const IsolatedRetellClient: React.FC<IsolatedRetellClientProps> = ({
                 {animatedBars.map((height, index) => (
                   <div
                     key={index}
-                    className="w-1 bg-gradient-to-t from-gold-400 to-gold-600 rounded-full transition-all duration-150"
-                    style={{
-                      height: `${isMuted ? 5 : height}%`,
+
+                className="w-1 bg-gradient-to-t from-gold-400 to-gold-600 rounded-full transition-all duration-150"
+                   %`,
                       opacity: isConnected ? (isMuted ? 0.3 : 1) : 0.3,
                     }}
                   />
@@ -474,8 +445,7 @@ export const IsolatedRetellClient: React.FC<IsolatedRetellClientProps> = ({
                   <>
                     {/* Mute Button */}
                     <button
-                      onClick={toggleMute}
-                      className={`p-4 rounded-full transition-all ${
+                      onClick={toggleMute} className={`p-4 rounded-full transition-all ${
                         isMuted 
                           ? 'bg-red-500/30 hover:bg-red-500/40 border-2 border-red-500/50' 
                           : 'bg-white/10 hover:bg-white/20 border-2 border-white/30'
@@ -493,7 +463,8 @@ export const IsolatedRetellClient: React.FC<IsolatedRetellClientProps> = ({
                     <div className="relative">
                       <button
                         onClick={() => setShowVolumeSlider(!showVolumeSlider)}
-                        className="p-4 rounded-full bg-white/10 hover:bg-white/20 border-2 border-white/30 transition-all"
+
+                className="p-4 rounded-full bg-white/10 hover:bg-white/20 border-2 border-white/30 transition-all"
                         title={t[language].volume}
                       >
                         {volume === 0 ? (
@@ -504,14 +475,11 @@ export const IsolatedRetellClient: React.FC<IsolatedRetellClientProps> = ({
                       </button>
                       
                       {/* Volume Slider */}
-                      <AnimatePresence>
+                      <>
                         {showVolumeSlider && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 10 }}
-                            className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-black/80 rounded-lg p-3"
-                            style={{ minWidth: '120px' }}
+                          <div
+className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-black/80 rounded-lg p-3"
+
                           >
                             <div className="text-white/70 text-xs mb-2 text-center">
                               {t[language].volume}: {volume}%
@@ -520,31 +488,29 @@ export const IsolatedRetellClient: React.FC<IsolatedRetellClientProps> = ({
                               type="range"
                               min="0"
                               max="100"
-                              value={volume}
-                              onChange={(e) => handleVolumeChange(parseInt(e.target.value))}
-                              className="w-full"
-                              style={{
-                                background: `linear-gradient(to right, #FFD700 0%, #FFD700 ${volume}%, #333 ${volume}%, #333 100%)`,
+                              value={volume} onChange={(e) => handleVolumeChange(parseInt(e.target.value))}
+
+                className="w-full"
+                             %, #333 ${volume}%, #333 100%)`,
                               }}
                             />
-                          </motion.div>
+                          </div>
                         )}
-                      </AnimatePresence>
+                      </>
                     </div>
 
                     {/* End Call Button */}
-                    <button
-                      onClick={handleEndCall}
-                      className="px-6 py-4 rounded-full bg-red-500/20 hover:bg-red-500/30 border-2 border-red-500/50 transition-all flex items-center gap-2"
+                    <button onClick={handleEndCall}
+      className="px-6 py-4 rounded-full bg-red-500/20 hover:bg-red-500/30 border-2 border-red-500/50 transition-all flex items-center gap-2"
                     >
-                      <PhoneOff className="w-6 h-6 text-red-400" />
-                      <span className="text-red-400 font-medium">{t[language].endCall}</span>
+                      <PhoneOff} className="w-6 h-6 text-red-400" />
+                      <span} className="text-red-400 font-medium">{t[language].endCall}</span>
                     </button>
                   </>
                 )}
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Animation keyframes */}
           <style jsx>{`
@@ -554,9 +520,9 @@ export const IsolatedRetellClient: React.FC<IsolatedRetellClientProps> = ({
               100% { background-position: 0% 50%; }
             }
           `}</style>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 
   return createPortal(modalContent, portalElement);

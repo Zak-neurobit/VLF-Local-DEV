@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import {
   Clock,
   Calendar,
@@ -130,7 +130,7 @@ export const BlogPageTemplate: React.FC<BlogPageTemplateProps> = ({
       <>
         {/* Reading Progress Bar */}
         <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
-          <motion.div className="h-full bg-blue-600" style={{ width: `${readingProgress}%` }} />
+          <div className="h-full bg-blue-600" style={{ width: `${readingProgress}%` }} />
         </div>
 
         {/* Article Header */}
@@ -140,6 +140,7 @@ export const BlogPageTemplate: React.FC<BlogPageTemplateProps> = ({
               {/* Category Badge */}
               <Link
                 href={`/blog/category/${currentPost.practiceArea}`}
+
                 className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-4"
               >
                 <span className="text-lg mr-2">
@@ -210,7 +211,8 @@ export const BlogPageTemplate: React.FC<BlogPageTemplateProps> = ({
                   {currentPost.tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+
+                className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
                     >
                       #{tag}
                     </span>
@@ -271,6 +273,7 @@ export const BlogPageTemplate: React.FC<BlogPageTemplateProps> = ({
               <Filter className="w-5 h-5 text-gray-600 flex-shrink-0" />
               <button
                 onClick={() => setSelectedCategory('all')}
+
                 className={cn(
                   'px-4 py-2 rounded-full whitespace-nowrap transition-all',
                   selectedCategory === 'all'
@@ -283,8 +286,10 @@ export const BlogPageTemplate: React.FC<BlogPageTemplateProps> = ({
               {categories.map(category => (
                 <button
                   key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={cn(
+
+                onClick={() => setSelectedCategory(category.id)}
+
+                className={cn(
                     'px-4 py-2 rounded-full whitespace-nowrap transition-all flex items-center gap-2',
                     selectedCategory === category.id
                       ? 'bg-blue-600 text-white'
@@ -326,8 +331,10 @@ export const BlogPageTemplate: React.FC<BlogPageTemplateProps> = ({
                       (topic, index) => (
                         <button
                           key={index}
-                          onClick={() => setSearchQuery(topic)}
-                          className="block w-full text-left text-gray-700 hover:text-blue-600 transition-colors"
+
+                onClick={() => setSearchQuery(topic)}
+
+                className="block w-full text-left text-gray-700 hover:text-blue-600 transition-colors"
                         >
                           {topic}
                         </button>
@@ -379,11 +386,8 @@ const BlogCard: React.FC<{ post: BlogPost; language: 'en' | 'es' }> = ({ post, l
         };
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all overflow-hidden"
+    <article
+className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all overflow-hidden"
     >
       {post.featuredImage && (
         <div className="aspect-video bg-gray-200">{/* Featured image would go here */}</div>
@@ -410,7 +414,9 @@ const BlogCard: React.FC<{ post: BlogPost; language: 'en' | 'es' }> = ({ post, l
         </div>
 
         <h2 className="text-2xl font-bold text-gray-900 mb-3">
-          <Link href={`/blog/${post.slug}`} className="hover:text-blue-600 transition-colors">
+          <Link href={`/blog/${post.slug}`}
+
+                className="hover:text-blue-600 transition-colors">
             {post.title}
           </Link>
         </h2>
@@ -425,14 +431,15 @@ const BlogCard: React.FC<{ post: BlogPost; language: 'en' | 'es' }> = ({ post, l
 
           <Link
             href={`/blog/${post.slug}`}
-            className="flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700"
+
+                className="flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700"
           >
             {t.readMore}
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 };
 

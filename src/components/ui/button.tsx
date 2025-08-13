@@ -150,9 +150,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       const { type, ...anchorProps } = props as any;
       return (
         <a
-          className={commonClasses}
-          href={href}
-          ref={ref as React.Ref<HTMLAnchorElement>}
+          className={commonClasses href={href}
+
+                ref={ref as React.Ref<HTMLAnchorElement>}
           {...anchorProps}
         >
           {content}
@@ -162,10 +162,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <button
-        className={commonClasses}
-        ref={ref}
-        disabled={disabled || loading}
-        type="button"
+        className={commonClasses ref={ref}
+
+                disabled={disabled || loading}
+
+                type="button"
         {...props}
       >
         {content}

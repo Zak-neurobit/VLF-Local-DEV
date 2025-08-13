@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { logger } from '@/lib/safe-logger';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Mail, Phone, User, MessageSquare, MapPin, CheckCircle2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { contactFormSchema, ContactFormData } from '@/lib/validations/forms';
@@ -175,24 +175,19 @@ export function ContactForm({ language = 'en', onSuccess }: ContactFormProps) {
 
   if (isSubmitted) {
     return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="bg-white rounded-lg shadow-xl p-8 text-center"
+      <div
+className="bg-white rounded-lg shadow-xl p-8 text-center"
       >
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ type: 'spring', duration: 0.5 }}
-          className="mb-6"
+        <div
+className="mb-6"
         >
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-10 h-10 text-green-600" />
           </div>
-        </motion.div>
+        </div>
         <h3 className="text-2xl font-bold text-gray-900 mb-2">{t.success}</h3>
         <p className="text-gray-600">{t.successMessage}</p>
-      </motion.div>
+      </div>
     );
   }
 
@@ -207,25 +202,22 @@ export function ContactForm({ language = 'en', onSuccess }: ContactFormProps) {
 
           <FormField
             name="name"
-            label={t.name}
-            type="text"
+            label={t.name type="text"
             required
-            icon={<User className="w-5 h-5" />}
+            icon={<User} className="w-5 h-5" />}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               name="email"
-              label={t.email}
-              type="email"
+              label={t.email type="email"
               required
               icon={<Mail className="w-5 h-5" />}
             />
 
             <FormField
               name="phone"
-              label={t.phone}
-              type="tel"
+              label={t.phone type="tel"
               required
               placeholder="(123) 456-7890"
               icon={<Phone className="w-5 h-5" />}
@@ -234,8 +226,7 @@ export function ContactForm({ language = 'en', onSuccess }: ContactFormProps) {
 
           <FormField
             name="caseType"
-            label={t.caseType}
-            type="select"
+            label={t.caseType type="select"
             required
             placeholder={t.selectCase}
             options={caseTypes}
@@ -243,8 +234,7 @@ export function ContactForm({ language = 'en', onSuccess }: ContactFormProps) {
 
           <FormField
             name="location"
-            label={t.location}
-            type="select"
+            label={t.location type="select"
             placeholder={t.selectLocation}
             options={locations}
             icon={<MapPin className="w-5 h-5" />}
@@ -252,8 +242,7 @@ export function ContactForm({ language = 'en', onSuccess }: ContactFormProps) {
 
           <FormField
             name="message"
-            label={t.message}
-            type="textarea"
+            label={t.message type="textarea"
             required
             rows={4}
             icon={<MessageSquare className="w-5 h-5" />}
@@ -261,8 +250,7 @@ export function ContactForm({ language = 'en', onSuccess }: ContactFormProps) {
 
           <FormField
             name="preferredContact"
-            label={t.preferredContact}
-            type="radio"
+            label={t.preferredContact type="radio"
             options={contactMethods}
           />
 

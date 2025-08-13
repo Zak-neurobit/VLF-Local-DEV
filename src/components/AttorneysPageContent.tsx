@@ -127,6 +127,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                 key={attorney.id}
                 onMouseEnter={() => setHoveredAttorney(attorney.id)}
                 onMouseLeave={() => setHoveredAttorney(null)}
+
                 className="group relative animate-slideUp"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
@@ -139,7 +140,8 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                   <div className="h-80 relative overflow-hidden">
                     <Image
                       src={attorney.image}
-                      alt={attorney.name}
+
+                alt={attorney.name}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-300"
                     />
@@ -167,7 +169,8 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                         {attorney.practiceAreas.slice(0, 3).map(specialty => (
                           <span
                             key={specialty}
-                            className="px-3 py-1 bg-primary/10 text-xs text-primary rounded-full border border-primary/20"
+
+                className="px-3 py-1 bg-primary/10 text-xs text-primary rounded-full border border-primary/20"
                           >
                             {specialty}
                           </span>
@@ -188,7 +191,8 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
 
                     <Link
                       href={`/attorneys/${attorneySlugMap[attorney.slug || attorney.id] || attorney.slug || attorney.id}`}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-full hover:bg-primary-300 transition-all font-bold group-hover:scale-105"
+
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-full hover:bg-primary-300 transition-all font-bold group-hover:scale-105"
                     >
                       {t.viewProfile}
                       <ArrowRight className="w-4 h-4" />
@@ -247,6 +251,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
             ].map((item, index) => (
               <div
                 key={index}
+
                 className="relative group animate-slideUp"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
@@ -301,6 +306,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
             ].map((feature, index) => (
               <div
                 key={index}
+
                 className="text-center animate-slideUp"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
@@ -352,8 +358,10 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       {attorneys.map(attorney => (
         <Script
           key={attorney.id}
-          id={`attorney-schema-${attorney.id}`}
-          type="application/ld+json"
+
+                id={`attorney-schema-${attorney.id}`}
+
+                type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(generateAttorneySchema(attorney)),
           }}

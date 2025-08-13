@@ -326,14 +326,19 @@ export default function DacaPage() {
               {content.dacaRequirements.requirements.map((req, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
-                  <h3 className="text-xl font-bold text-primary mb-3">{req.title}</h3>
+                  <h3
+                className="text-xl font-bold text-primary mb-3">{req.title}</h3>
                   <p className="text-gray-300 mb-4">{req.description}</p>
                   <ul className="space-y-1">
                     {req.details.map((detail, dIndex) => (
-                      <li key={dIndex} className="text-sm text-gray-400 flex items-start gap-2">
-                        <span className="text-primary mt-1">•</span>
+                      <li key={dIndex}
+
+                className="text-sm text-gray-400 flex items-start gap-2">
+                        <span
+                className="text-primary mt-1">•</span>
                         {detail}
                       </li>
                     ))}

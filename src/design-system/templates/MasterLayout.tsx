@@ -4,7 +4,6 @@ import React from 'react';
 import { ConsistentHeader } from '../components/ConsistentHeader';
 import { ConsistentFooter } from '../components/ConsistentFooter';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { NewsTicker } from '@/components/ui/news-ticker';
 import { ClientOnlyWrapper } from '@/components/ClientOnlyWrapper';
@@ -94,7 +93,9 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
               <nav className="flex" aria-label="Breadcrumb">
                 <ol className="flex items-center space-x-2 text-sm">
                   {getBreadcrumbs().map((crumb, index, array) => (
-                    <li key={crumb.href} className="flex items-center">
+                    <li key={crumb.href}
+
+                className="flex items-center">
                       {index > 0 && (
                         <svg
                           className="flex-shrink-0 h-4 w-4 text-gray-400 mx-2"
@@ -113,7 +114,8 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
                       ) : (
                         <Link
                           href={crumb.href}
-                          className="text-gray-400 hover:text-primary transition-colors"
+
+                className="text-gray-400 hover:text-primary transition-colors"
                         >
                           {crumb.name}
                         </Link>
@@ -126,13 +128,9 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
           </div>
         )}
         <main className="flex-grow relative">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
+          <div className="animate-fadeIn">
             {children}
-          </motion.div>
+          </div>
         </main>
         <ConsistentFooter language={currentLanguage} />
       </div>

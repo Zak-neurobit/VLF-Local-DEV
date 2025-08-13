@@ -21,7 +21,8 @@ export function MegaFooterLinks() {
                   <li key={linkIndex}>
                     <Link
                       href={link.href}
-                      className={`
+
+                className={`
                         text-sm transition-colors
                         ${
                           link.priority

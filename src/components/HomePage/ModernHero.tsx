@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import HeroScene from '@/components/hero/HeroScene';
 import HeroStats from '@/components/hero/HeroStats';
@@ -90,7 +90,9 @@ export default function ModernHero({ language }: ModernHeroProps) {
   const t = content[language];
 
   return (
-    <section ref={containerRef} className="relative min-h-screen overflow-hidden bg-black">
+    <section ref={containerRef}
+
+                className="relative min-h-screen overflow-hidden bg-black">
       {/* 3D Background */}
       <HeroScene />
 
@@ -98,9 +100,8 @@ export default function ModernHero({ language }: ModernHeroProps) {
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/90 via-black/80 to-black" />
 
       {/* Main Content */}
-      <motion.div
-        style={{ y, opacity }}
-        className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 text-center"
+      <div
+className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 text-center"
       >
         {/* Veteran Badge */}
         <VeteranBadge text={t.badge} />
@@ -119,7 +120,7 @@ export default function ModernHero({ language }: ModernHeroProps) {
 
         {/* Testimonial Carousel */}
         <HeroTestimonials testimonials={t.testimonials} />
-      </motion.div>
+      </div>
 
       {/* Scroll Indicator */}
       <ScrollIndicator />

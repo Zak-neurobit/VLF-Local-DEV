@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+
 import Link from 'next/link';
 import { ArrowRight, Phone, Mail, Shield, Award, Users, Clock } from 'lucide-react';
 
@@ -29,30 +29,28 @@ const PersonalInjuryPageClient: React.FC = () => {
         <div className="absolute inset-0 bg-[url('/images/legal-pattern.png')] opacity-10"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-          <motion.div 
+          <div 
             className="grid lg:grid-cols-2 gap-12 items-center"
-            initial="initial"
-            animate="animate"
-            variants={staggerContainer}
+
           >
             <div className="space-y-8">
-              <motion.div variants={fadeInUp}>
+              <div>
                 <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
                   Injured in an Accident?
                   <span className="block text-primary">We Fight for the Compensation You Deserve</span>
                 </h1>
-              </motion.div>
+              </div>
               
-              <motion.p 
+              <p 
                 className="text-xl lg:text-2xl text-gray-200 leading-relaxed"
-                variants={fadeInUp}
+               
               >
                 With over 30 years of experience, our expert personal injury attorneys have recovered millions for our clients. Don't settle for less than you deserve.
-              </motion.p>
+              </p>
               
-              <motion.div 
+              <div 
                 className="flex flex-col sm:flex-row gap-4"
-                variants={fadeInUp}
+               
               >
                 <Link
                   href="/contact"
@@ -68,11 +66,11 @@ const PersonalInjuryPageClient: React.FC = () => {
                   <Phone className="mr-2 h-5 w-5" />
                   Call 1-844-YO-PELEO
                 </a>
-              </motion.div>
+              </div>
               
-              <motion.div 
+              <div 
                 className="flex items-center space-x-6 text-sm"
-                variants={fadeInUp}
+               
               >
                 <div className="flex items-center">
                   <Clock className="h-4 w-4 mr-1" />
@@ -86,12 +84,12 @@ const PersonalInjuryPageClient: React.FC = () => {
                   <Award className="h-4 w-4 mr-1" />
                   No Fee Unless We Win
                 </div>
-              </motion.div>
+              </div>
             </div>
             
-            <motion.div 
+            <div 
               className="relative"
-              variants={fadeInUp}
+             
             >
               <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
                 <div className="text-center space-y-6">
@@ -104,20 +102,20 @@ const PersonalInjuryPageClient: React.FC = () => {
                   </p>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Practice Areas Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
+          <div 
             className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+           }
+           }
+           }
+           }
           >
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               Our Personal Injury <span className="text-primary">Expertise</span>
@@ -125,14 +123,13 @@ const PersonalInjuryPageClient: React.FC = () => {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We handle all types of personal injury cases with the dedication and expertise you need to win.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div 
+          <div 
             className="grid md:grid-cols-3 gap-8"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={staggerContainer}
+
+           }
+           
           >
             {[
               {
@@ -154,56 +151,59 @@ const PersonalInjuryPageClient: React.FC = () => {
                 features: ["Boat Collisions", "Jet Ski Accidents", "Swimming Incidents", "Dock Accidents", "Water Sports Injuries"]
               }
             ].map((area, index) => (
-              <motion.div
+              <div
                 key={index}
-                variants={fadeInUp}
+
                 className="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-shadow"
               >
-                <div className="text-4xl mb-4">{area.icon}</div>
+                <div
+                className="text-4xl mb-4">{area.icon}</div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">{area.title}</h3>
                 <p className="text-gray-600 mb-6">{area.description}</p>
                 <ul className="space-y-2">
                   {area.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-gray-700">
-                      <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                    <li key={idx}
+
+                className="flex items-center text-sm text-gray-700">
+                      <div
+                className="w-2 h-2 bg-primary rounded-full mr-3"></div>
                       {feature}
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Compensation Section */}
       <section className="py-20 bg-secondary text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
+          <div 
             className="grid lg:grid-cols-2 gap-12 items-center"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={staggerContainer}
+
+           }
+           
           >
             <div>
-              <motion.h2 
+              <h2 
                 className="text-4xl lg:text-5xl font-bold mb-8"
-                variants={fadeInUp}
+               
               >
                 Maximum <span className="text-primary">Compensation</span> Recovery
-              </motion.h2>
-              <motion.p 
+              </h2>
+              <p 
                 className="text-xl text-gray-200 mb-8"
-                variants={fadeInUp}
+               
               >
                 We fight to recover every dollar you're entitled to. Our experienced team knows how to value your case and negotiate with insurance companies.
-              </motion.p>
+              </p>
             </div>
             
-            <motion.div 
+            <div 
               className="grid grid-cols-2 gap-6"
-              variants={fadeInUp}
+             
             >
               {[
                 { label: "Medical Expenses", icon: "🏥" },
@@ -213,37 +213,39 @@ const PersonalInjuryPageClient: React.FC = () => {
                 { label: "Property Damage", icon: "🔧" },
                 { label: "Emotional Distress", icon: "🧠" }
               ].map((item, index) => (
-                <div key={index} className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center border border-white/20">
-                  <div className="text-2xl mb-2">{item.icon}</div>
+                <div key={index}
+
+                className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center border border-white/20">
+                  <div
+                className="text-2xl mb-2">{item.icon}</div>
                   <div className="font-semibold">{item.label}</div>
                 </div>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
+          <div 
             className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+           }
+           }
+           }
+           }
           >
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               Why Choose <span className="text-primary">Vasquez Law Firm?</span>
             </h2>
-          </motion.div>
+          </div>
 
-          <motion.div 
+          <div 
             className="grid md:grid-cols-4 gap-8"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={staggerContainer}
+
+           }
+           
           >
             {[
               {
@@ -267,31 +269,28 @@ const PersonalInjuryPageClient: React.FC = () => {
                 icon: <Clock className="h-8 w-8" />
               }
             ].map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
-                variants={fadeInUp}
+
                 className="text-center p-6"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary text-black rounded-full mb-4">
+                <div
+                className="inline-flex items-center justify-center w-16 h-16 bg-primary text-black rounded-full mb-4">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-primary via-primary-400 to-primary-600 text-black">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8"
+          <div
+className="space-y-8"
           >
             <h2 className="text-4xl lg:text-5xl font-bold">
               Schedule Your Free Consultation Today
@@ -318,7 +317,7 @@ const PersonalInjuryPageClient: React.FC = () => {
             <p className="text-sm opacity-90">
               Available 24/7 • Virtual and In-Person Consultations • Hablamos Español
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 

@@ -1,10 +1,8 @@
-import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
 export function useMagneticHover() {
   const [isHovered, setIsHovered] = useState(false);
-  
-    
+
   return {
     springs,
     onMouseEnter: () => setIsHovered(true),

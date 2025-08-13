@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from 'react';
-import { useMotionValue, useTransform } from 'framer-motion';
 
 export function useParallax(speed: number = 0.5) {
   const [scrollY, setScrollY] = useState(0);

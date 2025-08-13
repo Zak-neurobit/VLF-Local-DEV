@@ -380,8 +380,7 @@ export function HreflangTags({ customPath }: HreflangGeneratorProps) {
         <link
           key={`${entry.hreflang}-${index}`}
           rel="alternate"
-          hrefLang={entry.hreflang}
-          href={entry.href}
+          hrefLang={entry.hreflang} href={entry.href}
         />
       ))}
     </>

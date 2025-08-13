@@ -112,6 +112,7 @@ export default function FirmHighlights({ language }: FirmHighlightsProps) {
             return (
               <div
                 key={index}
+
                 className="card-professional group relative overflow-hidden hover:border-gold-400 animate-slideUp"
                 style={{ animationDelay: `${index * 100}ms` }}
               >

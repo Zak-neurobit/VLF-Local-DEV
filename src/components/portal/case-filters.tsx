@@ -58,8 +58,7 @@ export default function CaseFilters({ filters, onFiltersChange }: CaseFiltersPro
         <h3 className="text-lg font-medium text-gray-900">Filters</h3>
         {hasActiveFilters && (
           <button
-            onClick={clearFilters}
-            className="text-sm text-blue-600 hover:text-blue-700"
+            onClick={clearFilters} className="text-sm text-blue-600 hover:text-blue-700"
           >
             Clear all
           </button>
@@ -78,8 +77,10 @@ export default function CaseFilters({ filters, onFiltersChange }: CaseFiltersPro
               return (
                 <button
                   key={option.value}
-                  onClick={() => toggleStatus(option.value)}
-                  className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+
+                onClick={() => toggleStatus(option.value)}
+
+                className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
                     isActive
                       ? `bg-${option.color}-100 text-${option.color}-800`
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -104,12 +105,14 @@ export default function CaseFilters({ filters, onFiltersChange }: CaseFiltersPro
           </label>
           <select
             id="practice-area"
-            value={filters.practiceArea}
-            onChange={(e) => onFiltersChange({ ...filters, practiceArea: e.target.value })}
-            className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+            value={filters.practiceArea} onChange={(e) => onFiltersChange({ ...filters, practiceArea: e.target.value })}
+
+                className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
           >
             {practiceAreas.map((area) => (
-              <option key={area.value} value={area.value}>
+              <option key={area.value}
+
+                value={area.value}>
                 {area.label}
               </option>
             ))}
@@ -129,16 +132,13 @@ export default function CaseFilters({ filters, onFiltersChange }: CaseFiltersPro
               <input
                 type="date"
                 id="start-date"
-                value={filters.dateRange?.start || ''}
-                onChange={(e) => {
+                value={filters.dateRange?.start || ''} onChange={(e) => {
                   const start = e.target.value;
                   const end = filters.dateRange?.end || '';
                   onFiltersChange({
                     ...filters,
                     dateRange: start || end ? { start, end } : null,
-                  });
-                }}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  }); className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 placeholder="Start date"
               />
             </div>
@@ -149,16 +149,13 @@ export default function CaseFilters({ filters, onFiltersChange }: CaseFiltersPro
               <input
                 type="date"
                 id="end-date"
-                value={filters.dateRange?.end || ''}
-                onChange={(e) => {
+                value={filters.dateRange?.end || ''} onChange={(e) => {
                   const end = e.target.value;
                   const start = filters.dateRange?.start || '';
                   onFiltersChange({
                     ...filters,
                     dateRange: start || end ? { start, end } : null,
-                  });
-                }}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  }); className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 placeholder="End date"
               />
             </div>

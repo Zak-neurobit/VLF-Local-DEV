@@ -279,7 +279,9 @@ export default function GMBPage() {
           <Select value={selectedLocation} onChange={e => setSelectedLocation(e.target.value)}>
             <SelectOption value="">Select a location</SelectOption>
             {locations.map(location => (
-              <SelectOption key={location.id} value={location.id}>
+              <SelectOption key={location.id}
+
+                value={location.id}>
                 {location.name} - {location.address}
               </SelectOption>
             ))}
@@ -467,9 +469,12 @@ export default function GMBPage() {
                   <CardContent>
                     <ul className="space-y-2">
                       {analytics?.insights?.map((insight: string, index: number) => (
-                        <li key={index} className="flex items-start gap-2">
+                        <li key={index}
+
+                className="flex items-start gap-2">
                           <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                          <span className="text-sm">{insight}</span>
+                          <span
+                className="text-sm">{insight}</span>
                         </li>
                       ))}
                     </ul>
@@ -486,9 +491,12 @@ export default function GMBPage() {
                   <CardContent>
                     <ul className="space-y-2">
                       {analytics?.recommendations?.map((rec: string, index: number) => (
-                        <li key={index} className="flex items-start gap-2">
+                        <li key={index}
+
+                className="flex items-start gap-2">
                           <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                          <span className="text-sm">{rec}</span>
+                          <span
+                className="text-sm">{rec}</span>
                         </li>
                       ))}
                     </ul>
@@ -547,9 +555,11 @@ export default function GMBPage() {
                         ) => (
                           <div
                             key={index}
-                            className="flex justify-between items-center p-3 border rounded-lg"
+
+                className="flex justify-between items-center p-3 border rounded-lg"
                           >
-                            <span className="font-medium">{query.query}</span>
+                            <span
+                className="font-medium">{query.query}</span>
                             <div className="text-right">
                               <p className="text-sm text-gray-600">
                                 {query.impressions} impressions
@@ -609,8 +619,7 @@ export default function GMBPage() {
                   <div>
                     <Label htmlFor="post-type">Post Type</Label>
                     <Select
-                      value={newPost.type}
-                      onChange={e => setNewPost({ ...newPost, type: e.target.value })}
+                      value={newPost.type} onChange={e => setNewPost({ ...newPost, type: e.target.value })}
                     >
                       <SelectOption value="update">Update</SelectOption>
                       <SelectOption value="event">Event</SelectOption>
@@ -623,9 +632,8 @@ export default function GMBPage() {
                     <Label htmlFor="post-title">Title</Label>
                     <Input
                       id="post-title"
-                      value={newPost.title}
-                      onChange={e => setNewPost({ ...newPost, title: e.target.value })}
-                      placeholder="Enter post title..."
+                      value={newPost.title} onChange={e => setNewPost({ ...newPost, title: e.target.value })
+        placeholder="Enter post title..."
                       maxLength={300}
                     />
                   </div>
@@ -635,9 +643,8 @@ export default function GMBPage() {
                   <Label htmlFor="post-content">Content</Label>
                   <Textarea
                     id="post-content"
-                    value={newPost.content}
-                    onChange={e => setNewPost({ ...newPost, content: e.target.value })}
-                    placeholder="Enter post content..."
+                    value={newPost.content} onChange={e => setNewPost({ ...newPost, content: e.target.value })
+        placeholder="Enter post content..."
                     rows={4}
                     maxLength={1500}
                   />
@@ -650,8 +657,7 @@ export default function GMBPage() {
                   <div>
                     <Label htmlFor="cta-type">Call to Action</Label>
                     <Select
-                      value={newPost.callToAction.type}
-                      onChange={e =>
+                      value={newPost.callToAction.type} onChange={e =>
                         setNewPost({
                           ...newPost,
                           callToAction: { ...newPost.callToAction, type: e.target.value },
@@ -670,14 +676,12 @@ export default function GMBPage() {
                       <Label htmlFor="cta-url">CTA URL</Label>
                       <Input
                         id="cta-url"
-                        value={newPost.callToAction.url}
-                        onChange={e =>
+                        value={newPost.callToAction.url} onChange={e =>
                           setNewPost({
                             ...newPost,
                             callToAction: { ...newPost.callToAction, url: e.target.value },
                           })
-                        }
-                        placeholder="https://..."
+        placeholder="https://..."
                       />
                     </div>
                   )}
@@ -700,9 +704,12 @@ export default function GMBPage() {
               <CardContent>
                 <div className="space-y-4">
                   {posts.map(post => (
-                    <div key={post.id} className="p-4 border rounded-lg">
+                    <div key={post.id}
+
+                className="p-4 border rounded-lg">
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-medium">{post.title}</h4>
+                        <h4
+                className="font-medium">{post.title}</h4>
                         <Badge variant="outline">{post.type}</Badge>
                       </div>
                       <p className="text-gray-600 text-sm mb-3">{post.content}</p>
@@ -792,8 +799,11 @@ export default function GMBPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                     {selectedLocationData.hours &&
                       Object.entries(selectedLocationData.hours).map(([day, hours]) => (
-                        <div key={day} className="flex justify-between p-2 border rounded">
-                          <span className="capitalize font-medium">{day}</span>
+                        <div key={day}
+
+                className="flex justify-between p-2 border rounded">
+                          <span
+                className="capitalize font-medium">{day}</span>
                           <span className="text-gray-600">
                             {hours.closed ? 'Closed' : `${hours.open} - ${hours.close}`}
                           </span>

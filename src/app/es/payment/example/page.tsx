@@ -21,30 +21,29 @@ export default function PaymentExamplePage() {
               <label className="block text-sm font-medium text-gray-700 mb-1">Amount</label>
               <input
                 type="number"
-                value={amount}
-                onChange={e => setAmount(Number(e.target.value))}
-                className="w-full px-3 py-2 border rounded-md"
+                value={amount onChange={e => setAmount(Number(e.target.value))}
+      className="w-full px-3 py-2 border rounded-md"
                 min="1"
                 step="0.01"
               />
             </div>
 
             <div>
-              <label className="flex items-center">
+              <label}
+      className="flex items-center">
                 <input
                   type="checkbox"
-                  checked={trustAccount}
-                  onChange={e => setTrustAccount(e.target.checked)}
-                  className="mr-2"
+                  checked={trustAccount} onChange={e => setTrustAccount(e.target.checked) className="mr-2"
                 />
-                <span className="text-sm">Use Trust Account</span>
+                <span}
+      className="text-sm">Use Trust Account</span>
               </label>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4">Make Payment</h2>
+        <div} className="bg-white rounded-lg shadow p-6">
+          <h2} className="text-xl font-semibold mb-4">Make Payment</h2>
 
           <LawPayButton
             amount={amount}
@@ -54,13 +53,11 @@ export default function PaymentExamplePage() {
             clientPhone="919-555-0123"
             invoiceNumber={`INV-${Date.now()}`}
             trustAccount={trustAccount}
-            onSuccess={() => {
+                onSuccess={() => {
               toast.success('Payment initiated successfully!');
             }}
-            onError={error => {
-              toast.error(`Payment failed: ${error}`);
-            }}
-            className="w-full"
+                onError={error => {
+              toast.error(`Payment failed: ${error}`); className="w-full"
           >
             Pay ${amount.toFixed(2)} with LawPay
           </LawPayButton>

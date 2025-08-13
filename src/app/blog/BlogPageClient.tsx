@@ -3,7 +3,7 @@
 import { securityLogger } from '@/lib/safe-logger';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { getCategoryById, getAllCategories } from '@/lib/blog/categories';
@@ -219,10 +219,7 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
         {/* Hero Section */}
         <section className="bg-black py-16 pt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+            <div
               className="text-center"
             >
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{t.title}</h1>
@@ -233,13 +230,11 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder={t.search}
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    className="w-full px-6 py-4 pr-12 bg-white/5 backdrop-blur-sm border border-primary/20 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder={t.search value={searchQuery}
+      onChange={e => setSearchQuery(e.target.value)} className="w-full px-6 py-4 pr-12 bg-white/5 backdrop-blur-sm border border-primary/20 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
                   <svg
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"
+                   } className="absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -253,7 +248,7 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
                   </svg>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -265,7 +260,8 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
               {selectedCategory !== 'all' && (
                 <button
                   onClick={() => setSelectedCategory('all')}
-                  className="text-sm text-primary hover:underline"
+
+                className="text-sm text-primary hover:underline"
                 >
                   {t.clearFilters}
                 </button>
@@ -274,6 +270,7 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
             <div className="flex gap-4 overflow-x-auto pb-2">
               <button
                 onClick={() => setSelectedCategory('all')}
+
                 className={`px-6 py-2 rounded-full whitespace-nowrap transition-all ${
                   selectedCategory === 'all'
                     ? 'bg-primary text-black font-semibold'
@@ -285,8 +282,10 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
               {getAllCategories().map(category => (
                 <button
                   key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`px-6 py-2 rounded-full whitespace-nowrap transition-all flex items-center gap-2 ${
+
+                onClick={() => setSelectedCategory(category.id)}
+
+                className={`px-6 py-2 rounded-full whitespace-nowrap transition-all flex items-center gap-2 ${
                     selectedCategory === category.id
                       ? 'bg-primary text-black font-semibold'
                       : 'bg-white/5 backdrop-blur-sm border border-primary/20 text-gray-300 hover:bg-white/10'
@@ -315,28 +314,27 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
                   <p className="text-center text-gray-400 py-12">{t.noResults}</p>
                 ) : (
                   Object.entries(categorizedPosts).map(([practiceArea, posts]) => (
-                    <div key={practiceArea} className="mb-12">
-                      <h2 className="text-3xl font-bold text-white mb-6">
+                    <div key={practiceArea}
+
+                className="mb-12">
+                      <h2
+                className="text-3xl font-bold text-white mb-6">
                         {getCategoryById(practiceArea)?.name[language] || practiceArea}
                       </h2>
                       <div className="space-y-8">
                         {posts.map((post, index) => {
                           const category = getCategoryById(post.practiceArea);
                           return (
-                            <motion.article
+                            <article
                               key={post.id}
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, scale: 1, y: 0 }}
-                              transition={{
-                                duration: 0.5,
-                                delay: index * 0.1,
-                              }}
-                              className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+
+                className="bg-white/5 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
                             >
                               {post.featuredImage && (
                                 <div className="relative h-48 bg-gray-700">
                                   <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-4xl">{category?.icon || '📰'}</span>
+                                    <span
+                className="text-4xl">{category?.icon || '📰'}</span>
                                   </div>
                                 </div>
                               )}
@@ -357,7 +355,8 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
                                 <h2 className="text-2xl font-bold text-white mb-3">
                                   <Link
                                     href={`/blog/${post.slug}`}
-                                    className="hover:text-primary transition-colors"
+
+                className="hover:text-primary transition-colors"
                                   >
                                     {post.title}
                                   </Link>
@@ -382,13 +381,14 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
                                   </div>
                                   <Link
                                     href={`/blog/${post.slug}`}
-                                    className="text-primary font-medium hover:underline"
+
+                className="text-primary font-medium hover:underline"
                                   >
                                     {t.readMore} →
                                   </Link>
                                 </div>
                               </div>
-                            </motion.article>
+                            </article>
                           );
                         })}
                       </div>
@@ -401,7 +401,8 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
                   <div className="text-center mt-12">
                     <button
                       onClick={() => setPage(page + 1)}
-                      className="px-8 py-3 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors"
+
+                className="px-8 py-3 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors"
                     >
                       {t.loadMore}
                     </button>
@@ -418,8 +419,10 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
                     {getAllCategories().map(category => (
                       <Link
                         key={category.id}
-                        href={`/blog/category/${category.slug.en}`}
-                        className={`flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors group`}
+
+                href={`/blog/category/${category.slug.en}`}
+
+                className={`flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors group`}
                       >
                         <div className="flex items-center gap-3">
                           <span className={`text-2xl`}>{category.icon}</span>
@@ -450,11 +453,14 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
                   <h3 className="text-xl font-bold text-white mb-4">{t.trending}</h3>
                   <div className="space-y-3">
                     {trendingTopics.map((topic, index) => (
-                      <div key={index} className="flex items-center gap-3">
+                      <div key={index}
+
+                className="flex items-center gap-3">
                         <span className="text-2xl text-primary">🔥</span>
                         <button
-                          onClick={() => setSearchQuery(topic)}
-                          className="text-gray-300 hover:text-primary transition-colors text-left"
+                onClick={() => setSearchQuery(topic)}
+
+                className="text-gray-300 hover:text-primary transition-colors text-left"
                         >
                           {topic}
                         </button>
@@ -471,11 +477,11 @@ export default function BlogPageClient({ language: propLanguage }: BlogPageClien
                     <input
                       type="email"
                       placeholder={t.email}
-                      className="w-full px-4 py-2 bg-white/5 border border-primary/20 rounded-md text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent"
+      className="w-full px-4 py-2 bg-white/5 border border-primary/20 rounded-md text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent"
                     />
                     <button
                       type="submit"
-                      className="w-full px-4 py-2 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors"
+                     } className="w-full px-4 py-2 bg-primary text-black rounded-md font-semibold hover:bg-primary/90 transition-colors"
                     >
                       {t.subscribe}
                     </button>

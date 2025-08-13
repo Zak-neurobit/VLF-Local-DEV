@@ -324,18 +324,23 @@ export default function MotorcycleAccidentsPage() {
               {content.accidentTypes.types.map((accident, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-primary">{accident.type}</h3>
+                    <h3
+                className="text-xl font-bold text-primary">{accident.type}</h3>
                     <span className="text-2xl font-bold text-secondary">{accident.percentage}</span>
                   </div>
                   <p className="text-gray-300 mb-4">{accident.description}</p>
                   <h4 className="font-semibold text-white mb-2">Common Factors:</h4>
                   <ul className="space-y-1">
                     {accident.factors.map((factor, fIndex) => (
-                      <li key={fIndex} className="text-sm text-gray-400 flex items-start gap-2">
-                        <span className="text-primary mt-1">•</span>
+                      <li key={fIndex}
+
+                className="text-sm text-gray-400 flex items-start gap-2">
+                        <span
+                className="text-primary mt-1">•</span>
                         {factor}
                       </li>
                     ))}

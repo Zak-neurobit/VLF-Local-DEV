@@ -34,10 +34,7 @@ export function FacebookPagePlugin({
       />
       <div 
         className="fb-page" 
-        data-href={pageUrl}
-        data-tabs={showPosts ? "timeline" : ""}
-        data-width={width}
-        data-height={height}
+        data-href={pageUrl data-tabs={showPosts ? "timeline" : "" data-width={width} data-height={height}
         data-small-header={smallHeader}
         data-adapt-container-width="true"
         data-hide-cover={hideCover}
@@ -79,10 +76,7 @@ export function TwitterTimeline({
   return (
     <a 
       className="twitter-timeline" 
-      data-width={width}
-      data-height={height}
-      data-theme={theme}
-      href={`https://twitter.com/${username}`}
+      data-width={width} data-height={height} data-theme={theme} href={`https://twitter.com/${username}`}
     >
       Tweets by {username}
     </a>
@@ -216,8 +210,7 @@ export function TikTokEmbed({
     <blockquote 
       className="tiktok-embed" 
       cite={videoUrl}
-      data-video-id={videoId}
-      style={{ maxWidth: `${width}px`, minWidth: '325px' }}
+      data-video-id={videoId} style={{ maxWidth: `${width}px`, minWidth: '325px' }}
     >
       <section>
         <a target="_blank" href={videoUrl} rel="noopener noreferrer">
@@ -256,8 +249,7 @@ export function LinkedInFollow({
     <>
       <script 
         type="IN/FollowCompany" 
-        data-id={companyId}
-        data-counter={counter}
+        data-id={companyId data-counter={counter}
       />
     </>
   );

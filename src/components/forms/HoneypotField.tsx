@@ -14,13 +14,10 @@ export function HoneypotField() {
         left: '-9999px',
         width: '1px',
         height: '1px',
-        overflow: 'hidden',
-      }}
-      aria-hidden="true"
+        overflow: 'hidden', aria-hidden="true"
     >
       <input
-        {...register('website')}
-        type="text"
+        {...register('website') type="text"
         tabIndex={-1}
         autoComplete="off"
         placeholder="Leave this field empty"

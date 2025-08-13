@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   keywords: 'immigration law, immigration attorney, visa, green card, deportation defense, citizenship, immigration blog',
 };
 
-
 export default function ImmigrationCategoryPage() {
   return <CategoryPageClient category="immigration" language="en" />;
 }

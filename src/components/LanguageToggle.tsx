@@ -42,12 +42,10 @@ export function LanguageToggle() {
   };
 
   return (
-    <button
-      onClick={toggleLanguage}
-      className="flex items-center space-x-2 px-3 py-1 bg-white/20 hover:bg-white/30 rounded-md transition-all"
+    <button onClick={toggleLanguage} className="flex items-center space-x-2 px-3 py-1 bg-white/20 hover:bg-white/30 rounded-md transition-all"
       aria-label="Toggle language"
     >
-      <span className="text-sm font-medium">{language === 'en' ? 'ES' : 'EN'}</span>
+      <span} className="text-sm font-medium">{language === 'en' ? 'ES' : 'EN'}</span>
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
           strokeLinecap="round"

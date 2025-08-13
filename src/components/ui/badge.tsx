@@ -31,7 +31,9 @@ export interface BadgeProps
 // Badge component compatible with React 19 JSX transform
 const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
   ({ className, variant, ...props }, ref) => {
-    return <div ref={ref} className={cn(badgeVariants({ variant }), className)} {...props} />;
+    return <div ref={ref}
+
+                className={cn(badgeVariants({ variant }), className)} {...props} />;
   }
 );
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 // Collaborative editing features - to be implemented
 // import * as Y from 'yjs';
 // import { WebrtcProvider } from 'y-webrtc';
@@ -81,7 +81,9 @@ export const ClientPortal: React.FC = () => {
             {(['overview', 'documents', 'messages', 'timeline'] as const).map(tab => (
               <button
                 key={tab}
+
                 onClick={() => setActiveTab(tab)}
+
                 className={`py-4 px-1 border-b-2 font-medium text-sm capitalize ${
                   activeTab === tab
                     ? 'border-primary text-primary'
@@ -97,24 +99,24 @@ export const ClientPortal: React.FC = () => {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <AnimatePresence mode="wait">
+        <>
           {activeTab === 'overview' && (
-            <motion.div
+            <div
               key="overview"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+             }
+             }
+             }
             >
               <CaseOverview metrics={caseMetrics} />
-            </motion.div>
+            </div>
           )}
 
           {activeTab === 'documents' && (
-            <motion.div
+            <div
               key="documents"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+             }
+             }
+             }
             >
               <DocumentCollaboration
                 documents={documents}
@@ -122,31 +124,31 @@ export const ClientPortal: React.FC = () => {
                 onSelectDoc={setSelectedDoc}
                 // ydoc={ydoc}
               />
-            </motion.div>
+            </div>
           )}
 
           {activeTab === 'messages' && (
-            <motion.div
+            <div
               key="messages"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+             }
+             }
+             }
             >
               <SecureMessaging />
-            </motion.div>
+            </div>
           )}
 
           {activeTab === 'timeline' && (
-            <motion.div
+            <div
               key="timeline"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+             }
+             }
+             }
             >
               <CaseTimeline />
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
+        </>
       </div>
     </div>
   );
@@ -275,8 +277,7 @@ const DocumentCollaboration: React.FC<{
             <DocumentItem
               key={doc.id}
               document={doc}
-              isSelected={selectedDoc?.id === doc.id}
-              onClick={() => onSelectDoc(doc)}
+              isSelected={selectedDoc?.id === doc.id onClick={() => onSelectDoc(doc)}
             />
           ))}
         </div>
@@ -298,10 +299,13 @@ const DocumentCollaboration: React.FC<{
                 </button>
               </div>
             </div>
-            <div ref={setEditorRef} className="min-h-[400px] border rounded-lg" />
+            <div ref={setEditorRef}
+
+                className="min-h-[400px] border rounded-lg" />
           </>
         ) : (
-          <div className="text-center py-12 text-gray-500">Select a document to view or edit</div>
+          <div
+                className="text-center py-12 text-gray-500">Select a document to view or edit</div>
         )}
       </div>
     </div>
@@ -350,13 +354,12 @@ const SecureMessaging: React.FC = () => {
             <label className="flex items-center gap-2 text-sm">
               <input
                 type="checkbox"
-                checked={isEncrypted}
-                onChange={e => setIsEncrypted(e.target.checked)}
-                className="rounded"
+                checked={isEncrypted} onChange={e => setIsEncrypted(e.target.checked)}
+      className="rounded"
               />
               End-to-end encryption
             </label>
-            {isEncrypted && <span className="text-green-600 text-sm">🔒 Encrypted</span>}
+            {isEncrypted && <span} className="text-green-600 text-sm">🔒 Encrypted</span>}
           </div>
         </div>
       </div>
@@ -371,15 +374,12 @@ const SecureMessaging: React.FC = () => {
         <div className="flex gap-2">
           <input
             type="text"
-            value={newMessage}
-            onChange={e => setNewMessage(e.target.value)}
-            onKeyPress={e => e.key === 'Enter' && sendMessage()}
-            placeholder="Type a secure message..."
+            value={newMessage} onChange={e => setNewMessage(e.target.value)}
+                onKeyPress={e => e.key === 'Enter' && sendMessage()} placeholder="Type a secure message..."
             className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
           />
           <button
-            onClick={sendMessage}
-            className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90"
+            onClick={sendMessage} className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90"
           >
             Send
           </button>
@@ -495,8 +495,7 @@ const DocumentItem: React.FC<{
   onClick: () => void;
 }> = ({ document, isSelected, onClick }) => (
   <div
-    onClick={onClick}
-    className={`p-3 rounded-lg cursor-pointer transition-colors ${
+    onClick={onClick} className={`p-3 rounded-lg cursor-pointer transition-colors ${
       isSelected ? 'bg-primary/10 border border-primary' : 'hover:bg-gray-50'
     }`}
   >
@@ -529,7 +528,8 @@ const CollaboratorAvatars: React.FC<{ collaborators: { name?: string }[] }> = ({
     {collaborators.slice(0, 3).map((collab, i) => (
       <div
         key={i}
-        className="w-8 h-8 rounded-full bg-gray-300 border-2 border-white flex items-center justify-center text-xs font-medium"
+
+                className="w-8 h-8 rounded-full bg-gray-300 border-2 border-white flex items-center justify-center text-xs font-medium"
       >
         {collab.name?.[0] || '?'}
       </div>
@@ -610,7 +610,9 @@ const TimelineEvent: React.FC<{ event: TimelineEventData; isLast: boolean }> = (
       {event.documents.length > 0 && (
         <div className="flex gap-2 mt-2">
           {event.documents.map((doc: string) => (
-            <span key={doc} className="text-xs bg-gray-100 px-2 py-1 rounded">
+            <span key={doc}
+
+                className="text-xs bg-gray-100 px-2 py-1 rounded">
               📄 {doc}
             </span>
           ))}

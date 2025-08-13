@@ -115,14 +115,15 @@ export const QwikFirmHighlights: React.FC<QwikFirmHighlightsProps> = ({ language
           {t.highlights.map((highlight, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-[#6B1F2E]/10 to-[#C9974D]/10 border border-[#C9974D]/20 p-8 hover:border-[#C9974D]/50 transition-all duration-300"
+
+                className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-[#6B1F2E]/10 to-[#C9974D]/10 border border-[#C9974D]/20 p-8 hover:border-[#C9974D]/50 transition-all duration-300"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[#6B1F2E]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
               <div className="relative z-10">
                 <div className="mb-4 inline-flex p-3 rounded-lg bg-[#C9974D]/20">
                   <svg
-                    className="h-8 w-8 text-[#C9974D]"
+                className="h-8 w-8 text-[#C9974D]"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"

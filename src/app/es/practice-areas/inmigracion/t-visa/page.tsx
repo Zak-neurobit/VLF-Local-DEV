@@ -293,15 +293,20 @@ export default function TVisaPage() {
               {content.traffickingTypes.types.map((type, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
-                  <h3 className="text-xl font-bold text-primary mb-3">{type.category}</h3>
+                  <h3
+                className="text-xl font-bold text-primary mb-3">{type.category}</h3>
                   <p className="text-gray-300 mb-4">{type.description}</p>
                   <h4 className="font-semibold text-white mb-2">Common Examples:</h4>
                   <ul className="space-y-1">
                     {type.examples.map((example, eIndex) => (
-                      <li key={eIndex} className="text-sm text-gray-400 flex items-start gap-2">
-                        <span className="text-primary mt-1">•</span>
+                      <li key={eIndex}
+
+                className="text-sm text-gray-400 flex items-start gap-2">
+                        <span
+                className="text-primary mt-1">•</span>
                         {example}
                       </li>
                     ))}

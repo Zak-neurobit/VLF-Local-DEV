@@ -79,8 +79,7 @@ export const PracticeAreaTemplate: React.FC<PracticeAreaTemplateProps> = ({
               1-844-YO-PELEO
             </Button>
             <Button
-              as={Link}
-              href="/contact"
+              as={Link} href="/contact"
               variant="primary"
               size="lg"
               style={{

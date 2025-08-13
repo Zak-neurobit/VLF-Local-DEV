@@ -119,7 +119,9 @@ export default function EnhancedTestimonialsPage() {
                   rel="noopener noreferrer"
                   className="flex flex-col items-center p-4 hover:bg-gray-50 rounded-lg transition-colors"
                 >
-                  <Image src="/images/google-logo.png" alt="Google" width={120} height={32} className="mb-2" />
+                  <Image src="/images/google-logo.png" alt="Google" width={120} height={32}
+
+                className="mb-2" />
                   <span className="text-sm text-gray-600">5.0 ⭐ (150+ reviews)</span>
                 </a>
                 <a
@@ -128,7 +130,9 @@ export default function EnhancedTestimonialsPage() {
                   rel="noopener noreferrer"
                   className="flex flex-col items-center p-4 hover:bg-gray-50 rounded-lg transition-colors"
                 >
-                  <Image src="/images/yelp-logo.png" alt="Yelp" width={80} height={32} className="mb-2" />
+                  <Image src="/images/yelp-logo.png" alt="Yelp" width={80} height={32}
+
+                className="mb-2" />
                   <span className="text-sm text-gray-600">4.9 ⭐ (87 reviews)</span>
                 </a>
                 <a
@@ -137,7 +141,9 @@ export default function EnhancedTestimonialsPage() {
                   rel="noopener noreferrer"
                   className="flex flex-col items-center p-4 hover:bg-gray-50 rounded-lg transition-colors"
                 >
-                  <Image src="/images/avvo-logo.png" alt="Avvo" width={80} height={32} className="mb-2" />
+                  <Image src="/images/avvo-logo.png" alt="Avvo" width={80} height={32}
+
+                className="mb-2" />
                   <span className="text-sm text-gray-600">10.0 Rating</span>
                 </a>
                 <a
@@ -146,7 +152,9 @@ export default function EnhancedTestimonialsPage() {
                   rel="noopener noreferrer"
                   className="flex flex-col items-center p-4 hover:bg-gray-50 rounded-lg transition-colors"
                 >
-                  <Image src="/images/facebook-logo.png" alt="Facebook" width={32} height={32} className="mb-2" />
+                  <Image src="/images/facebook-logo.png" alt="Facebook" width={32} height={32}
+
+                className="mb-2" />
                   <span className="text-sm text-gray-600">5.0 ⭐ (50+ reviews)</span>
                 </a>
               </div>

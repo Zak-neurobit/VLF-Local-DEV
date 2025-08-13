@@ -180,7 +180,8 @@ export default function GoogleMap({
           Phone:{' '}
           <a
             href={`tel:${phone.replace(/[^0-9]/g, '')}`}
-            className="text-burgundy-700 hover:text-burgundy-900"
+
+                className="text-burgundy-700 hover:text-burgundy-900"
           >
             {phone}
           </a>
@@ -215,10 +216,10 @@ export default function GoogleMap({
 
       <div
         ref={mapRef}
-        style={{ height, width: '100%' }}
-        className="rounded-lg shadow-lg"
+
+                style={{ height, width: '100%'}} className="rounded-lg shadow-lg"
         role="region"
-        aria-label={`Map showing location of ${officeName || 'Vasquez Law Firm'} at ${address}`}
+                aria-label={`Map showing location of ${officeName || 'Vasquez Law Firm'} at ${address}`}
       />
 
       {/* NoScript fallback */}

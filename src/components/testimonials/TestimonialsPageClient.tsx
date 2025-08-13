@@ -61,7 +61,9 @@ export default function TestimonialsPageClient({ language = 'en' }: Testimonials
           <div className="mt-8 flex items-center gap-4">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-6 w-6 fill-[#C9974D] text-[#C9974D]" />
+                <Star key={i}
+
+                className="h-6 w-6 fill-[#C9974D] text-[#C9974D]" />
               ))}
             </div>
             <span className="text-lg">{t.rating}</span>
@@ -75,12 +77,15 @@ export default function TestimonialsPageClient({ language = 'en' }: Testimonials
             {currentTestimonials.map((testimonial, index) => (
               <div
                 key={index}
+
                 className="bg-white rounded-lg shadow-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 fill-[#C9974D] text-[#C9974D]" />
+                      <Star key={i}
+
+                className="h-5 w-5 fill-[#C9974D] text-[#C9974D]" />
                     ))}
                   </div>
                   <div className="flex items-center text-sm text-gray-500">
@@ -159,7 +164,8 @@ export default function TestimonialsPageClient({ language = 'en' }: Testimonials
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={isSpanish ? '/es/contacto' : '/contact'}
-              className="bg-[#C9974D] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#B88740] transition-colors inline-block text-center"
+
+                className="bg-[#C9974D] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#B88740] transition-colors inline-block text-center"
             >
               {t.scheduleBtn}
             </Link>

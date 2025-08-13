@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+
 import { 
   Award, 
   CheckCircle, 
@@ -87,11 +87,8 @@ export default function ScholarshipPageClient() {
         <div className="gradient-orb-gold w-80 h-80 bottom-20 left-10 animate-float-orb-reverse opacity-50" />
         
         <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center text-white"
+          <div
+className="text-center text-white"
           >
             <h1 className="text-5xl lg:text-6xl font-bold mb-4 text-gradient">
               DACA Dreamer Scholarship
@@ -108,7 +105,7 @@ export default function ScholarshipPageClient() {
                 <p className="text-sm text-gray-300">Awarded to 2 students per semester</p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -127,31 +124,25 @@ export default function ScholarshipPageClient() {
       {/* Previous Winners Section */}
       <section className="py-16 bg-gradient-subtle-light">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
+          <div
+className="text-center mb-12"
           >
             <h2 className="text-4xl font-bold mb-4 text-burgundy-900">Our Scholarship Winners</h2>
             <p className="text-lg text-gray-600">Celebrating the achievements of our DACA Dreamers</p>
-          </motion.div>
+          </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {winners.map((winner, index) => (
-              <motion.div
+              <div
                 key={winner.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
+
                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
               >
                 <div className="aspect-square relative bg-gradient-to-b from-burgundy-100 to-burgundy-50">
                   <Image
                     src={winner.image}
-                    alt={winner.name}
+
+                alt={winner.name}
                     fill
                     className="object-cover"
                   />
@@ -160,7 +151,7 @@ export default function ScholarshipPageClient() {
                   <h3 className="text-xl font-bold text-burgundy-900 mb-2">{winner.name}</h3>
                   <p className="text-gold-600 font-semibold">{winner.semester}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -169,11 +160,11 @@ export default function ScholarshipPageClient() {
       {/* Eligibility Requirements */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+          <div
+           }
+           }
+           }
+           }
           >
             <h2 className="text-4xl font-bold mb-8 text-center text-burgundy-900">
               Eligibility Requirements
@@ -182,32 +173,30 @@ export default function ScholarshipPageClient() {
             <div className="max-w-3xl mx-auto bg-gradient-to-r from-burgundy-50 to-gold-50 rounded-2xl p-8 shadow-lg">
               <div className="space-y-4">
                 {eligibilityRequirements.map((requirement, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="flex items-start gap-4"
+
+                className="flex items-start gap-4"
                   >
                     <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
-                    <p className="text-lg text-gray-700">{requirement}</p>
-                  </motion.div>
+                    <p
+                className="text-lg text-gray-700">{requirement}</p>
+                  </div>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Application Requirements */}
       <section className="py-16 bg-gradient-subtle-light">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+          <div
+           }
+           }
+           }
+           }
           >
             <h2 className="text-4xl font-bold mb-8 text-center text-burgundy-900">
               Application Requirements
@@ -217,38 +206,32 @@ export default function ScholarshipPageClient() {
               {applicationRequirements.map((req, index) => {
                 const Icon = req.icon;
                 return (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+
+                className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
                   >
                     <div className="flex items-center gap-4 mb-4">
                       <div className="p-3 bg-burgundy-100 rounded-lg">
                         <Icon className="w-6 h-6 text-burgundy-700" />
                       </div>
-                      <h3 className="text-lg font-bold text-burgundy-900">{req.title}</h3>
+                      <h3
+                className="text-lg font-bold text-burgundy-900">{req.title}</h3>
                     </div>
                     <p className="text-gray-600">{req.description}</p>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Art Submission Guidelines */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto"
+          <div
+className="max-w-4xl mx-auto"
           >
             <h2 className="text-4xl font-bold mb-8 text-center text-burgundy-900">
               Art Submission Guidelines
@@ -263,9 +246,12 @@ export default function ScholarshipPageClient() {
                   </h3>
                   <ul className="space-y-3">
                     {acceptedArtForms.map((form, index) => (
-                      <li key={index} className="flex items-center gap-3">
+                      <li key={index}
+
+                className="flex items-center gap-3">
                         <div className="w-2 h-2 bg-green-600 rounded-full" />
-                        <span className="text-gray-700">{form}</span>
+                        <span
+                className="text-gray-700">{form}</span>
                       </li>
                     ))}
                   </ul>
@@ -295,19 +281,15 @@ export default function ScholarshipPageClient() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Important Dates */}
       <section className="py-16 bg-gradient-subtle-light">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center"
+          <div
+className="text-center"
           >
             <h2 className="text-4xl font-bold mb-8 text-burgundy-900">Important Dates</h2>
             
@@ -324,18 +306,18 @@ export default function ScholarshipPageClient() {
                 <p className="text-2xl font-bold text-gold-600">January 8, 2025</p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Contact Section */}
       <section className="py-16 bg-burgundy-900 text-white">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+          <div
+           }
+           }
+           }
+           }
           >
             <h2 className="text-4xl font-bold mb-8">Get Updates</h2>
             <p className="text-xl mb-8">
@@ -355,7 +337,7 @@ export default function ScholarshipPageClient() {
             <p className="mt-8 text-gray-300">
               Email us to be notified when applications open for the next semester
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

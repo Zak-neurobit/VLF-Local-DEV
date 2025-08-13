@@ -256,8 +256,8 @@ export default function ABTestingPage() {
             <TestCard
               key={test.id}
               test={test}
-              onAction={handleTestAction}
-              onViewResults={() => {
+                onAction={handleTestAction}
+                onViewResults={() => {
                 setSelectedTest(test.id);
                 fetchTestResults(test.id);
               }}
@@ -411,6 +411,7 @@ function TestResults({ results }: { results: ABTestResult[] }) {
             {results.map(result => (
               <Card
                 key={result.variant}
+
                 className={winner?.variant === result.variant ? 'ring-2 ring-green-500' : ''}
               >
                 <CardHeader className="pb-3">

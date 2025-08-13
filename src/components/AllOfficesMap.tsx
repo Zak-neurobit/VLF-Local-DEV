@@ -176,13 +176,17 @@ export default function AllOfficesMap({
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Our Office Locations</h3>
       <div className="grid md:grid-cols-2 gap-4">
         {offices.map((office, index) => (
-          <div key={index} className="border border-gray-200 rounded-lg p-4">
-            <h4 className="font-semibold text-gray-900 mb-2">{office.name}</h4>
+          <div key={index}
+
+                className="border border-gray-200 rounded-lg p-4">
+            <h4
+                className="font-semibold text-gray-900 mb-2">{office.name}</h4>
             <p className="text-sm text-gray-700">{office.address}</p>
             <p className="text-sm text-gray-700">
               Phone:{' '}
               <a
                 href={`tel:${office.phone.replace(/[^0-9]/g, '')}`}
+
                 className="text-burgundy-700 hover:text-burgundy-900"
               >
                 {office.phone}
@@ -220,10 +224,10 @@ export default function AllOfficesMap({
 
       <div
         ref={mapRef}
-        style={{ height, width: '100%' }}
-        className="rounded-lg shadow-lg"
+
+                style={{ height, width: '100%'}} className="rounded-lg shadow-lg"
         role="region"
-        aria-label="Map showing all Vasquez Law Firm office locations"
+                aria-label="Map showing all Vasquez Law Firm office locations"
       />
 
       {/* NoScript fallback */}

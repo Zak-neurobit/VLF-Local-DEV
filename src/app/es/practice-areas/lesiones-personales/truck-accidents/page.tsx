@@ -295,15 +295,20 @@ export default function TruckAccidentsPage() {
               {content.federalRegulations.categories.map((reg, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
-                  <h3 className="text-xl font-bold text-primary mb-3">{reg.category}</h3>
+                  <h3
+                className="text-xl font-bold text-primary mb-3">{reg.category}</h3>
                   <p className="text-gray-300 mb-4">{reg.description}</p>
                   <h4 className="font-semibold text-white mb-2">Common Violations:</h4>
                   <ul className="space-y-1">
                     {reg.violations.map((violation, vIndex) => (
-                      <li key={vIndex} className="text-sm text-gray-400 flex items-start gap-2">
-                        <span className="text-primary mt-1">•</span>
+                      <li key={vIndex}
+
+                className="text-sm text-gray-400 flex items-start gap-2">
+                        <span
+                className="text-primary mt-1">•</span>
                         {violation}
                       </li>
                     ))}

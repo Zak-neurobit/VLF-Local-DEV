@@ -135,7 +135,8 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
                   alt="Vasquez Law Firm Logo"
                   width={180}
                   height={180}
-                  className="h-32 w-auto"
+
+                className="h-32 w-auto"
                 />
               </Link>
               <p className="text-primary-400 font-semibold mb-2">{t.slogan}</p>
@@ -154,7 +155,8 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
                   <li key={area.href.en}>
                     <Link
                       href={area.href[language]}
-                      className="text-neutral-400 hover:text-primary-400 transition-colors text-sm"
+
+                className="text-neutral-400 hover:text-primary-400 transition-colors text-sm"
                     >
                       {area.name[language]}
                     </Link>
@@ -168,13 +170,17 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
               <h3 className="text-lg font-semibold mb-4">{t.locations}</h3>
               <div className="space-y-4">
                 {locations.map(location => (
-                  <div key={location.city} className="text-sm">
-                    <p className="font-semibold text-gray-300">{location.city}</p>
+                  <div key={location.city}
+
+                className="text-sm">
+                    <p
+                className="font-semibold text-gray-300">{location.city}</p>
                     <p className="text-gray-400">{location.address}</p>
                     <p className="text-gray-400">{location.cityState}</p>
                     <a
                       href={`tel:${location.phone.replace(/[^0-9]/g, '')}`}
-                      className="text-primary-400 hover:text-primary transition-colors"
+
+                className="text-primary-400 hover:text-primary transition-colors"
                     >
                       {location.phone}
                     </a>
@@ -257,13 +263,15 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
               <div className="flex space-x-6 text-sm">
                 <Link
                   href={language === 'es' ? '/es/politica-privacidad' : '/privacy-policy'}
-                  className="text-neutral-400 hover:text-primary-400 transition-colors"
+
+                className="text-neutral-400 hover:text-primary-400 transition-colors"
                 >
                   {t.privacy}
                 </Link>
                 <Link
                   href={language === 'es' ? '/es/terminos-servicio' : '/terms-of-service'}
-                  className="text-neutral-400 hover:text-primary-400 transition-colors"
+
+                className="text-neutral-400 hover:text-primary-400 transition-colors"
                 >
                   {t.terms}
                 </Link>

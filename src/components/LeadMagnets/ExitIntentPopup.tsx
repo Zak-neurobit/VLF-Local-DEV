@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { X, Download, Phone, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLocalStorage } from '@/hooks/useHydrationSafe';
@@ -53,57 +53,45 @@ export default function ExitIntentPopup({ onClose, onAction }: ExitIntentPopupPr
   };
 
   return (
-    <AnimatePresence>
+    <>
       {isVisible && (
         <>
           {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 z-50"
+          <div
+className="fixed inset-0 bg-black/60 z-50"
             onClick={handleClose}
           />
 
           {/* Popup */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: -100 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: -100 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-2xl"
+          <div
+className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-2xl"
           >
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
               {/* Close Button */}
-              <button
-                onClick={handleClose}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors z-10"
+              <button onClick={handleClose} className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors z-10"
               >
-                <X className="w-6 h-6" />
+                <X} className="w-6 h-6" />
               </button>
 
               {/* Hero Section */}
               <div className="bg-gradient-to-br from-burgundy-700 to-burgundy-900 text-white p-8 text-center">
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
+                <div
+                 }
+                 }
+                 }
                 >
                   <h2 className="text-4xl font-bold mb-4">Wait! Don&apos;t Leave Empty-Handed</h2>
                   <p className="text-xl text-white/90">
                     Get FREE legal resources that could save you thousands
                   </p>
-                </motion.div>
+                </div>
               </div>
 
               {/* Content */}
               <div className="p-8">
                 <div className="grid md:grid-cols-3 gap-6 mb-8">
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-center"
+                  <div
+className="text-center"
                   >
                     <div className="bg-gold-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Download className="w-8 h-8 text-gold-600" />
@@ -112,13 +100,10 @@ export default function ExitIntentPopup({ onClose, onAction }: ExitIntentPopupPr
                     <p className="text-gray-600 text-sm">
                       Download our comprehensive guides for your case type
                     </p>
-                  </motion.div>
+                  </div>
 
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="text-center"
+                  <div
+className="text-center"
                   >
                     <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Phone className="w-8 h-8 text-blue-600" />
@@ -127,13 +112,10 @@ export default function ExitIntentPopup({ onClose, onAction }: ExitIntentPopupPr
                     <p className="text-gray-600 text-sm">
                       Speak with an attorney at no cost or obligation
                     </p>
-                  </motion.div>
+                  </div>
 
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="text-center"
+                  <div
+className="text-center"
                   >
                     <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                       <MessageSquare className="w-8 h-8 text-purple-600" />
@@ -142,15 +124,12 @@ export default function ExitIntentPopup({ onClose, onAction }: ExitIntentPopupPr
                     <p className="text-gray-600 text-sm">
                       Chat with our AI assistant anytime you need help
                     </p>
-                  </motion.div>
+                  </div>
                 </div>
 
                 {/* Special Offer */}
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="bg-gradient-to-r from-gold-50 to-gold-100 rounded-xl p-6 mb-6"
+                <div
+className="bg-gradient-to-r from-gold-50 to-gold-100 rounded-xl p-6 mb-6"
                 >
                   <div className="flex items-center justify-between">
                     <div>
@@ -161,14 +140,11 @@ export default function ExitIntentPopup({ onClose, onAction }: ExitIntentPopupPr
                     </div>
                     <div className="text-3xl">⏰</div>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* CTAs */}
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ delay: 0.7 }}
-                  className="space-y-3"
+                <div
+className="space-y-3"
                 >
                   <Button
                     size="lg"
@@ -186,17 +162,16 @@ export default function ExitIntentPopup({ onClose, onAction }: ExitIntentPopupPr
                     Download Free Legal Guides
                   </Button>
                   <button
-                    onClick={handleClose}
-                    className="w-full text-center text-gray-500 hover:text-gray-700 text-sm"
+                    onClick={handleClose} className="w-full text-center text-gray-500 hover:text-gray-700 text-sm"
                   >
                     No thanks, I&apos;ll figure it out myself
                   </button>
-                </motion.div>
+                </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </>
       )}
-    </AnimatePresence>
+    </>
   );
 }

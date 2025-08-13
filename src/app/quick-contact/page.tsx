@@ -91,7 +91,8 @@ export default function QuickContactPage() {
                   required
                   maxLength={200}
                   rows={3}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   placeholder="Briefly describe your situation..."
                 />
                 <p className="text-xs text-gray-500 mt-1">Keep it short - we'll call for details</p>

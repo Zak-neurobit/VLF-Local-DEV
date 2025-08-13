@@ -98,30 +98,25 @@ export const SpanishLocationPageTemplate: React.FC<SpanishLocationPageTemplatePr
             </Text>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
-                as={Link}
-                href="/es/contacto"
+                as={Link href="/es/contacto"
                 variant="primary"
                 size="lg"
                 style={{
                   backgroundColor: COLORS.gold[500],
-                  color: COLORS.neutral[0],
-                }}
-                className="hover:opacity-90 transition-all transform hover:scale-105"
+                  color: COLORS.neutral[0],}} className="hover:opacity-90 transition-all transform hover:scale-105"
               >
                 Consulta Gratuita
               </Button>
               <Button
                 as="a"
-                href={`tel:${BRAND.phoneNumeric}`}
+               } href={`tel:${BRAND.phoneNumeric}`}
                 variant="secondary"
                 size="lg"
                 style={{
                   backgroundColor: COLORS.neutral[0],
-                  color: COLORS.burgundy[700],
-                }}
-                className="hover:opacity-90 transition-all"
+                  color: COLORS.burgundy[700], className="hover:opacity-90 transition-all"
               >
-                <Phone className="w-5 h-5 mr-2" />
+                <Phone}} className="w-5 h-5 mr-2" />
                 Llame {BRAND.phone}
               </Button>
             </div>
@@ -189,6 +184,7 @@ export const SpanishLocationPageTemplate: React.FC<SpanishLocationPageTemplatePr
             {practiceAreas.map((area, index) => (
               <Card
                 key={index}
+
                 className="p-6"
                 style={{ borderTopColor: COLORS.burgundy[700], borderTopWidth: '4px' }}
               >
@@ -209,8 +205,9 @@ export const SpanishLocationPageTemplate: React.FC<SpanishLocationPageTemplatePr
                 </ul>
                 <Link
                   href={area.link}
-                  className="font-semibold hover:underline"
-                  style={{ color: COLORS.gold[500] }}
+
+                className="font-semibold hover:underline"
+                style={{ color: COLORS.gold[500] }}
                 >
                   Más Información →
                 </Link>
@@ -375,8 +372,12 @@ export const SpanishLocationPageTemplate: React.FC<SpanishLocationPageTemplatePr
           </Heading>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, idx) => (
-              <Card key={idx} className="p-6">
-                <div className="text-xl mb-3" style={{ color: COLORS.gold[500] }}>
+              <Card key={idx}
+
+                className="p-6">
+                <div className="text-xl mb-3"}
+
+                style={{ color: COLORS.gold[500] }}>
                   {'★'.repeat(testimonial.rating)}
                 </div>
                 <Text size="base" className="mb-4" style={{ color: COLORS.neutral[700] }}>
@@ -407,7 +408,9 @@ export const SpanishLocationPageTemplate: React.FC<SpanishLocationPageTemplatePr
             {nearbyLocations.map((location, idx) => (
               <InteractiveLink
                 key={idx}
+
                 href={`/es/ubicaciones/${location.slug}`}
+
                 className="px-4 py-2 bg-white border rounded-lg transition-all"
                 style={{
                   borderColor: COLORS.neutral[200],
@@ -436,28 +439,23 @@ export const SpanishLocationPageTemplate: React.FC<SpanishLocationPageTemplatePr
           </Text>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              as={Link}
-              href="/es/contacto"
+              as={Link href="/es/contacto"
               variant="primary"
               size="lg"
               style={{
                 backgroundColor: COLORS.gold[500],
-                color: COLORS.neutral[0],
-              }}
-              className="hover:opacity-90 transition-all transform hover:scale-105"
+                color: COLORS.neutral[0],}} className="hover:opacity-90 transition-all transform hover:scale-105"
             >
               Programe Consulta Gratuita
             </Button>
             <Button
               as="a"
-              href={`tel:${BRAND.phoneNumeric}`}
+             } href={`tel:${BRAND.phoneNumeric}`}
               variant="secondary"
               size="lg"
               style={{
                 backgroundColor: COLORS.neutral[0],
-                color: COLORS.burgundy[700],
-              }}
-              className="hover:opacity-90 transition-all"
+                color: COLORS.burgundy[700],}} className="hover:opacity-90 transition-all"
             >
               Llame Ahora: {BRAND.phone}
             </Button>

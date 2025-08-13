@@ -92,18 +92,22 @@ export default function GoogleReviewsWidget({ placeId, apiKey }: GoogleReviewsWi
 
       <div className="grid gap-4">
         {reviews.map((review, index) => (
-          <Card key={index} className="hover:shadow-lg transition-shadow">
+          <Card key={index}
+
+                className="hover:shadow-lg transition-shadow">
             <CardContent className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h4 className="font-semibold text-brand-charcoal">{review.author_name}</h4>
+                  <h4
+                className="font-semibold text-brand-charcoal">{review.author_name}</h4>
                   <p className="text-sm text-gray-500">{review.relative_time_description}</p>
                 </div>
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`w-4 h-4 ${
+
+                className={`w-4 h-4 ${
                         i < review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
                       }`}
                     />
@@ -123,11 +127,14 @@ export default function GoogleReviewsWidget({ placeId, apiKey }: GoogleReviewsWi
             alt="Google"
             width={24}
             height={24}
-            className="h-6 w-auto mr-3"
+
+                className="h-6 w-auto mr-3"
           />
           <div className="flex">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+              <Star key={i}
+
+                className="w-5 h-5 text-yellow-400 fill-current" />
             ))}
           </div>
           <span className="ml-2 font-semibold">5.0</span>

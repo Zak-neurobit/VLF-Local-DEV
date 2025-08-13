@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Mic, MicOff, Phone, PhoneOff, Loader2, HelpCircle } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { MicrophoneTroubleshootingGuide } from './MicrophoneTroubleshootingGuide';
@@ -377,45 +377,36 @@ export const RetellVoiceChat: React.FC<RetellVoiceChatProps> = ({
         }`} title={`Microphone: ${permissionStatus}`} />
       )}
       
-      <AnimatePresence mode="wait">
+      <>
         {!isConnected ? (
           <div className="flex items-center gap-1">
             {/* Help/Troubleshooting Button */}
             {(permissionStatus === 'denied' || permissionStatus === 'unknown') && (
-              <motion.button
+              <button
                 key="help"
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                onClick={() => setShowTroubleshooting(true)}
+onClick={() => setShowTroubleshooting(true)}
+
                 className="p-2 bg-yellow-600 text-white rounded-full hover:bg-yellow-700 transition-all"
                 title={language === 'es' ? 'Ayuda con micrófono' : 'Microphone help'}
               >
                 <HelpCircle className="w-4 h-4" />
-              </motion.button>
+              </button>
             )}
             
             {/* Test Microphone Button (only show if permission issues) */}
             {permissionStatus === 'denied' && (
-              <motion.button
+              <button
                 key="test"
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                onClick={testMicrophoneAccess}
-                className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all"
+onClick={testMicrophoneAccess} className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all"
                 title={language === 'es' ? 'Probar micrófono' : 'Test microphone'}
               >
                 <Mic className="w-4 h-4" />
-              </motion.button>
+              </button>
             )}
             
-            <motion.button
+            <button
               key="start"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={startVoiceCall}
-              disabled={isConnecting}
-              className={`p-3 rounded-full hover:shadow-lg transition-all disabled:opacity-50 ${
+onClick={startVoiceCall disabled={isConnecting} className={`p-3 rounded-full hover:shadow-lg transition-all disabled:opacity-50 ${
                 isConnecting 
                   ? 'bg-gray-500 text-white cursor-not-allowed'
                   : 'bg-gradient-to-r from-gold-500 to-gold-600 text-black'
@@ -427,29 +418,23 @@ export const RetellVoiceChat: React.FC<RetellVoiceChatProps> = ({
               ) : (
                 <Phone className="w-5 h-5" />
               )}
-            </motion.button>
+            </button>
           </div>
         ) : (
           <>
-            <motion.button
+            <button
               key="mute"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              onClick={toggleMute}
-              className={`p-3 rounded-full transition-all ${
+onClick={toggleMute} className={`p-3 rounded-full transition-all ${
                 isMuted ? 'bg-red-500 text-white' : 'bg-gray-700 text-white hover:bg-gray-600'
               }`}
               title={language === 'es' ? 'Silenciar/Activar' : 'Mute/Unmute'}
             >
               {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-            </motion.button>
+            </button>
 
-            <motion.button
+            <button
               key="record"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              onClick={toggleRecording}
-              className={`p-3 rounded-full transition-all ${
+onClick={toggleRecording} className={`p-3 rounded-full transition-all ${
                 isRecording 
                   ? 'bg-red-500 text-white animate-pulse' 
                   : 'bg-gray-700 text-white hover:bg-gray-600'
@@ -457,45 +442,40 @@ export const RetellVoiceChat: React.FC<RetellVoiceChatProps> = ({
               title={language === 'es' ? 'Iniciar/Detener grabación' : 'Start/Stop Recording'}
             >
               <Mic className="w-5 h-5" />
-            </motion.button>
+            </button>
 
-            <motion.button
+            <button
               key="end"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              onClick={endVoiceCall}
-              className="p-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-all"
+onClick={endVoiceCall} className="p-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-all"
               title={language === 'es' ? 'Finalizar sesión' : 'End session'}
             >
               <PhoneOff className="w-5 h-5" />
-            </motion.button>
+            </button>
           </>
         )}
-      </AnimatePresence>
+      </>
 
       {transcript && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          className="absolute bottom-full mb-2 left-0 right-0 bg-black/80 text-white p-2 rounded-lg text-sm max-w-xs"
+        <div
+className="absolute bottom-full mb-2 left-0 right-0 bg-black/80 text-white p-2 rounded-lg text-sm max-w-xs"
         >
           <strong>You said:</strong> {transcript}
-        </motion.div>
+        </div>
       )}
 
       <MicrophoneTroubleshootingGuide
         language={language}
         isOpen={showTroubleshooting}
-        onClose={() => setShowTroubleshooting(false)}
+                onClose={() => setShowTroubleshooting(false)}
       />
 
       <VoiceCallModal
         isOpen={showVoiceModal}
-        onClose={() => setShowVoiceModal(false)}
-        onEndCall={endVoiceCall}
+                onClose={() => setShowVoiceModal(false)}
+                onEndCall={endVoiceCall}
         language={language}
         isMuted={isMuted}
-        onToggleMute={toggleMute}
+                onToggleMute={toggleMute}
         isConnecting={isConnecting}
         isConnected={isConnected}
         audioLevel={audioLevel}

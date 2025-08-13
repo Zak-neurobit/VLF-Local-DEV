@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { getHomepageTestimonials } from '@/data/testimonials';
 import { block } from 'million/react';
@@ -70,12 +70,8 @@ export function TestimonialCarousel() {
     <section className="py-20 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+        <div
+className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">Historias de Éxito</span>
@@ -83,51 +79,40 @@ export function TestimonialCarousel() {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Miles de clientes confían en nosotros. Estas son sus historias.
           </p>
-        </motion.div>
+        </div>
 
         {/* Carousel Container */}
         <div className="relative max-w-4xl mx-auto">
           {/* Quote Icon */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="absolute -top-8 left-1/2 transform -translate-x-1/2 z-10"
+          <div
+className="absolute -top-8 left-1/2 transform -translate-x-1/2 z-10"
           >
             <div className="p-4 bg-gradient-to-br from-[#C9974D] to-[#D4A574] rounded-full shadow-xl">
               <Quote className="w-8 h-8 text-white" />
             </div>
-          </motion.div>
+          </div>
 
           {/* Testimonial Card */}
           <div className="relative h-[400px] md:h-[300px]">
-            <AnimatePresence initial={false} custom={direction}>
-              <motion.div
+            <>
+              <div
                 key={currentIndex}
-                custom={direction}
-                // TODO: Convert variants={slideVariants} to react-spring
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: 'spring', stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 },
-                }}
-                className="absolute inset-0"
+
+               ,
+                  opacity: { duration: 0.2 }, className="absolute inset-0"
               >
                 <div className="glass-card p-8 md:p-12 rounded-3xl h-full flex flex-col justify-center">
                   {/* Rating */}
                   <div className="flex justify-center mb-4">
                     {[...Array(testimonials[currentIndex]?.rating || 0)].map((_, i) => (
-                      <motion.div
+                      <div
                         key={i}
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        transition={{ delay: i * 0.1 }}
+                       }
+                       }
+                       }
                       >
                         <Star className="w-6 h-6 text-[#C9974D] fill-current" />
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
 
@@ -145,25 +130,23 @@ export function TestimonialCarousel() {
                     <span className="modern-badge">{testimonials[currentIndex]?.caseType || ''}</span>
                   </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            </>
           </div>
 
           {/* Navigation Buttons */}
-          <button
-            onClick={handlePrevious}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 md:-translate-x-12 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
+          <button onClick={handlePrevious className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 md:-translate-x-12 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
             aria-label="Previous testimonial"
           >
-            <ChevronLeft className="w-6 h-6 text-[#6B1F2E] group-hover:text-[#C9974D] transition-colors" />
+            <ChevronLeft}
+      className="w-6 h-6 text-[#6B1F2E] group-hover:text-[#C9974D] transition-colors" />
           </button>
 
           <button
-            onClick={handleNext}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 md:translate-x-12 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
+            onClick={handleNext} className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 md:translate-x-12 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
             aria-label="Next testimonial"
           >
-            <ChevronRight className="w-6 h-6 text-[#6B1F2E] group-hover:text-[#C9974D] transition-colors" />
+            <ChevronRight} className="w-6 h-6 text-[#6B1F2E] group-hover:text-[#C9974D] transition-colors" />
           </button>
 
           {/* Dots Indicator */}
@@ -171,28 +154,25 @@ export function TestimonialCarousel() {
             {testimonials.map((_, index) => (
               <button
                 key={index}
+
                 onClick={() => {
                   setDirection(index > currentIndex ? 1 : -1);
-                  setCurrentIndex(index);
-                }}
+                  setCurrentIndex(index);}
+
                 className={`h-2 rounded-full transition-all duration-300 ${
                   index === currentIndex
                     ? 'w-8 bg-gradient-to-r from-[#6B1F2E] to-[#8B2635]'
                     : 'w-2 bg-gray-300 hover:bg-gray-400'
                 }`}
-                aria-label={`Go to testimonial ${index + 1}`}
+      aria-label={`Go to testimonial ${index + 1}`}
               />
             ))}
           </div>
         </div>
 
         {/* Trust Badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
+        <div
+className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
         >
           {[
             { value: '50,000+', label: 'Clientes Felices' },
@@ -200,12 +180,15 @@ export function TestimonialCarousel() {
             { value: '95%', label: 'Casos Ganados' },
             { value: '24/7', label: 'Disponibilidad' },
           ].map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-2xl md:text-3xl font-bold gradient-text mb-1">{stat.value}</div>
+            <div key={index}
+
+                className="text-center">
+              <div
+                className="text-2xl md:text-3xl font-bold gradient-text mb-1">{stat.value}</div>
               <div className="text-sm text-gray-600">{stat.label}</div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

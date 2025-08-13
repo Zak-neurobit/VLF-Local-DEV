@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChevronRight, Calculator, AlertCircle } from 'lucide-react';
@@ -182,33 +182,33 @@ export default function CaseEvaluator({ onComplete }: CaseEvaluatorProps) {
                 <span>{Math.round(((step + 1) / steps.length) * 100)}% Complete</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
-                <motion.div
+                <div
                   className="bg-gradient-to-r from-burgundy-600 to-gold-500 h-2 rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${((step + 1) / steps.length) * 100}%` }}
-                  transition={{ duration: 0.5 }}
+                 }
+                 %` }}
+                 }
                 />
               </div>
             </div>
 
             {/* Question */}
-            <AnimatePresence mode="wait">
-              <motion.div
+            <>
+              <div
                 key={step}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
+               }
+               }
+               }
+               }
               >
                 <h3 className="text-2xl font-bold mb-6">{steps[step]?.title || ''}</h3>
                 <div className="space-y-3">
                   {(steps[step]?.options || []).map(option => (
-                    <motion.button
+                    <button
                       key={option.value}
-                      // TODO: Convert whileHover={{ scale: 1.02 }} to react-spring
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => handleSelect(option.value)}
-                      className="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-burgundy-500 hover:bg-burgundy-50 transition-all text-left"
+
+                onClick={() => handleSelect(option.value)}
+
+                className="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-burgundy-500 hover:bg-burgundy-50 transition-all text-left"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
@@ -220,19 +220,16 @@ export default function CaseEvaluator({ onComplete }: CaseEvaluatorProps) {
                         </div>
                         <ChevronRight className="w-5 h-5 text-gray-400" />
                       </div>
-                    </motion.button>
+                    </button>
                   ))}
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            </>
           </>
         ) : (
           /* Results */
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center"
+          <div
+className="text-center"
           >
             <div className="mb-8">
               <h3 className="text-2xl font-bold mb-4">Your Case Evaluation Results</h3>
@@ -274,8 +271,11 @@ export default function CaseEvaluator({ onComplete }: CaseEvaluatorProps) {
                 <h4 className="font-semibold mb-3">Recommended Next Steps:</h4>
                 <ul className="space-y-2">
                   {result.nextSteps.map((step: string, index: number) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <span className="text-burgundy-600 font-bold">{index + 1}.</span>
+                    <li key={index}
+
+                className="flex items-start gap-2">
+                      <span
+                className="text-burgundy-600 font-bold">{index + 1}.</span>
                       <span>{step}</span>
                     </li>
                   ))}
@@ -312,7 +312,7 @@ export default function CaseEvaluator({ onComplete }: CaseEvaluatorProps) {
                 Start New Evaluation
               </Button>
             </div>
-          </motion.div>
+          </div>
         )}
       </CardContent>
     </Card>

@@ -64,8 +64,10 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       return (
         <a
           ref={ref}
-          href={href}
-          className={cn(linkVariants({ variant, size, underline, className }))}
+
+                href={href}
+
+                className={cn(linkVariants({ variant, size, underline, className }))}
           target="_blank"
           rel="noopener noreferrer"
           {...props}
@@ -94,8 +96,10 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     return (
       <NextLink
         ref={ref}
-        href={href}
-        className={cn(linkVariants({ variant, size, underline, className }))}
+
+                href={href}
+
+                className={cn(linkVariants({ variant, size, underline, className }))}
         {...props}
       >
         {children}

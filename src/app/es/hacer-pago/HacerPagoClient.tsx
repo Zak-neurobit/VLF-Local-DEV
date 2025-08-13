@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   CreditCard,
   Lock,
@@ -67,32 +66,24 @@ export default function HacerPagoClient() {
       <section className="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
+            <div
+className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
             >
               <Lock className="w-5 h-5 text-secondary-400" />
               <span className="text-sm font-medium">Portal de Pago Seguro</span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl md:text-6xl font-bold mb-6"
+            <h1
+className="text-4xl md:text-6xl font-bold mb-6"
             >
               Hacer un Pago
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl text-gray-200"
+            <p
+className="text-xl text-gray-200"
             >
               Pague su factura legal de manera segura y conveniente
-            </motion.p>
+            </p>
           </div>
         </div>
       </section>
@@ -127,8 +118,7 @@ export default function HacerPagoClient() {
                       </label>
                       <select
                         value={paymentType}
-                        onChange={e => setPaymentType(e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+      onChange={e => setPaymentType(e.target.value)} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       >
                         <option value="invoice">Pago de Factura</option>
                         <option value="retainer">Anticipo de Honorarios</option>
@@ -149,12 +139,11 @@ export default function HacerPagoClient() {
                         <input
                           type="number"
                           value={paymentAmount}
-                          onChange={e => setPaymentAmount(e.target.value)}
-                          placeholder="0.00"
+      onChange={e => setPaymentAmount(e.target.value)} placeholder="0.00"
                           step="0.01"
                           min="0"
                           required
-                          className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                         } className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                         />
                       </div>
                     </div>
@@ -212,18 +201,18 @@ export default function HacerPagoClient() {
                         {paymentMethods.map((method, index) => (
                           <label
                             key={index}
-                            className={`flex items-center gap-4 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 ${
+
+                className={`flex items-center gap-4 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 ${
                               method.available ? '' : 'opacity-50 cursor-not-allowed'
                             }`}
                           >
                             <input
                               type="radio"
                               name="paymentMethod"
-                              disabled={!method.available}
-                              className="w-4 h-4 text-primary-600"
+                              disabled={!method.available className="w-4 h-4 text-primary-600"
                             />
                             <div className="flex-1">
-                              <div className="flex items-center gap-3">
+                              <div} className="flex items-center gap-3">
                                 {method.icon}
                                 <div>
                                   <p className="font-medium">{method.name}</p>
@@ -267,9 +256,12 @@ export default function HacerPagoClient() {
                   </h3>
                   <ul className="space-y-3">
                     {securityFeatures.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2">
+                      <li key={index}
+
+                className="flex items-start gap-2">
                         <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-sm text-gray-600">{feature}</span>
+                        <span
+                className="text-sm text-gray-600">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -326,10 +318,8 @@ export default function HacerPagoClient() {
       {/* Payment Confirmation Modal */}
       {showConfirmation && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 text-center"
+          <div
+className="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 text-center"
           >
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="w-8 h-8 text-green-500" />
@@ -341,11 +331,12 @@ export default function HacerPagoClient() {
             </p>
             <button
               onClick={() => setShowConfirmation(false)}
-              className="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+
+                className="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
             >
               Cerrar
             </button>
-          </motion.div>
+          </div>
         </div>
       )}
 

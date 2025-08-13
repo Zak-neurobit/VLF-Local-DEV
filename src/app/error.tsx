@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { logger } from '@/lib/safe-logger';
 // import * as Sentry from '@sentry/nextjs';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import Link from 'next/link';
 
 export default function Error({
@@ -83,17 +83,15 @@ export default function Error({
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4">
       <div className="max-w-4xl w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+        <div
           className="text-center"
         >
           {/* Language Toggle */}
           <div className="flex justify-center gap-2 mb-8">
             <button
               onClick={() => setLanguage('en')}
-              className={`px-3 py-1 text-sm rounded ${
+
+                className={`px-3 py-1 text-sm rounded ${
                 language === 'en'
                   ? 'bg-[#188bf6] text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -103,7 +101,8 @@ export default function Error({
             </button>
             <button
               onClick={() => setLanguage('es')}
-              className={`px-3 py-1 text-sm rounded ${
+
+                className={`px-3 py-1 text-sm rounded ${
                 language === 'es'
                   ? 'bg-[#188bf6] text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -114,14 +113,11 @@ export default function Error({
           </div>
 
           {/* Error Icon */}
-          <motion.div
-            initial={{ scale: 0.8, rotate: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+          <div
             className="mb-8"
           >
             <div className="text-8xl mb-4">⚠️</div>
-          </motion.div>
+          </div>
 
           {/* Content */}
           <h1 className="text-4xl font-bold text-gray-900 mb-4">{t.title}</h1>
@@ -141,6 +137,7 @@ export default function Error({
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <button
               onClick={reset}
+
               className="px-8 py-3 bg-[#188bf6] text-white rounded-md font-semibold hover:bg-[#0e5ca8] transition-colors"
             >
               🔄 {t.tryAgain}
@@ -173,8 +170,11 @@ export default function Error({
               <h3 className="text-lg font-semibold text-gray-900 mb-3">{t.whatToDo}</h3>
               <ul className="space-y-2">
                 {t.suggestions.map((suggestion, index) => (
-                  <li key={index} className="flex items-start text-sm text-gray-600">
-                    <span className="text-green-500 mr-2">✓</span>
+                  <li key={index}
+
+                    className="flex items-start text-sm text-gray-600">
+                    <span
+                      className="text-green-500 mr-2">✓</span>
                     {suggestion}
                   </li>
                 ))}
@@ -202,7 +202,7 @@ export default function Error({
           <div className="mt-8 text-gray-600">
             <p className="text-sm">📞 1-844-YO-PELEO (967-3536) | 📧 leads@vasquezlawfirm.com</p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

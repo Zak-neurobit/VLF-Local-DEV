@@ -78,7 +78,8 @@ export function AttorneyPageTemplate({ attorney, language = 'en' }: AttorneyPage
                       <div className="h-full relative min-h-[300px] md:min-h-[400px]">
                         <Image
                           src={attorney.image}
-                          alt={attorney.name}
+
+                alt={attorney.name}
                           fill
                           className="object-cover"
                         />
@@ -107,10 +108,12 @@ export function AttorneyPageTemplate({ attorney, language = 'en' }: AttorneyPage
                     {attorney.practiceAreas.map((area, index) => (
                       <div
                         key={index}
-                        className="flex items-center p-4 bg-primary/10 rounded-lg border border-primary/20 hover:bg-primary/20 transition-colors"
+
+                className="flex items-center p-4 bg-primary/10 rounded-lg border border-primary/20 hover:bg-primary/20 transition-colors"
                       >
                         <Briefcase className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
-                        <span className="text-white">{area}</span>
+                        <span
+                className="text-white">{area}</span>
                       </div>
                     ))}
                   </div>
@@ -125,9 +128,12 @@ export function AttorneyPageTemplate({ attorney, language = 'en' }: AttorneyPage
                     </h2>
                     <div className="space-y-4">
                       {attorney.achievements.map((achievement, index) => (
-                        <div key={index} className="flex items-start">
+                        <div key={index}
+
+                className="flex items-start">
                           <div className="mt-1.5 w-2 h-2 bg-primary rounded-full mr-3 flex-shrink-0"></div>
-                          <p className="text-gray-300">{achievement}</p>
+                          <p
+                className="text-gray-300">{achievement}</p>
                         </div>
                       ))}
                     </div>
@@ -146,7 +152,9 @@ export function AttorneyPageTemplate({ attorney, language = 'en' }: AttorneyPage
                     {attorney.phone && (
                       <div className="flex items-center">
                         <Phone className="w-5 h-5 text-primary mr-3" />
-                        <a href={`tel:${attorney.phone}`} className="text-white hover:text-primary transition-colors">
+                        <a href={`tel:${attorney.phone}`}
+
+                className="text-white hover:text-primary transition-colors">
                           {attorney.phone}
                         </a>
                       </div>
@@ -196,10 +204,13 @@ export function AttorneyPageTemplate({ attorney, language = 'en' }: AttorneyPage
                   </h3>
                   <div className="space-y-3">
                     {attorney.barAdmissions.map((bar, index) => (
-                      <div key={index} className="flex items-start">
+                      <div key={index}
+
+                className="flex items-start">
                         <div className="mt-1.5 w-2 h-2 bg-primary rounded-full mr-3 flex-shrink-0"></div>
                         <div>
-                          <p className="text-white font-semibold">{bar.state}</p>
+                          <p
+                className="text-white font-semibold">{bar.state}</p>
                           {bar.description && (
                             <p className="text-sm text-gray-400">{bar.description}</p>
                           )}
@@ -241,7 +252,8 @@ export function AttorneyPageTemplate({ attorney, language = 'en' }: AttorneyPage
                     {attorney.languages.map((lang, index) => (
                       <span
                         key={index}
-                        className="px-4 py-2 bg-primary/10 text-white rounded-full border border-primary/20"
+
+                className="px-4 py-2 bg-primary/10 text-white rounded-full border border-primary/20"
                       >
                         {lang}
                       </span>

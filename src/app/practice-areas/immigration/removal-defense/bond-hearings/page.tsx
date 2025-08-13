@@ -196,7 +196,8 @@ export default function BondHearingsPage() {
               currentPage={currentPage}
               variant="inline"
               maxLinks={5}
-              className="mb-8 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-primary/20"
+
+                className="mb-8 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-primary/20"
             />
 
             {/* Emergency CTA Section */}
@@ -334,9 +335,11 @@ export default function BondHearingsPage() {
                 ].map((facility, index) => (
                   <div
                     key={index}
-                    className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-primary/20"
                   >
-                    <p className="font-semibold text-primary">{facility}</p>
+                    <p
+                className="font-semibold text-primary">{facility}</p>
                   </div>
                 ))}
               </div>
@@ -350,7 +353,8 @@ export default function BondHearingsPage() {
               currentPage={currentPage}
               variant="related"
               maxLinks={6}
-              className="mt-12 pt-12 border-t border-gray-800"
+
+                className="mt-12 pt-12 border-t border-gray-800"
             />
           </div>
         }

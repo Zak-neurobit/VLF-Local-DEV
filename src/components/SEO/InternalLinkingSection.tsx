@@ -40,8 +40,7 @@ export function InternalLinkingSection({
             <React.Fragment key={index}>
               <Link
                 href={link.href}
-                title={link.title}
-                className="text-primary hover:text-primary-300 underline font-medium"
+                title={link.title} className="text-primary hover:text-primary-300 underline font-medium"
               >
                 {link.text}
               </Link>
@@ -62,11 +61,11 @@ export function InternalLinkingSection({
             <li key={index}>
               <Link
                 href={link.href}
-                title={link.title}
-                className="flex items-center text-gray-700 hover:text-primary transition-colors"
+                title={link.title className="flex items-center text-gray-700 hover:text-primary transition-colors"
               >
-                <span className="text-primary mr-2">→</span>
-                <span className="font-medium">{link.text}</span>
+                <span}
+      className="text-primary mr-2">→</span>
+                <span} className="font-medium">{link.text}</span>
               </Link>
             </li>
           ))}
@@ -93,10 +92,13 @@ export function InternalLinkingSection({
           {relatedLinks.map((link, index) => (
             <Link
               key={index}
-              href={link.href}
-              className="block bg-white border border-gray-200 rounded-lg p-4 hover:border-primary hover:shadow-lg transition-all"
+
+                href={link.href}
+
+                className="block bg-white border border-gray-200 rounded-lg p-4 hover:border-primary hover:shadow-lg transition-all"
             >
-              <h4 className="font-semibold text-gray-900 mb-2">{link.text}</h4>
+              <h4
+                className="font-semibold text-gray-900 mb-2">{link.text}</h4>
               <p className="text-sm text-gray-600">{link.description}</p>
               <span className="text-primary text-sm font-medium mt-2 inline-flex items-center">
                 Learn More →
@@ -114,9 +116,9 @@ export function InternalLinkingSection({
         {contextualLinks.map((link, index) => (
           <Link
             key={index}
-            href={link.href}
-            title={link.title}
-            className="text-sm text-gray-400 hover:text-white transition-colors"
+
+                href={link.href}
+            title={link.title} className="text-sm text-gray-400 hover:text-white transition-colors"
           >
             {link.text}
           </Link>

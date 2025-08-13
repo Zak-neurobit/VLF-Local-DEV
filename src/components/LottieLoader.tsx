@@ -1,7 +1,6 @@
 'use client';
 
 // Lottie removed - use CSS animations instead;
-import { motion, AnimatePresence } from 'framer-motion';
 
 // Simple loading animation data
 const loadingAnimation = {
@@ -112,23 +111,17 @@ interface LottieLoaderProps {
 
 export default function LottieLoader({ size = 100, message = 'Loading...' }: LottieLoaderProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      className="flex flex-col items-center justify-center p-8"
+    <div
+className="flex flex-col items-center justify-center p-8"
     >
-      <Lottie animationData={loadingAnimation} loop={true} style={{ width: size, height: size }} />
+      <Lottie animationData={loadingAnimation} loop={true}} />
       {message && (
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mt-4 text-white/60"
+        <p
+className="mt-4 text-white/60"
         >
           {message}
-        </motion.p>
+        </p>
       )}
-    </motion.div>
+    </div>
   );
 }

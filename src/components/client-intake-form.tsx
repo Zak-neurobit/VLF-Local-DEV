@@ -211,9 +211,8 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
       case 1:
         return (
           <PersonalInfoStep
-            data={formData.personalInfo}
-            onChange={(field, value) => handleInputChange('personalInfo', field, value)}
-            onNestedChange={(nested, field, value) =>
+            data={formData.personalInfo} onChange={(field, value) => handleInputChange('personalInfo', field, value)}
+                onNestedChange={(nested, field, value) =>
               handleNestedInputChange('personalInfo', nested, field, value)
             }
           />
@@ -221,22 +220,19 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
       case 2:
         return (
           <LegalIssueStep
-            data={formData.legalIssue}
-            onChange={(field, value) => handleInputChange('legalIssue', field, value)}
+            data={formData.legalIssue} onChange={(field, value) => handleInputChange('legalIssue', field, value)}
           />
         );
       case 3:
         return (
           <PriorExperienceStep
-            data={formData.priorLegalExperience}
-            onChange={(field, value) => handleInputChange('priorLegalExperience', field, value)}
+            data={formData.priorLegalExperience} onChange={(field, value) => handleInputChange('priorLegalExperience', field, value)}
           />
         );
       case 4:
         return (
           <FinancialStep
-            data={formData.financialSituation}
-            onChange={(field, value) => handleInputChange('financialSituation', field, value)}
+            data={formData.financialSituation} onChange={(field, value) => handleInputChange('financialSituation', field, value)}
           />
         );
       case 5:
@@ -244,10 +240,10 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
           <GoalsAndQuestionsStep
             goals={formData.clientGoals}
             questions={formData.specificQuestions}
-            onAddGoal={addGoal}
-            onRemoveGoal={removeGoal}
-            onAddQuestion={addQuestion}
-            onRemoveQuestion={removeQuestion}
+                onAddGoal={addGoal}
+                onRemoveGoal={removeGoal}
+                onAddQuestion={addQuestion}
+                onRemoveQuestion={removeQuestion}
           />
         );
       default:
@@ -285,17 +281,17 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
         <button
           type="button"
           onClick={prevStep}
-          disabled={currentStep === 1}
-          className="px-6 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+      disabled={currentStep === 1} className="px-6 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Previous
         </button>
 
-        <div className="flex space-x-2">
+        <div} className="flex space-x-2">
           {[...Array(totalSteps)].map((_, index) => (
             <div
               key={index}
-              className={`w-3 h-3 rounded-full ${
+
+                className={`w-3 h-3 rounded-full ${
                 index + 1 === currentStep
                   ? 'bg-blue-600'
                   : index + 1 < currentStep
@@ -310,8 +306,7 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
           <button
             type="button"
             onClick={nextStep}
-            disabled={!validateStep(currentStep)}
-            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+      disabled={!validateStep(currentStep)} className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
           </button>
@@ -319,8 +314,7 @@ export default function ClientIntakeForm({ onSubmit, initialData }: IntakeFormPr
           <button
             type="button"
             onClick={submitForm}
-            disabled={!validateStep(5) || isSubmitting}
-            className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+      disabled={!validateStep(5) || isSubmitting} className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Submitting...' : 'Submit Assessment'}
           </button>
@@ -347,9 +341,7 @@ function PersonalInfoStep({ data, onChange, onNestedChange }: PersonalInfoStepPr
           <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
           <input
             type="text"
-            value={data.firstName}
-            onChange={e => onChange('firstName', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={data.firstName onChange={e => onChange('firstName', e.target.value) className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
@@ -358,9 +350,7 @@ function PersonalInfoStep({ data, onChange, onNestedChange }: PersonalInfoStepPr
           <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
           <input
             type="text"
-            value={data.lastName}
-            onChange={e => onChange('lastName', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={data.lastName onChange={e => onChange('lastName', e.target.value) className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
@@ -369,9 +359,7 @@ function PersonalInfoStep({ data, onChange, onNestedChange }: PersonalInfoStepPr
           <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
           <input
             type="email"
-            value={data.email}
-            onChange={e => onChange('email', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={data.email onChange={e => onChange('email', e.target.value) className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
@@ -380,9 +368,7 @@ function PersonalInfoStep({ data, onChange, onNestedChange }: PersonalInfoStepPr
           <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
           <input
             type="tel"
-            value={data.phone}
-            onChange={e => onChange('phone', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={data.phone onChange={e => onChange('phone', e.target.value) className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
@@ -390,9 +376,7 @@ function PersonalInfoStep({ data, onChange, onNestedChange }: PersonalInfoStepPr
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Language</label>
           <select
-            value={data.preferredLanguage}
-            onChange={e => onChange('preferredLanguage', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={data.preferredLanguage onChange={e => onChange('preferredLanguage', e.target.value) className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="en">English</option>
             <option value="es">Spanish / Español</option>
@@ -408,9 +392,7 @@ function PersonalInfoStep({ data, onChange, onNestedChange }: PersonalInfoStepPr
             <label className="block text-sm font-medium text-gray-700 mb-2">City *</label>
             <input
               type="text"
-              value={data.location.city}
-              onChange={e => onNestedChange('location', 'city', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={data.location.city onChange={e => onNestedChange('location', 'city', e.target.value) className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -419,21 +401,20 @@ function PersonalInfoStep({ data, onChange, onNestedChange }: PersonalInfoStepPr
             <label className="block text-sm font-medium text-gray-700 mb-2">State *</label>
             <input
               type="text"
-              value={data.location.state}
-              onChange={e => onNestedChange('location', 'state', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={data.location.state onChange={e => onNestedChange('location', 'state', e.target.value)}
+      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="e.g., North Carolina"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">ZIP Code</label>
+            <label}
+      className="block text-sm font-medium text-gray-700 mb-2">ZIP Code</label>
             <input
               type="text"
-              value={data.location.zipCode}
-              onChange={e => onNestedChange('location', 'zipCode', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+             } value={data.location.zipCode}
+      onChange={e => onNestedChange('location', 'zipCode', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
         </div>
@@ -457,28 +438,28 @@ function LegalIssueStep({ data, onChange }: LegalIssueStepProps) {
           Primary Legal Area (if known)
         </label>
         <select
-          value={data.primaryArea}
-          onChange={e => onChange('primaryArea', e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={data.primaryArea onChange={e => onChange('primaryArea', e.target.value) className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="unknown">Not sure / Need help determining</option>
           <option value="immigration">Immigration Law</option>
           <option value="personal_injury">Personal Injury</option>
           <option value="workers_compensation">Workers Compensation</option>
           <option value="family_law">Family Law / Divorce</option>
-          <option value="criminal_defense">Criminal Defense</option>
+          <option}
+      value="criminal_defense">Criminal Defense</option>
         </select>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label}
+      className="block text-sm font-medium text-gray-700 mb-2">
           Describe your legal issue * (minimum 10 characters)
         </label>
         <textarea
-          value={data.description}
-          onChange={e => onChange('description', e.target.value)}
+         } value={data.description} onChange={e => onChange('description', e.target.value)}
           rows={6}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Please provide as much detail as possible about your legal situation..."
           required
         />
@@ -493,9 +474,7 @@ function LegalIssueStep({ data, onChange }: LegalIssueStepProps) {
             How urgent is your situation?
           </label>
           <select
-            value={data.urgency}
-            onChange={e => onChange('urgency', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={data.urgency onChange={e => onChange('urgency', e.target.value) className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="immediate">Immediate (emergency)</option>
             <option value="within_days">Within days</option>
@@ -511,22 +490,20 @@ function LegalIssueStep({ data, onChange }: LegalIssueStepProps) {
           </label>
           <input
             type="text"
-            value={data.estimatedValue || ''}
-            onChange={e => onChange('estimatedValue', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={data.estimatedValue || '' onChange={e => onChange('estimatedValue', e.target.value) className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="e.g., $10,000 or Unknown"
           />
         </div>
       </div>
 
-      <div className="space-y-4">
-        <div className="flex items-center">
+      <div}
+      className="space-y-4">
+        <div}
+      className="flex items-center">
           <input
             type="checkbox"
             id="hasDeadlines"
-            checked={data.hasDeadlines}
-            onChange={e => onChange('hasDeadlines', e.target.checked)}
-            className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            checked={data.hasDeadlines} onChange={e => onChange('hasDeadlines', e.target.checked) className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
           <label htmlFor="hasDeadlines" className="text-sm font-medium text-gray-700">
             There are important deadlines in my case
@@ -535,12 +512,12 @@ function LegalIssueStep({ data, onChange }: LegalIssueStepProps) {
 
         {data.hasDeadlines && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Deadline Date</label>
+            <label}
+      className="block text-sm font-medium text-gray-700 mb-2">Deadline Date</label>
             <input
               type="date"
-              value={data.deadlineDate || ''}
-              onChange={e => onChange('deadlineDate', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+             } value={data.deadlineDate || ''}
+      onChange={e => onChange('deadlineDate', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
         )}
@@ -564,25 +541,23 @@ function PriorExperienceStep({ data, onChange }: PriorExperienceStepProps) {
           <input
             type="checkbox"
             id="hasAttorney"
-            checked={data.hasAttorney}
-            onChange={e => onChange('hasAttorney', e.target.checked)}
-            className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            checked={data.hasAttorney} onChange={e => onChange('hasAttorney', e.target.checked) className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
-          <label htmlFor="hasAttorney" className="text-sm font-medium text-gray-700">
+          <label htmlFor="hasAttorney"}
+      className="text-sm font-medium text-gray-700">
             I currently have or have had an attorney for this matter
           </label>
         </div>
 
         {data.hasAttorney && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label} className="block text-sm font-medium text-gray-700 mb-2">
               Attorney{`'`}s Name (optional)
             </label>
             <input
               type="text"
               value={data.priorAttorneyName || ''}
-              onChange={e => onChange('priorAttorneyName', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      onChange={e => onChange('priorAttorneyName', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
         )}
@@ -591,9 +566,7 @@ function PriorExperienceStep({ data, onChange }: PriorExperienceStepProps) {
           <input
             type="checkbox"
             id="priorCases"
-            checked={data.priorCases}
-            onChange={e => onChange('priorCases', e.target.checked)}
-            className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            checked={data.priorCases onChange={e => onChange('priorCases', e.target.checked) className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
           <label htmlFor="priorCases" className="text-sm font-medium text-gray-700">
             I have had legal cases before
@@ -604,24 +577,22 @@ function PriorExperienceStep({ data, onChange }: PriorExperienceStepProps) {
           <input
             type="checkbox"
             id="priorDenials"
-            checked={data.priorDenials}
-            onChange={e => onChange('priorDenials', e.target.checked)}
-            className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            checked={data.priorDenials onChange={e => onChange('priorDenials', e.target.checked) className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
           <label htmlFor="priorDenials" className="text-sm font-medium text-gray-700">
             I have had applications or cases denied before
           </label>
         </div>
 
-        <div className="flex items-center">
+        <div}
+      className="flex items-center">
           <input
             type="checkbox"
             id="priorConvictions"
-            checked={data.priorConvictions}
-            onChange={e => onChange('priorConvictions', e.target.checked)}
-            className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            checked={data.priorConvictions} onChange={e => onChange('priorConvictions', e.target.checked)}
+      className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
-          <label htmlFor="priorConvictions" className="text-sm font-medium text-gray-700">
+          <label htmlFor="priorConvictions"} className="text-sm font-medium text-gray-700">
             I have criminal convictions (if applicable)
           </label>
         </div>
@@ -644,9 +615,7 @@ function FinancialStep({ data, onChange }: FinancialStepProps) {
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Employment Status</label>
           <select
-            value={data.employmentStatus}
-            onChange={e => onChange('employmentStatus', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={data.employmentStatus onChange={e => onChange('employmentStatus', e.target.value) className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="employed">Employed</option>
             <option value="unemployed">Unemployed</option>
@@ -662,22 +631,20 @@ function FinancialStep({ data, onChange }: FinancialStepProps) {
           </label>
           <input
             type="text"
-            value={data.monthlyIncome || ''}
-            onChange={e => onChange('monthlyIncome', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={data.monthlyIncome || '' onChange={e => onChange('monthlyIncome', e.target.value) className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="e.g., $3,000"
           />
         </div>
       </div>
 
-      <div className="space-y-4">
-        <div className="flex items-center">
+      <div}
+      className="space-y-4">
+        <div}
+      className="flex items-center">
           <input
             type="checkbox"
             id="hasInsurance"
-            checked={data.hasInsurance}
-            onChange={e => onChange('hasInsurance', e.target.checked)}
-            className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            checked={data.hasInsurance} onChange={e => onChange('hasInsurance', e.target.checked) className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
           <label htmlFor="hasInsurance" className="text-sm font-medium text-gray-700">
             I have relevant insurance coverage
@@ -686,12 +653,12 @@ function FinancialStep({ data, onChange }: FinancialStepProps) {
 
         {data.hasInsurance && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Insurance Type</label>
+            <label}
+      className="block text-sm font-medium text-gray-700 mb-2">Insurance Type</label>
             <input
               type="text"
-              value={data.insuranceType || ''}
-              onChange={e => onChange('insuranceType', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+             } value={data.insuranceType || ''}
+      onChange={e => onChange('insuranceType', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="e.g., Auto, Health, Workers Comp"
             />
           </div>
@@ -704,8 +671,7 @@ function FinancialStep({ data, onChange }: FinancialStepProps) {
         </label>
         <select
           value={data.abilityToPay}
-          onChange={e => onChange('abilityToPay', e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      onChange={e => onChange('abilityToPay', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="full_payment">Can pay full amount upfront</option>
           <option value="payment_plan">Need payment plan</option>
@@ -766,32 +732,34 @@ function GoalsAndQuestionsStep({
             <input
               type="text"
               value={newGoal}
-              onChange={e => setNewGoal(e.target.value)}
-              placeholder="e.g., Get citizenship, Resolve accident claim, etc."
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      onChange={e => setNewGoal(e.target.value)} placeholder="e.g., Get citizenship, Resolve accident claim, etc."
+             } className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onKeyPress={e => e.key === 'Enter' && handleAddGoal()}
             />
             <button
               type="button"
               onClick={handleAddGoal}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+      className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
             >
               Add Goal
             </button>
           </div>
 
           {goals.length > 0 && (
-            <div className="space-y-2">
+            <div} className="space-y-2">
               {goals.map((goal: string, index: number) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between bg-gray-50 p-3 rounded-md"
+
+                className="flex items-center justify-between bg-gray-50 p-3 rounded-md"
                 >
-                  <span className="text-gray-800">{goal}</span>
+                  <span
+                className="text-gray-800">{goal}</span>
                   <button
                     type="button"
                     onClick={() => onRemoveGoal(goal)}
-                    className="text-red-600 hover:text-red-800"
+
+                className="text-red-600 hover:text-red-800"
                   >
                     Remove
                   </button>
@@ -813,32 +781,34 @@ function GoalsAndQuestionsStep({
             <input
               type="text"
               value={newQuestion}
-              onChange={e => setNewQuestion(e.target.value)}
-              placeholder="e.g., How long will this take? What documents do I need?"
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      onChange={e => setNewQuestion(e.target.value)} placeholder="e.g., How long will this take? What documents do I need?"
+             } className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onKeyPress={e => e.key === 'Enter' && handleAddQuestion()}
             />
             <button
               type="button"
               onClick={handleAddQuestion}
-              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+      className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
             >
               Add Question
             </button>
           </div>
 
           {questions.length > 0 && (
-            <div className="space-y-2">
+            <div} className="space-y-2">
               {questions.map((question: string, index: number) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between bg-gray-50 p-3 rounded-md"
+
+                className="flex items-center justify-between bg-gray-50 p-3 rounded-md"
                 >
-                  <span className="text-gray-800">{question}</span>
+                  <span
+                className="text-gray-800">{question}</span>
                   <button
                     type="button"
                     onClick={() => onRemoveQuestion(question)}
-                    className="text-red-600 hover:text-red-800"
+
+                className="text-red-600 hover:text-red-800"
                   >
                     Remove
                   </button>
@@ -934,15 +904,15 @@ function AssessmentResults({ assessment }: { assessment: CaseAssessmentResult })
         <div className="space-x-4">
           <button
             onClick={() => (window.location.href = '/')}
-            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+
+                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
             Return to Home
           </button>
           <button
             onClick={() =>
               (window.location.href = `/client-dashboard?email=${encodeURIComponent(assessment.clientId)}`)
-            }
-            className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
           >
             View Client Dashboard
           </button>

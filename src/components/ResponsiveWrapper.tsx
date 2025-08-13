@@ -2,7 +2,6 @@
 
 import React, { ReactNode } from 'react';
 import { useScreenInfo, getContainerPadding, getMaxWidth } from '@/hooks/useResponsive';
-import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface ResponsiveWrapperProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
@@ -103,7 +102,7 @@ export const ResponsiveWrapper: React.FC<ResponsiveWrapperProps> = ({
   };
 
   if (enableMotion) {
-    return <motion.div {...getMotionProps()}>{children}</motion.div>;
+    return <div {...getMotionProps()}>{children}</div>;
   }
 
   return <div className={combinedClasses}>{children}</div>;
@@ -272,5 +271,9 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
     className
   );
 
-  return <img src={src} alt={alt} className={classes} />;
+  return <img src={src}
+
+                alt={alt}
+
+                className={classes} />;
 };

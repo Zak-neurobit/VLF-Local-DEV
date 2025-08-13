@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useDeviceCapabilities } from '@/lib/performance/device-detection';
-import { MotionProps } from 'framer-motion';
 
 interface OptimizedAnimationOptions {
   disableOnLowEnd?: boolean;

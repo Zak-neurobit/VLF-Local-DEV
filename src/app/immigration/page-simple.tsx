@@ -19,7 +19,9 @@ export default function ImmigrationPage() {
         <section className="relative bg-gradient-to-b from-secondary/90 via-black/80 to-black py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <Heading level={1} className="mb-6 text-white">
+              <Heading level={1}
+
+                className="mb-6 text-white">
                 Immigration Law Services
               </Heading>
               <Text size="xl" className="mx-auto mb-8 max-w-3xl">
@@ -49,7 +51,9 @@ export default function ImmigrationPage() {
                 peace of mind.
               </p>
 
-              <Heading level={2} className="mt-12 text-white">
+              <Heading level={2}
+
+                className="mt-12 text-white">
                 Our Immigration Services
               </Heading>
               <ul className="mt-6 space-y-2 text-gray-300">
@@ -63,7 +67,9 @@ export default function ImmigrationPage() {
                 <li>U-Visas and T-Visas</li>
               </ul>
 
-              <Heading level={2} className="mt-12 text-white">
+              <Heading level={2}
+
+                className="mt-12 text-white">
                 Why Choose Vasquez Law Firm?
               </Heading>
               <p className="text-gray-300">
@@ -73,7 +79,9 @@ export default function ImmigrationPage() {
                 and Spanish.
               </p>
 
-              <Heading level={3} className="mt-8 text-white">
+              <Heading level={3}
+
+                className="mt-8 text-white">
                 Our Approach
               </Heading>
               <p className="text-gray-300">
@@ -82,7 +90,9 @@ export default function ImmigrationPage() {
                 immigration laws to provide you with the most effective legal strategies.
               </p>
 
-              <Heading level={3} className="mt-8 text-white">
+              <Heading level={3}
+
+                className="mt-8 text-white">
                 Free Consultation
               </Heading>
               <p className="text-gray-300">
@@ -97,7 +107,9 @@ export default function ImmigrationPage() {
         {/* CTA Section */}
         <section className="bg-primary py-16">
           <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-            <Heading level={2} className="mb-4 text-black">
+            <Heading level={2}
+
+                className="mb-4 text-black">
               Ready to Start Your Immigration Journey?
             </Heading>
             <Text size="lg" color="inverse" className="mb-8">

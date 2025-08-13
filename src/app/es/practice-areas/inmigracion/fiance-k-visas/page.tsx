@@ -290,12 +290,14 @@ export default function FianceKVisaPage() {
               {content.kVisaTypes.types.map((visa, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
                   <div className="grid md:grid-cols-3 gap-6">
                     <div>
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="text-2xl font-bold text-primary">{visa.visa}</div>
+                        <div
+                className="text-2xl font-bold text-primary">{visa.visa}</div>
                         <h3 className="text-xl font-bold text-white">{visa.title}</h3>
                       </div>
                       <p className="text-gray-300 mb-4">{visa.description}</p>
@@ -318,9 +320,11 @@ export default function FianceKVisaPage() {
                         {visa.requirements.map((req, rIndex) => (
                           <div
                             key={rIndex}
-                            className="text-sm text-gray-400 flex items-start gap-2"
+
+                className="text-sm text-gray-400 flex items-start gap-2"
                           >
-                            <span className="text-primary mt-1">•</span>
+                            <span
+                className="text-primary mt-1">•</span>
                             {req}
                           </div>
                         ))}

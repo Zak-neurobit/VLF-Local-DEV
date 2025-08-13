@@ -58,25 +58,29 @@ export default function TestNavigation() {
           <div className="space-y-2">
             <button
               onClick={() => testNavigation('/')}
-              className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+
+                className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
             >
               Navigate to Home
             </button>
             <button
               onClick={() => testNavigation('/contact')}
-              className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+
+                className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
             >
               Navigate to Contacto
             </button>
             <button
               onClick={() => testNavigation('/attorneys')}
-              className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+
+                className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
             >
               Navigate to Abogados
             </button>
             <button
               onClick={() => testNavigation('/practice-areas')}
-              className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+
+                className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
             >
               Navigate to Áreas de Práctica
             </button>
@@ -94,7 +98,8 @@ export default function TestNavigation() {
           </div>
           <button
             onClick={() => setLogs([])}
-            className="mt-2 px-4 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-700"
+
+                className="mt-2 px-4 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-700"
           >
             Clear Logs
           </button>

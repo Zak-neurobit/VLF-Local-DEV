@@ -370,15 +370,14 @@ export default function ReputationManagementPage() {
                               <div>
                                 <label className="block text-sm font-medium mb-2">Response</label>
                                 <Textarea
-                                  value={responseText}
-                                  onChange={e => setResponseText(e.target.value)}
-                                  placeholder={
+                                  value={responseText} onChange={e => setResponseText(e.target.value)} placeholder={
                                     isGenerating
                                       ? 'Generating response...'
                                       : 'Type your response...'
                                   }
                                   rows={6}
-                                  disabled={isGenerating}
+
+                disabled={isGenerating}
                                 />
                               </div>
 
@@ -386,7 +385,8 @@ export default function ReputationManagementPage() {
                                 <Button
                                   variant="outline"
                                   onClick={() => handleGenerateResponse(review)}
-                                  disabled={isGenerating}
+
+                disabled={isGenerating}
                                 >
                                   {isGenerating ? 'Generating...' : 'Generate AI Response'}
                                 </Button>
@@ -450,10 +450,12 @@ export default function ReputationManagementPage() {
                     {statistics.report.platformPerformance.map(platform => (
                       <div
                         key={platform.platformId}
-                        className="flex items-center justify-between p-4 border rounded-lg"
+
+                className="flex items-center justify-between p-4 border rounded-lg"
                       >
                         <div>
-                          <h4 className="font-medium">{platform.platformName}</h4>
+                          <h4
+                className="font-medium">{platform.platformName}</h4>
                           <p className="text-sm text-gray-600">
                             {platform.totalReviews} reviews • {platform.averageRating.toFixed(1)}{' '}
                             avg rating
@@ -479,9 +481,12 @@ export default function ReputationManagementPage() {
                 <CardContent>
                   <div className="space-y-3">
                     {statistics.report.recommendations.map((rec: string, index: number) => (
-                      <div key={index} className="flex items-start">
+                      <div key={index}
+
+                className="flex items-start">
                         <TrendingUp className="h-5 w-5 text-blue-600 mr-3 mt-0.5" />
-                        <p className="text-sm">{rec}</p>
+                        <p
+                className="text-sm">{rec}</p>
                       </div>
                     ))}
                   </div>
@@ -499,10 +504,13 @@ export default function ReputationManagementPage() {
             <CardContent>
               <div className="space-y-4">
                 {['post-case-success', 'post-consultation', 'case-milestone'].map(campaignId => (
-                  <div key={campaignId} className="p-4 border rounded-lg">
+                  <div key={campaignId}
+
+                className="p-4 border rounded-lg">
                     <div className="flex justify-between items-center">
                       <div>
-                        <h4 className="font-medium capitalize">{campaignId.replace(/-/g, ' ')}</h4>
+                        <h4
+                className="font-medium capitalize">{campaignId.replace(/-/g, ' ')}</h4>
                         <p className="text-sm text-gray-600">Active campaign</p>
                       </div>
                       <Button variant="outline" size="sm">
@@ -521,6 +529,7 @@ export default function ReputationManagementPage() {
             statistics.report.recentAlerts.map(alert => (
               <Card
                 key={alert.id}
+
                 className={
                   alert.severity === 'urgent'
                     ? 'border-red-500'

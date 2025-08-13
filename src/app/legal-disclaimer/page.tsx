@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   robots: 'noindex, follow',
 };
 
-
 export default function LegalDisclaimerPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-16">

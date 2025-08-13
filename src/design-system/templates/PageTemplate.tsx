@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 // Removed unused design token imports
 
 interface PageTemplateProps {
@@ -40,8 +40,7 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
       {showHero && (
         <section
           className="relative bg-gradient-to-b from-neutral-50 to-white py-16 lg:py-24"
-          style={{
-            backgroundImage: heroImage ? `url(${heroImage})` : undefined,
+         )` : undefined,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -49,11 +48,8 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
           {heroImage && heroOverlay && <div className="absolute inset-0 bg-black/50" />}
 
           <div className={`relative ${getMaxWidth()} mx-auto px-4 sm:px-6 lg:px-8`}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
+            <div
+className="text-center"
             >
               <h1
                 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 ${
@@ -71,7 +67,7 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
                   {subtitle}
                 </p>
               )}
-            </motion.div>
+            </div>
           </div>
         </section>
       )}

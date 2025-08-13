@@ -38,8 +38,10 @@ export default function RaleighHubPage() {
               {practiceAreas.map(area => (
                 <Link
                   key={area.slug}
-                  href={`/locations/nc/raleigh/${area.slug}`}
-                  className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow border-2 border-transparent hover:border-[#C9974D]"
+
+                href={`/locations/nc/raleigh/${area.slug}`}
+
+                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow border-2 border-transparent hover:border-[#C9974D]"
                 >
                   <div className="text-4xl mb-4">{area.icon}</div>
                   <h3 className="text-xl font-semibold text-[#6B1F2E] mb-2">{area.name}</h3>

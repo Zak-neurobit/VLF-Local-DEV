@@ -238,7 +238,8 @@ export default function InmigraciónLawPage() {
               currentPage={currentPage}
               variant="inline"
               maxLinks={5}
-              className="mb-8 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-primary/20"
+
+                className="mb-8 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-primary/20"
             />
 
             {/* Why Choose Section */}
@@ -397,7 +398,8 @@ export default function InmigraciónLawPage() {
                   currentPage={currentPage}
                   variant="sidebar"
                   maxLinks={7}
-                  className="sticky top-24"
+
+                className="sticky top-24"
                 />
               </div>
             </div>
@@ -407,7 +409,8 @@ export default function InmigraciónLawPage() {
               currentPage={currentPage}
               variant="related"
               maxLinks={6}
-              className="mt-12 pt-12 border-t border-gray-800"
+
+                className="mt-12 pt-12 border-t border-gray-800"
             />
           </div>
         }

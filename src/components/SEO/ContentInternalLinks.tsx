@@ -103,9 +103,9 @@ export function ContentInternalLinks({
               end: match.index + match[0].length,
               element: (
                 <Link
-                  key={`${mapping.link}-${match.index}`}
-                  href={mapping.link}
-                  className="text-primary hover:text-primary-300 underline font-medium"
+                  key={`${mapping.link}-${match.index}` href={mapping.link}
+
+                className="text-primary hover:text-primary-300 underline font-medium"
                 >
                   {match[0]}
                 </Link>
@@ -150,7 +150,9 @@ export function ContentInternalLinks({
     const processedContent = addInternalLinks(paragraph);
 
     return (
-      <p key={index} className="mb-4">
+      <p key={index}
+
+                className="mb-4">
         {processedContent}
       </p>
     );
@@ -172,9 +174,9 @@ export function ContentInternalLinks({
             {contextualLinks.map((link, index) => (
               <Link
                 key={index}
+
                 href={link.href}
-                title={link.title}
-                className="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-700 hover:text-primary hover:border-primary transition-colors"
+                title={link.title} className="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-700 hover:text-primary hover:border-primary transition-colors"
               >
                 {link.text}
               </Link>

@@ -160,14 +160,17 @@ export default function AIAgentsPage() {
               {agents.map(agent => {
                 const Icon = agent.icon;
                 return (
-                  <Card key={agent.id} className="h-full hover:shadow-lg transition-shadow">
+                  <Card key={agent.id}
+
+                className="h-full hover:shadow-lg transition-shadow">
                     <CardHeader>
                       <div className="flex items-center justify-between mb-4">
                         <div className="p-2 bg-secondary/10 rounded-lg">
                           <Icon className="h-8 w-8 text-secondary" />
                         </div>
                         {agent.popular && (
-                          <span className="px-2 py-1 text-xs font-medium bg-secondary/10 text-secondary rounded">
+                          <span
+                className="px-2 py-1 text-xs font-medium bg-secondary/10 text-secondary rounded">
                             Popular
                           </span>
                         )}
@@ -178,9 +181,12 @@ export default function AIAgentsPage() {
                     <CardContent>
                       <ul className="space-y-2 mb-6">
                         {agent.features.map((feature, index) => (
-                          <li key={index} className="flex items-start">
+                          <li key={index}
+
+                className="flex items-start">
                             <ChartBarIcon className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                            <span className="text-sm text-gray-600">{feature}</span>
+                            <span
+                className="text-sm text-gray-600">{feature}</span>
                           </li>
                         ))}
                       </ul>

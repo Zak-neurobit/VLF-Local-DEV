@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -160,7 +160,10 @@ export function UniversalPageTemplate({
             <source src={heroVideo} type="video/mp4" />
           </video>
         ) : (
-          <Image src={heroImage} alt={title} fill className="object-cover" priority />
+          <Image
+                src={heroImage}
+
+                alt={title} fill className="object-cover" priority />
         )}
 
         {/* Overlay */}
@@ -170,10 +173,10 @@ export function UniversalPageTemplate({
 
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <div
+           }
+           }
+           }
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
               {isSpanish ? titleEs || title : title}
@@ -189,6 +192,7 @@ export function UniversalPageTemplate({
             <div className="flex flex-wrap gap-4">
               <Link
                 href={ctaButtonLink}
+
                 className="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 {isSpanish ? ctaButtonTextEs : ctaButtonText}
@@ -202,7 +206,7 @@ export function UniversalPageTemplate({
                 1-844-YO-PELEO
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -211,11 +215,11 @@ export function UniversalPageTemplate({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {defaultStats.map((stat, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+               }
+               }
+               }
               >
                 <div className="text-3xl md:text-4xl font-bold text-primary-400 mb-2">
                   {stat.value}
@@ -223,7 +227,7 @@ export function UniversalPageTemplate({
                 <div className="text-sm md:text-base text-gray-300">
                   {isSpanish ? stat.labelEs || stat.label : stat.label}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -233,28 +237,23 @@ export function UniversalPageTemplate({
       {features.length > 0 && (
         <section className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
+            <div
+className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {isSpanish ? 'Nuestros Servicios' : 'Our Services'}
               </h2>
-            </motion.div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {features.map((feature, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+
+                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
                 >
-                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
+                  <div
+                className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
                     {feature.icon}
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -263,7 +262,7 @@ export function UniversalPageTemplate({
                   <p className="text-gray-600">
                     {isSpanish ? feature.descriptionEs || feature.description : feature.description}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -274,28 +273,23 @@ export function UniversalPageTemplate({
       {processSteps.length > 0 && (
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
+            <div
+className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {isSpanish ? 'Nuestro Proceso' : 'Our Process'}
               </h2>
-            </motion.div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {processSteps.map((step, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative"
+
+                className="relative"
                 >
-                  <div className="text-6xl font-bold text-primary-100 mb-4">{step.number}</div>
+                  <div
+                className="text-6xl font-bold text-primary-100 mb-4">{step.number}</div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     {isSpanish ? step.titleEs || step.title : step.title}
                   </h3>
@@ -305,7 +299,7 @@ export function UniversalPageTemplate({
                   {index < processSteps.length - 1 && (
                     <ArrowRight className="hidden lg:block absolute top-8 -right-4 w-8 h-8 text-primary-300" />
                   )}
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -316,29 +310,25 @@ export function UniversalPageTemplate({
       {benefits.length > 0 && (
         <section className="py-16 bg-primary-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
+            <div
+className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {isSpanish ? '¿Por Qué Elegirnos?' : 'Why Choose Us?'}
               </h2>
-            </motion.div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {benefits.map((benefit, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  className="flex items-start gap-4"
+
+                className="flex items-start gap-4"
                 >
                   <CheckCircle className="w-6 h-6 text-primary-600 shrink-0 mt-1" />
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                    <h3
+                className="text-lg font-semibold text-gray-900 mb-1">
                       {isSpanish ? benefit.titleEs || benefit.title : benefit.title}
                     </h3>
                     <p className="text-gray-600">
@@ -347,7 +337,7 @@ export function UniversalPageTemplate({
                         : benefit.description}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -358,32 +348,27 @@ export function UniversalPageTemplate({
       {testimonials.length > 0 && (
         <section className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
+            <div
+className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {isSpanish ? 'Lo Que Dicen Nuestros Clientes' : 'What Our Clients Say'}
               </h2>
-            </motion.div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {testimonials.slice(0, 3).map((testimonial, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-white p-6 rounded-lg shadow-lg"
+
+                className="bg-white p-6 rounded-lg shadow-lg"
                 >
                   <div className="flex mb-4">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className={cn(
+
+                className={cn(
                           'w-5 h-5',
                           i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
                         )}
@@ -396,7 +381,7 @@ export function UniversalPageTemplate({
                     "
                   </p>
                   <p className="font-semibold text-gray-900">- {testimonial.name}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -407,35 +392,30 @@ export function UniversalPageTemplate({
       {faqs.length > 0 && (
         <section className="py-16">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
+            <div
+className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {isSpanish ? 'Preguntas Frecuentes' : 'Frequently Asked Questions'}
               </h2>
-            </motion.div>
+            </div>
 
             <div className="space-y-4">
               {faqs.map((faq, index) => (
-                <motion.details
+                <details
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-white p-6 rounded-lg shadow-md group"
+
+                className="bg-white p-6 rounded-lg shadow-md group"
                 >
-                  <summary className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
+                  <summary
+                className="font-semibold text-gray-900 cursor-pointer list-none flex items-center justify-between">
                     {isSpanish ? faq.questionEs || faq.question : faq.question}
                     <span className="ml-4 transition-transform group-open:rotate-180">▼</span>
                   </summary>
                   <p className="mt-4 text-gray-600">
                     {isSpanish ? faq.answerEs || faq.answer : faq.answer}
                   </p>
-                </motion.details>
+                </details>
               ))}
             </div>
           </div>
@@ -446,31 +426,30 @@ export function UniversalPageTemplate({
       {relatedPages.length > 0 && (
         <section className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-12"
+            <div
+className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {isSpanish ? 'Páginas Relacionadas' : 'Related Pages'}
               </h2>
-            </motion.div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {relatedPages.map((page, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
+                 }
+                 }
+                 }
+                 }
                 >
                   <Link
                     href={page.link}
-                    className="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow"
+
+                className="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow"
                   >
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3
+                className="text-xl font-semibold text-gray-900 mb-2">
                       {isSpanish ? page.titleEs || page.title : page.title}
                     </h3>
                     <p className="text-gray-600 mb-4">
@@ -481,7 +460,7 @@ export function UniversalPageTemplate({
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </span>
                   </Link>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -491,10 +470,10 @@ export function UniversalPageTemplate({
       {/* CTA Section */}
       <section className="py-16 bg-primary-600 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
+           }
+           }
+           }
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               {isSpanish
@@ -509,6 +488,7 @@ export function UniversalPageTemplate({
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href={ctaButtonLink}
+
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-600 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
               >
                 {isSpanish ? ctaButtonTextEs : ctaButtonText}
@@ -522,7 +502,7 @@ export function UniversalPageTemplate({
                 1-844-YO-PELEO
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

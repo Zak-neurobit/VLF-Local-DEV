@@ -31,7 +31,8 @@ function StarRating({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'md
       {[...Array(5)].map((_, index) => (
         <Star
           key={index}
-          className={`${sizeClasses[size]} ${
+
+                className={`${sizeClasses[size]} ${
             index < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
           }`}
         />

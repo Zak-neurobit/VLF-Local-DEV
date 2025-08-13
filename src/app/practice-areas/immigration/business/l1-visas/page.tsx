@@ -176,16 +176,22 @@ export default function L1VisasPage() {
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">L1 Visa Categories</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {l1Categories.map((category, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-8">
-                <div className="mb-4">{category.icon}</div>
+              <div key={index}
+
+                className="bg-gray-50 rounded-lg p-8">
+                <div
+                className="mb-4">{category.icon}</div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">{category.title}</h3>
                 <p className="text-gray-600 mb-4">{category.description}</p>
                 <h4 className="font-semibold text-gray-900 mb-2">Key Requirements:</h4>
                 <ul className="space-y-2 mb-4">
                   {category.requirements.map((req, idx) => (
-                    <li key={idx} className="flex items-start">
+                    <li key={idx}
+
+                className="flex items-start">
                       <span className="text-blue-600 mr-2 mt-1">✓</span>
-                      <span className="text-gray-600">{req}</span>
+                      <span
+                className="text-gray-600">{req}</span>
                     </li>
                   ))}
                 </ul>
@@ -204,13 +210,19 @@ export default function L1VisasPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {l1Requirements.map((req, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-md">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{req.title}</h3>
+              <div key={index}
+
+                className="bg-white rounded-lg p-6 shadow-md">
+                <h3
+                className="text-xl font-bold text-gray-900 mb-4">{req.title}</h3>
                 <ul className="space-y-3">
                   {req.items.map((item, idx) => (
-                    <li key={idx} className="flex items-start">
+                    <li key={idx}
+
+                className="flex items-start">
                       <span className="text-blue-600 mr-2 mt-1">•</span>
-                      <span className="text-gray-600">{item}</span>
+                      <span
+                className="text-gray-600">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -230,15 +242,20 @@ export default function L1VisasPage() {
             {l1Services.map((service, index) => (
               <div
                 key={index}
+
                 className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition duration-300"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
+                <h3
+                className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
                 <p className="text-gray-600 mb-4">{service.description}</p>
                 <ul className="space-y-2">
                   {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center">
+                    <li key={idx}
+
+                className="flex items-center">
                       <span className="text-blue-600 mr-2">✓</span>
-                      <span className="text-gray-600">{feature}</span>
+                      <span
+                className="text-gray-600">{feature}</span>
                     </li>
                   ))}
                 </ul>

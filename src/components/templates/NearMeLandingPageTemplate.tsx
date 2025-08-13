@@ -126,6 +126,7 @@ export function NearMeLandingPageTemplate({
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <a
                 href={`tel:${content.emergencyContact.replace(/\D/g, '')}`}
+
                 className="bg-[#C9974D] hover:bg-[#D4A574] text-white px-8 py-4 rounded-lg font-bold text-lg transition-colors inline-flex items-center justify-center"
               >
                 📞 Call Now: {content.emergencyContact}
@@ -165,9 +166,12 @@ export function NearMeLandingPageTemplate({
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {content.whyChooseUs.map((reason, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-lg">
+                <div key={index}
+
+                className="bg-white p-6 rounded-lg shadow-lg">
                   <div className="text-[#C9974D] text-2xl mb-3">✓</div>
-                  <p className="text-gray-700">{reason}</p>
+                  <p
+                className="text-gray-700">{reason}</p>
                 </div>
               ))}
             </div>
@@ -184,13 +188,16 @@ export function NearMeLandingPageTemplate({
               {content.services.map((service, index) => (
                 <div
                   key={index}
-                  className="bg-white border-2 border-gray-200 hover:border-[#C9974D] rounded-lg p-6 transition-colors"
+
+                className="bg-white border-2 border-gray-200 hover:border-[#C9974D] rounded-lg p-6 transition-colors"
                 >
-                  <h3 className="text-xl font-bold text-[#6B1F2E] mb-3">{service.title}</h3>
+                  <h3
+                className="text-xl font-bold text-[#6B1F2E] mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-4">{service.description}</p>
                   <Link
                     href={service.link}
-                    className="text-[#C9974D] font-semibold hover:text-[#D4A574] inline-flex items-center"
+
+                className="text-[#C9974D] font-semibold hover:text-[#D4A574] inline-flex items-center"
                   >
                     Learn More →
                   </Link>
@@ -208,9 +215,12 @@ export function NearMeLandingPageTemplate({
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {content.testimonials.map((testimonial, index) => (
-                <div key={index} className="bg-white/10 backdrop-blur rounded-lg p-6">
+                <div key={index}
+
+                className="bg-white/10 backdrop-blur rounded-lg p-6">
                   <div className="flex items-center mb-4">
-                    <div className="text-[#C9974D]">{'★'.repeat(testimonial.rating)}</div>
+                    <div
+                className="text-[#C9974D]">{'★'.repeat(testimonial.rating)}</div>
                     <span className="ml-2 text-sm opacity-75">{testimonial.date}</span>
                   </div>
                   <p className="mb-4 italic">&ldquo;{testimonial.text}&rdquo;</p>
@@ -229,8 +239,11 @@ export function NearMeLandingPageTemplate({
             </h2>
             <div className="space-y-6 max-w-3xl mx-auto">
               {content.faqs.map((faq, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md p-6">
-                  <h3 className="text-xl font-semibold text-[#6B1F2E] mb-3 speakable-summary">
+                <div key={index}
+
+                className="bg-white rounded-lg shadow-md p-6">
+                  <h3
+                className="text-xl font-semibold text-[#6B1F2E] mb-3 speakable-summary">
                     {faq.question}
                   </h3>
                   <p className="text-gray-700">{faq.answer}</p>
@@ -250,8 +263,10 @@ export function NearMeLandingPageTemplate({
               {content.nearbyAreas.map((area, index) => (
                 <Link
                   key={index}
-                  href={`/locations/${state.toLowerCase()}/${area.toLowerCase().replace(/ /g, '-')}`}
-                  className="bg-white hover:bg-[#6B1F2E] hover:text-white rounded-lg p-4 transition-colors shadow-md"
+
+                href={`/locations/${state.toLowerCase()}/${area.toLowerCase().replace(/ /g, '-')}`}
+
+                className="bg-white hover:bg-[#6B1F2E] hover:text-white rounded-lg p-4 transition-colors shadow-md"
                 >
                   {area}
                 </Link>
@@ -273,6 +288,7 @@ export function NearMeLandingPageTemplate({
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href={`tel:${content.emergencyContact.replace(/\D/g, '')}`}
+
                 className="bg-white text-[#C9974D] hover:bg-gray-100 px-8 py-4 rounded-lg font-bold text-lg transition-colors inline-flex items-center justify-center"
               >
                 📞 Call {content.emergencyContact}

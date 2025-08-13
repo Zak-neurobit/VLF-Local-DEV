@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Users, Trophy, Clock, Star } from 'lucide-react';
 import { block } from 'million/react';
 
@@ -48,7 +48,28 @@ const stats: Stat[] = [
 function AnimatedNumberComponent({ value, suffix = '' }: { value: number; suffix?: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (isInView) {
@@ -72,7 +93,9 @@ function AnimatedNumberComponent({ value, suffix = '' }: { value: number; suffix
   }, [isInView, value]);
 
   return (
-    <span ref={ref} className="tabular-nums">
+    <span ref={ref}
+
+                className="tabular-nums">
       {count.toFixed(value % 1 !== 0 ? 1 : 0)}
       {suffix}
     </span>
@@ -89,19 +112,11 @@ export function AnimatedStats() {
       <div className="absolute inset-0 opacity-5">
         <div
           className="absolute inset-0"
-          style={{
-            backgroundImage: `repeating-linear-gradient(45deg, #6B1F2E 0, #6B1F2E 1px, transparent 1px, transparent 15px)`,
-            backgroundSize: '20px 20px',
-          }}
         />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -110,18 +125,14 @@ export function AnimatedStats() {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Nuestra trayectoria y resultados demuestran nuestro compromiso con cada cliente
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-              className="relative group"
+
+                className="relative group"
             >
               {/* Card */}
               <div className="glass-card p-8 rounded-2xl text-center relative overflow-hidden">
@@ -131,13 +142,11 @@ export function AnimatedStats() {
                 />
 
                 {/* Icon */}
-                <motion.div
-                  // TODO: Convert whileHover={{ rotate: 360 }} to react-spring
-                  transition={{ duration: 0.6 }}
+                <div
                   className={`inline-flex p-4 rounded-full bg-gradient-to-br ${stat.color} mb-4`}
                 >
                   {React.createElement(stat.icon, { className: 'w-8 h-8 text-white' })}
-                </motion.div>
+                </div>
 
                 {/* Number */}
                 <div className="text-4xl md:text-5xl font-bold mb-2 text-[#6B1F2E]">
@@ -148,30 +157,23 @@ export function AnimatedStats() {
                 <p className="text-gray-600 font-medium">{stat.label}</p>
 
                 {/* Hover Effect Line */}
-                <motion.div
+                <div
                   className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${stat.color}`}
-                  initial={{ scaleX: 0 }}
-                  // TODO: Convert whileHover={{ scaleX: 1 }} to react-spring
-                  transition={{ duration: 0.3 }}
                 />
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mt-16"
         >
           <p className="text-xl text-gray-600 mb-6">Únete a miles de clientes satisfechos</p>
           <button className="neumorphic-button px-8 py-4 rounded-lg text-white font-semibold">
             Comienza Tu Caso Hoy
           </button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -107,14 +107,14 @@ export function LanguageSwitcher({
         {availableLanguages.map(lang => (
           <button
             key={lang.code}
-            onClick={() => handleLanguageSwitch(lang.code)}
-            className={`px-2 py-1 text-sm font-medium rounded transition-colors ${
+
+                onClick={() => handleLanguageSwitch(lang.code)}
+
+                className={`px-2 py-1 text-sm font-medium rounded transition-colors ${
               currentLang === lang.code
                 ? 'bg-primary-600 text-white'
                 : 'text-gray-600 hover:text-primary-600 hover:bg-gray-100'
-            }`}
-            aria-label={`Switch to ${lang.name}`}
-            disabled={currentLang === lang.code}
+            }` aria-label={`Switch to ${lang.name}` disabled={currentLang === lang.code}
           >
             {showFlags && lang.flag} {showLabels && lang.code.toUpperCase()}
           </button>
@@ -131,8 +131,8 @@ export function LanguageSwitcher({
     return (
       <button
         onClick={() => handleLanguageSwitch(otherLang.code)}
-        className={`flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors ${className}`}
-        aria-label={`Switch to ${otherLang.name}`}
+
+                className={`flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors ${className}` aria-label={`Switch to ${otherLang.name}`}
       >
         <GlobeAltIcon className="w-4 h-4" />
         {showFlags && <span>{otherLang.flag}</span>}
@@ -147,9 +147,9 @@ export function LanguageSwitcher({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-        aria-expanded={isOpen}
-        aria-haspopup="true"
+
+                className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+        aria-expanded={isOpen aria-haspopup="true"
         aria-label="Select language"
       >
         <GlobeAltIcon className="w-4 h-4" />
@@ -161,7 +161,9 @@ export function LanguageSwitcher({
       {isOpen && (
         <>
           {/* Backdrop */}
-          <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} aria-hidden="true" />
+          <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)}
+
+                aria-hidden="true" />
 
           {/* Dropdown */}
           <div className="absolute right-0 z-20 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
@@ -169,13 +171,14 @@ export function LanguageSwitcher({
               {availableLanguages.map(lang => (
                 <button
                   key={lang.code}
-                  onClick={() => handleLanguageSwitch(lang.code)}
-                  className={`flex items-center w-full px-4 py-2 text-sm text-left transition-colors ${
+
+                onClick={() => handleLanguageSwitch(lang.code)}
+
+                className={`flex items-center w-full px-4 py-2 text-sm text-left transition-colors ${
                     currentLang === lang.code
                       ? 'bg-primary-50 text-primary-600 font-medium'
                       : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
-                  }`}
-                  role="menuitem"
+                  }` role="menuitem"
                   disabled={currentLang === lang.code}
                 >
                   <span className="mr-3">{lang.flag}</span>
@@ -251,13 +254,12 @@ export function LanguageLinks({ className = '' }: { className?: string }) {
         return (
           <button
             key={entry.hreflang}
-            onClick={(e) => handleLanguageClick(entry, e)}
-            className={`flex items-center space-x-1 text-sm transition-colors ${
+
+                onClick={(e) => handleLanguageClick(entry, e)}
+
+                className={`flex items-center space-x-1 text-sm transition-colors ${
               isActive ? 'text-primary-600 font-medium' : 'text-gray-600 hover:text-primary-600'
-            }`}
-            aria-label={`Switch to ${lang.name}`}
-            aria-current={isActive ? 'page' : undefined}
-            disabled={isActive}
+            }` aria-label={`Switch to ${lang.name}` aria-current={isActive ? 'page' : undefined disabled={isActive}
           >
             <span>{lang.flag}</span>
             <span>{lang.name}</span>

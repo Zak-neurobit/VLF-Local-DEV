@@ -35,14 +35,13 @@ export function NavigationProgress() {
         const isHashOnly = url.pathname === currentUrl.pathname && url.hash;
         
         if (isInternal && !isNewTab && !isSamePage && !isHashOnly) {
-          // Prevent multiple simultaneous navigations
-          if (isNavigating.current) return;
-          isNavigating.current = true;
-          
           // Clear any existing interval
           if (progressInterval.current) {
             clearInterval(progressInterval.current);
           }
+          
+          // Reset navigation state
+          isNavigating.current = true;
           
           // Start loading immediately on click
           setIsLoading(true);

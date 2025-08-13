@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, memo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { AlertCircle, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 
@@ -28,18 +28,15 @@ const NewsTickerItem = memo(({ item, locale }: { item: NewsItem; locale: 'en' | 
   
   return (
     <Link href={item.url} target={item.url.startsWith('http') ? '_blank' : undefined}>
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, x: -20 }}
-        className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-all hover:bg-white/10 ${
+      <div
+className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-all hover:bg-white/10 ${
           item.urgent ? 'bg-red-900/20 border-red-600/50' : 'bg-gray-900/50'
         } border`}
       >
         {item.urgent && <AlertCircle className="h-4 w-4 text-red-500 animate-pulse" />}
         <span className="text-sm font-medium">{displayTitle}</span>
         <TrendingUp className="h-4 w-4 text-gray-400 ml-auto" />
-      </motion.div>
+      </div>
     </Link>
   );
 });
@@ -162,7 +159,7 @@ export const OptimizedNewsTicker = memo(({
 
   return (
     <div className="relative overflow-hidden">
-      <AnimatePresence mode="wait">
+      <>
         {news[currentIndex] && (
           <NewsTickerItem 
             key={news[currentIndex].id} 
@@ -170,7 +167,7 @@ export const OptimizedNewsTicker = memo(({
             locale={locale} 
           />
         )}
-      </AnimatePresence>
+      </>
       
       {/* Progress dots */}
       {news.length > 1 && (
@@ -178,13 +175,14 @@ export const OptimizedNewsTicker = memo(({
           {news.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`h-1.5 rounded-full transition-all ${
+
+                onClick={() => setCurrentIndex(index)}
+
+                className={`h-1.5 rounded-full transition-all ${
                 index === currentIndex 
                   ? 'w-6 bg-primary' 
                   : 'w-1.5 bg-gray-600 hover:bg-gray-500'
-              }`}
-              aria-label={`Go to news item ${index + 1}`}
+              }` aria-label={`Go to news item ${index + 1}`}
             />
           ))}
         </div>

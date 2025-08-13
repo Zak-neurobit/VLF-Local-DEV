@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface CalculatorInputs {
   medicalBills: number;
@@ -78,9 +77,8 @@ export function SettlementCalculator() {
             </span>
             <input
               type="number"
-              value={inputs.medicalBills}
-              onChange={e => setInputs({ ...inputs, medicalBills: Number(e.target.value) })}
-              className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
+              value={inputs.medicalBills} onChange={e => setInputs({ ...inputs, medicalBills: Number(e.target.value) })
+        className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
               placeholder="0"
             />
           </div>
@@ -97,9 +95,8 @@ export function SettlementCalculator() {
             </span>
             <input
               type="number"
-              value={inputs.futureMedialCare}
-              onChange={e => setInputs({ ...inputs, futureMedialCare: Number(e.target.value) })}
-              className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
+              value={inputs.futureMedialCare} onChange={e => setInputs({ ...inputs, futureMedialCare: Number(e.target.value) })
+        className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
               placeholder="0"
             />
           </div>
@@ -116,9 +113,8 @@ export function SettlementCalculator() {
             </span>
             <input
               type="number"
-              value={inputs.lostWages}
-              onChange={e => setInputs({ ...inputs, lostWages: Number(e.target.value) })}
-              className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
+              value={inputs.lostWages} onChange={e => setInputs({ ...inputs, lostWages: Number(e.target.value) })
+        className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
               placeholder="0"
             />
           </div>
@@ -135,9 +131,8 @@ export function SettlementCalculator() {
             </span>
             <input
               type="number"
-              value={inputs.futureLostEarnings}
-              onChange={e => setInputs({ ...inputs, futureLostEarnings: Number(e.target.value) })}
-              className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
+              value={inputs.futureLostEarnings} onChange={e => setInputs({ ...inputs, futureLostEarnings: Number(e.target.value) })
+        className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
               placeholder="0"
             />
           </div>
@@ -152,9 +147,8 @@ export function SettlementCalculator() {
             </span>
             <input
               type="number"
-              value={inputs.propertyDamage}
-              onChange={e => setInputs({ ...inputs, propertyDamage: Number(e.target.value) })}
-              className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
+              value={inputs.propertyDamage} onChange={e => setInputs({ ...inputs, propertyDamage: Number(e.target.value) })
+        className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
               placeholder="0"
             />
           </div>
@@ -170,9 +164,8 @@ export function SettlementCalculator() {
             min="1"
             max="5"
             step="0.5"
-            value={inputs.painMultiplier}
-            onChange={e => setInputs({ ...inputs, painMultiplier: Number(e.target.value) })}
-            className="w-full"
+            value={inputs.painMultiplier} onChange={e => setInputs({ ...inputs, painMultiplier: Number(e.target.value) })
+        className="w-full"
           />
           <div className="flex justify-between text-xs text-gray-500 mt-1">
             <span>Minor</span>
@@ -184,16 +177,15 @@ export function SettlementCalculator() {
 
       <button
         onClick={() => setShowResults(true)}
-        className="w-full mt-8 px-6 py-3 bg-[#6B1F2E] text-white font-bold rounded-lg hover:bg-[#8B2635] transition-all"
+
+                className="w-full mt-8 px-6 py-3 bg-[#6B1F2E] text-white font-bold rounded-lg hover:bg-[#8B2635] transition-all"
       >
         Calculate Settlement Estimate
       </button>
 
       {showResults && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          className="mt-8 bg-gray-50 rounded-lg p-6"
+        <div
+className="mt-8 bg-gray-50 rounded-lg p-6"
         >
           <h3 className="text-xl font-bold text-[#6B1F2E] mb-4">Estimated Settlement Range</h3>
 
@@ -240,7 +232,7 @@ export function SettlementCalculator() {
               Contact an Attorney
             </a>
           </div>
-        </motion.div>
+        </div>
       )}
     </div>
   );

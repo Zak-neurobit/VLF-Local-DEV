@@ -30,9 +30,7 @@ export function HowToSchema({ processType, practiceArea, pageType = 'default' }:
     <>
       {schemas.map((schema, index) => (
         <Script
-          key={`howto-schema-${pageType}-${index}`}
-          id={`howto-schema-${pageType}-${index}`}
-          type="application/ld+json"
+          key={`howto-schema-${pageType}-${index}` id={`howto-schema-${pageType}-${index}` type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(schema),
           }}
@@ -79,10 +77,13 @@ export function HowToGuide({ processType }: { processType: keyof typeof LEGAL_PR
           <h3 className="text-xl font-bold text-gray-900 mb-4">📋 What You&apos;ll Need</h3>
           <ul className="grid md:grid-cols-2 gap-3">
             {guide.supply.map((item, index) => (
-              <li key={index} className="flex items-start">
+              <li key={index}
+
+                className="flex items-start">
                 <span className="text-primary mr-2">✓</span>
                 <div>
-                  <strong className="text-gray-900">{item.name}</strong>
+                  <strong
+                className="text-gray-900">{item.name}</strong>
                   {item.description && <p className="text-sm text-gray-600">{item.description}</p>}
                 </div>
               </li>
@@ -95,8 +96,11 @@ export function HowToGuide({ processType }: { processType: keyof typeof LEGAL_PR
         <h3 className="text-xl font-bold text-gray-900 mb-4">📝 Step-by-Step Process</h3>
         <ol className="space-y-6">
           {guide.steps.map((step, index) => (
-            <li key={index} className="relative pl-8">
-              <div className="absolute left-0 top-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm">
+            <li key={index}
+
+                className="relative pl-8">
+              <div
+                className="absolute left-0 top-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm">
                 {index + 1}
               </div>
               <div>

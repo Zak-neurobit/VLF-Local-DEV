@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Brain,
   FileSearch,
@@ -83,18 +82,14 @@ export default function EvaluacionIAClient() {
         <div className="absolute inset-0 opacity-10">
           <svg className="w-full h-full" viewBox="0 0 1440 800">
             {[...Array(20)].map((_, i) => (
-              <motion.circle
+              <circle
                 key={i}
                 cx={Math.random() * 1440}
                 cy={Math.random() * 800}
                 r="2"
                 fill="white"
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: Math.random() * 2,
-                }}
+               }
+               }
               />
             ))}
           </svg>
@@ -102,39 +97,28 @@ export default function EvaluacionIAClient() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
+            <div
+className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
             >
               <Brain className="w-5 h-5 text-secondary-400" />
               <span className="text-sm font-medium">Evaluación Impulsada por IA</span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-bold mb-6"
+            <h1
+className="text-5xl md:text-7xl font-bold mb-6"
             >
               Evalúe Su Caso con <span className="text-secondary-400">IA</span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto"
+            <p
+className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto"
             >
               Obtenga un análisis instantáneo de la fortaleza de su caso legal usando inteligencia
               artificial avanzada
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+            <div
+className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <a
                 href="#evaluation-form"
@@ -149,7 +133,7 @@ export default function EvaluacionIAClient() {
               >
                 Hablar con un Abogado
               </Link>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -162,20 +146,18 @@ export default function EvaluacionIAClient() {
           </h2>
           <div className="grid md:grid-cols-4 gap-8">
             {evaluationFactors.map((factor, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
+
                 className="text-center"
               >
-                <div className="mx-auto w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-4">
+                <div
+                className="mx-auto w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-4">
                   {factor.icon}
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{factor.title}</h3>
                 <p className="text-gray-600">{factor.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -186,10 +168,8 @@ export default function EvaluacionIAClient() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {!showResults ? (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                className="bg-white rounded-xl shadow-lg p-8"
+              <div
+className="bg-white rounded-xl shadow-lg p-8"
               >
                 <h2 className="text-3xl font-bold mb-6 text-center">
                   Evaluación Gratuita de Su Caso
@@ -208,7 +188,8 @@ export default function EvaluacionIAClient() {
                       {caseTypes.map(type => (
                         <label
                           key={type.value}
-                          className={`flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+
+                className={`flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
                             caseType === type.value
                               ? 'border-primary-500 bg-primary-50'
                               : 'border-gray-200 hover:border-gray-300'
@@ -217,12 +198,9 @@ export default function EvaluacionIAClient() {
                           <input
                             type="radio"
                             name="caseType"
-                            value={type.value}
-                            checked={caseType === type.value}
-                            onChange={e => setCaseType(e.target.value)}
-                            className="sr-only"
+                            value={type.value checked={caseType === type.value} onChange={e => setCaseType(e.target.value)} className="sr-only"
                           />
-                          <span className="text-2xl">{type.icon}</span>
+                          <span} className="text-2xl">{type.icon}</span>
                           <span className="font-medium">{type.label}</span>
                         </label>
                       ))}
@@ -236,7 +214,8 @@ export default function EvaluacionIAClient() {
                     </label>
                     <textarea
                       rows={4}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       placeholder="Proporcione detalles sobre su caso legal..."
                       required
                     />
@@ -276,8 +255,12 @@ export default function EvaluacionIAClient() {
                         'Correspondencia/emails',
                         'Contratos o acuerdos',
                       ].map(evidence => (
-                        <label key={evidence} className="flex items-center gap-3">
-                          <input type="checkbox" className="w-4 h-4 text-primary-600 rounded" />
+                        <label key={evidence}
+
+                className="flex items-center gap-3">
+                          <input type="checkbox"}
+
+                className="w-4 h-4 text-primary-600 rounded" />
                           <span>{evidence}</span>
                         </label>
                       ))}
@@ -329,12 +312,10 @@ export default function EvaluacionIAClient() {
                     Obtener Evaluación con IA
                   </button>
                 </form>
-              </motion.div>
+              </div>
             ) : (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                className="bg-white rounded-xl shadow-lg p-8"
+              <div
+className="bg-white rounded-xl shadow-lg p-8"
               >
                 <div className="text-center mb-8">
                   <div className="w-24 h-24 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -430,7 +411,7 @@ export default function EvaluacionIAClient() {
                   asesoramiento legal. Los resultados se basan en patrones de casos similares y
                   deben ser revisados con un abogado licenciado.
                 </p>
-              </motion.div>
+              </div>
             )}
           </div>
         </div>

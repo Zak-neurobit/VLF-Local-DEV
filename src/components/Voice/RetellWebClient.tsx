@@ -146,8 +146,7 @@ export const RetellVoiceClient: React.FC<RetellWebClientProps> = ({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
         <h3 style={{ margin: 0 }}>Voice Assistant</h3>
         <button 
-          onClick={onClose}
-          style={{
+          onClick={onClose} style={{
             background: 'none',
             border: 'none',
             fontSize: '20px',

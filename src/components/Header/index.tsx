@@ -73,6 +73,7 @@ export const Header: React.FC<HeaderProps> = ({ language: propLanguage }) => {
                 alt="Vasquez Law Firm - YO PELEO POR TI™"
                 width={350}
                 height={100}
+
                 className="h-16 sm:h-20 w-auto"
                 priority
               />
@@ -84,8 +85,10 @@ export const Header: React.FC<HeaderProps> = ({ language: propLanguage }) => {
                 {navigation[language].map(item => (
                   <Link
                     key={item.name}
-                    href={item.href}
-                    className={`relative text-sm font-medium transition-colors duration-200 py-2 ${
+
+                href={item.href}
+
+                className={`relative text-sm font-medium transition-colors duration-200 py-2 ${
                       pathname === item.href
                         ? 'text-secondary'
                         : 'text-neutral-700 hover:text-primary'
@@ -113,7 +116,8 @@ export const Header: React.FC<HeaderProps> = ({ language: propLanguage }) => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
+
+                className="lg:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
               aria-label="Toggle menu"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,16 +154,20 @@ export const Header: React.FC<HeaderProps> = ({ language: propLanguage }) => {
                     alt="Vasquez Law Firm Logo"
                     width={120}
                     height={120}
-                    className="h-24 w-auto"
+
+                className="h-24 w-auto"
                   />
                 </div>
 
                 {navigation[language].map(item => (
                   <Link
                     key={item.name}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block px-3 py-2.5 text-base font-medium rounded-md transition-colors ${
+
+                href={item.href}
+
+                onClick={() => setMobileMenuOpen(false)}
+
+                className={`block px-3 py-2.5 text-base font-medium rounded-md transition-colors ${
                       pathname === item.href
                         ? 'bg-secondary/10 text-secondary'
                         : 'text-neutral-700 hover:bg-neutral-50 hover:text-primary'
@@ -172,7 +180,8 @@ export const Header: React.FC<HeaderProps> = ({ language: propLanguage }) => {
                   <Link
                     href="/contact"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full px-4 py-3 bg-gradient-to-r from-secondary to-secondary-600 text-white text-center font-semibold rounded hover:from-secondary-600 hover:to-secondary transition-all"
+
+                className="block w-full px-4 py-3 bg-gradient-to-r from-secondary to-secondary-600 text-white text-center font-semibold rounded hover:from-secondary-600 hover:to-secondary transition-all"
                   >
                     {language === 'es' ? 'Consulta Gratis' : 'Free Consultation'}
                   </Link>

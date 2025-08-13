@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 // PERFORMANCE: Animation libraries commented out for performance optimization
-// import { motion, AnimatePresence } from 'framer-motion';
+// 
 // import { gsap } from 'gsap';
 
 interface Stat {
@@ -42,18 +42,18 @@ export default function HeroStats({ stats }: HeroStatsProps) {
   }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 1 }}
-      className="grid grid-cols-2 gap-6 md:grid-cols-4"
+    <div
+className="grid grid-cols-2 gap-6 md:grid-cols-4"
     >
       {stats.map((stat, index) => (
-        <div key={index} className="stat-card transform scale-0 opacity-0 text-center">
-          <div className="text-3xl font-black text-[#C9974D] md:text-4xl">{stat.value}</div>
+        <div key={index}
+
+                className="stat-card transform scale-0 opacity-0 text-center">
+          <div
+                className="text-3xl font-black text-[#C9974D] md:text-4xl">{stat.value}</div>
           <div className="mt-1 text-sm text-gray-400">{stat.label}</div>
         </div>
       ))}
-    </motion.div>
+    </div>
   );
 }

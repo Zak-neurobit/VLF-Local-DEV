@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 // Spring physics ball
 export function SpringBall() {
@@ -9,23 +8,21 @@ export function SpringBall() {
   const y = useMotionValue(0);
 
   const springConfig = { damping: 10, stiffness: 100 };
-  
-  
 
   return (
     <div className="relative h-96 w-full overflow-hidden rounded-lg bg-gray-100">
-      <motion.div
+      <div
         className="absolute h-16 w-16 cursor-grab rounded-full bg-gradient-to-br from-[#6B1F2E] to-[#C9974D] active:cursor-grabbing"
         drag
-        dragConstraints={{ left: -150, right: 150, top: -150, bottom: 150 }}
-        dragElastic={0.2}
-        whileDrag={{ scale: 1.2 }}
-        style={{ x: xSpring, y: ySpring }}
-        onDrag={(e, info) => {
+       }
+       
+       }
+       }
+                onDrag={(e, info) => {
           x.set(info.offset.x);
           y.set(info.offset.y);
         }}
-        onDragEnd={() => {
+                onDragEnd={() => {
           x.set(0);
           y.set(0);
         }}
@@ -144,7 +141,9 @@ export function GravitySimulation() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="h-96 w-full cursor-pointer rounded-lg bg-gray-50" />;
+  return <canvas ref={canvasRef}
+
+                className="h-96 w-full cursor-pointer rounded-lg bg-gray-50" />;
 }
 
 // Elastic collision balls
@@ -177,21 +176,21 @@ export function ElasticCollision() {
 
   return (
     <div className="relative h-96 w-full overflow-hidden rounded-lg bg-gray-100">
-      <motion.div
+      <div
         className="absolute h-20 w-20 cursor-grab rounded-full bg-[#6B1F2E] active:cursor-grabbing"
         drag
-        dragConstraints={{ left: 0, right: 300, top: 0, bottom: 300 }}
-        style={{ x: ball1X, y: ball1Y }}
-        onDragEnd={() => handleDragEnd(1)}
-        whileDrag={{ scale: 1.1 }}
+       }
+       }
+                onDragEnd={() => handleDragEnd(1)}
+       }
       />
-      <motion.div
+      <div
         className="absolute h-20 w-20 cursor-grab rounded-full bg-[#C9974D] active:cursor-grabbing"
         drag
-        dragConstraints={{ left: 0, right: 300, top: 0, bottom: 300 }}
-        style={{ x: ball2X, y: ball2Y }}
-        onDragEnd={() => handleDragEnd(2)}
-        whileDrag={{ scale: 1.1 }}
+       }
+       }
+                onDragEnd={() => handleDragEnd(2)}
+       }
       />
     </div>
   );
@@ -228,24 +227,20 @@ export function Pendulum() {
   return (
     <div className="relative h-96 w-full">
       <div className="absolute left-1/2 top-0 h-8 w-8 -translate-x-1/2 rounded-full bg-gray-400" />
-      <motion.div
+      <div
         className="absolute left-1/2 top-0 w-1 bg-gray-600"
-        style={{
-          height: 200,
-          rotate: rotation,
-          originY: 0,
-        }}
+
       >
-        <motion.div
+        <div
           className="absolute -bottom-10 -left-5 h-10 w-10 rounded-full bg-gradient-to-br from-[#6B1F2E] to-[#C9974D]"
-          drag="x"
-          dragConstraints={{ left: -100, right: 100 }}
-          onDrag={(e, info) => {
+         
+         }
+                onDrag={(e, info) => {
             rotation.set(info.offset.x / 2);
             velocity.set(0);
           }}
         />
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -253,27 +248,24 @@ export function Pendulum() {
 // Momentum scroll
 export function MomentumScroll({ children }: { children: React.ReactNode }) {
   const scrollY = useMotionValue(0);
-  
 
   return (
-    <motion.div
+    <div
       className="h-96 overflow-hidden rounded-lg bg-gray-50"
       onWheel={e => {
         e.preventDefault();
         scrollY.set(scrollY.get() - e.deltaY);
       }}
     >
-      <motion.div
-        style={{ y: scrollYSmooth }}
-        drag="y"
-        dragConstraints={{ top: -500, bottom: 0 }}
-        onDrag={(e, info) => {
-          scrollY.set(info.offset.y);
-        }}
-        className="p-8"
+      <div
+       }
+       
+       }
+                onDrag={(e, info) => {
+          scrollY.set(info.offset.y); className="p-8"
       >
         {children}
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }

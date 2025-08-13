@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button } from '@/design-system/components/Button';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import {
   Phone,
   MapPin,
@@ -134,10 +134,10 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-5xl mx-auto text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+              <div
+               }
+               }
+               }
               >
                 <h1 className="text-4xl md:text-6xl font-black mb-6 text-white">
                   {content.heroTitle}
@@ -156,7 +156,8 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                     {neighborhood.zipCodes.map(zip => (
                       <span
                         key={zip}
-                        className="px-3 py-1 bg-white/10 rounded-full text-white text-sm"
+
+                className="px-3 py-1 bg-white/10 rounded-full text-white text-sm"
                       >
                         {zip}
                       </span>
@@ -184,7 +185,7 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                     Free Consultation
                   </Button>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -193,31 +194,26 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
         <section className="py-16 bg-neutral-950">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-black text-center text-white mb-12"
+              <h2
+className="text-3xl md:text-4xl font-black text-center text-white mb-12"
               >
                 Why {neighborhood.name} Residents Choose Us
-              </motion.h2>
+              </h2>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {content.localFeatures.map((feature, index) => {
                   const Icon = IconMap[feature.icon as keyof typeof IconMap] || MapPin;
                   return (
-                    <motion.div
+                    <div
                       key={index}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 text-center"
+
+                className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 text-center"
                     >
                       <Icon className="w-12 h-12 text-primary mx-auto mb-4" />
-                      <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+                      <h3
+                className="text-xl font-bold text-white mb-2">{feature.title}</h3>
                       <p className="text-gray-300 text-sm">{feature.description}</p>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
@@ -229,35 +225,31 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
         <section className="py-16 bg-black">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-black text-center text-white mb-12"
+              <h2
+className="text-3xl md:text-4xl font-black text-center text-white mb-12"
               >
                 Legal Services for {neighborhood.name}
-              </motion.h2>
+              </h2>
 
               <div className="grid md:grid-cols-2 gap-8">
                 {content.practiceAreas.map((area, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-primary/50 transition-all"
+
+                className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-primary/50 transition-all"
                   >
-                    <h3 className="text-2xl font-bold text-primary mb-4">{area.name}</h3>
+                    <h3
+                className="text-2xl font-bold text-primary mb-4">{area.name}</h3>
                     <p className="text-gray-300 mb-4">{area.description}</p>
                     <p className="text-sm text-gray-400 italic">{area.localNote}</p>
                     <Link
                       href={`/practice-areas/${practiceAreaSlugs[area.name] || area.name.toLowerCase().replace(/['\s]+/g, '-')}`}
-                      className="inline-flex items-center text-primary hover:text-primary-300 mt-4 font-semibold"
+
+                className="inline-flex items-center text-primary hover:text-primary-300 mt-4 font-semibold"
                     >
                       Learn More →
                     </Link>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -268,41 +260,34 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
         <section className="py-16 bg-neutral-950">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-black text-center text-white mb-12"
+              <h2
+className="text-3xl md:text-4xl font-black text-center text-white mb-12"
               >
                 We Know {neighborhood.name}
-              </motion.h2>
+              </h2>
 
               <div className="grid md:grid-cols-3 gap-8">
                 {/* Landmarks */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
+                <div
+className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
                 >
                   <h3 className="text-xl font-bold text-primary mb-4">Local Landmarks</h3>
                   <ul className="space-y-2">
                     {content.localKnowledge.landmarks.map((landmark, index) => (
-                      <li key={index} className="flex items-start text-gray-300">
-                        <MapPin className="w-4 h-4 text-primary mt-1 mr-2 flex-shrink-0" />
+                      <li key={index}
+
+                className="flex items-start text-gray-300">
+                        <MapPin
+                className="w-4 h-4 text-primary mt-1 mr-2 flex-shrink-0" />
                         {landmark}
                       </li>
                     ))}
                   </ul>
-                </motion.div>
+                </div>
 
                 {/* Demographics */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
+                <div
+className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
                 >
                   <h3 className="text-xl font-bold text-primary mb-4">Community Info</h3>
                   <dl className="space-y-3">
@@ -325,15 +310,11 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                       </dd>
                     </div>
                   </dl>
-                </motion.div>
+                </div>
 
                 {/* Nearby Services */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
+                <div
+className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
                 >
                   <h3 className="text-xl font-bold text-primary mb-4">Nearby Courts</h3>
                   <div className="space-y-3">
@@ -346,29 +327,28 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                       </div>
                     ))}
                   </div>
-                </motion.div>
+                </div>
               </div>
 
               {/* Common Legal Issues */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="mt-8 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10"
+              <div
+className="mt-8 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10"
               >
                 <h3 className="text-xl font-bold text-primary mb-4">
                   Common Legal Issues in {neighborhood.name}
                 </h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   {content.localKnowledge.commonIssues.map((issue, index) => (
-                    <div key={index} className="flex items-start">
+                    <div key={index}
+
+                className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
-                      <span className="text-gray-300">{issue}</span>
+                      <span
+                className="text-gray-300">{issue}</span>
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -377,28 +357,24 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
         <section className="py-16 bg-black">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-black text-center text-white mb-12"
+              <h2
+className="text-3xl md:text-4xl font-black text-center text-white mb-12"
               >
                 {neighborhood.name} Success Stories
-              </motion.h2>
+              </h2>
 
               <div className="grid md:grid-cols-3 gap-8">
                 {content.testimonials.map((testimonial, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
+
+                className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
                   >
                     <div className="flex mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <span key={i} className="text-primary text-xl">
+                        <span key={i}
+
+                className="text-primary text-xl">
                           ★
                         </span>
                       ))}
@@ -408,7 +384,7 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
                       <p className="font-semibold text-white">{testimonial.author}</p>
                       <p className="text-gray-400">{testimonial.location}</p>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -419,28 +395,23 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
         <section className="py-16 bg-neutral-950">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-black text-center text-white mb-12"
+              <h2
+className="text-3xl md:text-4xl font-black text-center text-white mb-12"
               >
                 {neighborhood.name} FAQs
-              </motion.h2>
+              </h2>
 
               <div className="space-y-6">
                 {content.faqs.map((faq, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10"
                   >
-                    <h3 className="text-xl font-semibold text-primary mb-3">{faq.question}</h3>
+                    <h3
+                className="text-xl font-semibold text-primary mb-3">{faq.question}</h3>
                     <p className="text-gray-300">{faq.answer}</p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -493,7 +464,8 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
               <div className="flex flex-wrap justify-center gap-3">
                 <Link
                   href={`/locations/nc/${neighborhood.citySlug}`}
-                  className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg hover:bg-white/20 text-white transition-all"
+
+                className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg hover:bg-white/20 text-white transition-all"
                 >
                   All {neighborhood.city}
                 </Link>
@@ -505,8 +477,7 @@ export function NeighborhoodPageTemplate({ neighborhood, content }: Neighborhood
 
         {/* Schemas */}
         <Script
-          id={`neighborhood-schema-${neighborhood.slug}`}
-          type="application/ld+json"
+          id={`neighborhood-schema-${neighborhood.slug}` type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',

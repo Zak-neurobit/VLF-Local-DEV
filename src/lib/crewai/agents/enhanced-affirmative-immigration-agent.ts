@@ -37,7 +37,6 @@ Marriage cases: Document bona fides comprehensively\nUse I-130 online filing whe
 
 COMMON ISSUES:
 
-
 SPECIALIZATIONS:
 I-130/I-485 family petitions, K-1 fiancé visas, N-400 naturalization, N-600 certificates of citizenship, Consular processing, I-751 removal of conditions, I-90 green card renewals
 

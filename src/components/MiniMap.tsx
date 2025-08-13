@@ -142,7 +142,8 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
   }
 
   return (
-    <div className={`relative ${className}`} style={{ minHeight: height }}>
+    <div className={`relative ${className}`}
+ style={{ minHeight: height }}>
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-lg z-10">
           <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-600"></div>
@@ -152,7 +153,9 @@ export default function MiniMap({ height = '200px', className = '' }: MiniMapPro
 
       <div
         ref={mapRef}
+
         style={{ height, width: '100%' }}
+
         className="rounded-lg bg-gray-100"
         role="region"
         aria-label="Mini map showing Vasquez Law Firm office locations"

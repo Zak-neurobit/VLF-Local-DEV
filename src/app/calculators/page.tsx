@@ -173,8 +173,8 @@ export default function CalculatorsPage() {
 
         <CalculatorResults
           result={calculationResult}
-          onNewCalculation={handleNewCalculation}
-          onScheduleConsultation={handleScheduleConsultation}
+                onNewCalculation={handleNewCalculation}
+                onScheduleConsultation={handleScheduleConsultation}
         />
       </div>
     );
@@ -186,13 +186,14 @@ export default function CalculatorsPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-          <Button variant="outline" onClick={handleBackToSelection} className="mb-4">
+          <Button variant="outline" onClick={handleBackToSelection className="mb-4">
             ← Back to Calculators
           </Button>
 
           {calculator && (
-            <div className="mb-6">
-              <h1 className="text-3xl font-bold mb-2">{calculator.name}</h1>
+            <div}
+      className="mb-6">
+              <h1} className="text-3xl font-bold mb-2">{calculator.name}</h1>
               <p className="text-gray-600">{calculator.description}</p>
             </div>
           )}
@@ -260,7 +261,8 @@ export default function CalculatorsPage() {
           return (
             <Card
               key={calculator.id}
-              className={`hover:shadow-lg transition-shadow ${colors.border}`}
+
+                className={`hover:shadow-lg transition-shadow ${colors.border}`}
             >
               <CardHeader className={colors.bg}>
                 <div className="flex items-center gap-3 mb-3">
@@ -281,8 +283,11 @@ export default function CalculatorsPage() {
                   <h4 className="font-medium text-sm">Key Features:</h4>
                   <ul className="text-sm space-y-1">
                     {calculator.features.map((feature, index) => (
-                      <li key={index} className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
+                      <li key={index}
+
+                className="flex items-center gap-2">
+                        <div
+                className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
                         {feature}
                       </li>
                     ))}
@@ -296,7 +301,8 @@ export default function CalculatorsPage() {
 
                 <Button
                   onClick={() => handleCalculatorSelect(calculator.id)}
-                  className={`w-full ${colors.button}`}
+
+                className={`w-full ${colors.button}`}
                 >
                   Start Calculator
                   <ArrowRight className="h-4 w-4 ml-2" />

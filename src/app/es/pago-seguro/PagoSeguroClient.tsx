@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Shield,
   Lock,
@@ -95,47 +94,34 @@ export default function PagoSeguroClient() {
         <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}
+           }
           />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6"
+            <div
+className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6"
             >
               <Shield className="w-6 h-6 text-secondary-400" />
               <span className="text-lg font-medium">Portal de Pago 100% Seguro</span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-bold mb-6"
+            <h1
+className="text-5xl md:text-7xl font-bold mb-6"
             >
               Pago <span className="text-secondary-400">Seguro</span> Garantizado
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto"
+            <p
+className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto"
             >
               Su seguridad es nuestra prioridad. Procesamos todos los pagos con la tecnología de
               encriptación más avanzada del mercado.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+            <div
+className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Link
                 href="/es/hacer-pago"
@@ -150,7 +136,7 @@ export default function PagoSeguroClient() {
               >
                 Llamar para Pagar: 1-844-YO-PELEO
               </a>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -160,18 +146,16 @@ export default function PagoSeguroClient() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {securityBadges.map((badge, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
+
                 className="text-center"
               >
-                <div className="flex justify-center mb-3">{badge.icon}</div>
+                <div
+                className="flex justify-center mb-3">{badge.icon}</div>
                 <h3 className="font-semibold text-gray-900">{badge.name}</h3>
                 <p className="text-sm text-gray-600">{badge.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -186,16 +170,14 @@ export default function PagoSeguroClient() {
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
               {paymentFeatures.map((feature, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow"
+
+                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0 text-primary-600">
+                    <div
+                className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0 text-primary-600">
                       {feature.icon}
                     </div>
                     <div>
@@ -203,7 +185,7 @@ export default function PagoSeguroClient() {
                       <p className="text-gray-600">{feature.description}</p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -271,7 +253,7 @@ export default function PagoSeguroClient() {
                       <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-green-500 rounded-full"
-                          style={{ width: '100%' }}
+                         }
                         />
                       </div>
                       <p className="text-xs text-gray-600">Encriptación: AES-256</p>
@@ -301,9 +283,12 @@ export default function PagoSeguroClient() {
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {['Visa', 'Mastercard', 'American Express', 'Discover'].map(card => (
-                <div key={card} className="bg-white rounded-lg p-6 shadow-md">
+                <div key={card}
+
+                className="bg-white rounded-lg p-6 shadow-md">
                   <CreditCard className="w-12 h-12 mx-auto mb-2 text-gray-600" />
-                  <p className="font-medium">{card}</p>
+                  <p
+                className="font-medium">{card}</p>
                 </div>
               ))}
             </div>
@@ -320,17 +305,15 @@ export default function PagoSeguroClient() {
             </h2>
             <div className="space-y-6">
               {faqs.map((faq, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-gray-50 rounded-lg p-6"
+
+                className="bg-gray-50 rounded-lg p-6"
                 >
-                  <h3 className="text-lg font-semibold mb-3">{faq.question}</h3>
+                  <h3
+                className="text-lg font-semibold mb-3">{faq.question}</h3>
                   <p className="text-gray-600">{faq.answer}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

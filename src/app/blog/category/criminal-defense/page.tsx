@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   keywords: 'criminal defense, DUI lawyer, drug charges, assault defense, criminal attorney, criminal defense blog',
 };
 
-
 export default function CriminalDefenseCategoryPage() {
   return <CategoryPageClient category="criminal-defense" language="en" />;
 }

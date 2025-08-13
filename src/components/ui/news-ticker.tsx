@@ -170,8 +170,8 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
         position: 'relative',
         zIndex: 100,
       }}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-4 flex-1">
@@ -187,9 +187,11 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
           <div className="flex-1 overflow-hidden">
             <Link
               href={currentItem?.url || '#'}
-              className="group flex items-center space-x-2 hover:text-[#C9974D] transition-colors"
+
+                className="group flex items-center space-x-2 hover:text-[#C9974D] transition-colors"
             >
-              <span className="truncate text-[10px] md:text-xs">{displayTitle}</span>
+              <span
+                className="truncate text-[10px] md:text-xs">{displayTitle}</span>
               <ChevronRight className="w-3 h-3 shrink-0 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -199,12 +201,15 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
           {newsItems.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={cn(
+
+                onClick={() => setCurrentIndex(index)}
+
+                className={cn(
                 'w-2 h-2 rounded-full transition-all',
                 index === currentIndex ? 'bg-[#C9974D] w-6' : 'bg-white/30 hover:bg-white/50'
               )}
-              aria-label={`Go to news item ${index + 1}`}
+
+                aria-label={`Go to news item ${index + 1}`}
             />
           ))}
         </div>

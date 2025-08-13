@@ -116,7 +116,9 @@ export default function CalculatorsPage() {
                 {popularCalculators.map(calculator => {
                   const Icon = calculator.icon;
                   return (
-                    <Link key={calculator.id} href={calculator.href}>
+                    <Link key={calculator.id}
+
+                href={calculator.href}>
                       <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
                         <CardHeader>
                           <div className="flex items-center justify-between">
@@ -133,8 +135,11 @@ export default function CalculatorsPage() {
                             <p className="text-sm font-medium text-gray-700">Calcula:</p>
                             <ul className="text-sm text-gray-600 space-y-1">
                               {calculator.fields.map((field, index) => (
-                                <li key={index} className="flex items-center">
-                                  <ChartBarIcon className="h-4 w-4 mr-2 text-gray-400" />
+                                <li key={index}
+
+                className="flex items-center">
+                                  <ChartBarIcon
+                className="h-4 w-4 mr-2 text-gray-400" />
                                   {field}
                                 </li>
                               ))}
@@ -155,7 +160,9 @@ export default function CalculatorsPage() {
                 {otherCalculators.map(calculator => {
                   const Icon = calculator.icon;
                   return (
-                    <Link key={calculator.id} href={calculator.href}>
+                    <Link key={calculator.id}
+
+                href={calculator.href}>
                       <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
                         <CardHeader>
                           <Icon className="h-8 w-8 text-secondary mb-3" />

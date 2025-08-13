@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 // Removed framer-motion for performance - using CSS transitions instead
 
@@ -39,9 +39,24 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' }) => {
-  // Use the prop directly instead of local state for proper SSR
-  const language = initialLanguage;
   const router = useRouter();
+  const pathname = usePathname();
+  
+  // Detect current language from URL path
+  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'es'>(initialLanguage);
+  
+  useEffect(() => {
+    // Update language based on current path
+    if (pathname?.startsWith('/es')) {
+      setCurrentLanguage('es');
+    } else {
+      setCurrentLanguage('en');
+    }
+  }, [pathname]);
+  
+  // Use the current language for display
+  const language = currentLanguage;
+  
   // BACKUP: VirtualParalegal state disabled
   // const [showVirtualParalegal, setShowVirtualParalegal] = useState(false);
 
@@ -65,24 +80,30 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
       {/* Language Toggle - Fixed Position (show on all pages) */}
       {(
         <div
-          className="fixed right-2 sm:right-4 top-24 sm:top-28 z-40 flex gap-1 sm:gap-2 rounded-full bg-black/70 p-1 backdrop-blur-md border border-gold-400/20 animate-fadeIn"
+          className="fixed right-2 sm:right-4 top-32 sm:top-36 z-40 flex gap-1 sm:gap-2 rounded-full bg-black/70 p-1 backdrop-blur-md border border-gold-400/20 animate-fadeIn"
         >
           <button
             onClick={() => handleLanguageChange('en')}
-            className={`rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${
+
+                className={`rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${
               language === 'en' ? 'bg-primary text-black' : 'text-white hover:text-primary'
             }`}
+
             aria-pressed={language === 'en'}
+
             aria-label="Switch to English"
           >
             EN
           </button>
           <button
             onClick={() => handleLanguageChange('es')}
-            className={`rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${
+
+                className={`rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${
               language === 'es' ? 'bg-primary text-black' : 'text-white hover:text-primary'
             }`}
+
             aria-pressed={language === 'es'}
+
             aria-label="Cambiar a Español"
           >
             ES
@@ -111,9 +132,11 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
               ].map((stat, index) => (
                 <div
                   key={index}
-                  className="text-center"
+
+                className="text-center"
                 >
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-black text-primary">
+                  <div
+                className="text-2xl sm:text-3xl md:text-4xl font-black text-primary">
                     {stat.number}
                   </div>
                   <div className="mt-2 text-xs sm:text-sm text-gray-400">{stat.label}</div>

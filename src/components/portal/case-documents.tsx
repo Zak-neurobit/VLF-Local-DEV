@@ -123,8 +123,10 @@ export default function CaseDocuments({ caseId }: CaseDocumentsProps) {
           {(['all', 'pending_signature', 'recent'] as const).map(filterOption => (
             <button
               key={filterOption}
-              onClick={() => setFilter(filterOption)}
-              className={`px-4 py-2 text-sm font-medium rounded-md ${
+
+                onClick={() => setFilter(filterOption)}
+
+                className={`px-4 py-2 text-sm font-medium rounded-md ${
                 filter === filterOption
                   ? 'bg-blue-100 text-blue-700'
                   : 'text-gray-500 hover:text-gray-700'
@@ -143,8 +145,7 @@ export default function CaseDocuments({ caseId }: CaseDocumentsProps) {
           <input
             type="file"
             className="sr-only"
-            onChange={handleFileUpload}
-            disabled={isUploading}
+            onChange={handleFileUpload disabled={isUploading}
             accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
           />
           <span

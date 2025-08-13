@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { ChevronDown, Search, Phone, MessageCircle, Clock, DollarSign, FileText, Shield, Users, Scale } from 'lucide-react';
 import { ModernPageWrapper } from '@/components/ModernPageWrapper';
 import { TRADEMARK } from '@/lib/constants/trademark';
@@ -334,21 +334,16 @@ export default function FAQPageContent({ language = 'en' }: FAQPageContentProps)
         <section className="relative py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
           <div className="absolute inset-0 bg-[url('/images/patterns/circuit-pattern.svg')] opacity-5"></div>
           <div className="container mx-auto px-4 text-center relative z-10">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
+            <h1
               className="text-5xl font-bold text-white mb-6"
             >
               {content[language].title}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+            </h1>
+            <p
               className="text-xl text-gray-300 max-w-3xl mx-auto"
             >
               {content[language].subtitle}
-            </motion.p>
+            </p>
           </div>
         </section>
 
@@ -362,8 +357,11 @@ export default function FAQPageContent({ language = 'en' }: FAQPageContentProps)
                 <input
                   type="text"
                   placeholder={content[language].searchPlaceholder}
+
                   value={searchTerm}
+
                   onChange={(e) => setSearchTerm(e.target.value)}
+
                   className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
@@ -376,8 +374,10 @@ export default function FAQPageContent({ language = 'en' }: FAQPageContentProps)
                 return (
                   <button
                     key={category.id}
-                    onClick={() => setActiveCategory(category.id)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+
+                onClick={() => setActiveCategory(category.id)}
+
+                className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
                       activeCategory === category.id
                         ? 'bg-primary-600 text-white'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -403,16 +403,15 @@ export default function FAQPageContent({ language = 'en' }: FAQPageContentProps)
               ) : (
                 <div className="space-y-4">
                   {filteredFAQs.map((faq, index) => (
-                    <motion.div
+                    <div
                       key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                      className="bg-white rounded-lg shadow-sm overflow-hidden"
+
+                className="bg-white rounded-lg shadow-sm overflow-hidden"
                     >
                       <button
                         onClick={() => toggleItem(index)}
-                        className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+
+                className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
                       >
                         <h3 className="text-lg font-semibold text-gray-900 pr-4">
                           {faq.question}
@@ -423,13 +422,9 @@ export default function FAQPageContent({ language = 'en' }: FAQPageContentProps)
                           }`}
                         />
                       </button>
-                      <AnimatePresence>
+                      <>
                         {openItems.includes(index) && (
-                          <motion.div
-                            initial={{ height: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ height: 0 }}
-                            transition={{ duration: 0.3 }}
+                          <div
                             className="overflow-hidden"
                           >
                             <div className="px-6 pb-4">
@@ -437,10 +432,10 @@ export default function FAQPageContent({ language = 'en' }: FAQPageContentProps)
                                 {faq.answer}
                               </p>
                             </div>
-                          </motion.div>
+                          </div>
                         )}
-                      </AnimatePresence>
-                    </motion.div>
+                      </>
+                    </div>
                   ))}
                 </div>
               )}
@@ -477,6 +472,7 @@ export default function FAQPageContent({ language = 'en' }: FAQPageContentProps)
                     }
                   }
                 }}
+
                 className="inline-flex items-center gap-2 bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-800 transition-colors"
               >
                 <MessageCircle className="w-5 h-5" />
@@ -484,6 +480,7 @@ export default function FAQPageContent({ language = 'en' }: FAQPageContentProps)
               </a>
               <a
                 href={`tel:${content[language].callNumber.replace(/-/g, '')}`}
+
                 className="inline-flex items-center gap-2 bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-all"
               >
                 <Phone className="w-5 h-5" />

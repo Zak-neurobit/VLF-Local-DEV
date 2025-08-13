@@ -169,7 +169,8 @@ export default function RemovalDefensePage() {
               currentPage={currentPage}
               variant="inline"
               maxLinks={5}
-              className="mb-8 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-primary/20"
+
+                className="mb-8 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-primary/20"
             />
 
             {/* Emergency Alert Section */}
@@ -306,7 +307,8 @@ export default function RemovalDefensePage() {
               currentPage={currentPage}
               variant="related"
               maxLinks={6}
-              className="mt-12 pt-12 border-t border-gray-800"
+
+                className="mt-12 pt-12 border-t border-gray-800"
             />
           </div>
         }

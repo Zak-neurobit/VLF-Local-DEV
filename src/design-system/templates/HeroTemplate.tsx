@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { BRAND } from '../constants';
@@ -81,13 +81,15 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
         >
           <source src={videoUrl} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
+        <div
+                className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
 
-        <div className="relative z-10 text-center text-white px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+        <div
+               } className="relative z-10 text-center text-white px-4">
+          <div
+           }
+           }
+           }
           >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4">{t.headline}</h1>
             <p className="text-primary text-2xl md:text-3xl font-bold mb-2">{BRAND.tagline}</p>
@@ -103,7 +105,7 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
                 {t.cta2}
               </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     );
@@ -114,10 +116,10 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
       <section className={`relative ${getHeight()} flex items-center`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+            <div
+             }
+             }
+             }
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 mb-4">
                 {t.headline}
@@ -139,31 +141,28 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
               {/* Stats */}
               <div className="grid grid-cols-2 gap-4 mt-12">
                 {t.stats.map((stat, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="text-center lg:text-left"
+
+                className="text-center lg:text-left"
                   >
-                    <div className="text-3xl font-bold text-primary">{stat.number}</div>
+                    <div
+                className="text-3xl font-bold text-primary">{stat.number}</div>
                     <div className="text-sm text-neutral-600">{stat.label}</div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
+            <div
+className="relative"
             >
               <Image
                 src="/william-vasquez-hero.png"
                 alt="William Vasquez"
                 width={500}
                 height={600}
+
                 className="w-full h-auto rounded-lg shadow-2xl"
                 priority
               />
@@ -171,7 +170,7 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
                 <p className="font-bold text-lg">William Vasquez</p>
                 <p className="text-sm">Founding Attorney</p>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -182,15 +181,15 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
   return (
     <section
       className={`relative ${getHeight()} flex items-center justify-center bg-cover bg-center`}
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+     )` }}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
 
       <div className="relative z-10 text-center text-white px-4 max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+        <div
+         }
+         }
+         }
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">{t.headline}</h1>
           <p className="text-primary text-xl md:text-2xl font-bold mb-2">{BRAND.tagline}</p>
@@ -211,19 +210,18 @@ export const HeroTemplate: React.FC<HeroTemplateProps> = ({
           {/* Stats Bar */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {t.stats.map((stat, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+
                 className="text-center"
               >
-                <div className="text-3xl md:text-4xl font-bold text-primary">{stat.number}</div>
+                <div
+                className="text-3xl md:text-4xl font-bold text-primary">{stat.number}</div>
                 <div className="text-sm text-white/80">{stat.label}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

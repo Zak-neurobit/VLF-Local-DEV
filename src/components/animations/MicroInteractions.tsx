@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 // Canvas confetti removed;
 
 // Ripple effect button
@@ -34,23 +33,16 @@ export function RippleButton({
 
   return (
     <button onClick={handleClick} className={`relative overflow-hidden ${className}`}>
-      <AnimatePresence>
+      <>
         {ripples.map(ripple => (
-          <motion.span
+          <span
             key={ripple.id}
-            className="absolute rounded-full"
-            style={{
-              left: ripple.x,
-              top: ripple.y,
-              backgroundColor: color,
-            }}
-            initial={{ width: 0, height: 0, x: 0, y: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+
+                className="absolute rounded-full"           }
+           }
           />
         ))}
-      </AnimatePresence>
+      </>
       <span className="relative z-10">{children}</span>
     </button>
   );
@@ -84,27 +76,15 @@ export function SuccessAnimation({
   }, [trigger, onComplete]);
 
   return (
-    <AnimatePresence>
+    <>
       {trigger && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div
-            className="rounded-lg bg-white p-8 text-center shadow-2xl"
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ scale: 0, rotate: 180 }}
-            transition={{ type: 'spring', duration: 0.5 }}
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"        >
+          <div
+            className="rounded-lg bg-white p-8 text-center shadow-2xl"           }
           >
-            <motion.div
-              className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-500 text-white"
-              initial={{ scale: 0 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
+            <div
+              className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-500 text-white"            >
               <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -113,12 +93,12 @@ export function SuccessAnimation({
                   d="M5 13l4 4L19 7"
                 />
               </svg>
-            </motion.div>
+            </div>
             <h3 className="text-2xl font-bold text-gray-800">{message}</h3>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }
 
@@ -127,15 +107,10 @@ export function MorphingLoader() {
   return (
     <div className="flex space-x-2">
       {[0, 1, 2].map(index => (
-        <motion.div
+        <div
           key={index}
-          className="h-3 w-3 bg-gradient-to-br from-[#6B1F2E] to-[#C9974D]"
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            delay: index * 0.2,
-          }}
+
+                className="h-3 w-3 bg-gradient-to-br from-[#6B1F2E] to-[#C9974D]"
         />
       ))}
     </div>
@@ -164,23 +139,19 @@ export function ElasticInput({
   };
 
   return (
-    <motion.div animate={controls} className="relative">
+    <div className="relative">
       <input
-        type={type}
-        placeholder={placeholder}
-        onFocus={handleFocus}
-        onBlur={() => setIsFocused(false)}
-        className={`w-full rounded-lg border-2 px-4 py-3 transition-colors ${
+        type={type placeholder={placeholder}
+                onFocus={handleFocus}
+                onBlur={() => setIsFocused(false)}
+
+                className={`w-full rounded-lg border-2 px-4 py-3 transition-colors ${
           isFocused ? 'border-[#6B1F2E]' : 'border-gray-300'
         } ${className}`}
       />
-      <motion.div
-        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#6B1F2E] to-[#C9974D]"
-        initial={{ scaleX: 0 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-      />
-    </motion.div>
+      <div
+        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#6B1F2E] to-[#C9974D]"      />
+    </div>
   );
 }
 
@@ -197,25 +168,22 @@ export function AnimatedToggle({
   return (
     <label className="flex cursor-pointer items-center space-x-3">
       <div className="relative">
-        <motion.div
+        <div
           className="h-8 w-14 rounded-full"
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
+         }
+         }
         >
-          <motion.div
+          <div
             className="absolute top-1 h-6 w-6 rounded-full bg-white shadow-md"
-            animate={{ opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           />
-        </motion.div>
+        </div>
         <input
           type="checkbox"
-          checked={checked}
-          onChange={e => onChange?.(e.target.checked)}
-          className="absolute inset-0 opacity-0"
+          checked={checked} onChange={e => onChange?.(e.target.checked)}
+      className="absolute inset-0 opacity-0"
         />
       </div>
-      {label && <span className="text-gray-700">{label}</span>}
+      {label && <span} className="text-gray-700">{label}</span>}
     </label>
   );
 }
@@ -246,23 +214,18 @@ export function HoverCard({
   };
 
   return (
-    <motion.div
+    <div
       className={`relative transform-gpu ${className}`}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      animate={{ opacity: 1 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      style={{ transformStyle: 'preserve-3d' }}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave     }
     >
-      <div className="relative z-10" style={{ transform: 'translateZ(50px)' }}>
+      <div className="relative z-10"}>
         {children}
       </div>
-      <motion.div
+      <div
         className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#6B1F2E]/20 to-[#C9974D]/20 blur-xl"
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        style={{ transform: 'translateZ(-50px)' }}
       />
-    </motion.div>
+    </div>
   );
 }
 
@@ -279,12 +242,10 @@ export function SkeletonLoader({
   return (
     <div
       className={`relative overflow-hidden rounded bg-gray-200 ${className}`}
-      style={{ width, height }}
+     }
     >
-      <motion.div
+      <div
         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent"
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
       />
     </div>
   );
@@ -310,14 +271,11 @@ export function NotificationToast({
   };
 
   return (
-    <AnimatePresence>
+    <>
       {isVisible && (
-        <motion.div
-          className={`fixed right-4 top-4 z-50 rounded-lg px-6 py-4 text-white shadow-lg ${colors[type]}`}
-          initial={{ x: 300, opacity: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ x: 300, opacity: 0 }}
-          transition={{ type: 'spring', damping: 25 }}
+        <div
+          className={`fixed right-4 top-4 z-50 rounded-lg px-6 py-4 text-white shadow-lg ${colors[type]}`         }
+         }
         >
           <div className="flex items-center justify-between">
             <span>{message}</span>
@@ -325,8 +283,8 @@ export function NotificationToast({
               ×
             </button>
           </div>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

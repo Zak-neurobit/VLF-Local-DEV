@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { useSearchParams } from 'next/navigation';
 
 export default function PracticeAreasContent() {
@@ -251,14 +251,13 @@ export default function PracticeAreasContent() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Language Toggle - Fixed Position */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="fixed right-4 top-20 z-40 flex gap-2 rounded-full bg-black/50 p-1 backdrop-blur-sm"
+      <div
+className="fixed right-4 top-20 z-40 flex gap-2 rounded-full bg-black/50 p-1 backdrop-blur-sm"
       >
         <button
           onClick={() => setLanguage('en')}
-          className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
             language === 'en' ? 'bg-primary text-black' : 'text-white hover:text-primary'
           }`}
         >
@@ -266,27 +265,25 @@ export default function PracticeAreasContent() {
         </button>
         <button
           onClick={() => setLanguage('es')}
-          className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
             language === 'es' ? 'bg-primary text-black' : 'text-white hover:text-primary'
           }`}
         >
           ES
         </button>
-      </motion.div>
+      </div>
 
       {/* Hero Section */}
       <section className="relative overflow-hidden py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mx-auto max-w-2xl text-center"
+          <div
+className="mx-auto max-w-2xl text-center"
           >
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">{t.title}</h1>
             <p className="mt-6 text-lg leading-8 text-primary">{t.subtitle}</p>
             <p className="mt-6 text-lg leading-8 text-gray-300">{t.description}</p>
-          </motion.div>
+          </div>
         </div>
 
         {/* Background gradient */}
@@ -302,15 +299,14 @@ export default function PracticeAreasContent() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {practiceAreas.map((area, index) => (
-              <motion.div
+              <div
                 key={area.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+
                 className="group relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-primary/50 transition-all duration-300"
               >
                 <div className="p-8">
-                  <div className="text-5xl mb-4">{area.icon}</div>
+                  <div
+                className="text-5xl mb-4">{area.icon}</div>
                   <h3 className="text-2xl font-bold text-white mb-3">{area.title[language]}</h3>
                   <p className="text-gray-300 mb-6">{area.description[language]}</p>
 
@@ -320,8 +316,11 @@ export default function PracticeAreasContent() {
                     </h4>
                     <ul className="space-y-2">
                       {area.services[language].map((service, i) => (
-                        <li key={i} className="flex items-start text-sm text-gray-400">
-                          <span className="text-primary mr-2">✓</span>
+                        <li key={i}
+
+                className="flex items-start text-sm text-gray-400">
+                          <span
+                className="text-primary mr-2">✓</span>
                           {service}
                         </li>
                       ))}
@@ -335,7 +334,8 @@ export default function PracticeAreasContent() {
                   <div className="flex gap-3">
                     <Link
                       href={`/practice-areas/${area.id}`}
-                      className="flex-1 text-center px-4 py-2 bg-primary text-black rounded-md hover:bg-primary-600 transition-colors font-medium"
+
+                className="flex-1 text-center px-4 py-2 bg-primary text-black rounded-md hover:bg-primary-600 transition-colors font-medium"
                     >
                       {t.learnMore}
                     </Link>
@@ -344,7 +344,7 @@ export default function PracticeAreasContent() {
                     </button>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -389,18 +389,16 @@ export default function PracticeAreasContent() {
                     : 'Instant answers day and night',
               },
             ].map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+
                 className="text-center"
               >
-                <div className="text-5xl mb-4">{feature.icon}</div>
+                <div
+                className="text-5xl mb-4">{feature.icon}</div>
                 <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
                 <p className="text-sm text-gray-400">{feature.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

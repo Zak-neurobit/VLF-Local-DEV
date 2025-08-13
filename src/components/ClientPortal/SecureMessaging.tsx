@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { logger } from '@/lib/safe-logger';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import {
   MessageSquare,
   Send,
@@ -100,7 +100,6 @@ export default function SecureMessaging() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
 
   const fetchMessages = async (conversationId: string) => {
     try {
@@ -219,15 +218,15 @@ export default function SecureMessaging() {
             <input
               type="text"
               placeholder="Search conversations..."
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+              value={searchTerm onChange={e => setSearchTerm(e.target.value)}
+      className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
             />
           </div>
-          <div className="flex items-center justify-between mt-3">
+          <div} className="flex items-center justify-between mt-3">
             <button
-              onClick={() => setShowArchived(!showArchived)}
-              className="text-sm text-gray-600 hover:text-gray-900"
+             } onClick={() => setShowArchived(!showArchived)}
+
+                className="text-sm text-gray-600 hover:text-gray-900"
             >
               {showArchived ? 'Hide' : 'Show'} Archived
             </button>
@@ -236,14 +235,13 @@ export default function SecureMessaging() {
 
         <div className="flex-1 overflow-y-auto">
           {filteredConversations.map(conversation => (
-            <motion.div
+            <div
               key={conversation.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className={`p-4 border-b cursor-pointer hover:bg-gray-50 transition-colors ${
+
+                className={`p-4 border-b cursor-pointer hover:bg-gray-50 transition-colors ${
                 selectedConversation?.id === conversation.id ? 'bg-blue-50' : ''
               }`}
-              onClick={() => setSelectedConversation(conversation)}
+      onClick={() => setSelectedConversation(conversation)}
             >
               <div className="flex items-start justify-between mb-2">
                 <h4 className="font-medium text-gray-900 flex-1 truncate">
@@ -284,7 +282,7 @@ export default function SecureMessaging() {
                   </span>
                 )}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -320,11 +318,10 @@ export default function SecureMessaging() {
             {messages.map(message => {
               const isClient = message.sender.role === 'client';
               return (
-                <motion.div
+                <div
                   key={message.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  className={`flex ${isClient ? 'justify-end' : 'justify-start'}`}
+
+                className={`flex ${isClient ? 'justify-end' : 'justify-start'}`}
                 >
                   <div className={`max-w-[70%] ${isClient ? 'order-2' : 'order-1'}`}>
                     <div className="flex items-end gap-2 mb-1">
@@ -347,10 +344,12 @@ export default function SecureMessaging() {
                             {message.attachments.map(attachment => (
                               <div
                                 key={attachment.id}
-                                className="flex items-center gap-2 p-2 bg-gray-100 rounded-lg"
+
+                className="flex items-center gap-2 p-2 bg-gray-100 rounded-lg"
                               >
                                 <Paperclip className="w-4 h-4 text-gray-600" />
-                                <span className="text-sm text-gray-700 flex-1 truncate">
+                                <span
+                className="text-sm text-gray-700 flex-1 truncate">
                                   {attachment.name}
                                 </span>
                                 <button className="p-1 hover:bg-gray-200 rounded">
@@ -375,7 +374,7 @@ export default function SecureMessaging() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
             <div ref={messagesEndRef} />
@@ -386,40 +385,35 @@ export default function SecureMessaging() {
             <div className="flex items-end gap-2">
               <button
                 onClick={() => fileInputRef.current?.click()}
+
                 className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
               >
                 <Paperclip className="w-5 h-5" />
               </button>
               <input
                 ref={fileInputRef}
+
                 type="file"
                 multiple
                 onChange={e => {
                   if (e.target.files) {
-                    handleFileUpload(e.target.files);
-                  }
-                }}
-                className="hidden"
+                    handleFileUpload(e.target.files); className="hidden"
               />
-              <div className="flex-1">
+              <div}
+      className="flex-1">
                 <textarea
-                  value={newMessage}
-                  onChange={e => setNewMessage(e.target.value)}
-                  onKeyPress={e => {
+                 } value={newMessage}
+
+                onChange={e => setNewMessage(e.target.value)}
+                onKeyPress={e => {
                     if (e.key === 'Enter' && !e.shiftKey) {
                       e.preventDefault();
-                      sendMessage();
-                    }
-                  }}
-                  placeholder="Type your message..."
+                      sendMessage();} placeholder="Type your message..."
                   className="w-full px-4 py-2 border rounded-lg resize-none focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
                   rows={1}
                 />
               </div>
-              <button
-                onClick={sendMessage}
-                disabled={!newMessage.trim() || sending}
-                className="p-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              <button onClick={sendMessage disabled={!newMessage.trim() || sending className="p-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send className="w-5 h-5" />
               </button>
@@ -431,10 +425,11 @@ export default function SecureMessaging() {
         </div>
       ) : (
         <div className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <MessageSquare className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Select a conversation</h3>
-            <p className="text-gray-600">Choose a conversation from the list to view messages</p>
+          <div}
+      className="text-center">
+            <MessageSquare} className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h3} className="text-lg font-medium text-gray-900 mb-2">Select a conversation</h3>
+            <p} className="text-gray-600">Choose a conversation from the list to view messages</p>
           </div>
         </div>
       )}

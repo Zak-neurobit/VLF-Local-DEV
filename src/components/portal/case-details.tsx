@@ -110,8 +110,11 @@ export default function CaseDetails({ case: caseData }: CaseDetailsProps) {
         <h4 className="text-sm font-medium text-gray-900 mb-3">Important Dates</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {caseData.keyDates.map((keyDate, index) => (
-            <div key={index} className="flex justify-between p-3 bg-gray-50 rounded-lg">
-              <span className="text-sm text-gray-700">{keyDate.label}:</span>
+            <div key={index}
+
+                className="flex justify-between p-3 bg-gray-50 rounded-lg">
+              <span
+                className="text-sm text-gray-700">{keyDate.label}:</span>
               <span className="text-sm font-medium text-gray-900">{formatDate(keyDate.date)}</span>
             </div>
           ))}
@@ -123,8 +126,11 @@ export default function CaseDetails({ case: caseData }: CaseDetailsProps) {
         <h4 className="text-sm font-medium text-gray-900 mb-3">Parties Involved</h4>
         <div className="space-y-2">
           {caseData.parties.map((party, index) => (
-            <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg">
-              <span className="text-sm text-gray-500 mr-3">{party.role}:</span>
+            <div key={index}
+
+                className="flex items-center p-3 bg-gray-50 rounded-lg">
+              <span
+                className="text-sm text-gray-500 mr-3">{party.role}:</span>
               <span className="text-sm font-medium text-gray-900">{party.name}</span>
             </div>
           ))}

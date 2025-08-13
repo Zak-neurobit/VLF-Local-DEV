@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
@@ -139,11 +139,11 @@ export function ModernPracticeAreaTemplateV3({
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-slate-900/90" />
         <div className="absolute inset-0 bg-[url('/images/law-office-bg.jpg')] bg-cover bg-center" />
 
-        <motion.div
+        <div
           className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+         }
+         }
+         }
         >
           <div className="flex justify-center mb-6">
             <Scale className="h-16 w-16 text-blue-400" />
@@ -174,17 +174,15 @@ export function ModernPracticeAreaTemplateV3({
               {t.scheduleConsultation}
             </Button>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Stats Section */}
       <section className="py-16 bg-white">
-        <motion.div
+        <div
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          // TODO: Convert variants={staggerChildren} to react-spring
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
+
+         }
         >
           <div className="grid grid-cols-2 lg:grid-cols-6 gap-8">
             {[
@@ -195,89 +193,90 @@ export function ModernPracticeAreaTemplateV3({
               { icon: Users, label: t.bilingualServices, color: 'text-red-600' },
               { icon: MapPin, label: t.localExperts, color: 'text-indigo-600' },
             ].map((stat, index) => (
-              <motion.div key={index} className="text-center">
-                <stat.icon className={`h-8 w-8 ${stat.color} mx-auto mb-2`} />
+              <div key={index}
+
+                className="text-center">
+                <stat.icon}
+
+                className={`h-8 w-8 ${stat.color} mx-auto mb-2`} />
                 <p className="text-sm font-medium text-gray-900">{stat.label}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Why Choose Us Section */}
       <section className="py-20 bg-slate-50">
-        <motion.div
+        <div
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          // TODO: Convert variants={staggerChildren} to react-spring
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
+
+         }
         >
-          <motion.div className="text-center mb-16">
+          <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               {t.whyChooseTitle}
             </h2>
-          </motion.div>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {practiceArea.benefits[language].map((benefit, index) => (
-              <motion.div key={index}>
+              <div key={index}>
                 <Card className="h-full hover:shadow-lg transition-shadow duration-300">
                   <CardContent className="p-6">
                     <CheckCircle className="h-8 w-8 text-green-600 mb-4" />
                     <p className="text-gray-700 leading-relaxed">{benefit}</p>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Process Section */}
       <section className="py-20 bg-white">
-        <motion.div
+        <div
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          // TODO: Convert variants={staggerChildren} to react-spring
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
+
+         }
         >
-          <motion.div className="text-center mb-16">
+          <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               {t.ourProcessTitle}
             </h2>
-          </motion.div>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {practiceArea.process[language].map((step, index) => (
-              <motion.div key={index} className="text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              <div key={index}
+
+                className="text-center">
+                <div
+                className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   {index + 1}
                 </div>
                 <p className="text-gray-700 leading-relaxed">{step}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* FAQs Section */}
       <section className="py-20 bg-slate-50">
-        <motion.div
+        <div
           className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
-          // TODO: Convert variants={staggerChildren} to react-spring
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
+
+         }
         >
-          <motion.div className="text-center mb-16">
+          <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">{t.faqsTitle}</h2>
-          </motion.div>
+          </div>
 
           <div className="space-y-4">
             {practiceArea.faqs[language].map((faq, index) => (
-              <motion.div key={index}>
+              <div key={index}>
                 <Card>
                   <CardContent className="p-0">
                     <button
@@ -294,43 +293,37 @@ export function ModernPracticeAreaTemplateV3({
                       </div>
                     </button>
                       {expandedFaq === index && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="px-6 pb-6"
+                      <div
+className="px-6 pb-6"
                       >
                         <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
-                      </motion.div>
+                      </div>
                     )}
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Related Services */}
       {practiceArea.relatedServices[language].length > 0 && (
         <section className="py-20 bg-white">
-          <motion.div
+          <div
             className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-            // TODO: Convert variants={staggerChildren} to react-spring
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
+
+           }
           >
-            <motion.div className="text-center mb-16">
+            <div className="text-center mb-16">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                 {t.relatedServicesTitle}
               </h2>
-            </motion.div>
+            </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {practiceArea.relatedServices[language].map((service, index) => (
-                <motion.div key={index}>
+                <div key={index}>
                   <Card className="hover:shadow-lg transition-shadow duration-300">
                     <CardContent className="p-6">
                       <FileText className="h-8 w-8 text-blue-600 mb-4" />
@@ -340,30 +333,28 @@ export function ModernPracticeAreaTemplateV3({
                       </Button>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </section>
       )}
 
       {/* Contact Section */}
       <section className="py-20 bg-blue-900 text-white">
-        <motion.div
+        <div
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-          // TODO: Convert variants={staggerChildren} to react-spring
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
+
+         }
         >
-          <motion.div className="text-center mb-16">
+          <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">{t.contactTitle}</h2>
             <p className="text-xl text-blue-100">{t.contactSubtitle}</p>
-          </motion.div>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {offices.map((office, index) => (
-              <motion.div key={index}>
+              <div key={index}>
                 <Card className="bg-white/10 border-white/20 text-white">
                   <CardContent className="p-6">
                     <h3 className="text-lg font-semibold mb-4">{office.name}</h3>
@@ -383,17 +374,17 @@ export function ModernPracticeAreaTemplateV3({
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             ))}
           </div>
 
-          <motion.div className="text-center mt-12">
+          <div className="text-center mt-12">
             <Button size="lg" className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-3 text-lg">
               <Phone className="mr-2 h-5 w-5" />
               {t.phoneLabel}: (704) 533-7000
             </Button>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </section>
     </div>
   );

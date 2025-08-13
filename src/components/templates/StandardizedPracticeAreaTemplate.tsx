@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/design-system/components/Button';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import {
   Phone,
   MessageCircle,
@@ -167,19 +167,16 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
           {/* Animated Background */}
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-black to-primary/10" />
-            <motion.div
+            <div
               className="absolute inset-0"
-              animate={{ opacity: 1 }}
-              transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+             }
+             }
             />
           </div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center"
+            <div
+className="text-center"
             >
               <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
                 {title}
@@ -206,39 +203,35 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
                   {finalCTA.secondary.text}
                 </Button>
               </div>
-            </motion.div>
+            </div>
 
             {/* Stats Grid */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
+            <div
+className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
             >
               {stats.map((stat, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 text-center border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 text-center border border-primary/20"
                 >
                   <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
-                  <div className="text-3xl font-black text-primary">{stat.value}</div>
+                  <div
+                className="text-3xl font-black text-primary">{stat.value}</div>
                   <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* Overview Section */}
         <section className="py-20 bg-gradient-to-b from-black to-neutral-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
+            <div
+             }
+             }
+             }
             >
               <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-12">
                 {overview.title || (isSpanish ? 'Resumen' : 'Overview')}
@@ -248,22 +241,20 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
                 {overview.highlights && overview.highlights.length > 0 && (
                   <div className="grid md:grid-cols-2 gap-4">
                     {overview.highlights.map((highlight, index) => (
-                      <motion.div
+                      <div
                         key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.1 }}
-                        className="flex items-center gap-3"
+
+                className="flex items-center gap-3"
                       >
                         <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                        <span className="text-gray-300">{highlight}</span>
-                      </motion.div>
+                        <span
+                className="text-gray-300">{highlight}</span>
+                      </div>
                     ))}
                   </div>
                 )}
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -271,26 +262,20 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
         {services.length > 0 && (
           <section className="py-20 bg-neutral-950">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <motion.h2
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-black text-center text-white mb-12"
+              <h2
+className="text-3xl md:text-4xl font-black text-center text-white mb-12"
               >
                 {isSpanish ? 'Nuestros Servicios' : 'Our Services'}
-              </motion.h2>
+              </h2>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {services.map((service, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    // TODO: Convert whileHover={{ scale: 1.03 }} to react-spring
-                    onClick={() => setActiveService(activeService === index ? -1 : index)}
-                    className={`cursor-pointer p-6 rounded-lg border transition-all ${
+
+                onClick={() => setActiveService(activeService === index ? -1 : index)}
+
+                className={`cursor-pointer p-6 rounded-lg border transition-all ${
                       activeService === index
                         ? 'bg-primary/10 border-primary'
                         : 'bg-white/5 border-white/10 hover:border-primary/50'
@@ -307,27 +292,26 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
 
                     <p className="text-gray-300 mb-3">{service.description}</p>
 
-                    <AnimatePresence>
+                    <>
                       {activeService === index && service.features && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
+                        <div
+className="overflow-hidden"
                         >
                           <ul className="space-y-2 mt-4">
                             {service.features.map((feature, fIndex) => (
-                              <li key={fIndex} className="flex items-start">
+                              <li key={fIndex}
+
+                className="flex items-start">
                                 <span className="text-primary mr-2">•</span>
-                                <span className="text-sm text-gray-400">{feature}</span>
+                                <span
+                className="text-sm text-gray-400">{feature}</span>
                               </li>
                             ))}
                           </ul>
-                        </motion.div>
+                        </div>
                       )}
-                    </AnimatePresence>
-                  </motion.div>
+                    </>
+                  </div>
                 ))}
               </div>
             </div>
@@ -338,28 +322,23 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
         {faqs.length > 0 && (
           <section className="py-20 bg-gradient-to-b from-neutral-950 to-black">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-              <motion.h2
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-black text-center text-white mb-12"
+              <h2
+className="text-3xl md:text-4xl font-black text-center text-white mb-12"
               >
                 {isSpanish ? 'Preguntas Frecuentes' : 'Frequently Asked Questions'}
-              </motion.h2>
+              </h2>
 
               <div className="space-y-4">
                 {faqs.map((faq, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden"
                   >
                     <button
-                      onClick={() => setActiveFAQ(activeFAQ === index ? -1 : index)}
-                      className="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
+                onClick={() => setActiveFAQ(activeFAQ === index ? -1 : index)}
+
+                className="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
                     >
                       <h3 className="text-xl font-semibold text-primary pr-4">{faq.question}</h3>
                       <ChevronRight
@@ -368,20 +347,16 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
                         }`}
                       />
                     </button>
-                    <AnimatePresence>
+                    <>
                       {activeFAQ === index && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="px-6 pb-6"
+                        <div
+className="px-6 pb-6"
                         >
                           <p className="text-gray-300">{faq.answer}</p>
-                        </motion.div>
+                        </div>
                       )}
-                    </AnimatePresence>
-                  </motion.div>
+                    </>
+                  </div>
                 ))}
               </div>
             </div>
@@ -392,30 +367,26 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
         {attorneys.length > 0 && (
           <section className="py-20 bg-neutral-950">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <motion.h2
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-black text-center text-white mb-12"
+              <h2
+className="text-3xl md:text-4xl font-black text-center text-white mb-12"
               >
                 {isSpanish ? 'Nuestros Abogados Expertos' : 'Our Expert Attorneys'}
-              </motion.h2>
+              </h2>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {attorneys.map((attorney, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                   >
                     {attorney.image && (
                       <img
                         src={attorney.image}
-                        alt={attorney.name}
-                        className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
+
+                alt={attorney.name}
+
+                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
                       />
                     )}
                     <h3 className="text-xl font-bold text-white text-center mb-2">
@@ -425,13 +396,16 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
                     <p className="text-gray-400 text-center mb-4">{attorney.experience}</p>
                     <div className="space-y-1">
                       {attorney.specializations.map((spec, sIndex) => (
-                        <div key={sIndex} className="flex items-center gap-2">
+                        <div key={sIndex}
+
+                className="flex items-center gap-2">
                           <Star className="w-4 h-4 text-primary" />
-                          <span className="text-sm text-gray-300">{spec}</span>
+                          <span
+                className="text-sm text-gray-300">{spec}</span>
                         </div>
                       ))}
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -449,27 +423,25 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
         {relatedServices.length > 0 && (
           <section className="py-20 bg-gradient-to-b from-black to-neutral-950">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <motion.h2
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-4xl font-black text-center text-white mb-12"
+              <h2
+className="text-3xl md:text-4xl font-black text-center text-white mb-12"
               >
                 {isSpanish ? 'Servicios Relacionados' : 'Related Services'}
-              </motion.h2>
+              </h2>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {relatedServices.map((service, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
+                   }
+                   }
+                   }
+                   }
                   >
                     <Link
                       href={service.link}
-                      className={`block p-6 rounded-lg border transition-all hover:scale-105 ${
+
+                className={`block p-6 rounded-lg border transition-all hover:scale-105 ${
                         service.urgency === 'high'
                           ? 'bg-red-900/20 border-red-500/30 hover:border-red-500'
                           : 'bg-white/5 border-white/10 hover:border-primary/50'
@@ -484,7 +456,7 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </div>
                     </Link>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -494,10 +466,10 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
         {/* CTA Section */}
         <section className="py-20 bg-gradient-to-r from-primary to-primary-300">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+            <div
+             }
+             }
+             }
             >
               <h2 className="text-3xl md:text-4xl font-black text-black mb-6">
                 {isSpanish ? 'Obtenga Su Consulta GRATIS Hoy' : 'Get Your FREE Consultation Today'}
@@ -526,7 +498,7 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
                   {isSpanish ? 'Iniciar Chat en Vivo' : 'Start Live Chat'}
                 </Button>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 

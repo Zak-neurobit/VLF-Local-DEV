@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Phone,
   MessageSquare,
@@ -92,65 +91,47 @@ export default function ContactoRapidoClient() {
 
         {/* Animated urgency indicators */}
         <div className="absolute inset-0">
-          <motion.div
+          <div
             className="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full"
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-            }}
+           }
+           }
           />
-          <motion.div
+          <div
             className="absolute bottom-20 left-20 w-16 h-16 bg-white/10 rounded-full"
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              delay: 0.5,
-            }}
+           }
+           }
           />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
+            <div
+className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
             >
               <Zap className="w-5 h-5 text-yellow-400" />
               <span className="text-sm font-medium">Respuesta Inmediata Disponible</span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl md:text-6xl font-bold mb-6"
+            <h1
+className="text-4xl md:text-6xl font-bold mb-6"
             >
               ¿Necesita Ayuda <span className="text-yellow-400">URGENTE</span>?
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl text-gray-200 mb-8"
+            <p
+className="text-xl text-gray-200 mb-8"
             >
               Estamos aquí 24/7 para emergencias legales. Contacte ahora mismo.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="bg-yellow-500 text-black font-bold py-6 px-8 rounded-lg inline-block"
+            <div
+className="bg-yellow-500 text-black font-bold py-6 px-8 rounded-lg inline-block"
             >
               <a href="tel:1-844-967-3536" className="flex items-center gap-3 text-2xl">
                 <Phone className="w-8 h-8 animate-pulse" />
                 1-844-YO-PELEO
               </a>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -160,12 +141,11 @@ export default function ContactoRapidoClient() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {contactMethods.map((method, index) => (
-              <motion.a
+              <a
                 key={index}
+
                 href={method.href}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+
                 className={`bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-2xl transition-all transform hover:-translate-y-1 ${
                   method.highlight ? 'ring-4 ring-yellow-400 ring-offset-2' : ''
                 }`}
@@ -189,7 +169,7 @@ export default function ContactoRapidoClient() {
                   {method.action}
                 </div>
                 <p className="text-sm text-gray-500 mt-2">Tiempo de respuesta: {method.time}</p>
-              </motion.a>
+              </a>
             ))}
           </div>
         </div>
@@ -200,10 +180,8 @@ export default function ContactoRapidoClient() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             {!contacted ? (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                className="bg-gray-50 rounded-xl p-8"
+              <div
+className="bg-gray-50 rounded-xl p-8"
               >
                 <h2 className="text-2xl font-bold mb-6 text-center">
                   Formulario de Contacto Rápido
@@ -223,7 +201,8 @@ export default function ContactoRapidoClient() {
                       ].map(level => (
                         <label
                           key={level.value}
-                          className={`flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer transition-all ${
+
+                className={`flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer transition-all ${
                             urgency === level.value
                               ? `border-${level.color}-500 bg-${level.color}-50`
                               : 'border-gray-200 hover:border-gray-300'
@@ -232,13 +211,10 @@ export default function ContactoRapidoClient() {
                           <input
                             type="radio"
                             name="urgency"
-                            value={level.value}
-                            checked={urgency === level.value}
-                            onChange={e => setUrgency(e.target.value)}
-                            className="sr-only"
+                            value={level.value checked={urgency === level.value} onChange={e => setUrgency(e.target.value)} className="sr-only"
                           />
                           <span
-                            className={`font-medium ${
+                           } className={`font-medium ${
                               urgency === level.value ? `text-${level.color}-700` : ''
                             }`}
                           >
@@ -287,7 +263,8 @@ export default function ContactoRapidoClient() {
                   {/* Brief Description */}
                   <textarea
                     rows={3}
-                    placeholder="Describa brevemente su situación urgente..."
+
+                placeholder="Describa brevemente su situación urgente..."
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
@@ -340,12 +317,10 @@ export default function ContactoRapidoClient() {
                     </p>
                   </div>
                 )}
-              </motion.div>
+              </div>
             ) : (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                className="bg-green-50 rounded-xl p-8 text-center"
+              <div
+className="bg-green-50 rounded-xl p-8 text-center"
               >
                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-10 h-10 text-green-600" />
@@ -370,7 +345,7 @@ export default function ContactoRapidoClient() {
                   Volver al Inicio
                   <ArrowRight className="w-4 h-4" />
                 </Link>
-              </motion.div>
+              </div>
             )}
           </div>
         </div>
@@ -385,17 +360,15 @@ export default function ContactoRapidoClient() {
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
               {urgentSituations.map((situation, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-lg p-4 shadow-md flex items-center gap-3"
+
+                className="bg-white rounded-lg p-4 shadow-md flex items-center gap-3"
                 >
                   <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                  <p className="font-medium">{situation}</p>
-                </motion.div>
+                  <p
+                className="font-medium">{situation}</p>
+                </div>
               ))}
             </div>
             <div className="mt-8 text-center">
@@ -422,15 +395,13 @@ export default function ContactoRapidoClient() {
           </h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {offices.map((office, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
+
                 className="bg-gray-50 rounded-lg p-6"
               >
-                <h3 className="text-xl font-bold mb-3">{office.city}</h3>
+                <h3
+                className="text-xl font-bold mb-3">{office.city}</h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex items-start gap-2">
                     <MapPin className="w-4 h-4 text-gray-600 mt-0.5" />
@@ -440,7 +411,8 @@ export default function ContactoRapidoClient() {
                     <Phone className="w-4 h-4 text-gray-600" />
                     <a
                       href={`tel:${office.phone}`}
-                      className="text-primary-600 hover:text-primary-700"
+
+                className="text-primary-600 hover:text-primary-700"
                     >
                       {office.phone}
                     </a>
@@ -453,7 +425,7 @@ export default function ContactoRapidoClient() {
                 <p className="text-xs text-red-600 mt-3 font-medium">
                   * Disponible 24/7 para emergencias
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

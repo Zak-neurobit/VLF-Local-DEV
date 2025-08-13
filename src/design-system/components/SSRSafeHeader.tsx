@@ -143,7 +143,6 @@ export const SSRSafeHeader: React.FC<SSRSafeHeaderProps> = ({
     return pathname?.startsWith(href);
   };
 
-
   return (
     <header
       className={`transition-all duration-300 ${
@@ -164,6 +163,7 @@ export const SSRSafeHeader: React.FC<SSRSafeHeaderProps> = ({
               <span className="hidden sm:inline text-primary">•</span>
               <a
                 href={`mailto:${BRAND.email}`}
+
                 className="hidden sm:inline hover:text-primary transition-colors"
               >
                 <span className="mr-1">✉️</span>
@@ -174,7 +174,8 @@ export const SSRSafeHeader: React.FC<SSRSafeHeaderProps> = ({
               variant="minimal"
               showFlags={false}
               showLabels={true}
-              className="text-xs"
+
+                className="text-xs"
             />
           </div>
         </div>
@@ -187,9 +188,12 @@ export const SSRSafeHeader: React.FC<SSRSafeHeaderProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <Link href={language === 'es' ? '/es' : '/'} className="flex items-center">
-              <div className="flex flex-col">
-                <h1 className={`text-2xl font-bold transition-colors ${
+            <Link href={language === 'es' ? '/es' : '/'}
+      className="flex items-center">
+              <div
+               } className="flex flex-col">
+                <h1
+               } className={`text-2xl font-bold transition-colors ${
                   isTransparent ? 'text-white' : 'text-white'
                 }`}>
                   {BRAND.name}
@@ -204,18 +208,21 @@ export const SSRSafeHeader: React.FC<SSRSafeHeaderProps> = ({
             <div className="hidden lg:flex items-center">
               <div className="flex space-x-8">
                 {currentNav.map((item) => (
-                  <div key={item.name} className="relative">
+                  <div key={item.name}
+
+                className="relative">
                     <Link
                       href={item.href}
-                      className={`relative text-sm font-medium transition-colors duration-200 py-2 flex items-center gap-1 ${
+
+                className={`relative text-sm font-medium transition-colors duration-200 py-2 flex items-center gap-1 ${
                         isActive(item.href)
                           ? 'text-primary'
                           : isTransparent
                           ? 'text-white hover:text-primary'
                           : 'text-white hover:text-primary'
                       }`}
-                      onMouseEnter={() => item.submenu && setActiveDropdown(item.name)}
-                      onMouseLeave={() => setActiveDropdown(null)}
+                onMouseEnter={() => item.submenu && setActiveDropdown(item.name)}
+                onMouseLeave={() => setActiveDropdown(null)}
                     >
                       {item.name}
                       {item.submenu && (
@@ -233,13 +240,15 @@ export const SSRSafeHeader: React.FC<SSRSafeHeaderProps> = ({
                       <div
                         className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-xl z-50"
                         onMouseEnter={() => setActiveDropdown(item.name)}
-                        onMouseLeave={() => setActiveDropdown(null)}
+                onMouseLeave={() => setActiveDropdown(null)}
                       >
                         {item.submenu.map((subItem) => (
                           <Link
                             key={subItem.href}
-                            href={subItem.href}
-                            className="block px-4 py-3 text-sm text-gray-700 hover:bg-primary hover:text-white transition-colors"
+
+                href={subItem.href}
+
+                className="block px-4 py-3 text-sm text-gray-700 hover:bg-primary hover:text-white transition-colors"
                           >
                             {subItem.name}
                           </Link>
@@ -253,6 +262,7 @@ export const SSRSafeHeader: React.FC<SSRSafeHeaderProps> = ({
               {/* CTA Button */}
               <Link
                 href={language === 'es' ? '/es/contacto' : '/contact'}
+
                 className="ml-8 px-6 py-2.5 bg-gradient-to-r from-primary to-primary-600 text-secondary text-sm font-bold rounded-full hover:from-primary-600 hover:to-primary-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
               >
                 {language === 'es' ? 'Consulta Gratis' : 'Free Consultation'}
@@ -262,7 +272,8 @@ export const SSRSafeHeader: React.FC<SSRSafeHeaderProps> = ({
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-md transition-colors text-white hover:bg-white/20"
+
+                className="lg:hidden p-2 rounded-md transition-colors text-white hover:bg-white/20"
               aria-label="Toggle menu"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,12 +295,12 @@ export const SSRSafeHeader: React.FC<SSRSafeHeaderProps> = ({
                 <div key={item.name}>
                   <Link
                     href={item.href}
-                    className={`block px-3 py-2 text-base font-medium ${
+
+                className={`block px-3 py-2 text-base font-medium ${
                       isActive(item.href)
                         ? 'text-primary bg-black/50'
                         : 'text-white hover:text-primary hover:bg-black/50'
-                    } transition-colors`}
-                    onClick={() => setMobileMenuOpen(false)}
+                    } transition-colors` onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
@@ -298,9 +309,11 @@ export const SSRSafeHeader: React.FC<SSRSafeHeaderProps> = ({
                       {item.submenu.map((subItem) => (
                         <Link
                           key={subItem.href}
-                          href={subItem.href}
-                          className="block px-3 py-2 text-sm text-gray-300 hover:text-primary transition-colors"
-                          onClick={() => setMobileMenuOpen(false)}
+
+                href={subItem.href}
+
+                className="block px-3 py-2 text-sm text-gray-300 hover:text-primary transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
                         >
                           {subItem.name}
                         </Link>
@@ -311,6 +324,7 @@ export const SSRSafeHeader: React.FC<SSRSafeHeaderProps> = ({
               ))}
               <Link
                 href={language === 'es' ? '/es/contacto' : '/contact'}
+
                 className="block mx-3 mt-4 px-6 py-3 bg-gradient-to-r from-primary to-primary-600 text-secondary text-center font-bold rounded-full"
                 onClick={() => setMobileMenuOpen(false)}
               >

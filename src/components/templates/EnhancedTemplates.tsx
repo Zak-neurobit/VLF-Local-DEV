@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { cn } from '@/lib/utils';
 
 // Template variants for different page types
@@ -64,10 +64,10 @@ export const EnhancedHero: React.FC<{
   const backgroundEffects = {
     home: (
       <>
-        <motion.div
+        <div
           className="absolute inset-0 bg-gradient-to-br from-black via-burgundy-900/20 to-gold-900/10"
-          animate={{ opacity: 1 }}
-          transition={{ duration: 10, repeat: Infinity }}
+         }
+         }
         />
         <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-5" />
       </>
@@ -94,11 +94,8 @@ export const EnhancedHero: React.FC<{
 
       <div className="relative z-10 h-full flex items-center">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className={cn(
+          <div
+className={cn(
               'text-center',
               variant === 'home' && 'max-w-5xl mx-auto',
               variant === 'blog' && 'max-w-3xl mx-auto'
@@ -145,7 +142,7 @@ export const EnhancedHero: React.FC<{
             )}
 
             {children}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -215,8 +212,10 @@ export const EnhancedCTA: React.FC<{
   return (
     <Component
       href={href}
-      onClick={onClick}
-      className={cn(baseClasses, variantClasses[variant], sizeClasses[size], className)}
+
+                onClick={onClick}
+
+                className={cn(baseClasses, variantClasses[variant], sizeClasses[size], className)}
     >
       {children}
     </Component>
@@ -239,12 +238,11 @@ export const EnhancedCard: React.FC<{
   };
 
   return (
-    <motion.div
-      // TODO: Convert whileHover={{ y: variant === 'service' ? -5 : 0 }} to react-spring
+    <div
       className={cn(cardClasses[variant], className)}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 
@@ -305,34 +303,31 @@ export const AnimatedStats: React.FC<{
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
       {stats.map((stat, index) => (
-        <motion.div
+        <div
           key={index}
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: index * 0.1 }}
-          className="text-center"
+
+                className="text-center"
         >
           <div
-            className={cn(
+                className={cn(
               'text-4xl font-black mb-2',
               variant === 'dark' ? 'text-gold-400' : 'text-gold-600'
             )}
           >
             {stat.prefix}
-            <motion.span
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.5 + index * 0.1 }}
+            <span
+             }
+             }
+             }
             >
               {stat.value}
-            </motion.span>
+            </span>
             {stat.suffix}
           </div>
           <div className={cn('text-sm', variant === 'dark' ? 'text-gray-400' : 'text-gray-600')}>
             {stat.label}
           </div>
-        </motion.div>
+        </div>
       ))}
     </div>
   );

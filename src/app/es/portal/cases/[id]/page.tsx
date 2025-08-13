@@ -91,7 +91,9 @@ export default function CaseDetailPage() {
             {(['overview', 'timeline', 'documents', 'messages'] as const).map(tab => (
               <button
                 key={tab}
+
                 onClick={() => setActiveTab(tab)}
+
                 className={`py-4 px-1 border-b-2 font-medium text-sm capitalize ${
                   activeTab === tab
                     ? 'border-blue-500 text-blue-600'

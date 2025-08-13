@@ -207,9 +207,7 @@ www.vasquezlawnc.com
                   </span>
                   <input
                     type="number"
-                    value={custodialIncome}
-                    onChange={e => setCustodialIncome(e.target.value)}
-                    className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+                    value={custodialIncome onChange={e => setCustodialIncome(e.target.value) className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
                     placeholder="0"
                     min="0"
                     step="100"
@@ -228,15 +226,15 @@ www.vasquezlawnc.com
                   </span>
                   <input
                     type="number"
-                    value={nonCustodialIncome}
-                    onChange={e => setNonCustodialIncome(e.target.value)}
-                    className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
-                    placeholder="0"
+                   }
+      value={nonCustodialIncome onChange={e => setNonCustodialIncome(e.target.value)}
+      className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+                   } placeholder="0"
                     min="0"
                     step="100"
                   />
                 </div>
-                <p className="mt-1 text-xs text-gray-500">Gross monthly income before taxes</p>
+                <p} className="mt-1 text-xs text-gray-500">Gross monthly income before taxes</p>
               </div>
             </div>
           </div>
@@ -255,11 +253,12 @@ www.vasquezlawnc.com
                 </label>
                 <select
                   value={numberOfChildren}
-                  onChange={e => setNumberOfChildren(parseInt(e.target.value))}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+      onChange={e => setNumberOfChildren(parseInt(e.target.value))} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
                 >
                   {[1, 2, 3, 4, 5, 6].map(num => (
-                    <option key={num} value={num}>
+                    <option key={num}
+
+                value={num}>
                       {num} {num === 1 ? 'child' : 'children'}
                     </option>
                   ))}
@@ -272,14 +271,13 @@ www.vasquezlawnc.com
                 </label>
                 <input
                   type="number"
-                  value={overnightsWithNonCustodial}
-                  onChange={e => setOvernightsWithNonCustodial(parseInt(e.target.value) || 0)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
-                  placeholder="104"
+                  value={overnightsWithNonCustodial onChange={e => setOvernightsWithNonCustodial(parseInt(e.target.value) || 0)}
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+                 } placeholder="104"
                   min="0"
                   max="365"
                 />
-                <p className="mt-1 text-xs text-gray-500">
+                <p} className="mt-1 text-xs text-gray-500">
                   Standard: 104 (every other weekend), Extended: 123+
                 </p>
               </div>
@@ -304,9 +302,7 @@ www.vasquezlawnc.com
                   </span>
                   <input
                     type="number"
-                    value={healthInsuranceCost}
-                    onChange={e => setHealthInsuranceCost(e.target.value)}
-                    className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+                    value={healthInsuranceCost onChange={e => setHealthInsuranceCost(e.target.value) className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
                     placeholder="0"
                     min="0"
                     step="50"
@@ -325,9 +321,7 @@ www.vasquezlawnc.com
                   </span>
                   <input
                     type="number"
-                    value={childcareCost}
-                    onChange={e => setChildcareCost(e.target.value)}
-                    className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+                    value={childcareCost onChange={e => setChildcareCost(e.target.value) className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
                     placeholder="0"
                     min="0"
                     step="50"
@@ -346,26 +340,24 @@ www.vasquezlawnc.com
                   </span>
                   <input
                     type="number"
-                    value={extraordinaryExpenses}
-                    onChange={e => setExtraordinaryExpenses(e.target.value)}
-                    className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
-                    placeholder="0"
+                   }
+      value={extraordinaryExpenses onChange={e => setExtraordinaryExpenses(e.target.value)}
+      className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+                   } placeholder="0"
                     min="0"
                     step="50"
                   />
                 </div>
-                <p className="mt-1 text-xs text-gray-500">Special needs, tutoring, etc.</p>
+                <p} className="mt-1 text-xs text-gray-500">Special needs, tutoring, etc.</p>
               </div>
             </div>
           </div>
 
           {/* Calculate Button */}
           <div className="flex justify-center mb-8">
-            <button
-              onClick={calculateSupport}
-              className="bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] text-white font-bold py-4 px-8 rounded-lg hover:shadow-lg transition-all duration-200 flex items-center gap-2"
+            <button onClick={calculateSupport} className="bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] text-white font-bold py-4 px-8 rounded-lg hover:shadow-lg transition-all duration-200 flex items-center gap-2"
             >
-              <Calculator className="w-5 h-5" />
+              <Calculator} className="w-5 h-5" />
               Calculate Child Support
             </button>
           </div>
@@ -433,16 +425,15 @@ www.vasquezlawnc.com
 
               {/* Actions */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button
-                  onClick={generateReport}
-                  className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+                <button onClick={generateReport} className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
-                  <Download className="w-5 h-5" />
+                  <Download} className="w-5 h-5" />
                   Download Report
                 </button>
                 <button
                   onClick={() => window.print()}
-                  className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+
+                className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   <FileText className="w-5 h-5" />
                   Print Results

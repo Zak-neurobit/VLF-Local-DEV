@@ -152,7 +152,8 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
         <div className="flex gap-2">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === 'overview'
                 ? 'bg-[#6B1F2E] text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -162,7 +163,8 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
           </button>
           <button
             onClick={() => setActiveTab('invoices')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === 'invoices'
                 ? 'bg-[#6B1F2E] text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -172,7 +174,8 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
           </button>
           <button
             onClick={() => setActiveTab('trust')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               activeTab === 'trust'
                 ? 'bg-[#6B1F2E] text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -232,13 +235,16 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
             </div>
             <div className="divide-y">
               {invoices.slice(0, 5).map(invoice => (
-                <div key={invoice.id} className="p-6 hover:bg-gray-50 transition-colors">
+                <div key={invoice.id}
+
+                className="p-6 hover:bg-gray-50 transition-colors">
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="flex items-center gap-3">
                         <FileText className="w-5 h-5 text-gray-400" />
                         <div>
-                          <p className="font-medium text-gray-900">{invoice.invoiceNumber}</p>
+                          <p
+                className="font-medium text-gray-900">{invoice.invoiceNumber}</p>
                           <p className="text-sm text-gray-600">{invoice.description}</p>
                         </div>
                       </div>
@@ -260,7 +266,8 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
                       {invoice.status === 'pending' && (
                         <button
                           onClick={() => handlePayInvoice(invoice)}
-                          className="px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
+
+                className="px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
                         >
                           Pay Now
                         </button>
@@ -273,6 +280,7 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
             <div className="p-4 border-t">
               <button
                 onClick={() => setActiveTab('invoices')}
+
                 className="text-[#6B1F2E] hover:text-[#8B2635] font-medium text-sm flex items-center gap-2"
               >
                 View All Invoices
@@ -306,11 +314,14 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
       {activeTab === 'invoices' && (
         <div className="space-y-4">
           {invoices.map(invoice => (
-            <div key={invoice.id} className="bg-white rounded-lg shadow-sm border p-6">
+            <div key={invoice.id}
+
+                className="bg-white rounded-lg shadow-sm border p-6">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900">{invoice.invoiceNumber}</h3>
+                    <h3
+                className="text-lg font-semibold text-gray-900">{invoice.invoiceNumber}</h3>
                     <span
                       className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(invoice.status)}`}
                     >
@@ -345,7 +356,8 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
                 <div className="flex gap-2 ml-4">
                   <button
                     onClick={() => handleDownloadInvoice(invoice.id)}
-                    className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+
+                className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
                     title="Download Invoice"
                   >
                     <Download className="w-5 h-5" />
@@ -353,7 +365,8 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
                   {invoice.status === 'pending' && (
                     <button
                       onClick={() => handlePayInvoice(invoice)}
-                      className="px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
+
+                className="px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
                     >
                       Pay Now
                     </button>
@@ -414,11 +427,13 @@ export default function BillingSection({ clientData }: { clientData: ClientData 
             </div>
             <div className="divide-y">
               {trustAccount.transactions.map(transaction => (
-                <div key={transaction.id} className="p-6">
+                <div key={transaction.id}
+
+                className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                className={`w-10 h-10 rounded-full flex items-center justify-center ${
                           transaction.type === 'deposit' ? 'bg-green-100' : 'bg-red-100'
                         }`}
                       >

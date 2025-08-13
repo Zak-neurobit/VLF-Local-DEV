@@ -299,11 +299,13 @@ export default function ImmediateRelativeVisasPage() {
               {content.immediateRelativeCategories.categories.map((cat, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
                   <div className="grid md:grid-cols-4 gap-4 items-center mb-4">
                     <div>
-                      <div className="text-2xl font-bold text-primary mb-1">{cat.category}</div>
+                      <div
+                className="text-2xl font-bold text-primary mb-1">{cat.category}</div>
                       <div className="text-sm text-gray-400">Category</div>
                     </div>
                     <div>
@@ -323,8 +325,11 @@ export default function ImmediateRelativeVisasPage() {
                   <div>
                     <ul className="grid md:grid-cols-3 gap-2 text-gray-300 text-sm">
                       {cat.benefits.map((benefit, bIndex) => (
-                        <li key={bIndex} className="flex items-start gap-2">
-                          <span className="text-primary mt-1">•</span>
+                        <li key={bIndex}
+
+                className="flex items-start gap-2">
+                          <span
+                className="text-primary mt-1">•</span>
                           {benefit}
                         </li>
                       ))}

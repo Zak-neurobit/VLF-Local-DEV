@@ -386,17 +386,22 @@ export default function CaseResultsPageClient({ language = 'en' }: CaseResultsPa
               const categoryResults = caseResults.filter(r => r.category === category);
 
               return (
-                <div key={category} className="mb-12">
+                <div key={category}
+
+                className="mb-12">
                   <div className="flex items-center mb-6">
                     <CategoryIcon className="w-8 h-8 text-brand-skyblue mr-3" />
-                    <h2 className="text-2xl font-bold text-brand-charcoal">{category}</h2>
+                    <h2
+                className="text-2xl font-bold text-brand-charcoal">{category}</h2>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
                     {categoryResults.map(result => {
                       const Icon = result.icon;
                       return (
-                        <Card key={result.id} className="hover:shadow-lg transition-shadow">
+                        <Card key={result.id}
+
+                className="hover:shadow-lg transition-shadow">
                           <CardContent className="p-6">
                             <div className="flex items-start">
                               <div className="flex-shrink-0 mr-4">
@@ -405,7 +410,8 @@ export default function CaseResultsPageClient({ language = 'en' }: CaseResultsPa
                                 </div>
                               </div>
                               <div className="flex-1">
-                                <h3 className="font-semibold text-lg text-brand-charcoal mb-2">
+                                <h3
+                className="font-semibold text-lg text-brand-charcoal mb-2">
                                   {result.title}
                                 </h3>
                                 {result.highlight && (
@@ -436,7 +442,8 @@ export default function CaseResultsPageClient({ language = 'en' }: CaseResultsPa
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a
                     href={isSpanish ? '/es/contacto' : '/contact'}
-                    className="inline-block bg-white text-brand-charcoal px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+
+                className="inline-block bg-white text-brand-charcoal px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
                   >
                     {t.getStarted}
                   </a>

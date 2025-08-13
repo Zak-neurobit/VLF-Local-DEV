@@ -69,12 +69,17 @@ export function AttorneyPageEnhanced({ attorney }: AttorneyPageProps) {
             {/* Breadcrumb */}
             <nav className="flex items-center text-sm mb-8" aria-label="Breadcrumb">
               {breadcrumbItems.map((item, index) => (
-                <span key={index} className="flex items-center">
-                  {index > 0 && <span className="mx-2">/</span>}
+                <span key={index}
+
+                className="flex items-center">
+                  {index > 0 && <span
+                className="mx-2">/</span>}
                   {index === breadcrumbItems.length - 1 ? (
                     <span className="text-gold-400">{item.name}</span>
                   ) : (
-                    <Link href={item.url} className="hover:text-gold-400 transition-colors">
+                    <Link href={item.url}
+
+                className="hover:text-gold-400 transition-colors">
                       {item.name}
                     </Link>
                   )}
@@ -87,8 +92,7 @@ export function AttorneyPageEnhanced({ attorney }: AttorneyPageProps) {
               <div className="md:col-span-1">
                 <div className="relative h-96 w-full max-w-sm mx-auto rounded-lg overflow-hidden shadow-2xl">
                   <Image
-                    src={attorney.image || `/images/attorneys/${attorney.slug}.jpg`}
-                    alt={`${attorney.name}, ${attorney.jobTitle} at Vasquez Law Firm`}
+                    src={attorney.image || `/images/attorneys/${attorney.slug}.jpg` alt={`${attorney.name}, ${attorney.jobTitle} at Vasquez Law Firm`}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 400px"
@@ -106,7 +110,8 @@ export function AttorneyPageEnhanced({ attorney }: AttorneyPageProps) {
                   {attorney.phone && (
                     <a
                       href={`tel:${attorney.phone}`}
-                      className="inline-flex items-center px-6 py-3 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
+
+                className="inline-flex items-center px-6 py-3 bg-gold-500 text-burgundy-900 font-bold rounded-full hover:bg-gold-400 transition-colors"
                     >
                       <Phone className="mr-2 w-5 h-5" />
                       Call Now
@@ -115,7 +120,8 @@ export function AttorneyPageEnhanced({ attorney }: AttorneyPageProps) {
                   {attorney.email && (
                     <a
                       href={`mailto:${attorney.email}`}
-                      className="inline-flex items-center px-6 py-3 bg-white text-burgundy-900 font-bold rounded-full hover:bg-gray-100 transition-colors"
+
+                className="inline-flex items-center px-6 py-3 bg-white text-burgundy-900 font-bold rounded-full hover:bg-gray-100 transition-colors"
                     >
                       <Mail className="mr-2 w-5 h-5" />
                       Email
@@ -181,7 +187,8 @@ export function AttorneyPageEnhanced({ attorney }: AttorneyPageProps) {
                       <li key={index}>
                         <Link
                           href={`/practice-areas/${area.toLowerCase().replace(/\s+/g, '-')}`}
-                          className="text-burgundy-700 hover:underline"
+
+                className="text-burgundy-700 hover:underline"
                         >
                           {area}
                         </Link>

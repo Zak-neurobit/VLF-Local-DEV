@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -83,7 +82,9 @@ export const Button: React.FC<ButtonProps> = ({
   // Handle link
   if (href) {
     return (
-      <Link href={href} className={classes} style={style}>
+      <Link href={href}
+
+                className={classes}>
         {content}
       </Link>
     );
@@ -91,15 +92,12 @@ export const Button: React.FC<ButtonProps> = ({
 
   // Handle button
   return (
-    <motion.button
-      className={classes}
-      style={style}
-      onClick={onClick}
-      disabled={disabled}
-      type={type}
-      whileTap={{ scale: disabled ? 1 : 0.95 }}
+    <button
+      className={classes onClick={onClick}
+      disabled={disabled} type={type}
+     }
     >
       {content}
-    </motion.button>
+    </button>
   );
 };

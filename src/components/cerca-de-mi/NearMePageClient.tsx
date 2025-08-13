@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import {
   Map,
   Phone,
@@ -223,11 +223,8 @@ export default function NearMePageClient({
         <div className="absolute inset-0 bg-black/20" />
 
         <div className="relative container mx-auto px-4 py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto text-center"
+          <div
+className="max-w-4xl mx-auto text-center"
           >
             <span className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Clock className="w-4 h-4" />
@@ -239,29 +236,22 @@ export default function NearMePageClient({
             <p className="text-xl md:text-2xl mb-8 text-white/90">{t.hero.subtitle}</p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                whileTap={{ scale: 0.95 }}
-                onClick={handleCall}
-                className="px-8 py-4 bg-white text-[#6B1F2E] font-bold rounded-lg shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2"
+              <button onClick={handleCall} className="px-8 py-4 bg-white text-[#6B1F2E] font-bold rounded-lg shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-2"
               >
-                <Phone className="w-5 h-5" />
+                <Phone} className="w-5 h-5" />
                 {t.hero.cta}
-              </motion.button>
+              </button>
 
-              <motion.button
-                // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                whileTap={{ scale: 0.95 }}
-                onClick={() =>
+              <button
+onClick={() =>
                   document.getElementById('locations')?.scrollIntoView({ behavior: 'smooth' })
-                }
-                className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+        className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition-all flex items-center justify-center gap-2"
               >
                 <Map className="w-5 h-5" />
                 {t.hero.secondary}
-              </motion.button>
+              </button>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Animated background pattern */}
@@ -278,25 +268,26 @@ export default function NearMePageClient({
               { value: '5.0', label: t.stats.rating, stars: true },
               { value: '35+', label: t.stats.years },
             ].map((stat, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+
                 className="text-center"
               >
-                <div className="text-3xl md:text-4xl font-bold text-[#6B1F2E] mb-2">
+                <div
+                className="text-3xl md:text-4xl font-bold text-[#6B1F2E] mb-2">
                   {stat.value}
                   {stat.stars && (
                     <div className="flex justify-center mt-2">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                        <Star key={i}
+
+                className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                       ))}
                     </div>
                   )}
                 </div>
                 <div className="text-gray-600">{stat.label}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -309,18 +300,16 @@ export default function NearMePageClient({
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {t.features.map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
+
                 className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
               >
                 <feature.icon className="w-12 h-12 text-[#6B1F2E] mb-4" />
-                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                <h3
+                className="text-xl font-bold mb-2">{feature.title}</h3>
                 <p className="text-gray-600">{feature.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -338,16 +327,13 @@ export default function NearMePageClient({
               <div className="space-y-4">
                 {nearbyOffices.length > 0 ? (
                   nearbyOffices.map((office, index) => (
-                    <motion.div
+                    <div
                       key={index}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      className={`p-4 bg-white rounded-lg shadow cursor-pointer transition-all ${
+
+                className={`p-4 bg-white rounded-lg shadow cursor-pointer transition-all ${
                         selectedOffice === index ? 'ring-2 ring-[#6B1F2E]' : 'hover:shadow-lg'
                       }`}
-                      onClick={() => setSelectedOffice(index)}
+      onClick={() => setSelectedOffice(index)}
                     >
                       <div className="flex justify-between items-start">
                         <div>
@@ -360,7 +346,7 @@ export default function NearMePageClient({
                           <p className="text-sm text-gray-500">{office.distance}</p>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   ))
                 ) : (
                   <div className="text-center py-8">
@@ -384,17 +370,17 @@ export default function NearMePageClient({
           <h2 className="text-4xl font-bold text-center mb-12">{t.sections.testimonials}</h2>
 
           <div className="max-w-3xl mx-auto">
-            <AnimatePresence mode="wait">
-              <motion.div
+            <>
+              <div
                 key={testimonialIndex}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, x: -50 }}
+
                 className="bg-white p-8 rounded-lg shadow-xl"
               >
                 <div className="flex mb-4">
                   {[...Array(testimonials[testimonialIndex]?.rating || 5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                    <Star key={i}
+
+                className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
 
@@ -411,8 +397,8 @@ export default function NearMePageClient({
                   </div>
                   <MessageCircle className="w-8 h-8 text-gray-300" />
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            </>
           </div>
         </div>
       </section>
@@ -427,7 +413,7 @@ export default function NearMePageClient({
               service={service}
               city={city}
               language={language}
-              onSubmitSuccess={handleSchedule}
+                onSubmitSuccess={handleSchedule}
             />
           </div>
         </div>
@@ -465,30 +451,26 @@ export default function NearMePageClient({
                     : 'We prefer scheduled appointments, but we accept walk-ins for urgent matters.',
               },
             ].map((faq, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
+
                 className="bg-white p-6 rounded-lg shadow-lg"
               >
                 <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-[#6B1F2E]" />
+                  <CheckCircle
+                className="w-5 h-5 text-[#6B1F2E]" />
                   {faq.q}
                 </h3>
                 <p className="text-gray-600 ml-7">{faq.a}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Sticky CTA */}
-      <motion.div
-        initial={{ y: 100 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="fixed bottom-0 left-0 right-0 bg-white shadow-2xl border-t border-gray-200 p-4 z-40"
+      <div
+className="fixed bottom-0 left-0 right-0 bg-white shadow-2xl border-t border-gray-200 p-4 z-40"
       >
         <div className="container mx-auto flex items-center justify-between">
           <div className="hidden sm:block">
@@ -501,25 +483,26 @@ export default function NearMePageClient({
           </div>
 
           <div className="flex gap-4 w-full sm:w-auto">
-            <button
-              onClick={handleCall}
-              className="flex-1 sm:flex-initial px-6 py-3 bg-[#6B1F2E] text-white font-bold rounded-lg hover:bg-[#8B2635] transition-colors flex items-center justify-center gap-2"
+            <button onClick={handleCall className="flex-1 sm:flex-initial px-6 py-3 bg-[#6B1F2E] text-white font-bold rounded-lg hover:bg-[#8B2635] transition-colors flex items-center justify-center gap-2"
             >
-              <Phone className="w-4 h-4" />
-              <span className="hidden sm:inline">1-844-YO-PELEO</span>
-              <span className="sm:hidden">{language === 'es' ? 'Llamar' : 'Call'}</span>
+              <Phone}
+      className="w-4 h-4" />
+              <span} className="hidden sm:inline">1-844-YO-PELEO</span>
+              <span} className="sm:hidden">{language === 'es' ? 'Llamar' : 'Call'}</span>
             </button>
 
             <Link
               href={language === 'es' ? '/es/contacto' : '/contact'}
-              className="flex-1 sm:flex-initial px-6 py-3 bg-gray-100 text-[#6B1F2E] font-bold rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+
+                className="flex-1 sm:flex-initial px-6 py-3 bg-gray-100 text-[#6B1F2E] font-bold rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
             >
-              <Calendar className="w-4 h-4" />
+              <Calendar
+                className="w-4 h-4" />
               <span>{language === 'es' ? 'Agendar' : 'Schedule'}</span>
             </Link>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

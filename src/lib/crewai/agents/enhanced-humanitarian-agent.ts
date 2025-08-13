@@ -27,7 +27,6 @@ T visa: I-914, I-914A (family), I-914B (declaration)\nU visa: I-918, I-918A (fam
 
 PROCEDURES:
 
-
 PROCESSING TIMELINES:
 T visa: 18-24 months processing\nU visa: 5+ years wait; Bona fide determination: 6-8 months\nVAWA I-360: 16-21 months\nTPS: Initial 6-9 months; Re-registration 3-5 months\nDACA renewal: 3-5 months\nAsylum: Affirmative 2-5 years; Defensive varies by court
 

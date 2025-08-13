@@ -289,13 +289,18 @@ export default function VawaUVisaPage() {
               {content.qualifyingCrimes.categories.map((category, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
-                  <h3 className="text-xl font-bold text-primary mb-4">{category.category}</h3>
+                  <h3
+                className="text-xl font-bold text-primary mb-4">{category.category}</h3>
                   <ul className="space-y-2">
                     {category.crimes.map((crime, cIndex) => (
-                      <li key={cIndex} className="text-gray-300 flex items-start gap-2">
-                        <span className="text-primary mt-1">•</span>
+                      <li key={cIndex}
+
+                className="text-gray-300 flex items-start gap-2">
+                        <span
+                className="text-primary mt-1">•</span>
                         {crime}
                       </li>
                     ))}

@@ -106,8 +106,10 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
         {(['all', 'pending', 'paid', 'overdue'] as const).map(filterOption => (
           <button
             key={filterOption}
-            onClick={() => setFilter(filterOption)}
-            className={`px-4 py-2 text-sm font-medium rounded-md ${
+
+                onClick={() => setFilter(filterOption)}
+
+                className={`px-4 py-2 text-sm font-medium rounded-md ${
               filter === filterOption
                 ? 'bg-blue-100 text-blue-700'
                 : 'text-gray-500 hover:text-gray-700'
@@ -152,10 +154,13 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {invoices.map(invoice => (
-                <tr key={invoice.id} className="hover:bg-gray-50">
+                <tr key={invoice.id}
+
+                className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div>
-                      <div className="text-sm font-medium text-gray-900">
+                      <div
+                className="text-sm font-medium text-gray-900">
                         #{invoice.invoiceNumber}
                       </div>
                       <div className="text-sm text-gray-500">
@@ -185,13 +190,15 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
                     <div className="flex items-center justify-end space-x-2">
                       <button
                         onClick={() => setSelectedInvoice(invoice)}
-                        className="text-blue-600 hover:text-blue-900"
+
+                className="text-blue-600 hover:text-blue-900"
                       >
                         View
                       </button>
                       <button
                         onClick={() => downloadInvoice(invoice.id)}
-                        className="text-gray-600 hover:text-gray-900"
+
+                className="text-gray-600 hover:text-gray-900"
                       >
                         Download
                       </button>
@@ -221,7 +228,8 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
                 </div>
                 <button
                   onClick={() => setSelectedInvoice(null)}
-                  className="text-gray-400 hover:text-gray-500"
+
+                className="text-gray-400 hover:text-gray-500"
                 >
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
@@ -279,7 +287,9 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
                   </tbody>
                   <tfoot className="bg-gray-50">
                     <tr>
-                      <td colSpan={3} className="px-6 py-4 text-sm text-right">
+                      <td colSpan={3}
+
+                className="px-6 py-4 text-sm text-right">
                         Subtotal
                       </td>
                       <td className="px-6 py-4 text-sm text-right font-medium">
@@ -287,7 +297,9 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan={3} className="px-6 py-4 text-sm text-right">
+                      <td colSpan={3}
+
+                className="px-6 py-4 text-sm text-right">
                         Tax
                       </td>
                       <td className="px-6 py-4 text-sm text-right font-medium">
@@ -295,7 +307,9 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan={3} className="px-6 py-4 text-sm text-right font-bold">
+                      <td colSpan={3}
+
+                className="px-6 py-4 text-sm text-right font-bold">
                         Total
                       </td>
                       <td className="px-6 py-4 text-sm text-right font-bold">
@@ -309,7 +323,8 @@ export default function InvoiceList({ clientId }: InvoiceListProps) {
               <div className="flex justify-end space-x-3">
                 <button
                   onClick={() => downloadInvoice(selectedInvoice.id)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+
+                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
                 >
                   Download PDF
                 </button>

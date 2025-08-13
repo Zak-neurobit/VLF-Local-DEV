@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import Image from 'next/image';
 import { Phone, MapPin, Clock, MessageCircle, Globe, Building } from 'lucide-react';
 import { ModernPageWrapper } from '@/components/ModernPageWrapper';
@@ -134,10 +134,10 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+            <div
+             }
+             }
+             }
             >
               <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10">
                 <h2 className="text-2xl font-bold text-white mb-6">{t.formTitle}</h2>
@@ -145,14 +145,11 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
                   <ContactForm language={language} />
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Contact Information */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-6"
+            <div
+className="space-y-6"
             >
               {/* Quick Contact Options */}
               <div className="bg-gradient-to-r from-gold-500 to-gold-600 rounded-xl p-8 text-black">
@@ -225,7 +222,7 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
                   </span>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -239,11 +236,8 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
           </h2>
 
           {/* Interactive Map */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-12"
+          <div
+className="mb-12"
           >
             <AllOfficesMap
               offices={officeLocations.map(office => ({
@@ -257,7 +251,7 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
               height="500px"
               className="rounded-xl border border-gold-500/20"
             />
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {officeLocations.map((location, index) => {
@@ -269,23 +263,22 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
               };
 
               return (
-                <motion.div
+                <div
                   key={location.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-gold-500/50 transition-all hover:transform hover:-translate-y-1"
+
+                className="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-gold-500/50 transition-all hover:transform hover:-translate-y-1"
                 >
                   {/* Office Image */}
                   <div className="h-48 w-full overflow-hidden bg-gradient-to-r from-neutral-800 to-neutral-900 flex items-center justify-center">
                     {officeImages[location.city] ? (
                       <Image
                         src={officeImages[location.city] || '/images/offices/default-office.jpg'}
-                        alt={`${location.city} office exterior`}
+
+                alt={`${location.city} office exterior`}
                         width={400}
                         height={300}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
                       <div className="text-gold-400 text-center">
@@ -323,7 +316,7 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
                       {t.getDirections} →
                     </a>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>
@@ -338,17 +331,15 @@ export default function ContactPageContent({ language = 'en' }: ContactPageConte
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[t.benefit1, t.benefit2, t.benefit3, t.benefit4, t.benefit5].map(
                 (benefit, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="flex items-start"
+
+                className="flex items-start"
                   >
                     <span className="text-2xl mr-3">✓</span>
-                    <p className="text-lg">{benefit}</p>
-                  </motion.div>
+                    <p
+                className="text-lg">{benefit}</p>
+                  </div>
                 )
               )}
             </div>

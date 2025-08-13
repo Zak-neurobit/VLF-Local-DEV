@@ -16,7 +16,8 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
   ({ className, children, required, ...props }, ref) => (
     <label
       ref={ref}
-      className={cn(labelVariants(), className)}
+
+                className={cn(labelVariants(), className)}
       {...props}
     >
       {children}

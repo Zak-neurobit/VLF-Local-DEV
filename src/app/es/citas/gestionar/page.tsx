@@ -204,11 +204,14 @@ export default function ManageAppointmentsPage() {
             ) : (
               <div className="grid gap-4">
                 {pastAppointments.map(appointment => (
-                  <Card key={appointment.id} className="bg-gray-50">
+                  <Card key={appointment.id}
+
+                className="bg-gray-50">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="font-medium">{appointment.title}</h3>
+                          <h3
+                className="font-medium">{appointment.title}</h3>
                           <div className="flex items-center gap-4 mt-1 text-sm text-gray-600">
                             <span>{new Date(appointment.date).toLocaleDateString('es-ES')}</span>
                             <span>{appointment.time}</span>

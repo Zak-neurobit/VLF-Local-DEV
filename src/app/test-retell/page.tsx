@@ -116,9 +116,7 @@ export default function TestRetellPage() {
 
       <div style={{ marginBottom: '20px' }}>
         <button 
-          onClick={testConnection}
-          disabled={status === 'Testing...' || status === 'Connected'}
-          style={{
+          onClick={testConnection disabled={status === 'Testing...' || status === 'Connected'} style={{
             padding: '10px 20px',
             marginRight: '10px',
             background: '#4CAF50',
@@ -132,9 +130,7 @@ export default function TestRetellPage() {
         </button>
         
         <button 
-          onClick={endCall}
-          disabled={!retellClient}
-          style={{
+          onClick={endCall disabled={!retellClient} style={{
             padding: '10px 20px',
             background: '#f44336',
             color: 'white',
@@ -156,7 +152,9 @@ export default function TestRetellPage() {
       }}>
         <h3>Logs:</h3>
         {logs.map((log, i) => (
-          <div key={i} style={{ 
+          <div key={i}
+
+                style={{ 
             marginBottom: '5px',
             color: log.includes('✅') ? 'green' : 
                    log.includes('❌') ? 'red' : 'black'

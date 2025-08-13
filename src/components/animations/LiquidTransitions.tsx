@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { useInView } from 'react-intersection-observer';
 
 interface LiquidButtonProps {
@@ -19,8 +19,7 @@ export function LiquidButton({
 }: LiquidButtonProps) {
   return (
     <button
-      onClick={onClick}
-      className={`group relative overflow-hidden rounded-lg px-8 py-4 font-semibold text-white transition-transform hover:scale-105 ${className}`}
+      onClick={onClick} className={`group relative overflow-hidden rounded-lg px-8 py-4 font-semibold text-white transition-transform hover:scale-105 ${className}`}
     >
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#6B1F2E] to-[#8B2635]" />
@@ -48,14 +47,12 @@ export function LiquidButton({
               <feComposite in="blur" in2="SourceGraphic" operator="over" />
             </filter>
           </defs>
-          <motion.path
+          <path
             d="M0,50 Q25,30 50,50 T100,50 L100,100 L0,100 Z"
             fill={color}
             filter="url(#liquid)"
-            initial={{ d: 'M0,50 Q25,50 50,50 T100,50 L100,100 L0,100 Z' }}
-            whileHover={{
-              d: 'M0,20 Q25,10 50,20 T100,20 L100,100 L0,100 Z',
-              transition: { duration: 0.3 },
+           }
+           ,
             }}
           />
         </svg>
@@ -78,7 +75,9 @@ export function LiquidReveal({
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <div ref={ref} className={`relative overflow-hidden ${className}`}>
+    <div ref={ref}
+
+                className={`relative overflow-hidden ${className}`}>
       {/* Liquid mask */}
       <svg
         className="absolute inset-0 h-full w-full"
@@ -87,34 +86,26 @@ export function LiquidReveal({
       >
         <defs>
           <mask id="liquid-mask">
-            <motion.rect
+            <rect
               x="0"
               y="0"
               width="100"
               height="100"
               fill="white"
-              initial={{ y: 100 }}
-              animate={inView ? { y: 0 } : { y: 100 }}
-              transition={{ duration: 1.5, ease: 'easeInOut' }}
+             }
+              : { y: 100 }}
+             }
             />
           </mask>
         </defs>
-        <motion.path
+        <path
           d="M0,0 Q50,10 100,0 L100,100 L0,100 Z"
           fill="url(#liquid-gradient)"
           mask="url(#liquid-mask)"
-          animate={
-            inView
-              ? {
-                  d: [
-                    'M0,0 Q50,10 100,0 L100,100 L0,100 Z',
-                    'M0,5 Q50,0 100,5 L100,100 L0,100 Z',
-                    'M0,0 Q50,10 100,0 L100,100 L0,100 Z',
-                  ],
-                }
+         
               : {}
           }
-          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+         }
         />
         <defs>
           <linearGradient id="liquid-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -125,13 +116,13 @@ export function LiquidReveal({
       </svg>
 
       {/* Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ delay: 0.5, duration: 0.8 }}
+      <div
+       }
+        : {}}
+       }
       >
         {children}
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -140,23 +131,15 @@ export function LiquidReveal({
 export function BlobAnimation() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <motion.div
+      <div
         className="absolute -left-20 -top-20 h-96 w-96 rounded-full bg-gradient-to-br from-[#6B1F2E]/30 to-[#C9974D]/30 blur-3xl"
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
+       }
+       }
       />
-      <motion.div
+      <div
         className="absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-gradient-to-br from-[#8B2635]/30 to-[#D4A574]/30 blur-3xl"
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
+       }
+       }
       />
     </div>
   );
@@ -178,16 +161,12 @@ export function LiquidMorph() {
           <stop offset="100%" stopColor="#C9974D" />
         </linearGradient>
       </defs>
-      <motion.path
+      <path
         d={paths[0]}
+
         fill="url(#morph-gradient)"
-        animate={{ opacity: 1 }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          repeatType: 'reverse',
-          ease: 'easeInOut',
-        }}
+       }
+       }
       />
     </svg>
   );

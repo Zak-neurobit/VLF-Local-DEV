@@ -297,7 +297,9 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
   const activeResults = activeCategory !== null ? t.categories[activeCategory] : null;
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-mesh-dark py-24">
+    <section ref={ref}
+
+                className="relative overflow-hidden bg-mesh-dark py-24">
       {/* Floating gradient orbs */}
       <div className="gradient-orb-gold w-72 h-72 top-10 right-20 animate-float-orb opacity-60" />
       <div className="gradient-orb-burgundy w-96 h-96 bottom-0 left-0 animate-float-orb-reverse opacity-50" />
@@ -321,8 +323,10 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
           {t.categories.map((category, index) => (
             <button
               key={index}
-              onClick={() => setActiveCategory(index)}
-              className={`flex items-center gap-2 rounded-full px-6 py-3 font-semibold transition-all transform hover:scale-105 active:scale-95 ${
+
+                onClick={() => setActiveCategory(index)}
+
+                className={`flex items-center gap-2 rounded-full px-6 py-3 font-semibold transition-all transform hover:scale-105 active:scale-95 ${
                 activeCategory === index
                   ? 'bg-[#C9974D] text-black'
                   : 'bg-white/10 text-white hover:bg-white/20'
@@ -337,15 +341,17 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
         {activeResults && (
           <div
             key={activeCategory}
-            className="animate-fadeIn"
+
+                className="animate-fadeIn"
           >
             {/* Results Grid */}
             <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {activeResults.results.map((result, index) => (
                 <div
                   key={index}
-                  className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-6 text-center backdrop-blur-sm animate-slideUp"
-                  style={{ animationDelay: `${index * 100}ms` }}
+
+                className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-6 text-center backdrop-blur-sm animate-slideUp"
+                style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="mb-2 text-4xl font-black text-[#C9974D]">
                     {result.amount.includes('$') ||
@@ -383,7 +389,8 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
                     {[...Array(5)].map((_, i) => (
                       <svg
                         key={i}
-                        className="h-5 w-5 text-[#C9974D]"
+
+                className="h-5 w-5 text-[#C9974D]"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >

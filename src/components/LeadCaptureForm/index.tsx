@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Check, AlertCircle, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -156,19 +156,14 @@ export default function LeadCaptureForm({
 
   if (success) {
     return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        className={`bg-green-50 dark:bg-green-900/20 p-8 rounded-lg text-center ${className}`}
+      <div
+className={`bg-green-50 dark:bg-green-900/20 p-8 rounded-lg text-center ${className}`}
       >
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.2, type: 'spring' }}
-          className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4"
+        <div
+className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4"
         >
           <Check className="w-8 h-8 text-white" />
-        </motion.div>
+        </div>
         <h3 className="text-xl font-semibold text-green-800 dark:text-green-200 mb-2">
           {t.successMessage}
         </h3>
@@ -177,7 +172,7 @@ export default function LeadCaptureForm({
             ? 'Un miembro de nuestro equipo se pondrá en contacto con usted pronto.'
             : 'A member of our team will contact you shortly.'}
         </p>
-      </motion.div>
+      </div>
     );
   }
 
@@ -200,9 +195,8 @@ export default function LeadCaptureForm({
             type="text"
             id="firstName"
             required
-            value={formData.firstName}
-            onChange={e => setFormData({ ...formData, firstName: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
+            value={formData.firstName} onChange={e => setFormData({ ...formData, firstName: e.target.value })
+        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
           />
         </div>
 
@@ -217,9 +211,8 @@ export default function LeadCaptureForm({
             type="text"
             id="lastName"
             required
-            value={formData.lastName}
-            onChange={e => setFormData({ ...formData, lastName: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
+            value={formData.lastName} onChange={e => setFormData({ ...formData, lastName: e.target.value })
+        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
           />
         </div>
       </div>
@@ -235,9 +228,8 @@ export default function LeadCaptureForm({
           type="email"
           id="email"
           required
-          value={formData.email}
-          onChange={e => setFormData({ ...formData, email: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
+          value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })
+        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
         />
       </div>
 
@@ -252,9 +244,8 @@ export default function LeadCaptureForm({
           type="tel"
           id="phone"
           required
-          value={formData.phone}
-          onChange={e => setFormData({ ...formData, phone: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
+          value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })
+        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
         />
       </div>
 
@@ -268,13 +259,14 @@ export default function LeadCaptureForm({
         <select
           id="practiceArea"
           required
-          value={formData.practiceArea}
-          onChange={e => setFormData({ ...formData, practiceArea: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
+          value={formData.practiceArea} onChange={e => setFormData({ ...formData, practiceArea: e.target.value })
+        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
         >
           <option value="">Select...</option>
           {Object.entries(t.practiceAreaOptions).map(([value, label]) => (
-            <option key={value} value={value}>
+            <option key={value}
+
+                value={value}>
               {label}
             </option>
           ))}
@@ -290,12 +282,13 @@ export default function LeadCaptureForm({
         </label>
         <select
           id="urgency"
-          value={formData.urgency}
-          onChange={e => setFormData({ ...formData, urgency: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
+          value={formData.urgency} onChange={e => setFormData({ ...formData, urgency: e.target.value })
+        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
         >
           {Object.entries(t.urgencyOptions).map(([value, label]) => (
-            <option key={value} value={value}>
+            <option key={value}
+
+                value={value}>
               {label}
             </option>
           ))}
@@ -312,34 +305,30 @@ export default function LeadCaptureForm({
         <textarea
           id="message"
           rows={4}
-          value={formData.message}
-          onChange={e => setFormData({ ...formData, message: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
+
+                value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })
+        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent dark:bg-gray-800 dark:text-white"
         />
       </div>
 
-      <AnimatePresence mode="wait">
+      <>
         {error && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg flex items-start gap-3"
+          <div
+className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg flex items-start gap-3"
           >
             <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
             <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
 
       <button
         type="submit"
-        disabled={loading}
-        className="w-full bg-[#6B1F2E] hover:bg-[#8B2635] text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        disabled={loading className="w-full bg-[#6B1F2E] hover:bg-[#8B2635] text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {loading ? (
           <>
-            <Loader2 className="w-5 h-5 animate-spin" />
+            <Loader2} className="w-5 h-5 animate-spin" />
             {t.submitting}
           </>
         ) : (

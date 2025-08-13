@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { AttorneyPageTemplate } from '@/components/attorneys/AttorneyPageTemplate';
+import { OptimizedAttorneyTemplate } from '@/components/attorneys/OptimizedAttorneyTemplate';
 import { getAttorneyBySlug } from '@/data/attorneys';
 import { notFound } from 'next/navigation';
 import { generateAttorneyMetadata } from '@/lib/seo/hreflang-metadata';
@@ -36,7 +36,7 @@ export default function Page() {
   return (
     <>
       <AttorneyPageHreflang slug="adrianna-ingram" />
-      <AttorneyPageTemplate attorney={attorney} language="en" />
+      <OptimizedAttorneyTemplate attorney={attorney} language="en" />
     </>
   );
 }

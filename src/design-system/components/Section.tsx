@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface SectionProps {
   children: React.ReactNode;
@@ -33,7 +32,9 @@ export const Section: React.FC<SectionProps> = ({
   };
 
   return (
-    <section id={id} className={`${variantClasses[variant]} ${sizeClasses[size]} ${className}`}>
+    <section id={id}
+
+                className={`${variantClasses[variant]} ${sizeClasses[size]} ${className}`}>
       {children}
     </section>
   );
@@ -75,15 +76,11 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   className = '',
 }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className={`mb-12 ${centered ? 'text-center' : ''} ${className}`}
+    <div
+className={`mb-12 ${centered ? 'text-center' : ''} ${className}`}
     >
       <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 mb-4">{title}</h2>
       {subtitle && <p className="text-lg text-neutral-600 max-w-3xl mx-auto">{subtitle}</p>}
-    </motion.div>
+    </div>
   );
 };

@@ -104,8 +104,8 @@ export function BarChart({
               <Bar
                 key={bar.key}
                 dataKey={bar.key}
-                fill={bar.color}
-                name={bar.name}
+
+                fill={bar.color name={bar.name}
                 radius={[4, 4, 0, 0]}
               />
             ))}

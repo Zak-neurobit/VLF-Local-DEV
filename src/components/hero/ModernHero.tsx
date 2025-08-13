@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-// PERFORMANCE: Framer Motion commented out for performance optimization
-// import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/design-system/Button';
 import { Heading, Text } from '@/components/design-system/Typography';
 import { TRADEMARK } from '@/lib/constants/trademark';
@@ -84,8 +82,9 @@ export default function ModernHero({ language }: ModernHeroProps) {
         {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            className="absolute h-1 w-1 rounded-full bg-primary/10 animate-pulse"
-            style={{
+
+                className="absolute h-1 w-1 rounded-full bg-primary/10 animate-pulse"
+                style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 5}s`,
@@ -102,45 +101,32 @@ export default function ModernHero({ language }: ModernHeroProps) {
             {/* Left Content */}
             <div
               className="animate-fade-in-up"
-              // PERFORMANCE: Framer Motion props commented out
-              // initial={{ opacity: 0, x: -50 }}
-              // animate={{ opacity: 1, scale: 1, y: 0 }}
-              // transition={{ duration: 0.8 }}
             >
               {/* Badge */}
               <div
                 className="mb-6 inline-flex items-center gap-2 rounded-full bg-secondary/20 px-4 py-2 backdrop-blur-sm animate-fade-in-up"
                 style={{ animationDelay: '0.2s' }}
-                // PERFORMANCE: Framer Motion props commented out
-                // initial={{ opacity: 0, y: 20 }}
-                // animate={{ opacity: 1, scale: 1, y: 0 }}
-                // transition={{ delay: 0.2 }}
               >
                 <span className="text-sm font-medium text-primary">{t.badge}</span>
               </div>
 
               {/* Title */}
-              <Heading level={1} className="mb-6 text-white">
+              <Heading level={1}
+
+                className="mb-6 text-white">
                 {t.title}
               </Heading>
 
               {/* Rotating Text */}
               <div className="mb-8 flex items-baseline gap-3 text-2xl sm:text-3xl">
                 <span className="text-gray-300">{t.intro}</span>
-                {/* PERFORMANCE: AnimatePresence commented out */}
-                {/* <AnimatePresence mode="wait"> */}
                   <span
                     key={currentWordIndex}
-                    className="font-bold text-primary transition-all duration-300 ease-in-out"
-                    // PERFORMANCE: Framer Motion props commented out
-                    // initial={{ opacity: 0, y: 20 }}
-                    // animate={{ opacity: 1, scale: 1, y: 0 }}
-                    // exit={{ opacity: 0, y: -20 }}
-                    // transition={{ duration: 0.3 }}
+
+                className="font-bold text-primary transition-all duration-300 ease-in-out"
                   >
                     {t.rotatingWords[currentWordIndex]}
                   </span>
-                {/* </AnimatePresence> */}
               </div>
 
               {/* Description */}
@@ -163,12 +149,9 @@ export default function ModernHero({ language }: ModernHeroProps) {
                 {t.stats.map((stat, index) => (
                   <div
                     key={index}
-                    className="text-center animate-fade-in-up"
-                    style={{ animationDelay: `${0.8 + index * 0.1}s` }}
-                    // PERFORMANCE: Framer Motion props commented out
-                    // initial={{ opacity: 0, y: 20 }}
-                    // animate={{ opacity: 1, scale: 1, y: 0 }}
-                    // transition={{ delay: 0.8 + index * 0.1 }}
+
+                className="text-center animate-fade-in-up"
+                style={{ animationDelay: `${0.8 + index * 0.1}s` }}
                   >
                     <div className="text-3xl font-black text-primary">{stat.value}</div>
                     <div className="mt-1 text-sm text-gray-400">{stat.label}</div>
@@ -181,10 +164,6 @@ export default function ModernHero({ language }: ModernHeroProps) {
             <div
               className="relative hidden lg:block animate-fade-in-up"
               style={{ animationDelay: '0.4s' }}
-              // PERFORMANCE: Framer Motion props commented out
-              // initial={{ opacity: 0, scale: 0.8 }}
-              // animate={{ opacity: 1, scale: 1, y: 0 }}
-              // transition={{ duration: 0.8, delay: 0.4 }}
             >
               <div className="relative">
                 <Image
@@ -192,7 +171,8 @@ export default function ModernHero({ language }: ModernHeroProps) {
                   alt="William Vasquez"
                   width={500}
                   height={600}
-                  className="relative z-10"
+
+                className="relative z-10"
                   priority
                 />
                 {/* Glow Effect */}
@@ -209,17 +189,10 @@ export default function ModernHero({ language }: ModernHeroProps) {
       <div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in-up"
         style={{ animationDelay: '1.5s' }}
-        // PERFORMANCE: Framer Motion props commented out
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: 1, scale: 1, y: 0 }}
-        // transition={{ delay: 1.5 }}
       >
         <div className="flex h-10 w-6 items-start justify-center rounded-full border-2 border-primary/50 p-2">
           <div
             className="h-3 w-1 rounded-full bg-primary animate-bounce"
-            // PERFORMANCE: Framer Motion props commented out
-            // animate={{ opacity: 1, scale: 1, y: 0 }}
-            // transition={{ duration: 1.5, repeat: Infinity }}
           />
         </div>
       </div>

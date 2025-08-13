@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { securityLogger } from '@/lib/safe-logger';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import {
   User,
   Mail,
@@ -267,14 +267,12 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-gray-900">Profile Settings</h2>
         {saveSuccess && (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="flex items-center gap-2 text-green-600"
+          <div
+className="flex items-center gap-2 text-green-600"
           >
             <CheckCircle className="w-5 h-5" />
             <span>Changes saved successfully!</span>
-          </motion.div>
+          </div>
         )}
       </div>
 
@@ -286,7 +284,9 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
             return (
               <button
                 key={tab.id}
+
                 onClick={() => setActiveTab(tab.id)}
+
                 className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-colors ${
                   activeTab === tab.id
                     ? 'bg-[#6B1F2E] text-white'
@@ -314,6 +314,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
             {!editing ? (
               <button
                 onClick={() => setEditing(true)}
+
                 className="px-4 py-2 text-[#6B1F2E] hover:bg-[#6B1F2E] hover:text-white border border-[#6B1F2E] rounded-lg transition-colors"
               >
                 Edit Profile
@@ -322,16 +323,16 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
               <div className="flex gap-2">
                 <button
                   onClick={() => setEditing(false)}
-                  className="px-4 py-2 text-gray-700 hover:bg-gray-100 border border-gray-300 rounded-lg transition-colors"
+
+                className="px-4 py-2 text-gray-700 hover:bg-gray-100 border border-gray-300 rounded-lg transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSaveProfile}
-                  disabled={saving}
-                  className="px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors disabled:opacity-50 flex items-center gap-2"
+      disabled={saving} className="px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors disabled:opacity-50 flex items-center gap-2"
                 >
-                  <Save className="w-4 h-4" />
+                  <Save} className="w-4 h-4" />
                   {saving ? 'Saving...' : 'Save Changes'}
                 </button>
               </div>
@@ -345,10 +346,12 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                 {profileData.profileImage ? (
                   <Image
                     src={profileData.profileImage}
-                    alt="Profile"
+
+                alt="Profile"
                     width={96}
                     height={96}
-                    className="w-full h-full object-cover"
+
+                className="w-full h-full object-cover"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-gray-400">
@@ -364,10 +367,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                     accept="image/*"
                     onChange={e => {
                       if (e.target.files?.[0]) {
-                        handleImageUpload(e.target.files[0]);
-                      }
-                    }}
-                    className="hidden"
+                        handleImageUpload(e.target.files[0]);} className="hidden"
                   />
                 </label>
               )}
@@ -386,34 +386,28 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
               <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
               <input
                 type="text"
-                value={profileData.firstName}
-                onChange={e => setProfileData({ ...profileData, firstName: e.target.value })}
-                disabled={!editing}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
+                value={profileData.firstName} onChange={e => setProfileData({ ...profileData, firstName: e.target.value })
+        disabled={!editing className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+              <label} className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
               <input
                 type="text"
-                value={profileData.lastName}
-                onChange={e => setProfileData({ ...profileData, lastName: e.target.value })}
-                disabled={!editing}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
+                value={profileData.lastName} onChange={e => setProfileData({ ...profileData, lastName: e.target.value })
+        disabled={!editing className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Mail} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="email"
-                  value={profileData.email}
-                  onChange={e => setProfileData({ ...profileData, email: e.target.value })}
-                  disabled={!editing}
-                  className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
+                  value={profileData.email} onChange={e => setProfileData({ ...profileData, email: e.target.value })
+        disabled={!editing className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
                 />
               </div>
             </div>
@@ -421,13 +415,11 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
               <div className="relative">
-                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Phone} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="tel"
-                  value={profileData.phone}
-                  onChange={e => setProfileData({ ...profileData, phone: e.target.value })}
-                  disabled={!editing}
-                  className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
+                  value={profileData.phone} onChange={e => setProfileData({ ...profileData, phone: e.target.value })
+        disabled={!editing className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
                 />
               </div>
             </div>
@@ -438,60 +430,48 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                 Address
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="md:col-span-2">
+                <div} className="md:col-span-2">
                   <input
                     type="text"
                     placeholder="Street Address"
-                    value={profileData.address.street}
-                    onChange={e =>
+                    value={profileData.address.street} onChange={e =>
                       setProfileData({
                         ...profileData,
                         address: { ...profileData.address, street: e.target.value },
                       })
-                    }
-                    disabled={!editing}
-                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
+        disabled={!editing} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
                   />
                 </div>
                 <input
                   type="text"
                   placeholder="City"
-                  value={profileData.address.city}
-                  onChange={e =>
+                  value={profileData.address.city} onChange={e =>
                     setProfileData({
                       ...profileData,
                       address: { ...profileData.address, city: e.target.value },
                     })
-                  }
-                  disabled={!editing}
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
+        disabled={!editing className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
                 />
-                <div className="grid grid-cols-2 gap-4">
+                <div} className="grid grid-cols-2 gap-4">
                   <input
                     type="text"
                     placeholder="State"
-                    value={profileData.address.state}
-                    onChange={e =>
+                    value={profileData.address.state} onChange={e =>
                       setProfileData({
                         ...profileData,
                         address: { ...profileData.address, state: e.target.value },
                       })
-                    }
-                    disabled={!editing}
-                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
+        disabled={!editing} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
                   />
                   <input
                     type="text"
                     placeholder="ZIP"
-                    value={profileData.address.zip}
-                    onChange={e =>
+                    value={profileData.address.zip} onChange={e =>
                       setProfileData({
                         ...profileData,
                         address: { ...profileData.address, zip: e.target.value },
                       })
-                    }
-                    disabled={!editing}
-                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
+        disabled={!editing className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
                   />
                 </div>
               </div>
@@ -499,38 +479,31 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
 
             <div className="md:col-span-2">
               <h4 className="font-medium text-gray-900 mb-4">Emergency Contact</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div} className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <input
                   type="text"
                   placeholder="Name"
-                  value={profileData.emergencyContact.name}
-                  onChange={e =>
+                  value={profileData.emergencyContact.name} onChange={e =>
                     setProfileData({
                       ...profileData,
                       emergencyContact: { ...profileData.emergencyContact, name: e.target.value },
                     })
-                  }
-                  disabled={!editing}
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
+        disabled={!editing} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
                 />
                 <input
                   type="tel"
                   placeholder="Phone"
-                  value={profileData.emergencyContact.phone}
-                  onChange={e =>
+                  value={profileData.emergencyContact.phone} onChange={e =>
                     setProfileData({
                       ...profileData,
                       emergencyContact: { ...profileData.emergencyContact, phone: e.target.value },
                     })
-                  }
-                  disabled={!editing}
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
+        disabled={!editing} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
                 />
                 <input
                   type="text"
                   placeholder="Relationship"
-                  value={profileData.emergencyContact.relationship}
-                  onChange={e =>
+                  value={profileData.emergencyContact.relationship} onChange={e =>
                     setProfileData({
                       ...profileData,
                       emergencyContact: {
@@ -538,9 +511,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                         relationship: e.target.value,
                       },
                     })
-                  }
-                  disabled={!editing}
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
+        disabled={!editing} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent disabled:bg-gray-50"
                 />
               </div>
             </div>
@@ -561,7 +532,8 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
               {!changePassword && (
                 <button
                   onClick={() => setChangePassword(true)}
-                  className="text-[#6B1F2E] hover:text-[#8B2635] font-medium flex items-center gap-2"
+
+                className="text-[#6B1F2E] hover:text-[#8B2635] font-medium flex items-center gap-2"
                 >
                   Change Password
                   <ChevronRight className="w-4 h-4" />
@@ -577,17 +549,15 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                   </label>
                   <div className="relative">
                     <input
-                      type={showPasswords.current ? 'text' : 'password'}
-                      value={passwords.current}
-                      onChange={e => setPasswords({ ...passwords, current: e.target.value })}
-                      className="w-full pr-10 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+                      type={showPasswords.current ? 'text' : 'password' value={passwords.current} onChange={e => setPasswords({ ...passwords, current: e.target.value })
+        className="w-full pr-10 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
                     />
                     <button
                       type="button"
                       onClick={() =>
-                        setShowPasswords({ ...showPasswords, current: !showPasswords.current })
-                      }
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        setShowPasswords({ ...showPasswords, current: !showPasswords.current })}
+
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
                       {showPasswords.current ? (
                         <EyeOff className="w-5 h-5" />
@@ -604,17 +574,15 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                   </label>
                   <div className="relative">
                     <input
-                      type={showPasswords.new ? 'text' : 'password'}
-                      value={passwords.new}
-                      onChange={e => setPasswords({ ...passwords, new: e.target.value })}
-                      className="w-full pr-10 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+                      type={showPasswords.new ? 'text' : 'password' value={passwords.new} onChange={e => setPasswords({ ...passwords, new: e.target.value })
+        className="w-full pr-10 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
                     />
                     <button
                       type="button"
                       onClick={() =>
-                        setShowPasswords({ ...showPasswords, new: !showPasswords.new })
-                      }
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        setShowPasswords({ ...showPasswords, new: !showPasswords.new })}
+
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
                       {showPasswords.new ? (
                         <EyeOff className="w-5 h-5" />
@@ -631,17 +599,15 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                   </label>
                   <div className="relative">
                     <input
-                      type={showPasswords.confirm ? 'text' : 'password'}
-                      value={passwords.confirm}
-                      onChange={e => setPasswords({ ...passwords, confirm: e.target.value })}
-                      className="w-full pr-10 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+                      type={showPasswords.confirm ? 'text' : 'password' value={passwords.confirm} onChange={e => setPasswords({ ...passwords, confirm: e.target.value })
+        className="w-full pr-10 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
                     />
                     <button
                       type="button"
                       onClick={() =>
-                        setShowPasswords({ ...showPasswords, confirm: !showPasswords.confirm })
-                      }
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        setShowPasswords({ ...showPasswords, confirm: !showPasswords.confirm })}
+
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
                       {showPasswords.confirm ? (
                         <EyeOff className="w-5 h-5" />
@@ -656,15 +622,12 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                   <button
                     onClick={() => {
                       setChangePassword(false);
-                      setPasswords({ current: '', new: '', confirm: '' });
-                    }}
-                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                      setPasswords({ current: '', new: '', confirm: '' }); className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     Cancel
                   </button>
                   <button
-                    onClick={handlePasswordChange}
-                    className="flex-1 px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
+                    onClick={handlePasswordChange} className="flex-1 px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
                   >
                     Update Password
                   </button>
@@ -688,8 +651,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
               </div>
               <div className="ml-4">
                 <button
-                  onClick={toggle2FA}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                  onClick={toggle2FA} className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                     profileData.twoFactorEnabled ? 'bg-[#6B1F2E]' : 'bg-gray-200'
                   }`}
                 >
@@ -730,7 +692,8 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
             </div>
             <button
               onClick={() => signOut({ callbackUrl: '/' })}
-              className="mt-4 text-red-600 hover:text-red-700 font-medium text-sm flex items-center gap-2"
+
+                className="mt-4 text-red-600 hover:text-red-700 font-medium text-sm flex items-center gap-2"
             >
               <LogOut className="w-4 h-4" />
               Sign out of all devices
@@ -756,17 +719,17 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                 ].map(item => (
                   <label
                     key={item.key}
-                    className="flex items-center justify-between p-3 border rounded-lg cursor-pointer hover:bg-gray-50"
+
+                className="flex items-center justify-between p-3 border rounded-lg cursor-pointer hover:bg-gray-50"
                   >
-                    <span className="text-gray-700">{item.label}</span>
+                    <span
+                className="text-gray-700">{item.label}</span>
                     <input
                       type="checkbox"
                       checked={
                         profileData.preferences[
                           item.key as keyof typeof profileData.preferences
-                        ] as boolean
-                      }
-                      onChange={e =>
+                        ] as boolean} onChange={e =>
                         setProfileData({
                           ...profileData,
                           preferences: {
@@ -774,8 +737,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                             [item.key]: e.target.checked,
                           },
                         })
-                      }
-                      className="w-4 h-4 text-[#6B1F2E] rounded focus:ring-[#6B1F2E]"
+        className="w-4 h-4 text-[#6B1F2E] rounded focus:ring-[#6B1F2E]"
                     />
                   </label>
                 ))}
@@ -793,8 +755,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                 </div>
                 <input
                   type="checkbox"
-                  checked={profileData.preferences.smsNotifications}
-                  onChange={e =>
+                  checked={profileData.preferences.smsNotifications} onChange={e =>
                     setProfileData({
                       ...profileData,
                       preferences: {
@@ -802,16 +763,14 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                         smsNotifications: e.target.checked,
                       },
                     })
-                  }
-                  className="w-4 h-4 text-[#6B1F2E] rounded focus:ring-[#6B1F2E]"
+        className="w-4 h-4 text-[#6B1F2E] rounded focus:ring-[#6B1F2E]"
                 />
               </label>
             </div>
 
             <button
               onClick={handleSaveProfile}
-              disabled={saving}
-              className="w-full px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors disabled:opacity-50"
+      disabled={saving} className="w-full px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save Notification Preferences'}
             </button>
@@ -830,8 +789,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                 Preferred Language
               </label>
               <select
-                value={profileData.preferences.language}
-                onChange={e =>
+                value={profileData.preferences.language} onChange={e =>
                   setProfileData({
                     ...profileData,
                     preferences: {
@@ -839,8 +797,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                       language: e.target.value,
                     },
                   })
-                }
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
               >
                 <option value="en">English</option>
                 <option value="es">Español</option>
@@ -861,16 +818,17 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
                   return (
                     <button
                       key={method.value}
-                      onClick={() =>
+
+                onClick={() =>
                         setProfileData({
                           ...profileData,
                           preferences: {
                             ...profileData.preferences,
                             communicationMethod: method.value,
                           },
-                        })
-                      }
-                      className={`flex flex-col items-center gap-2 p-4 rounded-lg border transition-colors ${
+                        })}
+
+                className={`flex flex-col items-center gap-2 p-4 rounded-lg border transition-colors ${
                         profileData.preferences.communicationMethod === method.value
                           ? 'border-[#6B1F2E] bg-[#6B1F2E] bg-current/5'
                           : 'border-gray-300 hover:border-gray-400'
@@ -913,8 +871,7 @@ export default function ProfileSettings({ clientData }: { clientData: ExtendedCl
 
             <button
               onClick={handleSaveProfile}
-              disabled={saving}
-              className="w-full px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors disabled:opacity-50"
+      disabled={saving} className="w-full px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save Preferences'}
             </button>

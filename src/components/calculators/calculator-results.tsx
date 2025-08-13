@@ -217,7 +217,9 @@ export default function CalculatorResults({
           <CardContent>
             <ol className="list-decimal list-inside space-y-2">
               {(nextSteps as string[]).map((step: string, index: number) => (
-                <li key={index} className="text-sm">{step}</li>
+                <li key={index}
+
+                className="text-sm">{step}</li>
               ))}
             </ol>
           </CardContent>
@@ -562,9 +564,12 @@ export default function CalculatorResults({
           <CardContent>
             <ul className="space-y-2">
               {result.recommendations.map((recommendation: string, index: number) => (
-                <li key={index} className="flex items-start gap-2">
+                <li key={index}
+
+                className="flex items-start gap-2">
                   <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm">{recommendation}</span>
+                  <span
+                className="text-sm">{recommendation}</span>
                 </li>
               ))}
             </ul>
@@ -584,8 +589,11 @@ export default function CalculatorResults({
           <CardContent>
             <div className="space-y-4">
               {result.followUpActions.map((action: any, index: number) => (
-                <div key={index} className="flex items-start gap-3 p-3 border rounded-lg">
-                  <div className={`w-2 h-2 rounded-full mt-2 ${
+                <div key={index}
+
+                className="flex items-start gap-3 p-3 border rounded-lg">
+                  <div
+                className={`w-2 h-2 rounded-full mt-2 ${
                     action.priority === 'high' ? 'bg-red-500' :
                     action.priority === 'medium' ? 'bg-yellow-500' :
                     'bg-green-500'

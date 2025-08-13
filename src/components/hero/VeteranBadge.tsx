@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface VeteranBadgeProps {
   text: string;
@@ -9,11 +8,8 @@ interface VeteranBadgeProps {
 
 export default function VeteranBadge({ text }: VeteranBadgeProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
-      className="mb-4"
+    <div
+className="mb-4"
     >
       <span className="inline-flex items-center gap-2 rounded-full bg-[#C9974D]/20 px-6 py-2 text-sm font-semibold text-[#C9974D] backdrop-blur-sm">
         <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
@@ -21,6 +17,6 @@ export default function VeteranBadge({ text }: VeteranBadgeProps) {
         </svg>
         {text}
       </span>
-    </motion.div>
+    </div>
   );
 }

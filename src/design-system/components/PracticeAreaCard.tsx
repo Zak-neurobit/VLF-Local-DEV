@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './Card';
 import { Button } from './Button';
 import { Text } from './Typography';
@@ -43,10 +43,10 @@ export const PracticeAreaCard: React.FC<PracticeAreaCardProps> = ({
   const t = content[language];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+    <div
+     }
+     }
+     }
     >
       <Card variant="elevated" hover className="h-full flex flex-col">
         <CardHeader>
@@ -62,8 +62,11 @@ export const PracticeAreaCard: React.FC<PracticeAreaCardProps> = ({
             <h4 className="font-semibold text-neutral-900 mb-3">{t.services}:</h4>
             <ul className="space-y-2">
               {services.slice(0, 4).map((service, i) => (
-                <li key={i} className="flex items-start text-sm text-neutral-600">
-                  <span className="text-primary mr-2">✓</span>
+                <li key={i}
+
+                className="flex items-start text-sm text-neutral-600">
+                  <span
+                className="text-primary mr-2">✓</span>
                   {service}
                 </li>
               ))}
@@ -89,6 +92,6 @@ export const PracticeAreaCard: React.FC<PracticeAreaCardProps> = ({
           </div>
         </CardFooter>
       </Card>
-    </motion.div>
+    </div>
   );
 };

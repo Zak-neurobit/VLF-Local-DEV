@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { MapPin, Phone, Clock, Star } from 'lucide-react';
 
 interface LocationPageClientProps {
@@ -90,10 +90,8 @@ export default function LocationPageClient({
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20"
+      <section
+className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20"
       >
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -126,21 +124,19 @@ export default function LocationPageClient({
             </a>
             <Link
               href={isSpanish ? '/es/consulta' : '/consultation'}
-              className="bg-yellow-500 text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-yellow-400 transition-colors"
+
+                className="bg-yellow-500 text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-yellow-400 transition-colors"
             >
               {isSpanish ? 'Consulta Gratuita' : 'Free Consultation'}
             </Link>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Office Information */}
       {office && (
-        <motion.section
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="py-16 bg-white"
+        <section
+className="py-16 bg-white"
         >
           <div className="max-w-7xl mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8">
@@ -170,15 +166,12 @@ export default function LocationPageClient({
               </div>
             </div>
           </div>
-        </motion.section>
+        </section>
       )}
 
       {/* Practice Areas */}
-      <motion.section
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="py-16 bg-gray-50"
+      <section
+className="py-16 bg-gray-50"
       >
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8">
@@ -188,7 +181,9 @@ export default function LocationPageClient({
             {Object.entries(serviceDescriptions).map(([key, desc]) => (
               <Link
                 key={key}
+
                 href={`/locations/${state.toLowerCase()}/${city.toLowerCase()}/${key}`}
+
                 className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
               >
                 <h3 className="text-xl font-semibold mb-2 text-blue-700">
@@ -202,14 +197,11 @@ export default function LocationPageClient({
             ))}
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Testimonials */}
-      <motion.section
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
-        className="py-16 bg-white"
+      <section
+className="py-16 bg-white"
       >
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8 text-center">
@@ -219,7 +211,9 @@ export default function LocationPageClient({
             <div className="bg-gray-50 p-6 rounded-lg">
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <StarIcon key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                  <StarIcon key={i}
+
+                className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
               <p className="text-gray-700 mb-4">
@@ -232,7 +226,9 @@ export default function LocationPageClient({
             <div className="bg-gray-50 p-6 rounded-lg">
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <StarIcon key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                  <StarIcon key={i}
+
+                className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
               <p className="text-gray-700 mb-4">
@@ -244,7 +240,7 @@ export default function LocationPageClient({
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* CTA Section */}
       <section className="bg-blue-700 text-white py-16">
@@ -269,7 +265,8 @@ export default function LocationPageClient({
             </a>
             <Link
               href={isSpanish ? '/es/contacto' : '/contact'}
-              className="bg-yellow-500 text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-yellow-400 transition-colors"
+
+                className="bg-yellow-500 text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-yellow-400 transition-colors"
             >
               {isSpanish ? 'Contáctenos' : 'Contact Us'}
             </Link>

@@ -2,7 +2,7 @@
 
 import Script from 'next/script';
 import { GraduationCap, Calendar, Award, Mail, CheckCircle, ArrowRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { useState } from 'react';
 
 interface ScholarshipsPageClientProps {
@@ -214,19 +214,19 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
           {/* Animated Background */}
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-secondary/10" />
-            <motion.div
+            <div
               className="absolute inset-0"
-              animate={{ opacity: 1 }}
-              transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+             }
+             }
             />
           </div>
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+              <div
+               }
+               }
+               }
               >
                 <div className="inline-flex items-center px-6 py-3 bg-primary/20 backdrop-blur-sm rounded-full mb-6">
                   <GraduationCap className="w-5 h-5 text-primary mr-2" />
@@ -241,25 +241,21 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
                 <p className="text-lg mb-8 max-w-3xl mx-auto text-gray-300">{t.description}</p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <motion.a
+                  <a
                     href="#apply"
-                    // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold rounded-full transition-all hover:bg-primary-300"
+className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold rounded-full transition-all hover:bg-primary-300"
                   >
                     {t.applyNow}
                     <ArrowRight className="ml-2 w-5 h-5" />
-                  </motion.a>
-                  <motion.a
+                  </a>
+                  <a
                     href="#requirements"
-                    // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-black transition-all"
+className="inline-flex items-center px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-black transition-all"
                   >
                     {t.viewRequirements}
-                  </motion.a>
+                  </a>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -267,18 +263,15 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
         {/* Scholarship Details */}
         <section className="py-20 bg-gradient-to-b from-black to-neutral-950">
           <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
+            <div
+className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
                 {t.scholarshipDetails.split(' ')[0]}{' '}
                 <span className="text-primary">{t.scholarshipDetails.split(' ')[1]}</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">{t.scholarshipDetailsDesc}</p>
-            </motion.div>
+            </div>
 
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {[
@@ -301,19 +294,17 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
                   details: t.eligibilityDesc,
                 },
               ].map((item, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-gradient-to-b from-neutral-900 to-neutral-950 rounded-2xl p-8 border border-primary/20 hover:border-primary/40 transition-all"
+
+                className="bg-gradient-to-b from-neutral-900 to-neutral-950 rounded-2xl p-8 border border-primary/20 hover:border-primary/40 transition-all"
                 >
-                  <div className="text-primary mb-4">{item.icon}</div>
+                  <div
+                className="text-primary mb-4">{item.icon}</div>
                   <h3 className="text-2xl font-bold text-white mb-2">{item.title}</h3>
                   <p className="text-primary font-bold mb-2">{item.description}</p>
                   <p className="text-gray-400">{item.details}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -322,33 +313,28 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
         {/* Requirements Section */}
         <section id="requirements" className="py-20 bg-black">
           <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
+            <div
+className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
                 {t.requirementsTitle.split(' ').slice(0, -1).join(' ')}{' '}
                 <span className="text-primary">{t.requirementsTitle.split(' ').slice(-1)[0]}</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">{t.requirementsDesc}</p>
-            </motion.div>
+            </div>
 
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2 gap-8">
                 {t.requirements.map((requirement, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-start"
+
+                className="flex items-start"
                   >
                     <CheckCircle className="w-6 h-6 text-primary mr-3 flex-shrink-0 mt-1" />
-                    <p className="text-lg text-gray-300">{requirement}</p>
-                  </motion.div>
+                    <p
+                className="text-lg text-gray-300">{requirement}</p>
+                  </div>
                 ))}
               </div>
             </div>
@@ -358,11 +344,8 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
         {/* Application Requirements */}
         <section className="py-20 bg-gradient-to-b from-neutral-950 to-black">
           <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
+            <div
+className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
                 {t.applicationRequirements.split(' ').slice(0, -1).join(' ')}{' '}
@@ -373,21 +356,19 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 {t.applicationRequirementsDesc}
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {t.applicationItems.map((item, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-gradient-to-b from-neutral-900 to-neutral-950 rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all"
+
+                className="bg-gradient-to-b from-neutral-900 to-neutral-950 rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all"
                 >
-                  <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
+                  <h3
+                className="text-xl font-bold text-white mb-2">{item.title}</h3>
                   <p className="text-gray-400">{item.description}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -396,11 +377,8 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
         {/* Email Notification Section */}
         <section id="apply" className="py-20 bg-black">
           <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="max-w-4xl mx-auto"
+            <div
+className="max-w-4xl mx-auto"
             >
               <div className="bg-gradient-to-b from-neutral-900 to-neutral-950 rounded-3xl p-12 border border-primary/20">
                 <div className="text-center mb-8">
@@ -412,32 +390,26 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
                 </div>
 
                 <form onSubmit={handleSubscribe} className="max-w-md mx-auto">
-                  <div className="flex flex-col sm:flex-row gap-4">
+                  <div} className="flex flex-col sm:flex-row gap-4">
                     <input
                       type="email"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      placeholder={t.enterEmail}
+                      value={email} onChange={e => setEmail(e.target.value)} placeholder={t.enterEmail}
                       required
                       className="flex-1 px-6 py-4 bg-black border border-primary/30 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
                     />
-                    <motion.button
+                    <button
                       type="submit"
-                      // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                      whileTap={{ scale: 0.95 }}
-                      className="px-8 py-4 bg-primary text-black font-bold rounded-full hover:bg-primary-300 transition-all"
+className="px-8 py-4 bg-primary text-black font-bold rounded-full hover:bg-primary-300 transition-all"
                     >
                       {t.notifyMe}
-                    </motion.button>
+                    </button>
                   </div>
                   {isSubscribed && (
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      className="text-green-400 text-center mt-4"
+                    <p
+className="text-green-400 text-center mt-4"
                     >
                       {t.thankYou}
-                    </motion.p>
+                    </p>
                   )}
                 </form>
 
@@ -452,40 +424,35 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* Evaluation Criteria */}
         <section className="py-20 bg-gradient-to-b from-black to-neutral-950">
           <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
+            <div
+className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
                 {t.evaluationCriteria.split(' ').slice(0, -1).join(' ')}{' '}
                 <span className="text-primary">{t.evaluationCriteria.split(' ').slice(-1)[0]}</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">{t.evaluationCriteriaDesc}</p>
-            </motion.div>
+            </div>
 
             <div className="max-w-4xl mx-auto">
               <div className="space-y-6">
                 {t.evaluationItems.map((criteria, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-gradient-to-r from-primary/10 to-transparent p-6 rounded-2xl border-l-4 border-primary"
+
+                className="bg-gradient-to-r from-primary/10 to-transparent p-6 rounded-2xl border-l-4 border-primary"
                   >
-                    <h3 className="text-xl font-bold text-white mb-2">{criteria.title}</h3>
+                    <h3
+                className="text-xl font-bold text-white mb-2">{criteria.title}</h3>
                     <p className="text-gray-300">{criteria.description}</p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -495,11 +462,8 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
         {/* CTA Section */}
         <section className="py-20 bg-black">
           <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="max-w-4xl mx-auto text-center"
+            <div
+className="max-w-4xl mx-auto text-center"
             >
               <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
                 {t.readyToApply.split(' ').slice(0, -1).join(' ')}{' '}
@@ -507,17 +471,15 @@ export default function ScholarshipsPageClient({ language = 'en' }: Scholarships
               </h2>
               <p className="text-xl text-gray-300 mb-8">{t.readyToApplyDesc}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <motion.a
+                <a
                   href="#apply"
-                  // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold rounded-full transition-all hover:bg-primary-300"
+className="inline-flex items-center px-8 py-4 bg-primary text-black font-bold rounded-full transition-all hover:bg-primary-300"
                 >
                   {t.getNotification}
                   <ArrowRight className="ml-2 w-5 h-5" />
-                </motion.a>
+                </a>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 

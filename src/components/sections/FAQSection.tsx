@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { ChevronDown } from 'lucide-react';
 
 interface FAQ {
@@ -58,69 +58,57 @@ export function FAQSection({
       <section className={`py-16 ${backgroundColor}`}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
+          <div
+className="text-center mb-12"
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-4">{title}</h2>
             {subtitle && <p className="text-xl text-gray-600">{subtitle}</p>}
-          </motion.div>
+          </div>
 
           {/* FAQ Items */}
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+
                 className="bg-gray-50 rounded-lg shadow-sm overflow-hidden"
               >
                 <button
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
-                  aria-expanded={openIndex === index}
-                  aria-controls={`faq-answer-${index}`}
+                onClick={() => toggleFAQ(index)}
+
+                className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
+                  aria-expanded={openIndex === index aria-controls={`faq-answer-${index}`}
                 >
                   <h3 className="text-lg font-semibold text-gray-900 pr-4">{faq.question}</h3>
-                  <motion.div
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex-shrink-0"
+                  <div
+className="flex-shrink-0"
                   >
                     <ChevronDown className="w-5 h-5 text-gray-500" />
-                  </motion.div>
+                  </div>
                 </button>
 
-                <AnimatePresence>
+                <>
                   {openIndex === index && (
-                    <motion.div
+                    <div
                       id={`faq-answer-${index}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
+                     }
+                     }
+                     }
+                     }
                     >
                       <div className="px-6 pb-4">
                         <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
                       </div>
-                    </motion.div>
+                    </div>
                   )}
-                </AnimatePresence>
-              </motion.div>
+                </>
+              </div>
             ))}
           </div>
 
           {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="mt-12 text-center"
+          <div
+className="mt-12 text-center"
           >
             <p className="text-gray-600 mb-4">Still have questions?</p>
             <a
@@ -137,7 +125,7 @@ export function FAQSection({
                 />
               </svg>
             </a>
-          </motion.div>
+          </div>
         </div>
       </section>
     </>

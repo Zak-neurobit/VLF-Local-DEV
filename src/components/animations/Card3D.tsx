@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
+
 import { usePerspectiveParallax } from '@/hooks/useParallax';
 
 interface Card3DProps {
@@ -45,45 +45,40 @@ export function Card3D({
   };
 
   return (
-    <motion.div
+    <div
       ref={cardRef}
-      className={`relative ${className}`}
-      style={{ perspective }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      // TODO: Convert whileHover={{ scale }} to react-spring
-      transition={{ scale: { duration: 0.3 } }}
+
+                className={`relative ${className}`}
+     }
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={handleMouseLeave}
+      }}
     >
-      <motion.div
+      <div
         className="relative h-full w-full"
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: 'preserve-3d',
-        }}
+
       >
         {/* Card content */}
         <div className="relative h-full w-full rounded-xl bg-white shadow-2xl">{children}</div>
 
         {/* Glow effect */}
-        <motion.div
+        <div
           className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br from-[#6B1F2E]/20 to-[#C9974D]/20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+         }
+         }
+         }
         />
 
         {/* Shine effect */}
-        <motion.div
+        <div
           className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl"
-          style={{
-            background: `radial-gradient(circle at ${mouseX.get() * 100 + 50}% ${mouseY.get() * 100 + 50}%, rgba(255,255,255,0.3) 0%, transparent 50%)`,
+         % ${mouseY.get() * 100 + 50}%, rgba(255,255,255,0.3) 0%, transparent 50%)`,
           }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
+         }
         />
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 
@@ -102,30 +97,27 @@ export function FlipCard({
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
-    <div className={`relative h-full w-full ${className}`} style={{ perspective: 1000 }}>
-      <motion.div
+    <div className={`relative h-full w-full ${className}`}}>
+      <div
         className="relative h-full w-full cursor-pointer"
         onClick={() => setIsFlipped(!isFlipped)}
-        animate={{ opacity: 1 }}
-        transition={{ duration: flipDuration, type: 'spring', stiffness: 100 }}
-        style={{ transformStyle: 'preserve-3d' }}
+       }
+       }
+       }
       >
         {/* Front face */}
-        <div className="absolute inset-0 rounded-xl" style={{ backfaceVisibility: 'hidden' }}>
+        <div className="absolute inset-0 rounded-xl"}>
           {front}
         </div>
 
         {/* Back face */}
         <div
           className="absolute inset-0 rounded-xl"
-          style={{
-            backfaceVisibility: 'hidden',
-            transform: 'rotateY(180deg)',
-          }}
+
         >
           {back}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -147,17 +139,14 @@ export function CarouselCard3D({
   const z = -200;
 
   return (
-    <motion.div
+    <div
       className="absolute h-full w-full"
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
-      style={{
-        transformStyle: 'preserve-3d',
-        transformOrigin: 'center',
-      }}
+     }
+     }
+     }
     >
       <div className="h-full w-full rounded-xl bg-white p-8 shadow-2xl">{children}</div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -172,36 +161,25 @@ export function ParallaxTiltCard({
   const { cardRef, rotateX, rotateY, z, scale } = usePerspectiveParallax();
 
   return (
-    <motion.div
+    <div
       ref={cardRef as React.RefObject<HTMLDivElement>}
-      className={`relative ${className}`}
-      style={{
-        rotateX,
-        rotateY,
-        z,
-        scale,
-        transformStyle: 'preserve-3d',
-      }}
+
+                className={`relative ${className}`}
+     }
     >
       <div className="relative rounded-xl bg-gradient-to-br from-white to-gray-50 p-8 shadow-2xl">
         {children}
       </div>
 
       {/* Floating elements */}
-      <motion.div
+      <div
         className="absolute -right-4 -top-4 h-8 w-8 rounded-full bg-gradient-to-br from-[#6B1F2E] to-[#C9974D]"
-        style={{
-          z: 50,
-          rotateZ: rotateY,
-        }}
+       }
       />
-      <motion.div
+      <div
         className="absolute -bottom-4 -left-4 h-6 w-6 rounded-full bg-gradient-to-br from-[#C9974D] to-[#D4A574]"
-        style={{
-          z: 30,
-          rotateZ: rotateX,
-        }}
+       }
       />
-    </motion.div>
+    </div>
   );
 }

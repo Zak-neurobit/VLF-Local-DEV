@@ -14,7 +14,6 @@ import {
   Tagline,
   BRAND,
 } from '@/design-system';
-import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ConsistentHomePage() {
   // Language state - setLanguage available for future language switching
@@ -162,8 +161,7 @@ export default function ConsistentHomePage() {
                 title={area.title[language]}
                 description={area.description[language]}
                 services={area.services[language]}
-                aiFeature={area.aiFeature[language]}
-                href={`/practice-areas/${area.id}`}
+                aiFeature={area.aiFeature[language]} href={`/practice-areas/${area.id}`}
                 language={language}
                 index={index}
               />
@@ -178,20 +176,18 @@ export default function ConsistentHomePage() {
           <SectionHeader title={t.trustTitle} subtitle={t.trustSubtitle} />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {t.whyUs.map((item, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+
                 className="text-center"
               >
-                <div className="text-5xl mb-4">{item.icon}</div>
+                <div
+                className="text-5xl mb-4">{item.icon}</div>
                 <Heading as="h3" size="xl" className="mb-2">
                   {item.title}
                 </Heading>
                 <Text color="muted">{item.desc}</Text>
-              </motion.div>
+              </div>
             ))}
           </div>
         </Container>

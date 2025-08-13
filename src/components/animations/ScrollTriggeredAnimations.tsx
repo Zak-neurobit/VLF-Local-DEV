@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { useScrollReveal, useCascadeReveal } from '@/hooks/useScrollReveal';
 // import { useAnimations } from '@/hooks/useAnimations';
 import Image from 'next/image';
@@ -46,7 +46,9 @@ export function AnimatedCounter({
   }, [isInView, value, duration]);
 
   return (
-    <span ref={ref} className="tabular-nums">
+    <span ref={ref}
+
+                className="tabular-nums">
       {prefix}
       {displayValue.toLocaleString()}
       {suffix}
@@ -66,9 +68,9 @@ export function ScrollProgressBar({
   const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <motion.div
+    <div
       className={`fixed left-0 right-0 top-0 z-50 origin-left ${color}`}
-      style={{ height, scaleX }}
+     }
     />
   );
 }
@@ -93,7 +95,9 @@ export function Reveal({
   // Currently using controls from useScrollReveal instead
 
   return (
-    <div ref={ref as React.RefObject<HTMLDivElement>} className={className} style={controls}>
+    <div ref={ref as React.RefObject<HTMLDivElement>}
+
+                className={className}>
       {children}
     </div>
   );
@@ -114,9 +118,13 @@ export function StaggeredList({
   const { containerRef, getItemProps } = useCascadeReveal(items.length, staggerDelay);
 
   return (
-    <div ref={containerRef as React.RefObject<HTMLDivElement>} className={className}>
+    <div ref={containerRef as React.RefObject<HTMLDivElement>}
+
+                className={className}>
       {items.map((item, index) => (
-        <div key={index} className={itemClassName} {...getItemProps(index)}>
+        <div key={index}
+
+                className={itemClassName} {...getItemProps(index)}>
           {item}
         </div>
       ))}
@@ -146,12 +154,16 @@ export function ParallaxImage({
   const scaleValue = useTransform(scrollYProgress, [0, 0.5, 1], [scale, 1, scale]);
 
   return (
-    <div ref={ref} className={`overflow-hidden ${className}`}>
-      <motion.img
+    <div ref={ref}
+
+                className={`overflow-hidden ${className}`}>
+      <img
         src={src}
-        alt={alt}
-        className="h-full w-full object-cover"
-        style={{ y, scale: scaleValue }}
+
+                alt={alt}
+
+                className="h-full w-full object-cover"
+       }
       />
     </div>
   );
@@ -166,37 +178,37 @@ export function StickyScrollSection({
   return (
     <div className="relative">
       {sections.map((section, index) => (
-        <div key={index} className="flex min-h-screen items-center">
+        <div key={index}
+
+                className="flex min-h-screen items-center">
           <div className="sticky top-0 flex h-screen w-full items-center">
-            <div className="container mx-auto grid grid-cols-1 gap-12 px-4 md:grid-cols-2">
+            <div
+                className="container mx-auto grid grid-cols-1 gap-12 px-4 md:grid-cols-2">
               {/* Content */}
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: false, amount: 0.5 }}
+              <div
+               }
+               }
+               }
+               }
               >
                 <h2 className="mb-6 text-4xl font-bold text-[#6B1F2E]">{section.title}</h2>
                 <div className="text-gray-600">{section.content}</div>
-              </motion.div>
+              </div>
 
               {/* Image */}
               {section.image && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: false, amount: 0.5 }}
-                  className="relative h-96 overflow-hidden rounded-xl"
+                <div
+className="relative h-96 overflow-hidden rounded-xl"
                 >
                   <Image
                     src={section.image}
-                    alt={section.title}
+
+                alt={section.title}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
-                </motion.div>
+                </div>
               )}
             </div>
           </div>
@@ -217,24 +229,22 @@ export function ScrollMorphShape() {
   // const morphProgress = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 1]);
 
   return (
-    <div ref={ref} className="flex h-96 items-center justify-center">
+    <div ref={ref}
+
+                className="flex h-96 items-center justify-center">
       <svg width="200" height="200" viewBox="0 0 200 200">
         <defs>
-          <linearGradient id="morph-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient
+                id="morph-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#6B1F2E" />
             <stop offset="100%" stopColor="#C9974D" />
           </linearGradient>
         </defs>
-        <motion.path
+        <path
           d="M100,20 C150,20 180,50 180,100 C180,150 150,180 100,180 C50,180 20,150 20,100 C20,50 50,20 100,20"
           fill="url(#morph-gradient)"
-          animate={{ opacity: 1 }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: 'easeInOut',
-          }}
+         }
+         }
         />
       </svg>
     </div>

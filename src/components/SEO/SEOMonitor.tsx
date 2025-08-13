@@ -114,7 +114,8 @@ export function SEOMonitor() {
     <div className="fixed bottom-4 right-4 z-50">
       <button
         onClick={() => setIsVisible(!isVisible)}
-        className="bg-[#6B1F2E] text-white p-3 rounded-full shadow-lg hover:bg-[#8B2635] transition-all"
+
+                className="bg-[#6B1F2E] text-white p-3 rounded-full shadow-lg hover:bg-[#8B2635] transition-all"
         title="SEO Monitor"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

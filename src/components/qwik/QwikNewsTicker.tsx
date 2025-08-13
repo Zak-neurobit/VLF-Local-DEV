@@ -30,7 +30,9 @@ export const QwikNewsTicker: React.FC<QwikNewsTickerProps> = ({ locale = 'en' })
         <div className="ticker-content flex whitespace-nowrap">
           {/* Duplicate items for seamless loop */}
           {[...items, ...items].map((item, index) => (
-            <span key={index} className="ticker-item px-8 text-sm font-medium">
+            <span key={index}
+
+                className="ticker-item px-8 text-sm font-medium">
               {item}
             </span>
           ))}

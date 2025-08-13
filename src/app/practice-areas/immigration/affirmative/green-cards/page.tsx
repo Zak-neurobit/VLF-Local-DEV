@@ -197,7 +197,8 @@ export default function GreenCardsPage() {
               currentPage={currentPage}
               variant="inline"
               maxLinks={5}
-              className="mb-8 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-primary/20"
+
+                className="mb-8 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-primary/20"
             />
 
             {/* Green Card Categories Overview */}
@@ -247,10 +248,12 @@ export default function GreenCardsPage() {
                   ].map((cat, index) => (
                     <div
                       key={index}
-                      className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-green-500/30"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-green-500/30"
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-bold text-green-400">{cat.category}</h4>
+                        <h4
+                className="font-bold text-green-400">{cat.category}</h4>
                         <span className="text-xs bg-green-500/20 px-2 py-1 rounded">
                           {cat.time}
                         </span>
@@ -293,10 +296,12 @@ export default function GreenCardsPage() {
                   ].map((cat, index) => (
                     <div
                       key={index}
-                      className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-blue-500/30"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-blue-500/30"
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-bold text-blue-400">{cat.category}</h4>
+                        <h4
+                className="font-bold text-blue-400">{cat.category}</h4>
                         <span className="text-xs bg-blue-500/20 px-2 py-1 rounded">{cat.time}</span>
                       </div>
                       <p className="text-sm text-gray-400">{cat.desc}</p>
@@ -428,8 +433,11 @@ export default function GreenCardsPage() {
                     icon: '🎉',
                   },
                 ].map((phase, index) => (
-                  <div key={index} className="flex items-center">
-                    <div className="flex-shrink-0 w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center text-2xl">
+                  <div key={index}
+
+                className="flex items-center">
+                    <div
+                className="flex-shrink-0 w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center text-2xl">
                       {phase.icon}
                     </div>
                     <div className="ml-4 flex-grow">
@@ -484,8 +492,11 @@ export default function GreenCardsPage() {
                     icon: '🏛️',
                   },
                 ].map((item, index) => (
-                  <div key={index} className="text-center">
-                    <div className="text-4xl mb-3">{item.icon}</div>
+                  <div key={index}
+
+                className="text-center">
+                    <div
+                className="text-4xl mb-3">{item.icon}</div>
                     <h3 className="font-bold mb-2 text-green-400">{item.benefit}</h3>
                     <p className="text-sm text-gray-300">{item.desc}</p>
                   </div>
@@ -552,9 +563,11 @@ export default function GreenCardsPage() {
                 ].map((item, index) => (
                   <div
                     key={index}
-                    className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-red-500/30"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-red-500/30"
                   >
-                    <h3 className="text-xl font-bold text-red-400 mb-3">{item.obstacle}</h3>
+                    <h3
+                className="text-xl font-bold text-red-400 mb-3">{item.obstacle}</h3>
                     <p className="text-gray-300">{item.solution}</p>
                   </div>
                 ))}
@@ -577,7 +590,8 @@ export default function GreenCardsPage() {
               currentPage={currentPage}
               variant="related"
               maxLinks={6}
-              className="mt-12 pt-12 border-t border-gray-800"
+
+                className="mt-12 pt-12 border-t border-gray-800"
             />
           </div>
         }

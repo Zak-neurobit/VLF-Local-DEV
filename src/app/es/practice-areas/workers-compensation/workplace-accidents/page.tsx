@@ -305,18 +305,23 @@ export default function WorkplaceAccidentsPage() {
               {content.injuryTypes.types.map((injury, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-primary">{injury.type}</h3>
+                    <h3
+                className="text-xl font-bold text-primary">{injury.type}</h3>
                     <span className="text-2xl font-bold text-secondary">{injury.percentage}</span>
                   </div>
                   <p className="text-gray-300 mb-4">{injury.description}</p>
                   <h4 className="font-semibold text-white mb-2">Common Examples:</h4>
                   <ul className="space-y-1">
                     {injury.examples.map((example, eIndex) => (
-                      <li key={eIndex} className="text-sm text-gray-400 flex items-start gap-2">
-                        <span className="text-primary mt-1">•</span>
+                      <li key={eIndex}
+
+                className="text-sm text-gray-400 flex items-start gap-2">
+                        <span
+                className="text-primary mt-1">•</span>
                         {example}
                       </li>
                     ))}

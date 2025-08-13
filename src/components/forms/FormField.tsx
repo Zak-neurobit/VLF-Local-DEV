@@ -49,25 +49,20 @@ export function FormField({
         return (
           <textarea
             {...register(name)}
-            rows={rows}
-            placeholder={placeholder}
-            className={inputClassName}
-            aria-invalid={!!error}
-            aria-describedby={error ? `${name}-error` : undefined}
+            rows={rows placeholder={placeholder} className={inputClassName aria-invalid={!!error aria-describedby={error ? `${name}-error` : undefined}
           />
         );
 
       case 'select':
         return (
           <select
-            {...register(name)}
-            className={inputClassName}
-            aria-invalid={!!error}
-            aria-describedby={error ? `${name}-error` : undefined}
+            {...register(name) className={inputClassName aria-invalid={!!error aria-describedby={error ? `${name}-error` : undefined}
           >
             <option value="">{placeholder || 'Select an option'}</option>
             {options.map(option => (
-              <option key={option.value} value={option.value}>
+              <option key={option.value}
+
+                value={option.value}>
                 {option.label}
               </option>
             ))}
@@ -78,13 +73,13 @@ export function FormField({
         return (
           <div className="space-y-2">
             {options.map(option => (
-              <label key={option.value} className="flex items-center cursor-pointer">
+              <label key={option.value}
+
+                className="flex items-center cursor-pointer">
                 <input
-                  {...register(name)}
-                  type="radio"
-                  value={option.value}
-                  className="mr-2 text-[#C9974D] focus:ring-[#C9974D]"
-                  aria-describedby={error ? `${name}-error` : undefined}
+                  {...register(name) type="radio"
+                  value={option.value} className="mr-2 text-[#C9974D] focus:ring-[#C9974D]"
+                aria-describedby={error ? `${name}-error` : undefined}
                 />
                 <span className="text-gray-700">{option.label}</span>
               </label>
@@ -96,11 +91,9 @@ export function FormField({
         return (
           <label className="flex items-center cursor-pointer">
             <input
-              {...register(name)}
-              type="checkbox"
+              {...register(name) type="checkbox"
               className="mr-2 text-[#C9974D] focus:ring-[#C9974D] rounded"
-              aria-invalid={!!error}
-              aria-describedby={error ? `${name}-error` : undefined}
+              aria-invalid={!!error aria-describedby={error ? `${name}-error` : undefined}
             />
             <span className="text-gray-700">{placeholder}</span>
           </label>
@@ -109,12 +102,7 @@ export function FormField({
       default:
         return (
           <input
-            {...register(name)}
-            type={type}
-            placeholder={placeholder}
-            className={inputClassName}
-            aria-invalid={!!error}
-            aria-describedby={error ? `${name}-error` : undefined}
+            {...register(name) type={type placeholder={placeholder} className={inputClassName aria-invalid={!!error aria-describedby={error ? `${name}-error` : undefined}
           />
         );
     }
@@ -134,7 +122,7 @@ export function FormField({
         {renderInput()}
       </div>
       {error && (
-        <p id={`${name}-error`} className="text-sm text-red-600 mt-1">
+        <p id={`${name}-error` className="text-sm text-red-600 mt-1">
           {errorMessage as string}
         </p>
       )}

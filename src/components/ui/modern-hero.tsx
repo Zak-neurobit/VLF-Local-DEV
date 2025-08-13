@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useRef } from 'react';
-// PERFORMANCE: Framer Motion commented out for performance optimization\n// import { motion, AnimatePresence } from 'framer-motion';
 import { Phone } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,22 +11,17 @@ export function ModernHero() {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#6B1F2E] via-[#8B2635] to-[#6B1F2E]"
+
+                className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#6B1F2E] via-[#8B2635] to-[#6B1F2E]"
     >
       {/* Epic Background Pattern */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-black/20" />
-        <motion.div
-          animate={{ opacity: 1 }}
-          transition={{
-            duration: 100,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute -top-1/2 -right-1/2 w-full h-full"
+        <div
+className="absolute -top-1/2 -right-1/2 w-full h-full"
         >
           <div className="w-full h-full bg-gradient-to-r from-[#C9974D]/10 to-transparent rounded-full blur-3xl" />
-        </motion.div>
+        </div>
       </div>
 
       {/* Main Content Grid */}
@@ -35,54 +29,36 @@ export function ModernHero() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             {/* Left Side - Text Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-white order-2 lg:order-1"
+            <div
+className="text-white order-2 lg:order-1"
             >
               {/* YO PELEO™ - Epic Typography */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="mb-8"
+              <div
+className="mb-8"
               >
                 <h1 className="text-6xl md:text-7xl lg:text-8xl font-black leading-none">
-                  <motion.span
+                  <span
                     className="block text-transparent bg-clip-text bg-gradient-to-r from-[#C9974D] to-[#D4A574]"
-                    animate={{ opacity: 1 }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: 'linear',
-                    }}
-                    style={{
-                      backgroundSize: '200% 200%',
-                    }}
+                   }
+                   }
+                   }
                   >
                     YO PELEO™
-                  </motion.span>
+                  </span>
                   <span className="block text-white mt-2">POR TI</span>
                 </h1>
 
                 {/* Tagline */}
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="text-xl md:text-2xl text-[#C9974D] font-bold mt-4"
+                <p
+className="text-xl md:text-2xl text-[#C9974D] font-bold mt-4"
                 >
                   I FIGHT FOR YOU
-                </motion.p>
-              </motion.div>
+                </p>
+              </div>
 
               {/* Features */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="space-y-4 mb-8"
+              <div
+className="space-y-4 mb-8"
               >
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-[#C9974D] rounded-full flex items-center justify-center">
@@ -113,14 +89,11 @@ export function ModernHero() {
                     <p className="text-sm opacity-80">Instant Help in English & Spanish</p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
               {/* CTA Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-                className="flex flex-wrap gap-4"
+              <div
+className="flex flex-wrap gap-4"
               >
                 <Link href="/contact" className="group relative">
                   <div className="absolute inset-0 bg-[#C9974D] rounded-full blur-lg group-hover:blur-xl transition-all duration-300 opacity-70" />
@@ -136,26 +109,17 @@ export function ModernHero() {
                     📞 1-844-YO-PELEO
                   </button>
                 </a>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
             {/* Right Side - William's Cutout */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="relative order-1 lg:order-2"
+            <div
+className="relative order-1 lg:order-2"
             >
               <div className="relative">
                 {/* Glow Effect Behind William */}
-                <motion.div
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                  className="absolute inset-0 bg-gradient-to-r from-[#C9974D]/30 to-[#D4A574]/30 blur-3xl"
+                <div
+className="absolute inset-0 bg-gradient-to-r from-[#C9974D]/30 to-[#D4A574]/30 blur-3xl"
                 />
 
                 {/* William's Cutout Image */}
@@ -165,25 +129,20 @@ export function ModernHero() {
                     alt="William Vasquez - YO PELEO POR TI™"
                     width={600}
                     height={800}
-                    className="w-full h-auto max-w-md mx-auto lg:max-w-full drop-shadow-2xl"
+
+                className="w-full h-auto max-w-md mx-auto lg:max-w-full drop-shadow-2xl"
                     priority
                   />
 
                   {/* Floating Badge */}
-                  <motion.div
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
-                    className="absolute top-10 -right-4 bg-[#C9974D] text-white px-6 py-3 rounded-full shadow-2xl"
+                  <div
+className="absolute top-10 -right-4 bg-[#C9974D] text-white px-6 py-3 rounded-full shadow-2xl"
                   >
                     <p className="font-bold text-lg">Founding Attorney</p>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

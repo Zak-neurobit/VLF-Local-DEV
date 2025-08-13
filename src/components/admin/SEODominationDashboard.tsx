@@ -165,9 +165,7 @@ export function SEODominationDashboard() {
             </p>
           </div>
           <Button
-            onClick={handleStartStop}
-            disabled={loading}
-            className={`text-lg px-8 py-4 ${
+            onClick={handleStartStop disabled={loading} className={`text-lg px-8 py-4 ${
               isRunning ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'
             }`}
           >
@@ -179,19 +177,22 @@ export function SEODominationDashboard() {
           <div className="grid grid-cols-3 gap-4 mt-6">
             <Button
               onClick={() => triggerEmergencyResponse('ranking_drop')}
-              className="bg-orange-600 hover:bg-orange-700"
+
+                className="bg-orange-600 hover:bg-orange-700"
             >
               🚨 Ranking Recovery
             </Button>
             <Button
               onClick={() => triggerEmergencyResponse('negative_review_spike')}
-              className="bg-orange-600 hover:bg-orange-700"
+
+                className="bg-orange-600 hover:bg-orange-700"
             >
               🚨 Reputation Defense
             </Button>
             <Button
               onClick={() => triggerEmergencyResponse('competitor_attack')}
-              className="bg-orange-600 hover:bg-orange-700"
+
+                className="bg-orange-600 hover:bg-orange-700"
             >
               🚨 Counter-Attack
             </Button>
@@ -203,10 +204,13 @@ export function SEODominationDashboard() {
       {metrics && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {metrics.agents.map(agent => (
-            <Card key={agent.name} className="p-6">
+            <Card key={agent.name}
+
+                className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-bold flex items-center gap-2">
-                  <span className="text-2xl">{getAgentIcon(agent.name)}</span>
+                  <span
+                className="text-2xl">{getAgentIcon(agent.name)}</span>
                   {agent.name.replace('Agent', '')}
                 </h3>
                 <span className={`font-semibold ${getStatusColor(agent.status)}`}>
@@ -238,8 +242,11 @@ export function SEODominationDashboard() {
                   <h4 className="font-semibold mb-2">Recent Actions:</h4>
                   <ul className="text-sm space-y-1">
                     {agent.recentHighlights.slice(0, 3).map((highlight, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        <span className="text-green-500">✓</span>
+                      <li key={i}
+
+                className="flex items-center gap-2">
+                        <span
+                className="text-green-500">✓</span>
                         <span>{highlight.type}</span>
                         <span className="text-xs text-gray-500">
                           (Impact: {highlight.impact}/10)

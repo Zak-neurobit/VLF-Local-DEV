@@ -43,12 +43,14 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
     return (
       <button
         ref={ref}
-        type="button"
+
+                type="button"
         className={cn(
           'flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
           className
         )}
-        onClick={() => context.setOpen(!context.open)}
+
+                onClick={() => context.setOpen(!context.open)}
         {...props}
       >
         {children}
@@ -89,7 +91,8 @@ const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps>(
         />
         <div
           ref={ref}
-          className={cn(
+
+                className={cn(
             'absolute top-full z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md animate-in fade-in-80',
             className
           )}
@@ -116,12 +119,14 @@ const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
     return (
       <div
         ref={ref}
-        className={cn(
+
+                className={cn(
           'relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
           context.value === value && 'bg-accent text-accent-foreground',
           className
         )}
-        onClick={() => {
+
+                onClick={() => {
           context.onValueChange(value);
           context.setOpen(false);
         }}

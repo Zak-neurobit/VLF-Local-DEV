@@ -420,6 +420,7 @@ export default function SecurityPage() {
             {securityData?.threats?.map(threat => (
               <Card
                 key={threat.id}
+
                 className={
                   threat.severity === 'critical'
                     ? 'border-red-500'
@@ -510,9 +511,7 @@ export default function SecurityPage() {
                                   Response Notes
                                 </label>
                                 <Textarea
-                                  value={responseNotes}
-                                  onChange={e => setResponseNotes(e.target.value)}
-                                  placeholder="Add notes about your response..."
+                                  value={responseNotes} onChange={e => setResponseNotes(e.target.value)} placeholder="Add notes about your response..."
                                   rows={4}
                                 />
                               </div>
@@ -604,8 +603,7 @@ export default function SecurityPage() {
                                   : framework.completionPercentage >= 70
                                     ? 'bg-yellow-600'
                                     : 'bg-red-600'
-                              }`}
-                              style={{ width: `${framework.completionPercentage}%` }}
+                              }` style={{ width: `${framework.completionPercentage}%` }}
                             ></div>
                           </div>
                         </div>
@@ -662,10 +660,13 @@ export default function SecurityPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   {securityData?.monitoring?.detectors?.map(detector => (
-                    <div key={detector.id} className="p-4 border rounded-lg">
+                    <div key={detector.id}
+
+                className="p-4 border rounded-lg">
                       <div className="flex justify-between items-center">
                         <div>
-                          <h5 className="font-medium">{detector.name}</h5>
+                          <h5
+                className="font-medium">{detector.name}</h5>
                           <p className="text-xs text-gray-600">{detector.type}</p>
                         </div>
                         <Badge variant={detector.enabled ? 'success' : 'secondary'}>
@@ -718,13 +719,15 @@ export default function SecurityPage() {
                     {securityData.audit.checks?.map((check, index) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-3 border rounded-lg"
+
+                className="flex items-center justify-between p-3 border rounded-lg"
                       >
                         <div className="flex items-center gap-3">
                           {check.passed ? (
                             <CheckCircle className="h-5 w-5 text-green-600" />
                           ) : (
-                            <XCircle className="h-5 w-5 text-red-600" />
+                            <XCircle
+                className="h-5 w-5 text-red-600" />
                           )}
                           <span className="font-medium">{check.name}</span>
                         </div>

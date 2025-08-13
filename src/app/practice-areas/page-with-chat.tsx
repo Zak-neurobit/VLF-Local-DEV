@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import Script from 'next/script';
 import { useSearchParams } from 'next/navigation';
 // Dynamic import for client-side only rendering
@@ -234,16 +234,13 @@ export default function PracticeAreasPage() {
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-gray-50 to-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
+          <div
+className="text-center"
           >
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{t.title}</h1>
             <p className="text-xl text-[#C9974D] font-semibold mb-6">{t.subtitle}</p>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.description}</p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -252,15 +249,14 @@ export default function PracticeAreasPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {practiceAreas.map((area, index) => (
-              <motion.div
+              <div
                 key={area.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+
                 className="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all"
               >
                 <div className="p-8">
-                  <div className="text-5xl mb-4">{area.icon}</div>
+                  <div
+                className="text-5xl mb-4">{area.icon}</div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">{area.title[language]}</h3>
                   <p className="text-gray-600 mb-6">{area.description[language]}</p>
 
@@ -270,8 +266,11 @@ export default function PracticeAreasPage() {
                     </h4>
                     <ul className="space-y-2">
                       {area.services[language].map((service, i) => (
-                        <li key={i} className="flex items-start text-sm text-gray-600">
-                          <span className="text-[#C9974D] mr-2">✓</span>
+                        <li key={i}
+
+                className="flex items-start text-sm text-gray-600">
+                          <span
+                className="text-[#C9974D] mr-2">✓</span>
                           {service}
                         </li>
                       ))}
@@ -287,7 +286,8 @@ export default function PracticeAreasPage() {
                   <div className="flex gap-3">
                     <Link
                       href={`/practice-areas/${area.id}`}
-                      className="flex-1 text-center px-4 py-2 bg-[#6B1F2E] text-white rounded-md hover:bg-[#8B2635] transition-colors font-medium"
+
+                className="flex-1 text-center px-4 py-2 bg-[#6B1F2E] text-white rounded-md hover:bg-[#8B2635] transition-colors font-medium"
                     >
                       {t.learnMore}
                     </Link>
@@ -296,7 +296,7 @@ export default function PracticeAreasPage() {
                     </button>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -341,18 +341,16 @@ export default function PracticeAreasPage() {
                     : 'Instant answers day and night',
               },
             ].map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+
                 className="text-center"
               >
-                <div className="text-5xl mb-4">{feature.icon}</div>
+                <div
+                className="text-5xl mb-4">{feature.icon}</div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
                 <p className="text-sm text-gray-600">{feature.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

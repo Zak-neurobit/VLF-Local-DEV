@@ -333,9 +333,11 @@ export default function DetentionBondHearingsPage() {
               {content.detentionFacilities.facilities.map((facility, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
-                  <h3 className="text-lg font-bold text-primary mb-2">{facility.name}</h3>
+                  <h3
+                className="text-lg font-bold text-primary mb-2">{facility.name}</h3>
                   <p className="text-gray-300 text-sm mb-1">{facility.location}</p>
                   <p className="text-gray-400 text-sm mb-1">{facility.capacity}</p>
                   <p className="text-gray-400 text-sm">{facility.distance}</p>

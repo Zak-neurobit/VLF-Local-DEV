@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { MapPin, Phone, Clock, Navigation } from 'lucide-react';
 
 interface OfficeLocationsProps {
@@ -148,26 +148,19 @@ export default function OfficeLocations({ city, language = 'en' }: OfficeLocatio
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
+        <div
+className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.title}</h2>
           <p className="text-gray-600">{t.subtitle}</p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-3 gap-6 mb-8">
           {sortedOffices.map((office, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+
+                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
             >
               {/* Distance Badge */}
               {office.distance !== 'Distance varies' && (
@@ -191,7 +184,8 @@ export default function OfficeLocations({ city, language = 'en' }: OfficeLocatio
                     <Phone className="w-5 h-5 text-[#6B1F2E] flex-shrink-0" />
                     <a
                       href={`tel:${office.phone.replace(/[^0-9]/g, '')}`}
-                      className="text-[#6B1F2E] font-semibold hover:underline"
+
+                className="text-[#6B1F2E] font-semibold hover:underline"
                     >
                       {office.phone}
                     </a>
@@ -218,37 +212,37 @@ export default function OfficeLocations({ city, language = 'en' }: OfficeLocatio
 
                   <a
                     href={`tel:${office.phone.replace(/[^0-9]/g, '')}`}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 text-[#6B1F2E] font-semibold rounded-lg hover:bg-gray-200 transition-colors"
+
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 text-[#6B1F2E] font-semibold rounded-lg hover:bg-gray-200 transition-colors"
                   >
                     <Phone className="w-4 h-4" />
                     {t.call}
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Office Features */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-lg shadow-lg p-6"
+        <div
+className="bg-white rounded-lg shadow-lg p-6"
         >
           <h3 className="text-xl font-bold mb-4 text-center">
             {language === 'es' ? 'En Todas Nuestras Oficinas' : 'At All Our Offices'}
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {t.features.map((feature, index) => (
-              <div key={index} className="flex items-center gap-2">
+              <div key={index}
+
+                className="flex items-center gap-2">
                 <span className="text-green-600">✓</span>
-                <span className="text-gray-700">{feature}</span>
+                <span
+                className="text-gray-700">{feature}</span>
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

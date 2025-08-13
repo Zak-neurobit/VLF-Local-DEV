@@ -105,8 +105,7 @@ export function PracticeAreaSchema({
 
   return (
     <Script
-      id={`practice-area-schema-${practiceAreaSlug}`}
-      type="application/ld+json"
+      id={`practice-area-schema-${practiceAreaSlug}` type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(combinedSchema),
       }}

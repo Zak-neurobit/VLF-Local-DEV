@@ -190,13 +190,19 @@ export default function H1BVisasPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {h1bRequirements.map((req, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{req.title}</h3>
+              <div key={index}
+
+                className="bg-gray-50 rounded-lg p-6">
+                <h3
+                className="text-xl font-bold text-gray-900 mb-4">{req.title}</h3>
                 <ul className="space-y-3">
                   {req.items.map((item, idx) => (
-                    <li key={idx} className="flex items-start">
+                    <li key={idx}
+
+                className="flex items-start">
                       <span className="text-blue-600 mr-2 mt-1">✓</span>
-                      <span className="text-gray-600">{item}</span>
+                      <span
+                className="text-gray-600">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -214,8 +220,11 @@ export default function H1BVisasPage() {
           </h2>
           <div className="max-w-4xl mx-auto">
             {h1bProcess.map((phase, index) => (
-              <div key={index} className="flex items-start mb-8">
-                <div className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold flex-shrink-0">
+              <div key={index}
+
+                className="flex items-start mb-8">
+                <div
+                className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold flex-shrink-0">
                   {phase.step}
                 </div>
                 <div className="ml-6 flex-grow">
@@ -237,9 +246,11 @@ export default function H1BVisasPage() {
             {services.map((service, index) => (
               <div
                 key={index}
+
                 className="text-center p-6 bg-gray-50 rounded-lg hover:shadow-lg transition duration-300"
               >
-                <div className="mb-4">{service.icon}</div>
+                <div
+                className="mb-4">{service.icon}</div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{service.title}</h3>
                 <p className="text-gray-600">{service.description}</p>
               </div>

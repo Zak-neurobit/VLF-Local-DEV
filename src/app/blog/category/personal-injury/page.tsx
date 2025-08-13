@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   keywords: 'personal injury, car accident lawyer, slip and fall, medical malpractice, injury attorney, personal injury blog',
 };
 
-
 export default function PersonalInjuryCategoryPage() {
   return <CategoryPageClient category="personal-injury" language="en" />;
 }

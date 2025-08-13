@@ -71,23 +71,22 @@ export default function OptimizedImage({
       {/* Blur placeholder for smooth loading */}
       {lowQualitySrc && currentSrc === src && (
         <Image
-          src={lowQualitySrc}
-          alt=""
+          src={lowQualitySrc alt=""
           fill
-          className="absolute inset-0 blur-lg scale-110"
-          aria-hidden="true"
+               } className="absolute inset-0 blur-lg scale-110"
+                aria-hidden="true"
         />
       )}
 
       {/* Main image */}
       <Image
         src={hasError ? fallbackSrc : currentSrc}
-        alt={alt}
+
+                alt={alt}
         loading={shouldPrioritize ? 'eager' : loading}
         priority={shouldPrioritize}
-        onLoad={handleLoad}
-        onError={handleError}
-        className={cn(
+                onLoad={handleLoad}
+                onError={handleError} className={cn(
           'transition-opacity duration-300',
           isLoading ? 'opacity-0' : 'opacity-100',
           className

@@ -29,7 +29,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function PreguntasFrecuentesPage() {
   return (
     <FAQPageContent language="es" />

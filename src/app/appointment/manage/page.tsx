@@ -4,7 +4,6 @@ import React from 'react';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { AnimatePresence, motion } from 'framer-motion';
 import { logger, errorToLogMeta } from '@/lib/safe-logger';
 
 interface Appointment {
@@ -217,7 +216,9 @@ export default function AppointmentManagePage() {
             ].map(option => (
               <button
                 key={option.value}
+
                 onClick={() => setFilter(option.value as any)}
+
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                   filter === option.value
                     ? 'bg-blue-600 text-white'
@@ -237,8 +238,7 @@ export default function AppointmentManagePage() {
                 type="text"
                 placeholder="Search appointments..."
                 value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      onChange={e => setSearchTerm(e.target.value)} className="pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
           </div>
@@ -268,8 +268,9 @@ export default function AppointmentManagePage() {
               return (
                 <div
                   key={appointment.id}
-                  className="p-6 hover:bg-gray-50 transition-colors cursor-pointer"
-                  onClick={() => setSelectedAppointment(appointment)}
+
+                className="p-6 hover:bg-gray-50 transition-colors cursor-pointer"
+                onClick={() => setSelectedAppointment(appointment)}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex gap-4">
@@ -318,24 +319,20 @@ export default function AppointmentManagePage() {
                     
                     {isUpcoming && (
                       <div className="flex gap-2">
-                        <button
-                          onClick={e => {
+                        <button onClick={e => {
                             e.stopPropagation();
                             setSelectedAppointment(appointment);
-                            setShowRescheduleModal(true);
-                          }}
-                          className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                            setShowRescheduleModal(true); className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
                         >
-                          <Edit2 className="w-4 h-4" />
+                          <Edit2}
+      className="w-4 h-4" />
                         </button>
                         <button
                           onClick={e => {
                             e.stopPropagation();
-                            handleCancelAppointment(appointment.id);
-                          }}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
+                            handleCancelAppointment(appointment.id);} className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
                         >
-                          <X className="w-4 h-4" />
+                          <X} className="w-4 h-4" />
                         </button>
                       </div>
                     )}
@@ -357,16 +354,18 @@ export default function AppointmentManagePage() {
             <div className="flex gap-2">
               <button
                 onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                disabled={currentPage === 1}
-                className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+
+                disabled={currentPage === 1 className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft} className="w-5 h-5" />
               </button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                 <button
                   key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`px-3 py-1 rounded-lg ${
+
+                onClick={() => setCurrentPage(page)}
+
+                className={`px-3 py-1 rounded-lg ${
                     currentPage === page
                       ? 'bg-blue-600 text-white'
                       : 'hover:bg-gray-100 text-gray-700'
@@ -377,10 +376,10 @@ export default function AppointmentManagePage() {
               ))}
               <button
                 onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                disabled={currentPage === totalPages}
-                className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+
+                disabled={currentPage === totalPages className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight} className="w-5 h-5" />
               </button>
             </div>
           </div>
@@ -388,20 +387,12 @@ export default function AppointmentManagePage() {
       </div>
 
       {/* Appointment Details Modal */}
-      <AnimatePresence>
+      <>
         {selectedAppointment && !showRescheduleModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          <div            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
             onClick={() => setSelectedAppointment(null)}
           >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ scale: 0.9 }}
-              className="bg-white rounded-lg shadow-xl max-w-lg w-full"
+            <div              className="bg-white rounded-lg shadow-xl max-w-lg w-full"
               onClick={e => e.stopPropagation()}
             >
               <div className="p-6 border-b">
@@ -415,7 +406,8 @@ export default function AppointmentManagePage() {
                   </div>
                   <button
                     onClick={() => setSelectedAppointment(null)}
-                    className="p-2 hover:bg-gray-100 rounded-lg"
+
+                className="p-2 hover:bg-gray-100 rounded-lg"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -472,7 +464,8 @@ export default function AppointmentManagePage() {
                     <p className="text-sm font-medium text-gray-500">Phone</p>
                     <a
                       href={`tel:${selectedAppointment.phoneNumber}`}
-                      className="text-blue-600 hover:underline"
+
+                className="text-blue-600 hover:underline"
                     >
                       {selectedAppointment.phoneNumber}
                     </a>
@@ -499,44 +492,37 @@ export default function AppointmentManagePage() {
                   <div className="pt-4 flex gap-3">
                     <button
                       onClick={() => setShowRescheduleModal(true)}
-                      className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                     >
                       Reschedule
                     </button>
                     <button
                       onClick={() => {
                         handleCancelAppointment(selectedAppointment.id);
-                      }}
-                      className="flex-1 px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+        }}
+ className="flex-1 px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
                     >
                       Cancel Appointment
                     </button>
                   </div>
                 )}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
 
       {/* Reschedule Modal */}
-      <AnimatePresence>
+      <>
         {showRescheduleModal && selectedAppointment && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          <div            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
             onClick={() => {
               setShowRescheduleModal(false);
               setSelectedAppointment(null);
             }}
           >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ scale: 0.9 }}
-              className="bg-white rounded-lg shadow-xl max-w-lg w-full"
+            <div              className="bg-white rounded-lg shadow-xl max-w-lg w-full"
               onClick={e => e.stopPropagation()}
             >
               <div className="p-6 border-b">
@@ -568,17 +554,17 @@ export default function AppointmentManagePage() {
                     onClick={() => {
                       setShowRescheduleModal(false);
                       setSelectedAppointment(null);
-                    }}
-                    className="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+        }}
+ className="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     Cancel
                   </button>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
     </div>
   );
 }

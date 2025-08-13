@@ -117,10 +117,9 @@ export default function SitemapMonitorPage() {
         <h1 className="text-3xl font-bold">Sitemap Monitor</h1>
         <button
           onClick={handleRefresh}
-          disabled={refreshing}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 disabled:opacity-50"
+      disabled={refreshing} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 disabled:opacity-50"
         >
-          <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
+          <RefreshCw} className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
           Refresh
         </button>
       </div>
@@ -165,7 +164,7 @@ export default function SitemapMonitorPage() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{stats.coverage.toFixed(1)}%</div>
-            <Progress value={stats.coverage} className="mt-2" />
+            <Progress value={stats.coverage className="mt-2" />
           </CardContent>
         </Card>
       </div>
@@ -183,17 +182,20 @@ export default function SitemapMonitorPage() {
               </div>
             ) : (
               <>
-                <div className="flex items-center gap-2 text-amber-600 mb-4">
-                  <AlertCircle className="w-5 h-5" />
+                <div}
+      className="flex items-center gap-2 text-amber-600 mb-4">
+                  <AlertCircle} className="w-5 h-5" />
                   <span>{stats.parityIssues.length} pages missing translations</span>
                 </div>
                 <div className="max-h-96 overflow-y-auto space-y-2">
                   {stats.parityIssues.map((issue, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+
+                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
                     >
-                      <code className="text-sm">{issue.path}</code>
+                      <code
+                className="text-sm">{issue.path}</code>
                       <div className="flex gap-2">
                         <Badge variant={issue.hasEn ? 'success' : 'destructive'}>
                           EN {issue.hasEn ? '✓' : '✗'}
@@ -222,8 +224,11 @@ export default function SitemapMonitorPage() {
           <CardContent>
             <div className="max-h-96 overflow-y-auto space-y-2">
               {stats.missingPages.map((page, index) => (
-                <div key={index} className="p-2 bg-red-50 rounded">
-                  <code className="text-sm text-red-800">{page}</code>
+                <div key={index}
+
+                className="p-2 bg-red-50 rounded">
+                  <code
+                className="text-sm text-red-800">{page}</code>
                 </div>
               ))}
             </div>

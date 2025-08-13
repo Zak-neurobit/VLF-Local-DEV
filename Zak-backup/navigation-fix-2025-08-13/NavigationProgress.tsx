@@ -10,10 +10,15 @@ export function NavigationProgress() {
   const searchParams = useSearchParams();
   const currentPath = useRef(pathname);
   const progressInterval = useRef<NodeJS.Timeout>();
+  const isNavigating = useRef(false);
+  const isMounted = useRef(true);
 
   useEffect(() => {
+    isMounted.current = true;
+    
     // Listen for any link clicks to start loading immediately
     const handleClick = (e: MouseEvent) => {
+      if (!isMounted.current) return;
       const target = e.target as HTMLElement;
       const link = target.closest('a');
       
@@ -30,6 +35,15 @@ export function NavigationProgress() {
         const isHashOnly = url.pathname === currentUrl.pathname && url.hash;
         
         if (isInternal && !isNewTab && !isSamePage && !isHashOnly) {
+          // Prevent multiple simultaneous navigations
+          if (isNavigating.current) return;
+          isNavigating.current = true;
+          
+          // Clear any existing interval
+          if (progressInterval.current) {
+            clearInterval(progressInterval.current);
+          }
+          
           // Start loading immediately on click
           setIsLoading(true);
           setProgress(10);
@@ -51,10 +65,13 @@ export function NavigationProgress() {
     document.addEventListener('click', handleClick, true);
 
     return () => {
+      isMounted.current = false;
       document.removeEventListener('click', handleClick, true);
       if (progressInterval.current) {
         clearInterval(progressInterval.current);
+        progressInterval.current = undefined;
       }
+      isNavigating.current = false;
     };
   }, []);
 
@@ -66,14 +83,20 @@ export function NavigationProgress() {
       // Clear the interval
       if (progressInterval.current) {
         clearInterval(progressInterval.current);
+        progressInterval.current = undefined;
       }
       
       // Complete the progress bar
-      setProgress(100);
-      setTimeout(() => {
-        setIsLoading(false);
-        setProgress(0);
-      }, 200);
+      if (isMounted.current) {
+        setProgress(100);
+        isNavigating.current = false;
+        setTimeout(() => {
+          if (isMounted.current) {
+            setIsLoading(false);
+            setProgress(0);
+          }
+        }, 200);
+      }
     }
   }, [pathname, searchParams]);
 

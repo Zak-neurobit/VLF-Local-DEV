@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { ChevronRight, Check, X, Users, Car, Shield, Heart } from 'lucide-react';
 import Link from 'next/link';
 import { block } from 'million/react';
@@ -68,12 +68,8 @@ export function InteractiveServices() {
     <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+        <div
+className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">Áreas de Práctica</span>
@@ -81,45 +77,41 @@ export function InteractiveServices() {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Experiencia legal integral con tecnología de vanguardia para servirte mejor
           </p>
-        </motion.div>
+        </div>
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {services.map((service, index) => (
-            <motion.div
+            <div
               key={service.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              onMouseEnter={() => setHoveredService(service.id)}
-              onMouseLeave={() => setHoveredService(null)}
-              onClick={() => setSelectedService(service)}
-              className="relative cursor-pointer"
+             }
+             }
+             }
+             }
+                onMouseEnter={() => setHoveredService(service.id)}
+                onMouseLeave={() => setHoveredService(null)} onClick={() => setSelectedService(service)}
+
+                className="relative cursor-pointer"
             >
               <div className="glass-card p-6 rounded-2xl h-full modern-card group">
                 {/* Icon Container */}
                 <div className={`relative mb-4`}>
-                  <motion.div
-                    // TODO: Convert whileHover={{ scale: 1.1 }} to react-spring
+                  <div
                     className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${service.color}`}
                   >
                     {React.createElement(service.icon, { className: 'w-8 h-8 text-white' })}
-                  </motion.div>
+                  </div>
 
                   {/* Floating Badge */}
-                  <AnimatePresence>
+                  <>
                     {hoveredService === service.id && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        className="absolute -top-2 -right-2 bg-white rounded-full p-1 shadow-lg"
+                      <div
+className="absolute -top-2 -right-2 bg-white rounded-full p-1 shadow-lg"
                       >
                         <Check className="w-4 h-4 text-[#22C55E]" />
-                      </motion.div>
+                      </div>
                     )}
-                  </AnimatePresence>
+                  </>
                 </div>
 
                 {/* Content */}
@@ -131,35 +123,30 @@ export function InteractiveServices() {
                 {/* Features Preview */}
                 <div className="space-y-1">
                   {service.features.slice(0, 3).map((feature, idx) => (
-                    <motion.div
+                    <div
                       key={idx}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      transition={{ delay: idx * 0.05 }}
-                      className="flex items-center text-xs text-gray-500"
+
+                className="flex items-center text-xs text-gray-500"
                     >
-                      <ChevronRight className="w-3 h-3 mr-1 text-[#C9974D]" />
+                      <ChevronRight
+                className="w-3 h-3 mr-1 text-[#C9974D]" />
                       <span>{feature}</span>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
 
                 {/* Hover Effect Gradient */}
-                <motion.div
+                <div
                   className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300`}
                 />
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center"
+        <div
+className="text-center"
         >
           <Link href="/practice-areas">
             <button className="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] text-white font-semibold rounded-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
@@ -167,31 +154,28 @@ export function InteractiveServices() {
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </Link>
-        </motion.div>
+        </div>
       </div>
 
       {/* Service Modal */}
-      <AnimatePresence>
+      <>
         {selectedService && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedService(null)}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          <div
+onClick={() => setSelectedService(null)}
+
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={e => e.stopPropagation()}
-              className="bg-white rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-hidden shadow-2xl"
+            <div
+onClick={e => e.stopPropagation()}
+
+                className="bg-white rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-hidden shadow-2xl"
             >
               {/* Modal Header */}
               <div className={`relative h-48 bg-gradient-to-br ${selectedService.color} p-8`}>
                 <button
                   onClick={() => setSelectedService(null)}
-                  className="absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+
+                className="absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
                 >
                   <X className="w-5 h-5 text-white" />
                 </button>
@@ -213,23 +197,24 @@ export function InteractiveServices() {
                 <h4 className="text-xl font-bold text-[#6B1F2E] mb-4">Servicios Incluidos:</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
                   {selectedService.features.map((feature, idx) => (
-                    <motion.div
+                    <div
                       key={idx}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      transition={{ delay: idx * 0.05 }}
-                      className="flex items-center gap-2"
+
+                className="flex items-center gap-2"
                     >
                       <div className="p-1 bg-[#C9974D]/10 rounded-full">
                         <Check className="w-4 h-4 text-[#C9974D]" />
                       </div>
-                      <span className="text-gray-700">{feature}</span>
-                    </motion.div>
+                      <span
+                className="text-gray-700">{feature}</span>
+                    </div>
                   ))}
                 </div>
 
                 <div className="flex gap-4">
-                  <Link href={`/practice-areas/${selectedService?.id || ''}`} className="flex-1">
+                  <Link href={`/practice-areas/${selectedService?.id || ''}`}
+
+                className="flex-1">
                     <button className="w-full px-6 py-3 bg-gradient-to-r from-[#6B1F2E] to-[#8B2635] text-white font-semibold rounded-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
                       Más Información
                     </button>
@@ -241,10 +226,10 @@ export function InteractiveServices() {
                   </Link>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
     </section>
   );
 }

@@ -86,10 +86,13 @@ export default function CaseList({ cases }: CaseListProps) {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {cases.map((caseItem) => (
-              <tr key={caseItem.id} className="hover:bg-gray-50">
+              <tr key={caseItem.id}
+
+                className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div>
-                    <div className="text-sm font-medium text-gray-900">
+                    <div
+                className="text-sm font-medium text-gray-900">
                       {caseItem.title}
                     </div>
                     <div className="text-sm text-gray-500">
@@ -122,7 +125,8 @@ export default function CaseList({ cases }: CaseListProps) {
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <Link
                     href={`/portal/cases/${caseItem.id}`}
-                    className="text-blue-600 hover:text-blue-900"
+
+                className="text-blue-600 hover:text-blue-900"
                   >
                     View details
                   </Link>

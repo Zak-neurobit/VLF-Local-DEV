@@ -94,10 +94,12 @@ export const SSRSafeMasterLayout: React.FC<SSRSafeMasterLayoutProps> = ({
               <nav className="flex" aria-label="Breadcrumb">
                 <ol className="flex items-center space-x-2 text-sm">
                   {getBreadcrumbs().map((crumb, index, array) => (
-                    <li key={crumb.href} className="flex items-center">
+                    <li key={crumb.href}
+
+                className="flex items-center">
                       {index > 0 && (
                         <svg
-                          className="flex-shrink-0 h-4 w-4 text-gray-400 mx-2"
+                className="flex-shrink-0 h-4 w-4 text-gray-400 mx-2"
                           fill="currentColor"
                           viewBox="0 0 24 24"
                         >
@@ -107,7 +109,9 @@ export const SSRSafeMasterLayout: React.FC<SSRSafeMasterLayoutProps> = ({
                       {index === array.length - 1 ? (
                         <span className="text-gray-400">{crumb.name}</span>
                       ) : (
-                        <Link href={crumb.href} className="text-primary hover:text-primary-600">
+                        <Link href={crumb.href}
+
+                className="text-primary hover:text-primary-600">
                           {crumb.name}
                         </Link>
                       )}

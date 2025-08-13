@@ -50,7 +50,8 @@ function StarRating({ rating }: { rating: number }) {
       {[...Array(5)].map((_, index) => (
         <Star
           key={index}
-          className={`w-4 h-4 ${index < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+
+                className={`w-4 h-4 ${index < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
         />
       ))}
     </div>
@@ -175,8 +176,7 @@ export default function ExternalReviews({
             <p className="text-sm text-yellow-700 mt-1">{error}</p>
             {showRefresh && (
               <button
-                onClick={handleRefresh}
-                className="mt-2 text-sm text-yellow-800 hover:text-yellow-900 underline"
+                onClick={handleRefresh} className="mt-2 text-sm text-yellow-800 hover:text-yellow-900 underline"
               >
                 Try again
               </button>
@@ -193,8 +193,7 @@ export default function ExternalReviews({
         <p>No external reviews available at this time.</p>
         {showRefresh && (
           <button
-            onClick={handleRefresh}
-            className="mt-2 text-brand-skyblue hover:text-brand-skyblue/80 underline"
+            onClick={handleRefresh} className="mt-2 text-brand-skyblue hover:text-brand-skyblue/80 underline"
           >
             Refresh
           </button>
@@ -215,11 +214,9 @@ export default function ExternalReviews({
               </h3>
               {showRefresh && (
                 <button
-                  onClick={handleRefresh}
-                  disabled={refreshing}
-                  className="flex items-center text-sm text-brand-skyblue hover:text-brand-skyblue/80 disabled:opacity-50"
+                  onClick={handleRefresh disabled={refreshing} className="flex items-center text-sm text-brand-skyblue hover:text-brand-skyblue/80 disabled:opacity-50"
                 >
-                  <RefreshCw className={`w-4 h-4 mr-1 ${refreshing ? 'animate-spin' : ''}`} />
+                  <RefreshCw} className={`w-4 h-4 mr-1 ${refreshing ? 'animate-spin' : ''}`} />
                   Refresh
                 </button>
               )}
@@ -257,8 +254,11 @@ export default function ExternalReviews({
                     .filter(([_, count]) => count > 0)
                     .slice(0, 3)
                     .map(([rating, count]) => (
-                      <div key={rating} className="flex items-center justify-center text-sm">
-                        <span className="mr-1">{rating}★</span>
+                      <div key={rating}
+
+                className="flex items-center justify-center text-sm">
+                        <span
+                className="mr-1">{rating}★</span>
                         <span className="text-gray-600">({count})</span>
                       </div>
                     ))}
@@ -278,18 +278,23 @@ export default function ExternalReviews({
       {/* Reviews Grid */}
       <div className="grid gap-6 md:grid-cols-2">
         {reviews.map(review => (
-          <Card key={review.id} className="h-full">
-            <CardContent className="p-6">
+          <Card key={review.id}
+
+                className="h-full">
+            <CardContent
+                className="p-6">
               {/* Review Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center space-x-3">
                   {review.authorImage ? (
                     <Image
                       src={review.authorImage}
-                      alt={`${review.author} profile`}
+
+                alt={`${review.author} profile`}
                       width={40}
                       height={40}
-                      className="rounded-full"
+
+                className="rounded-full"
                     />
                   ) : (
                     <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { usePathname } from 'next/navigation';
 import { BRAND } from '../constants';
 import { SimpleLanguageSwitcher } from '@/components/Navigation/SimpleLanguageSwitcher';
@@ -919,6 +919,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
             <div className="flex items-center space-x-4">
               <a
                 href={`tel:${BRAND.phoneNumeric}`}
+
                 className="hover:text-primary transition-colors"
               >
                 <span className="mr-1">📞</span>
@@ -927,6 +928,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
               <span className="hidden sm:inline text-primary">•</span>
               <a
                 href={`mailto:${BRAND.email}`}
+
                 className="hidden sm:inline hover:text-primary transition-colors"
               >
                 <span className="mr-1">✉️</span>
@@ -937,6 +939,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                 variant="minimal"
                 showFlags={false}
                 showLabels={true}
+
                 className="text-xs"
               />
             </div>
@@ -956,9 +959,10 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link 
-              href={language === 'es' ? '/es' : '/'} 
-              className="flex items-center cursor-pointer"
-              onClick={(e) => {
+              href={language === 'es' ? '/es' : '/'}
+
+                className="flex items-center cursor-pointer"
+                onClick={(e) => {
                 e.preventDefault();
                 window.location.href = language === 'es' ? '/es' : '/';
               }}
@@ -968,6 +972,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                 alt="Vasquez Law Firm"
                 width={200}
                 height={70}
+
                 className="h-12 w-auto cursor-pointer"
                 priority
               />
@@ -979,18 +984,16 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                 {navigation[language].map(item => (
                   <div
                     key={item.name}
-                    className="relative"
+
+                className="relative"
                     onMouseEnter={() => {
                       if (item.submenu) {
                         handleDropdownMouseEnter(item.name);
                       }
                     }}
-                    onMouseLeave={() => {
+                onMouseLeave={() => {
                       if (item.submenu) {
-                        handleDropdownMouseLeave();
-                      }
-                    }}
-                    onClick={(e) => {
+                        handleDropdownMouseLeave();} onClick={(e) => {
                       if (item.submenu) {
                         e.stopPropagation();
                         handleDropdownToggle(item.name);
@@ -1013,14 +1016,14 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                     ) : (
                       <Link
                         href={item.href}
-                        className={`relative text-sm font-semibold transition-all duration-200 py-2 flex items-center gap-1 cursor-pointer ${
+
+                className={`relative text-sm font-semibold transition-all duration-200 py-2 flex items-center gap-1 cursor-pointer ${
                           pathname === item.href || (item.submenu && pathname?.startsWith(item.href))
                             ? 'text-[#6B1F2E] scale-105'
                             : isTransparent
                               ? 'text-[#C9974D] hover:text-white hover:scale-105'
                               : 'text-gray-700 hover:text-[#6B1F2E] hover:scale-105'
-                        }`}
-                        onClick={(e) => {
+                        }` onClick={(e) => {
                           if (item.name === 'Home' || item.name === 'Inicio') {
                             e.preventDefault();
                             window.location.href = item.href;
@@ -1045,49 +1048,41 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                         )}
                         {(pathname === item.href ||
                           (item.submenu && pathname?.startsWith(item.href))) && (
-                          <motion.div
-                            layoutId="navbar-indicator"
+                          <div
+                           
                             className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C9974D]"
-                            transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
+                           }
                           />
                         )}
                       </Link>
                     )}
 
                     {/* Dropdown Menu */}
-                    <AnimatePresence>
+                    <>
                       {item.submenu && activeDropdown === item.name && (
-                        <motion.div
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -10 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 -mt-1 pt-1 w-[600px] bg-transparent pointer-events-auto z-[500]"
+                        <div
+className="absolute top-full left-0 -mt-1 pt-1 w-[600px] bg-transparent pointer-events-auto z-[500]"
                           onMouseEnter={() => {
                             handleDropdownMouseEnter(item.name);
                           }}
-                          onMouseLeave={() => {
-                            handleDropdownMouseLeave();
-                          }}
-                          onClick={(e) => e.stopPropagation()}
+                onMouseLeave={() => {
+                            handleDropdownMouseLeave();} onClick={(e) => e.stopPropagation()}
                         >
                           <div className="bg-white rounded-xl shadow-2xl border border-gold-200 overflow-hidden relative z-[510]"
-                          style={{
-                            background: 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(249,250,251,0.98) 100%)',
-                            backdropFilter: 'blur(20px)',
-                            boxShadow: '0 20px 40px rgba(107, 31, 46, 0.1), 0 10px 20px rgba(201, 151, 77, 0.08)',
-                            pointerEvents: 'auto'
-                          }}
+
                         >
                           <div className="max-h-[70vh] overflow-y-auto">
                             {/* Practice Areas Special Layout */}
                             {item.name === 'Practice Areas' || item.name === 'Áreas de Práctica' ? (
                               <div className="grid grid-cols-2 gap-0">
                                 {item.submenu.map(practice => (
-                                  <div key={practice.name} className="border-b border-neutral-100 border-r last:border-r-0 even:border-r-0">
+                                  <div key={practice.name}
+
+                className="border-b border-neutral-100 border-r last:border-r-0 even:border-r-0">
                                     <Link
                                       href={practice.href}
-                                      className="block px-6 py-4 text-base font-bold text-burgundy-800 hover:bg-gold-50 hover:text-gold-700 transition-all duration-200"
+
+                className="block px-6 py-4 text-base font-bold text-burgundy-800 hover:bg-gold-50 hover:text-gold-700 transition-all duration-200"
                                     >
                                       {practice.name}
                                     </Link>
@@ -1096,15 +1091,17 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                                         <div className="grid grid-cols-1 gap-2">
                                           {practice.submenu.map(subCategory => (
                                             <div 
-                                              key={subCategory.name} 
-                                              className="pl-4 relative"
+                                              key={subCategory.name}
+
+                className="pl-4 relative"
                                               onMouseEnter={() => setActiveSubmenu(subCategory.name)}
-                                              onMouseLeave={() => setActiveSubmenu(null)}
+                onMouseLeave={() => setActiveSubmenu(null)}
                                             >
                                               <Link
                                                 href={subCategory.href}
-                                                className="block py-2 text-sm font-medium text-gray-600 hover:text-burgundy-700 hover:translate-x-1 transition-all duration-200 flex items-center justify-between group"
-                                                onClick={() => setActiveDropdown(null)}
+
+                className="block py-2 text-sm font-medium text-gray-600 hover:text-burgundy-700 hover:translate-x-1 transition-all duration-200 flex items-center justify-between group"
+                onClick={() => setActiveDropdown(null)}
                                               >
                                                 <span className="flex items-center">
                                                   <span className="w-1.5 h-1.5 bg-gold-400 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
@@ -1120,9 +1117,11 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                                                     {subCategory.submenu.map(specificCase => (
                                                       <Link
                                                         key={specificCase.name}
-                                                        href={specificCase.href}
-                                                        className="block px-4 py-1.5 text-xs text-neutral-600 hover:bg-primary/10 hover:text-primary transition-colors"
-                                                        onClick={() => {
+
+                href={specificCase.href}
+
+                className="block px-4 py-1.5 text-xs text-neutral-600 hover:bg-primary/10 hover:text-primary transition-colors"
+                onClick={() => {
                                                           setActiveDropdown(null);
                                                           setActiveSubmenu(null);
                                                         }}
@@ -1147,9 +1146,11 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                                 {item.submenu.map(subItem => (
                                   <Link
                                     key={subItem.name}
-                                    href={subItem.href}
-                                    className="block px-6 py-3 text-base font-medium text-gray-700 hover:bg-gold-50 hover:text-burgundy-700 hover:translate-x-2 transition-all duration-200 group"
-                                    onClick={() => setActiveDropdown(null)}
+
+                href={subItem.href}
+
+                className="block px-6 py-3 text-base font-medium text-gray-700 hover:bg-gold-50 hover:text-burgundy-700 hover:translate-x-2 transition-all duration-200 group"
+                onClick={() => setActiveDropdown(null)}
                                   >
                                     <span className="flex items-center">
                                       <span className="w-1.5 h-1.5 bg-gold-400 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
@@ -1161,9 +1162,9 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                             )}
                           </div>
                           </div>
-                        </motion.div>
+                        </div>
                       )}
-                    </AnimatePresence>
+                    </>
                   </div>
                 ))}
               </div>
@@ -1171,6 +1172,7 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
               {/* CTA Button */}
               <Link
                 href={language === 'es' ? '/es/contacto' : '/contact'}
+
                 className="ml-8 px-6 py-2.5 bg-gradient-to-r from-[#C9974D] to-[#B08740] text-white text-sm font-bold rounded-full hover:from-[#B08740] hover:to-[#906431] transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
               >
                 {language === 'es' ? 'Consulta Gratis' : 'Free Consultation'}
@@ -1181,13 +1183,12 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
             <button
               onClick={() => {
                 setMobileMenuOpen(!mobileMenuOpen);
-              }}
-              className={`lg:hidden p-2 rounded-md transition-colors text-[#C9974D] ${
+        }}
+ className={`lg:hidden p-2 rounded-md transition-colors text-[#C9974D] ${
                 isTransparent
                   ? 'hover:bg-white/20'
                   : 'hover:bg-[#C9974D]/10'
-              }`}
-              aria-label="Toggle menu"
+              }` aria-label="Toggle menu"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {mobileMenuOpen ? (
@@ -1211,14 +1212,10 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
         </div>
 
         {/* Mobile Menu */}
-        <AnimatePresence>
+        <>
           {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="lg:hidden bg-white border-t border-gray-200 shadow-lg"
+            <div
+className="lg:hidden bg-white border-t border-gray-200 shadow-lg"
             >
               <div className="px-4 py-6 space-y-1">
                 {navigation[language].map(item => (
@@ -1229,20 +1226,21 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => setMobileMenuOpen(false)}
-                        className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors text-[#906431] hover:bg-[#C9974D]/5 hover:text-[#C9974D]`}
+
+                className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors text-[#906431] hover:bg-[#C9974D]/5 hover:text-[#C9974D]`}
                       >
                         {item.name}
                       </a>
                     ) : (
                       <Link
                         href={item.href}
-                        onClick={() => {
+
+                onClick={() => {
                           // Only close menu if no submenu
                           if (!item.submenu) {
-                            setMobileMenuOpen(false);
-                          }
-                        }}
-                        className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
+                            setMobileMenuOpen(false);}
+
+                className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
                           pathname === item.href || (item.submenu && pathname?.startsWith(item.href))
                             ? 'bg-[#C9974D]/10 text-[#C9974D]'
                             : 'text-[#906431] hover:bg-[#C9974D]/5 hover:text-[#C9974D]'
@@ -1257,12 +1255,12 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                           <div key={subItem.name}>
                             <Link
                               href={subItem.href}
-                              onClick={() => {
+
+                onClick={() => {
                                 if (!subItem.submenu) {
-                                  setMobileMenuOpen(false);
-                                }
-                              }}
-                              className={`block px-4 py-2 text-sm transition-colors ${
+                                  setMobileMenuOpen(false);}
+
+                className={`block px-4 py-2 text-sm transition-colors ${
                                 subItem.submenu
                                   ? 'font-medium text-neutral-700 border-b border-neutral-200'
                                   : 'text-neutral-600 hover:text-primary pl-6'
@@ -1278,11 +1276,13 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                                 {subItem.submenu.map(nestedItem => (
                                   <Link
                                     key={nestedItem.name}
-                                    href={nestedItem.href}
-                                    onClick={() => {
-                                      setMobileMenuOpen(false);
-                                    }}
-                                    className="block px-4 py-1.5 text-xs text-neutral-600 hover:text-primary transition-colors border-l-2 border-transparent hover:border-primary"
+
+                href={nestedItem.href}
+
+                onClick={() => {
+                                      setMobileMenuOpen(false);}
+
+                className="block px-4 py-1.5 text-xs text-neutral-600 hover:text-primary transition-colors border-l-2 border-transparent hover:border-primary"
                                   >
                                     {nestedItem.name}
                                   </Link>
@@ -1298,18 +1298,19 @@ export const ConsistentHeader: React.FC<ConsistentHeaderProps> = ({
                 <div className="pt-4 mt-4 border-t border-neutral-200">
                   <Link
                     href={language === 'es' ? '/es/contacto' : '/contact'}
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                    }}
-                    className="block w-full px-4 py-3 bg-gradient-to-r from-[#C9974D] to-[#B08740] text-white text-center font-bold rounded-full hover:from-[#B08740] hover:to-[#906431] transition-all shadow-md"
+
+                onClick={() => {
+                      setMobileMenuOpen(false);}
+
+                className="block w-full px-4 py-3 bg-gradient-to-r from-[#C9974D] to-[#B08740] text-white text-center font-bold rounded-full hover:from-[#B08740] hover:to-[#906431] transition-all shadow-md"
                   >
                     {language === 'es' ? 'Consulta Gratis' : 'Free Consultation'}
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
+        </>
       </nav>
     </header>
   );

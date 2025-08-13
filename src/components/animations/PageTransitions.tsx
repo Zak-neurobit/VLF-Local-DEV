@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-// PERFORMANCE: Framer Motion commented out for performance optimization\n// import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 
 // Page transition wrapper
@@ -9,19 +8,15 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
+    <>
+      <div
         key={pathname}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        // TODO: Convert variants to react-spring
-        variants={{ initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }}
-        transition={{ duration: 0.5 }}
+       , animate: { opacity: 1 }, exit: { opacity: 0 } }}
+       }
       >
         {children}
-      </motion.div>
-    </AnimatePresence>
+      </div>
+    </>
   );
 }
 
@@ -30,29 +25,31 @@ export function CurtainTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div key={pathname} className="relative">
+    <>
+      <div key={pathname}
+
+                className="relative">
         {/* Curtain overlay */}
-        <motion.div
+        <div
           className="pointer-events-none fixed inset-0 z-50 bg-gradient-to-br from-[#6B1F2E] to-[#8B2635]"
-          initial={{ scaleY: 1 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ scaleY: 1 }}
-          transition={{ duration: 0.6, ease: 'easeInOut' }}
-          style={{ originY: 0 }}
+         }
+         }
+         }
+         }
+         }
         />
 
         {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
+        <div
+         }
+         }
+         }
+         }
         >
           {children}
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -61,17 +58,17 @@ export function SlideTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
+    <>
+      <div
         key={pathname}
-        initial={{ x: '100%' }}
-        animate={{ opacity: 1 }}
-        exit={{ x: '-100%' }}
-        transition={{ type: 'tween', duration: 0.5, ease: 'easeInOut' }}
+       }
+       }
+       }
+       }
       >
         {children}
-      </motion.div>
-    </AnimatePresence>
+      </div>
+    </>
   );
 }
 
@@ -80,17 +77,17 @@ export function ZoomTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
+    <>
+      <div
         key={pathname}
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ scale: 1.2, opacity: 0 }}
-        transition={{ duration: 0.5, ease: 'easeInOut' }}
+       }
+       }
+       }
+       }
       >
         {children}
-      </motion.div>
-    </AnimatePresence>
+      </div>
+    </>
   );
 }
 
@@ -99,20 +96,22 @@ export function MorphTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div key={pathname} className="relative">
+    <>
+      <div key={pathname}
+
+                className="relative">
         {/* SVG Mask */}
         <svg className="pointer-events-none fixed inset-0 z-50 h-full w-full">
           <defs>
             <mask id="morph-mask">
-              <motion.circle
+              <circle
                 cx="50%"
                 cy="50%"
                 fill="white"
-                initial={{ r: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ r: 0 }}
-                transition={{ duration: 0.8, ease: 'easeInOut' }}
+               }
+               }
+               }
+               }
               />
             </mask>
           </defs>
@@ -126,16 +125,16 @@ export function MorphTransition({ children }: { children: React.ReactNode }) {
         </svg>
 
         {/* Content */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ delay: 0.4, duration: 0.4 }}
+        <div
+         }
+         }
+         }
+         }
         >
           {children}
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -144,19 +143,21 @@ export function FlipTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div key={pathname} className="relative" style={{ perspective: 1000 }}>
-        <motion.div
-          initial={{ rotateY: -90, opacity: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ rotateY: 90, opacity: 0 }}
-          transition={{ duration: 0.6, ease: 'easeInOut' }}
-          style={{ transformStyle: 'preserve-3d' }}
+    <>
+      <div key={pathname}
+
+                className="relative"}>
+        <div
+         }
+         }
+         }
+         }
+         }
         >
           {children}
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -165,8 +166,10 @@ export function LiquidTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div key={pathname} className="relative">
+    <>
+      <div key={pathname}
+
+                className="relative">
         {/* Liquid overlay */}
         <svg className="pointer-events-none fixed inset-0 z-50 h-full w-full">
           <defs>
@@ -182,28 +185,28 @@ export function LiquidTransition({ children }: { children: React.ReactNode }) {
               <feGaussianBlur stdDeviation="1" />
             </filter>
           </defs>
-          <motion.rect
+          <rect
             width="100%"
             height="100%"
             filter="url(#liquid-transition)"
-            initial={{ y: '100%' }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ duration: 1.2, ease: 'easeInOut' }}
+           }
+           }
+           }
+           }
           />
         </svg>
 
         {/* Content */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
+        <div
+         }
+         }
+         }
+         }
         >
           {children}
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -217,35 +220,34 @@ export function MultiLayerTransition({ children }: { children: React.ReactNode }
   ];
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div key={pathname} className="relative">
+    <>
+      <div key={pathname}
+
+                className="relative">
         {/* Multiple sliding layers */}
         {layers.map((layer, index) => (
-          <motion.div
+          <div
             key={index}
-            className="pointer-events-none fixed inset-0 z-50"
-            style={{ backgroundColor: layer.color }}
-            initial={{ x: '-100%' }}
-            animate={{ opacity: 1 }}
-            exit={{ x: '-100%' }}
-            transition={{
-              duration: 0.8,
-              delay: layer.delay,
-              ease: 'easeInOut',
-            }}
+
+                className="pointer-events-none fixed inset-0 z-50"
+           }
+           }
+           }
+           }
+           }
           />
         ))}
 
         {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 1.1 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
+        <div
+         }
+         }
+         }
+         }
         >
           {children}
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+        </div>
+      </div>
+    </>
   );
 }

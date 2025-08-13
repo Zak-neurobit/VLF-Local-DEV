@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface VeteranStoryProps {
   language: 'en' | 'es';
@@ -105,81 +104,66 @@ export default function VeteranStory({ language }: VeteranStoryProps) {
   return (
     <section
       ref={containerRef}
-      className="relative overflow-hidden bg-mesh-dark py-24"
+
+                className="relative overflow-hidden bg-mesh-dark py-24"
     >
       {/* Enhanced Parallax Background Elements with stronger brand colors */}
-      <motion.div style={{ y: y1 }} className="absolute inset-0">
+      <div className="absolute inset-0">
         <div className="gradient-orb-burgundy w-96 h-96 top-20 left-10 opacity-70 animate-float-orb" />
-      </motion.div>
-      <motion.div style={{ y: y2 }} className="absolute inset-0">
+      </div>
+      <div className="absolute inset-0">
         <div className="gradient-orb-gold w-80 h-80 bottom-20 right-10 opacity-60 animate-float-orb-reverse" />
-      </motion.div>
-      <motion.div style={{ y: y3 }} className="absolute inset-0">
+      </div>
+      <div className="absolute inset-0">
         <div className="gradient-orb-mixed w-72 h-72 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-50" />
-      </motion.div>
+      </div>
 
-      <motion.div style={{ opacity, scale }} className="relative z-10 mx-auto max-w-7xl px-4">
+      <div className="relative z-10 mx-auto max-w-7xl px-4">
         {/* Header */}
         <div className="mb-16 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#C9974D]/20 px-6 py-2 text-sm font-semibold text-[#C9974D] backdrop-blur-sm"
+          <span
+className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#C9974D]/20 px-6 py-2 text-sm font-semibold text-[#C9974D] backdrop-blur-sm"
           >
             <span>🇺🇸</span>
             {t.badge}
-          </motion.span>
+          </span>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="mb-4 text-5xl font-black text-white md:text-6xl"
+          <h2
+className="mb-4 text-5xl font-black text-white md:text-6xl"
           >
             {t.title}
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-[#C9974D]"
+          <p
+className="text-xl text-[#C9974D]"
           >
             {t.subtitle}
-          </motion.p>
+          </p>
         </div>
 
         {/* Timeline */}
         <div className="mb-20 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {t.timeline.map((item, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="relative"
+
+                className="relative"
             >
-              <div className="mb-4 text-4xl font-black text-[#C9974D]">{item.year}</div>
+              <div
+                className="mb-4 text-4xl font-black text-[#C9974D]">{item.year}</div>
               <h3 className="mb-2 text-xl font-bold text-white">{item.title}</h3>
               <p className="text-gray-400">{item.description}</p>
 
               {index < t.timeline.length - 1 && (
                 <div className="absolute top-8 left-full hidden h-0.5 w-full bg-gradient-to-r from-[#C9974D] to-transparent lg:block" />
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Quote Section */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="relative mb-20 overflow-hidden rounded-2xl bg-gradient-to-br from-[#6B1F2E]/20 to-transparent p-12 text-center backdrop-blur-sm"
+        <div
+className="relative mb-20 overflow-hidden rounded-2xl bg-gradient-to-br from-[#6B1F2E]/20 to-transparent p-12 text-center backdrop-blur-sm"
         >
           <div className="absolute -top-6 -left-6 text-8xl text-[#C9974D]/20">&quot;</div>
           <div className="absolute -bottom-6 -right-6 rotate-180 text-8xl text-[#C9974D]/20">
@@ -192,36 +176,30 @@ export default function VeteranStory({ language }: VeteranStoryProps) {
             </p>
             <cite className="text-lg text-[#C9974D]">— {t.quote.author}</cite>
           </blockquote>
-        </motion.div>
+        </div>
 
         {/* Values Grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {t.values.map((value, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              // TODO: Convert whileHover={{ scale: 1.05, rotateY: 10 }} to react-spring
-              className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm"
+
+                className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm"
             >
-              <div className="mb-4 text-4xl">{value.icon}</div>
+              <div
+                className="mb-4 text-4xl">{value.icon}</div>
               <h4 className="mb-2 text-xl font-bold text-white">{value.title}</h4>
               <p className="text-sm text-gray-400">{value.description}</p>
 
               {/* Hover effect */}
               <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#C9974D]/0 to-[#C9974D]/20 opacity-0 transition-opacity group-hover:opacity-100" />
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Military Photo Placeholder */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-16 flex justify-center"
+        <div
+className="mt-16 flex justify-center"
         >
           <div className="relative h-96 w-full max-w-2xl overflow-hidden rounded-2xl bg-gradient-to-br from-[#6B1F2E]/20 to-transparent">
             <div className="absolute inset-0 flex items-center justify-center">
@@ -232,8 +210,8 @@ export default function VeteranStory({ language }: VeteranStoryProps) {
               </div>
             </div>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

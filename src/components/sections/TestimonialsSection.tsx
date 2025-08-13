@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Testimonial {
@@ -91,26 +91,20 @@ export function TestimonialsSection({
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
+        <div
+className="text-center mb-12"
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-4">{title}</h2>
           <p className="text-xl text-gray-600">{subtitle}</p>
-        </motion.div>
+        </div>
 
         {/* Testimonials Grid */}
         <div className="relative">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {visibleTestimonials.map((testimonial, index) => (
-              <motion.div
+              <div
                 key={testimonial.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+
                 className="bg-white rounded-lg shadow-lg p-6 relative"
               >
                 {/* Quote Icon */}
@@ -119,7 +113,9 @@ export function TestimonialsSection({
                 {/* Rating */}
                 <div className="flex mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                    <Star key={i}
+
+                className="w-5 h-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
 
@@ -136,19 +132,17 @@ export function TestimonialsSection({
                     </span>
                   )}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
 
           {/* Navigation Buttons - Only show if there are multiple pages */}
           {totalPages > 1 && (
             <div className="flex justify-center items-center mt-8 space-x-4">
-              <button
-                onClick={handlePrevious}
-                className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
+              <button onClick={handlePrevious} className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
                 aria-label="Previous testimonials"
               >
-                <ChevronLeft className="w-6 h-6 text-gray-600" />
+                <ChevronLeft} className="w-6 h-6 text-gray-600" />
               </button>
 
               {/* Page Indicators */}
@@ -156,33 +150,28 @@ export function TestimonialsSection({
                 {[...Array(totalPages)].map((_, i) => (
                   <button
                     key={i}
-                    onClick={() => setCurrentIndex(i)}
-                    className={`w-2 h-2 rounded-full transition-colors ${
+
+                onClick={() => setCurrentIndex(i)}
+
+                className={`w-2 h-2 rounded-full transition-colors ${
                       i === currentIndex ? 'bg-primary-600' : 'bg-gray-300'
-                    }`}
-                    aria-label={`Go to page ${i + 1}`}
+                    }` aria-label={`Go to page ${i + 1}`}
                   />
                 ))}
               </div>
 
-              <button
-                onClick={handleNext}
-                className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
+              <button onClick={handleNext} className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
                 aria-label="Next testimonials"
               >
-                <ChevronRight className="w-6 h-6 text-gray-600" />
+                <ChevronRight} className="w-6 h-6 text-gray-600" />
               </button>
             </div>
           )}
         </div>
 
         {/* Trust Indicators */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-12 text-center"
+        <div
+className="mt-12 text-center"
         >
           <div className="flex flex-wrap justify-center items-center gap-8">
             <div className="text-center">
@@ -198,7 +187,7 @@ export function TestimonialsSection({
               <p className="text-gray-600">Years Experience</p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

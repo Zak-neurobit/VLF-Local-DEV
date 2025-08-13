@@ -43,17 +43,22 @@ export function SmartBreadcrumbs({
         <div className="container mx-auto px-4 py-3">
           <ol className="flex items-center space-x-2 text-sm">
             {breadcrumbs.map((crumb, index) => (
-              <li key={crumb.href} className="flex items-center">
-                {index > 0 && <ChevronRight className="w-4 h-4 text-gray-400 mx-2" />}
+              <li key={crumb.href}
+
+                className="flex items-center">
+                {index > 0 && <ChevronRight
+                className="w-4 h-4 text-gray-400 mx-2" />}
 
                 {crumb.current ? (
                   <span className="text-gray-700 font-medium">{crumb.name}</span>
                 ) : (
                   <Link
                     href={crumb.href}
-                    className="text-primary hover:text-primary-300 transition-colors font-medium inline-flex items-center"
+
+                className="text-primary hover:text-primary-300 transition-colors font-medium inline-flex items-center"
                   >
-                    {index === 0 && showHome && <Home className="w-4 h-4 mr-1" />}
+                    {index === 0 && showHome && <Home
+                className="w-4 h-4 mr-1" />}
                     {crumb.name}
                   </Link>
                 )}
@@ -88,8 +93,7 @@ export function SmartBreadcrumbs({
       </nav>
 
       <Script
-        id={`breadcrumb-schema-${pathname?.replace(/\//g, '-') || 'default'}`}
-        type="application/ld+json"
+        id={`breadcrumb-schema-${pathname?.replace(/\//g, '-') || 'default'}` type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(breadcrumbSchema),
         }}

@@ -26,9 +26,12 @@ export default function ContactoLoading() {
           {/* Contact info skeleton */}
           <div className="space-y-6">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-gray-900 rounded-lg p-6">
+              <div key={i}
+
+                className="bg-gray-900 rounded-lg p-6">
                 <div className="h-6 bg-gray-800 rounded w-32 mb-2 animate-pulse" />
-                <div className="h-4 bg-gray-800 rounded w-48 animate-pulse" />
+                <div
+                className="h-4 bg-gray-800 rounded w-48 animate-pulse" />
               </div>
             ))}
           </div>

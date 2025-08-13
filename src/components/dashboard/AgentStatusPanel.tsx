@@ -104,7 +104,7 @@ const AgentStatusCard: React.FC<AgentStatusCardProps> = ({ agent }) => {
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
               className={`h-2 rounded-full transition-all duration-500 ${getStatusColor()}`}
-              style={{ width: `${agent.progress}%` }}
+      style={{ width: `${agent.progress}%` }}
             />
           </div>
         </div>
@@ -188,18 +188,17 @@ const AgentStatusPanel: React.FC = () => {
 
         <div className="flex items-center space-x-4">
           <select
-            value={sortBy}
-            onChange={e => setSortBy(e.target.value as typeof sortBy)}
-            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={sortBy onChange={e => setSortBy(e.target.value as typeof sortBy)}
+      className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="status">Sort by Status</option>
             <option value="name">Sort by Name</option>
             <option value="performance">Sort by Performance</option>
           </select>
 
-          <div className="flex items-center space-x-2">
+          <div} className="flex items-center space-x-2">
             <div
-              className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}
+             } className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}
             />
             <span className="text-sm text-gray-600">{isConnected ? 'Live' : 'Offline'}</span>
           </div>

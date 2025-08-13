@@ -119,28 +119,29 @@ export default function OptimizedImage({
   return (
     <div
       ref={imgRef}
-      className={cn(
+
+                className={cn(
         'relative overflow-hidden',
         !isLoadedState && 'animate-pulse bg-gray-200',
         containerClassName
       )}
-      style={imageStyle}
+
+                style={imageStyle}
     >
       {isInView && (
         <Image
           src={hasError ? fallback : src}
-          alt={alt}
+
+                alt={alt}
           width={width}
           height={height}
           quality={quality}
           priority={priority}
           loading={priority ? 'eager' : 'lazy'}
-          sizes={getSizes()}
-          placeholder={enableBlur ? 'blur' : 'empty'}
+          sizes={getSizes()} placeholder={enableBlur ? 'blur' : 'empty'}
           blurDataURL={getBlurDataURL()}
-          onLoad={handleLoad}
-          onError={handleError}
-          className={cn(
+                onLoad={handleLoad}
+                onError={handleError} className={cn(
             'transition-opacity duration-300',
             isLoadedState ? 'opacity-100' : 'opacity-0',
             className

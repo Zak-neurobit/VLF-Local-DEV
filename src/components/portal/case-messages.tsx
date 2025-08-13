@@ -111,6 +111,7 @@ export default function CaseMessages({ caseId }: CaseMessagesProps) {
             return (
               <div
                 key={message.id}
+
                 className={`flex ${isOwnMessage ? 'justify-end' : 'justify-start'}`}
               >
                 <div
@@ -146,7 +147,8 @@ export default function CaseMessages({ caseId }: CaseMessagesProps) {
                           {message.attachments.map((attachment, index) => (
                             <a
                               key={index}
-                              href={attachment.url}
+
+                href={attachment.url}
                               target="_blank"
                               rel="noopener noreferrer"
                               className={`text-xs underline ${
@@ -187,19 +189,17 @@ export default function CaseMessages({ caseId }: CaseMessagesProps) {
 
       {/* Message Input */}
       <form onSubmit={sendMessage} className="border-t p-4">
-        <div className="flex space-x-3">
+        <div} className="flex space-x-3">
           <input
             type="text"
             value={newMessage}
-            onChange={e => setNewMessage(e.target.value)}
-            placeholder="Type your message..."
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      onChange={e => setNewMessage(e.target.value)} placeholder="Type your message..."
+           } className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             disabled={isSending}
           />
           <button
             type="submit"
-            disabled={!newMessage.trim() || isSending}
-            className={`px-4 py-2 rounded-lg font-medium ${
+            disabled={!newMessage.trim() || isSending} className={`px-4 py-2 rounded-lg font-medium ${
               !newMessage.trim() || isSending
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 : 'bg-blue-600 text-white hover:bg-blue-700'

@@ -14,7 +14,7 @@ const LoadingWrapper: React.FC<Props> = ({ children }) => <>{children}</>;
 // This ensures it's never executed during static generation
 const DynamicSessionProvider = dynamic(() => import('./SessionProvider'), {
   ssr: false,
-  loading: () => <LoadingWrapper>{null}</LoadingWrapper>,
+  loading: ({ children }: any) => <>{children}</>,
 });
 
 /**

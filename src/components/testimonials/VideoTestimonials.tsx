@@ -59,10 +59,13 @@ export default function VideoTestimonials() {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {videoTestimonials.map(video => (
-          <Card key={video.id} className="overflow-hidden hover:shadow-xl transition-shadow">
+          <Card key={video.id}
+
+                className="overflow-hidden hover:shadow-xl transition-shadow">
             <div className="relative aspect-video">
               <Image
                 src={video.thumbnailUrl}
+
                 alt={`${video.name} testimonial thumbnail`}
                 fill
                 className="object-cover"
@@ -70,7 +73,8 @@ export default function VideoTestimonials() {
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                 <button
                   onClick={() => setActiveVideo(video.id)}
-                  className="bg-white/90 hover:bg-white rounded-full p-4 transition-colors group"
+
+                className="bg-white/90 hover:bg-white rounded-full p-4 transition-colors group"
                   aria-label={`Play video testimonial from ${video.name}`}
                 >
                   <Play className="w-8 h-8 text-brand-crimson group-hover:scale-110 transition-transform" />
@@ -97,7 +101,8 @@ export default function VideoTestimonials() {
           <div className="relative w-full max-w-4xl">
             <button
               onClick={() => setActiveVideo(null)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+
+                className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
               aria-label="Close video"
             >
               <X className="w-8 h-8" />
@@ -105,6 +110,7 @@ export default function VideoTestimonials() {
             <div className="aspect-video">
               <iframe
                 src={videoTestimonials.find(v => v.id === activeVideo)?.videoUrl}
+
                 className="w-full h-full rounded-lg"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

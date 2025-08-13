@@ -15,8 +15,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       <div className="w-full">
         {label && (
           <label
-            htmlFor={props.id}
-            className="mb-1.5 block text-sm font-medium text-gray-700"
+            htmlFor={props.id} className="mb-1.5 block text-sm font-medium text-gray-700"
           >
             {label}
           </label>
@@ -24,7 +23,8 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         <div className="relative">
           <select
             ref={ref}
-            className={cn(
+
+                className={cn(
               'flex h-10 w-full appearance-none rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
               error && 'border-destructive focus:ring-destructive',
               className
@@ -56,7 +56,8 @@ const SelectOption = React.forwardRef<HTMLOptionElement, SelectOptionProps>(
     return (
       <option
         ref={ref}
-        className={cn('', className)}
+
+                className={cn('', className)}
         {...props}
       />
     );
@@ -73,7 +74,8 @@ const SelectTrigger = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={cn(
+
+                className={cn(
         'flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
@@ -92,7 +94,8 @@ const SelectValue = React.forwardRef<
   return (
     <span
       ref={ref}
-      className={cn('block truncate', className)}
+
+                className={cn('block truncate', className)}
       {...props}
     />
   );
@@ -106,7 +109,8 @@ const SelectContent = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={cn(
+
+                className={cn(
         'relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md animate-in fade-in-80',
         className
       )}
@@ -125,7 +129,8 @@ const SelectItem = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={cn(
+
+                className={cn(
         'relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className
       )}

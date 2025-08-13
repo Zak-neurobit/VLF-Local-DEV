@@ -38,8 +38,7 @@ export function SimpleLanguageSwitcher({
   const pathname = usePathname();
   const safePathname = pathname || '/';
   const currentLang: 'en' | 'es' = safePathname.startsWith('/es') ? 'es' : 'en';
-  
-  
+
   // Get the opposite language URL - simple and robust
   const getTargetUrl = (targetLang: 'en' | 'es'): string => {
     if (targetLang === currentLang) {
@@ -62,13 +61,14 @@ export function SimpleLanguageSwitcher({
         {languages.map(lang => {
           const isActive = currentLang === lang.code;
           const targetUrl = getTargetUrl(lang.code);
-          
-          
+
           return (
             <Link
               key={lang.code}
-              href={targetUrl}
-              className={`px-2 py-1 text-sm font-medium rounded transition-colors ${
+
+                href={targetUrl}
+
+                className={`px-2 py-1 text-sm font-medium rounded transition-colors ${
                 isActive
                   ? 'bg-primary-600 text-white cursor-default'
                   : 'text-gray-600 hover:text-primary-600 hover:bg-gray-100'
@@ -97,7 +97,8 @@ export function SimpleLanguageSwitcher({
     return (
       <Link
         href={targetUrl}
-        className={`flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors ${className}`}
+
+                className={`flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors ${className}`}
         aria-label={`Switch to ${otherLang.name}`}
       >
         {showFlags && <span>{otherLang.flag}</span>}

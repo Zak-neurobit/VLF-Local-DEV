@@ -267,8 +267,11 @@ export default function AnalyticsPage() {
                     </div>
                     <div className="space-y-2">
                       {[5, 4, 3, 2, 1].map(rating => (
-                        <div key={rating} className="flex items-center gap-2">
-                          <span className="text-sm w-2">{rating}</span>
+                        <div key={rating}
+
+                className="flex items-center gap-2">
+                          <span
+                className="text-sm w-2">{rating}</span>
                           <div className="flex-1 bg-gray-200 rounded-full h-2">
                             <div
                               className="bg-yellow-500 h-2 rounded-full"
@@ -291,8 +294,11 @@ export default function AnalyticsPage() {
                   <CardContent>
                     <div className="space-y-3">
                       {metrics.voiceAgents.topIntents.map((intent, index) => (
-                        <div key={index} className="flex justify-between items-center">
-                          <span className="text-sm text-gray-600 capitalize">
+                        <div key={index}
+
+                className="flex justify-between items-center">
+                          <span
+                className="text-sm text-gray-600 capitalize">
                             {intent.intent.replace('_', ' ')}
                           </span>
                           <Badge variant="secondary">{intent.count}</Badge>

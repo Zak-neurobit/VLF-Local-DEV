@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Phone, Clock, Mail, Car, ArrowRight, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { ContactForm } from '@/components/forms/ContactForm';
@@ -86,21 +85,16 @@ export function OfficeLocationTemplate({ office, language }: OfficeLocationTempl
         <div className="absolute inset-0 bg-black/30" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-bold mb-6"
+            <h1
+className="text-4xl md:text-6xl font-bold mb-6"
             >
               {content.hero.title}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-xl text-gray-200"
+            </h1>
+            <p
+className="text-xl text-gray-200"
             >
               {content.hero.subtitle}
-            </motion.p>
+            </p>
           </div>
         </div>
       </section>
@@ -140,7 +134,8 @@ export function OfficeLocationTemplate({ office, language }: OfficeLocationTempl
                       <h3 className="font-semibold mb-1">{content.contact.phone}</h3>
                       <a
                         href={`tel:${office.phone.replace(/\D/g, '')}`}
-                        className="text-2xl font-bold text-primary-600 hover:text-primary-700"
+
+                className="text-2xl font-bold text-primary-600 hover:text-primary-700"
                       >
                         {office.phone}
                       </a>
@@ -159,7 +154,8 @@ export function OfficeLocationTemplate({ office, language }: OfficeLocationTempl
                       <h3 className="font-semibold mb-1">{content.contact.email}</h3>
                       <a
                         href={`mailto:${office.email}`}
-                        className="text-primary-600 hover:text-primary-700"
+
+                className="text-primary-600 hover:text-primary-700"
                       >
                         {office.email}
                       </a>
@@ -213,7 +209,7 @@ export function OfficeLocationTemplate({ office, language }: OfficeLocationTempl
                   src={office.mapUrl.replace('/search/', '/embed/v1/place/')}
                   width="100%"
                   height="100%"
-                  style={{ border: 0 }}
+                 }
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -235,18 +231,16 @@ export function OfficeLocationTemplate({ office, language }: OfficeLocationTempl
                 const displayName = translation ? translation[language] : area;
 
                 return (
-                  <motion.div
+                  <div
                     key={area}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
                   >
                     <CheckCircle className="w-6 h-6 text-green-500 mb-3" />
-                    <h3 className="text-xl font-semibold mb-2">{displayName}</h3>
+                    <h3
+                className="text-xl font-semibold mb-2">{displayName}</h3>
                     <p className="text-gray-600 text-sm">{content.services.consultation}</p>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
@@ -262,9 +256,12 @@ export function OfficeLocationTemplate({ office, language }: OfficeLocationTempl
               <h2 className="text-3xl font-bold text-center mb-12">{content.attorneys.title}</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {office.attorneys.map(attorney => (
-                  <div key={attorney} className="text-center">
+                  <div key={attorney}
+
+                className="text-center">
                     <div className="w-32 h-32 bg-gray-300 rounded-full mx-auto mb-4" />
-                    <h3 className="font-semibold text-lg">{attorney}</h3>
+                    <h3
+                className="font-semibold text-lg">{attorney}</h3>
                     <p className="text-gray-600">{isSpanish ? 'Abogado' : 'Attorney'}</p>
                   </div>
                 ))}
@@ -283,6 +280,7 @@ export function OfficeLocationTemplate({ office, language }: OfficeLocationTempl
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href={`tel:${office.phone.replace(/\D/g, '')}`}
+
                 className="bg-secondary-500 hover:bg-secondary-600 text-black font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105"
               >
                 <Phone className="w-5 h-5" />
@@ -290,6 +288,7 @@ export function OfficeLocationTemplate({ office, language }: OfficeLocationTempl
               </a>
               <Link
                 href={isSpanish ? '/es/contacto' : '/contact'}
+
                 className="bg-white hover:bg-gray-100 text-primary-900 font-bold py-4 px-8 rounded-lg transition-all"
               >
                 {content.cta.button}

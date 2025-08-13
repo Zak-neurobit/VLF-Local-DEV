@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Phone, Star, CheckCircle, ArrowRight, Users, Award } from 'lucide-react';
 import Link from 'next/link';
 import { ContactForm } from '@/components/forms/ContactForm';
@@ -227,43 +226,33 @@ export function LocationServiceTemplate({
         <div className="absolute inset-0 bg-black/40" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="mb-6"
+            <div
+className="mb-6"
             >
               <span className="inline-flex items-center gap-2 bg-secondary-500/20 text-secondary-400 px-4 py-2 rounded-full text-sm font-medium">
                 <MapPin className="w-4 h-4" />
                 {content.location.serving}
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl md:text-6xl font-bold mb-6"
+            <h1
+className="text-4xl md:text-6xl font-bold mb-6"
             >
               {content.hero.title}
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl mb-8 text-gray-200"
+            <p
+className="text-xl mb-8 text-gray-200"
             >
               {content.hero.subtitle}
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+            <div
+className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <a
                 href={`tel:${nearestOffice.phone.replace(/\D/g, '')}`}
+
                 className="bg-secondary-500 hover:bg-secondary-600 text-black font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105"
               >
                 <Phone className="w-5 h-5" />
@@ -271,11 +260,12 @@ export function LocationServiceTemplate({
               </a>
               <Link
                 href={isSpanish ? '/es/consulta-gratis' : '/free-consultation'}
+
                 className="bg-white hover:bg-gray-100 text-primary-900 font-bold py-4 px-8 rounded-lg transition-all"
               >
                 {content.hero.cta2}
               </Link>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -292,17 +282,15 @@ export function LocationServiceTemplate({
                 content.stats.stat3,
                 content.stats.stat4,
               ].map((stat, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center"
+
+                className="text-center"
                 >
-                  <div className="text-4xl font-bold text-secondary-400 mb-2">{stat.number}</div>
+                  <div
+                className="text-4xl font-bold text-secondary-400 mb-2">{stat.number}</div>
                   <div className="text-gray-300">{stat.label}</div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -331,22 +319,20 @@ export function LocationServiceTemplate({
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {(benefitsList?.[language] || []).map((benefit, index) => (
-                <motion.div
+                <div
                   key={benefit}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
                 >
                   <CheckCircle className="w-6 h-6 text-green-500 mb-3" />
-                  <h3 className="text-lg font-semibold mb-2">{benefit}</h3>
+                  <h3
+                className="text-lg font-semibold mb-2">{benefit}</h3>
                   <p className="text-gray-600 text-sm">
                     {isSpanish
                       ? 'Representación experta disponible'
                       : 'Expert representation available'}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -365,19 +351,17 @@ export function LocationServiceTemplate({
                 { icon: Users, title: content.whyChoose.reason3 },
                 { icon: CheckCircle, title: content.whyChoose.reason4 },
               ].map((reason, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex items-start gap-4"
+
+                className="flex items-start gap-4"
                 >
                   <reason.icon className="w-8 h-8 text-primary-600 flex-shrink-0 mt-1" />
                   <div>
-                    <h3 className="text-lg font-semibold">{reason.title}</h3>
+                    <h3
+                className="text-lg font-semibold">{reason.title}</h3>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -396,20 +380,18 @@ export function LocationServiceTemplate({
                 content.process.step3,
                 content.process.step4,
               ].map((step, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center"
+
+                className="text-center"
                 >
-                  <div className="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                  <div
+                className="w-16 h-16 bg-primary-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                     {index + 1}
                   </div>
                   <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
                   <p className="text-gray-600">{step.desc}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -434,7 +416,8 @@ export function LocationServiceTemplate({
                       <Phone className="w-5 h-5 text-primary-600" />
                       <a
                         href={`tel:${nearestOffice.phone.replace(/\D/g, '')}`}
-                        className="text-primary-600 hover:text-primary-700 font-semibold"
+
+                className="text-primary-600 hover:text-primary-700 font-semibold"
                       >
                         {nearestOffice.phone}
                       </a>
@@ -449,7 +432,8 @@ export function LocationServiceTemplate({
                   <div className="mt-6">
                     <a
                       href={`tel:${nearestOffice.phone.replace(/\D/g, '')}`}
-                      className="w-full bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2"
+
+                className="w-full bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2"
                     >
                       <Phone className="w-5 h-5" />
                       {content.hero.cta1}
@@ -485,6 +469,7 @@ export function LocationServiceTemplate({
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href={`tel:${nearestOffice.phone.replace(/\D/g, '')}`}
+
                 className="bg-secondary-500 hover:bg-secondary-600 text-black font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105"
               >
                 <Phone className="w-5 h-5" />
@@ -492,6 +477,7 @@ export function LocationServiceTemplate({
               </a>
               <Link
                 href={isSpanish ? '/es/contacto' : '/contact'}
+
                 className="bg-white hover:bg-gray-100 text-primary-900 font-bold py-4 px-8 rounded-lg transition-all"
               >
                 {isSpanish ? 'Contactar Ahora' : 'Contact Now'}

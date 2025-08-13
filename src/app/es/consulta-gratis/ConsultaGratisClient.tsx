@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import { ContactForm } from '@/components/forms/ContactForm';
 import { Phone, Clock, CheckCircle, Shield, Users, Award } from 'lucide-react';
 import Image from 'next/image';
@@ -69,26 +68,18 @@ export default function ConsultaGratisClient() {
         <div className="absolute inset-0 bg-black/20" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-bold mb-6"
+            <h1
+className="text-4xl md:text-6xl font-bold mb-6"
             >
               Consulta Legal <span className="text-secondary-400">GRATIS</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-xl md:text-2xl mb-8 text-gray-200"
+            </h1>
+            <p
+className="text-xl md:text-2xl mb-8 text-gray-200"
             >
               Hable con un abogado experimentado sin costo ni obligación
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+            </p>
+            <div
+className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <a
                 href="tel:1-844-967-3536"
@@ -103,7 +94,7 @@ export default function ConsultaGratisClient() {
               >
                 Solicitar Consulta en Línea
               </a>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -116,20 +107,18 @@ export default function ConsultaGratisClient() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
+
                 className="text-center"
               >
-                <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                <div
+                className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                   {benefit.icon}
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
                 <p className="text-gray-600">{benefit.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -145,17 +134,15 @@ export default function ConsultaGratisClient() {
             </p>
             <div className="grid md:grid-cols-2 gap-4">
               {practiceAreas.map((area, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
                 >
                   <CheckCircle className="w-5 h-5 text-green-500 inline mr-3" />
-                  <span className="text-lg font-medium">{area}</span>
-                </motion.div>
+                  <span
+                className="text-lg font-medium">{area}</span>
+                </div>
               ))}
             </div>
           </div>
@@ -237,17 +224,15 @@ export default function ConsultaGratisClient() {
             <h2 className="text-3xl font-bold text-center mb-12">Preguntas Frecuentes</h2>
             <div className="space-y-6">
               {faqs.map((faq, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white p-6 rounded-lg shadow-md"
+
+                className="bg-white p-6 rounded-lg shadow-md"
                 >
-                  <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                  <h3
+                className="text-lg font-semibold mb-2">{faq.question}</h3>
                   <p className="text-gray-600">{faq.answer}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

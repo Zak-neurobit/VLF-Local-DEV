@@ -199,7 +199,8 @@ export default function FamilyBasedPetitionsPage() {
               currentPage={currentPage}
               variant="inline"
               maxLinks={5}
-              className="mb-8 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-primary/20"
+
+                className="mb-8 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-primary/20"
             />
 
             {/* Who Can You Petition Section */}
@@ -275,10 +276,12 @@ export default function FamilyBasedPetitionsPage() {
                   ].map((category, index) => (
                     <div
                       key={index}
-                      className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-blue-500/30"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-blue-500/30"
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-bold text-blue-400">
+                        <h4
+                className="font-bold text-blue-400">
                           {category.code}: {category.title}
                         </h4>
                         <span className="text-xs bg-blue-500/20 px-2 py-1 rounded">
@@ -366,8 +369,11 @@ export default function FamilyBasedPetitionsPage() {
                     time: '1-2 months',
                   },
                 ].map((item, index) => (
-                  <div key={index} className="flex items-start">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold">
+                  <div key={index}
+
+                className="flex items-start">
+                    <div
+                className="flex-shrink-0 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold">
                       {item.step}
                     </div>
                     <div className="ml-4 flex-grow">
@@ -445,7 +451,8 @@ export default function FamilyBasedPetitionsPage() {
                 ].map((challenge, index) => (
                   <div
                     key={index}
-                    className={`bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-${challenge.color}-500/30`}
+
+                className={`bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-${challenge.color}-500/30`}
                   >
                     <h3
                       className={`text-xl font-bold text-${challenge.color}-400 mb-3 flex items-center`}
@@ -475,7 +482,8 @@ export default function FamilyBasedPetitionsPage() {
               currentPage={currentPage}
               variant="related"
               maxLinks={6}
-              className="mt-12 pt-12 border-t border-gray-800"
+
+                className="mt-12 pt-12 border-t border-gray-800"
             />
           </div>
         }

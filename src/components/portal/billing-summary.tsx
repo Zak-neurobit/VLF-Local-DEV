@@ -86,10 +86,13 @@ export default function BillingSummary({ summary }: BillingSummaryProps) {
           <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
             <ul role="list" className="divide-y divide-gray-200">
               {summary.recentInvoices.map((invoice) => (
-                <li key={invoice.id} className="px-4 py-4 hover:bg-gray-50">
+                <li key={invoice.id}
+
+                className="px-4 py-4 hover:bg-gray-50">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-900">
+                      <p
+                className="text-sm font-medium text-gray-900">
                         Invoice #{invoice.invoiceNumber}
                       </p>
                       <p className="text-sm text-gray-500">
@@ -126,11 +129,14 @@ export default function BillingSummary({ summary }: BillingSummaryProps) {
           <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
             <ul role="list" className="divide-y divide-gray-200">
               {summary.paymentMethods.map((method) => (
-                <li key={method.id} className="px-4 py-4">
+                <li key={method.id}
+
+                className="px-4 py-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       {method.type === 'card' ? (
-                        <svg className="h-8 w-8 text-gray-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg
+                className="h-8 w-8 text-gray-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                         </svg>
                       ) : (

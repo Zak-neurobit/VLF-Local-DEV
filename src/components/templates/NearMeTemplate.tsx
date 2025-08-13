@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Phone, Star, CheckCircle, ArrowRight, Users, Award, Shield } from 'lucide-react';
 import Link from 'next/link';
 import { ContactForm } from '@/components/forms/ContactForm';
@@ -212,43 +211,33 @@ export function NearMeTemplate({
         <div className="absolute inset-0 bg-black/40" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="mb-6"
+            <div
+className="mb-6"
             >
               <span className="inline-flex items-center gap-2 bg-secondary-500/20 text-secondary-400 px-4 py-2 rounded-full text-sm font-medium">
                 <MapPin className="w-4 h-4" />
                 {nearestOffice.distance} {isSpanish ? 'de su ubicación' : 'from your location'}
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl md:text-6xl font-bold mb-6"
+            <h1
+className="text-4xl md:text-6xl font-bold mb-6"
             >
               {content.hero.title}
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl mb-8 text-gray-200"
+            <p
+className="text-xl mb-8 text-gray-200"
             >
               {content.hero.subtitle}
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+            <div
+className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <a
                 href={`tel:${nearestOffice.phone.replace(/\D/g, '')}`}
+
                 className="bg-secondary-500 hover:bg-secondary-600 text-black font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105"
               >
                 <Phone className="w-5 h-5" />
@@ -256,11 +245,12 @@ export function NearMeTemplate({
               </a>
               <Link
                 href={isSpanish ? '/es/consulta-gratis' : '/free-consultation'}
+
                 className="bg-white hover:bg-gray-100 text-primary-900 font-bold py-4 px-8 rounded-lg transition-all"
               >
                 {content.hero.cta2}
               </Link>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -277,17 +267,15 @@ export function NearMeTemplate({
                 content.stats.stat3,
                 content.stats.stat4,
               ].map((stat, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center"
+
+                className="text-center"
                 >
-                  <div className="text-4xl font-bold text-secondary-400 mb-2">{stat.number}</div>
+                  <div
+                className="text-4xl font-bold text-secondary-400 mb-2">{stat.number}</div>
                   <div className="text-gray-300">{stat.label}</div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -312,7 +300,8 @@ export function NearMeTemplate({
                       <Phone className="w-5 h-5 text-primary-600" />
                       <a
                         href={`tel:${nearestOffice.phone.replace(/\D/g, '')}`}
-                        className="text-primary-600 hover:text-primary-700 font-semibold"
+
+                className="text-primary-600 hover:text-primary-700 font-semibold"
                       >
                         {nearestOffice.phone}
                       </a>
@@ -327,7 +316,8 @@ export function NearMeTemplate({
                   <div className="mt-6 flex gap-3">
                     <a
                       href={`tel:${nearestOffice.phone.replace(/\D/g, '')}`}
-                      className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg font-medium"
+
+                className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg font-medium"
                     >
                       {content.hero.cta1}
                     </a>
@@ -363,22 +353,20 @@ export function NearMeTemplate({
 
             <div className="grid md:grid-cols-2 gap-6">
               {(serviceList && serviceList[language] ? serviceList[language] : []).map((service, index) => (
-                <motion.div
+                <div
                   key={service}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
                 >
                   <CheckCircle className="w-6 h-6 text-green-500 mb-3" />
-                  <h3 className="text-lg font-semibold mb-2">{service}</h3>
+                  <h3
+                className="text-lg font-semibold mb-2">{service}</h3>
                   <p className="text-gray-600 text-sm">
                     {isSpanish
                       ? 'Representación experta disponible'
                       : 'Expert representation available'}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -398,17 +386,15 @@ export function NearMeTemplate({
                 { icon: CheckCircle, title: content.benefits.benefit4 },
                 { icon: Star, title: content.benefits.benefit5 },
               ].map((benefit, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center p-6"
+
+                className="text-center p-6"
                 >
                   <benefit.icon className="w-12 h-12 text-primary-600 mx-auto mb-4" />
-                  <h3 className="font-semibold">{benefit.title}</h3>
-                </motion.div>
+                  <h3
+                className="font-semibold">{benefit.title}</h3>
+                </div>
               ))}
             </div>
           </div>
@@ -423,7 +409,8 @@ export function NearMeTemplate({
             <p className="text-xl mb-8 text-red-200">{content.emergency.description}</p>
             <a
               href={`tel:${nearestOffice.phone.replace(/\D/g, '')}`}
-              className="inline-flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg transition-all transform hover:scale-105"
+
+                className="inline-flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg transition-all transform hover:scale-105"
             >
               <Phone className="w-5 h-5" />
               {content.emergency.button}
@@ -441,6 +428,7 @@ export function NearMeTemplate({
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href={`tel:${nearestOffice.phone.replace(/\D/g, '')}`}
+
                 className="bg-secondary-500 hover:bg-secondary-600 text-black font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105"
               >
                 <Phone className="w-5 h-5" />
@@ -448,6 +436,7 @@ export function NearMeTemplate({
               </a>
               <Link
                 href={isSpanish ? '/es/contacto' : '/contact'}
+
                 className="bg-white hover:bg-gray-100 text-primary-900 font-bold py-4 px-8 rounded-lg transition-all"
               >
                 {isSpanish ? 'Contactar Ahora' : 'Contact Now'}

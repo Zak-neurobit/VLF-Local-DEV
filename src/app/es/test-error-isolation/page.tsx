@@ -89,19 +89,22 @@ export default function TestErrorIsolation() {
       <div className="space-y-2 mb-4">
         <button
           onClick={() => navigateWithFetch('/contact')}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+
+                className="px-4 py-2 bg-blue-500 text-white rounded"
         >
           Test Fetch /contact
         </button>
         <button
           onClick={() => navigateWithFetch('/api/health/socket')}
-          className="px-4 py-2 bg-green-500 text-white rounded"
+
+                className="px-4 py-2 bg-green-500 text-white rounded"
         >
           Test Fetch API
         </button>
         <button
           onClick={() => (window.location.href = '/contact')}
-          className="px-4 py-2 bg-purple-500 text-white rounded"
+
+                className="px-4 py-2 bg-purple-500 text-white rounded"
         >
           Hard Navigate to /contact
         </button>
@@ -114,7 +117,9 @@ export default function TestErrorIsolation() {
             <p className="text-gray-500">No errors detected</p>
           ) : (
             errors.map((error, i) => (
-              <div key={i} className="text-sm font-mono">
+              <div key={i}
+
+                className="text-sm font-mono">
                 {error}
               </div>
             ))

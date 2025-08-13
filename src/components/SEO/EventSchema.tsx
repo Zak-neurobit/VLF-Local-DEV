@@ -109,9 +109,7 @@ export function EventSchema({
     <>
       {schemas.map((schema, index) => (
         <Script
-          key={`event-schema-${pageType}-${index}`}
-          id={`event-schema-${pageType}-${index}`}
-          type="application/ld+json"
+          key={`event-schema-${pageType}-${index}` id={`event-schema-${pageType}-${index}` type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(schema),
           }}
@@ -238,10 +236,13 @@ export function EventDisplay({
         {upcomingEvents.map((event, index) => {
           const eventInfo = CONSULTATION_EVENT_TYPES[event.type];
           return (
-            <div key={index} className="bg-white p-4 rounded-lg border border-gray-200">
+            <div key={index}
+
+                className="bg-white p-4 rounded-lg border border-gray-200">
               <div className="flex items-start justify-between">
                 <div>
-                  <h4 className="font-semibold text-gray-900">
+                  <h4
+                className="font-semibold text-gray-900">
                     {eventInfo.practiceArea} Consultation
                   </h4>
                   <p className="text-sm text-gray-600 mt-1">

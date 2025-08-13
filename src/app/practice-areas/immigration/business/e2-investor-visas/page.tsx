@@ -213,17 +213,23 @@ export default function E2InvestorVisasPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {e2Requirements.map((req, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-6">
+              <div key={index}
+
+                className="bg-gray-50 rounded-lg p-6">
                 <div className="flex items-start mb-4">
-                  <div className="mr-4">{req.icon}</div>
+                  <div
+                className="mr-4">{req.icon}</div>
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">{req.title}</h3>
                     <p className="text-gray-600 mb-3">{req.description}</p>
                     <ul className="space-y-2">
                       {req.details.map((detail, idx) => (
-                        <li key={idx} className="flex items-start">
+                        <li key={idx}
+
+                className="flex items-start">
                           <span className="text-blue-600 mr-2">✓</span>
-                          <span className="text-sm text-gray-600">{detail}</span>
+                          <span
+                className="text-sm text-gray-600">{detail}</span>
                         </li>
                       ))}
                     </ul>
@@ -247,8 +253,11 @@ export default function E2InvestorVisasPage() {
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {treatyCountries.map((country, index) => (
-                <div key={index} className="text-center p-2 bg-gray-50 rounded">
-                  <span className="text-sm text-gray-700">{country}</span>
+                <div key={index}
+
+                className="text-center p-2 bg-gray-50 rounded">
+                  <span
+                className="text-sm text-gray-700">{country}</span>
                 </div>
               ))}
             </div>
@@ -269,14 +278,18 @@ export default function E2InvestorVisasPage() {
             {businessTypes.map((type, index) => (
               <div
                 key={index}
+
                 className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition duration-300"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{type.title}</h3>
+                <h3
+                className="text-xl font-bold text-gray-900 mb-3">{type.title}</h3>
                 <p className="text-gray-600 mb-4">{type.description}</p>
                 <h4 className="font-semibold text-gray-900 mb-2">Examples:</h4>
                 <ul className="space-y-1">
                   {type.examples.map((example, idx) => (
-                    <li key={idx} className="text-sm text-gray-600">
+                    <li key={idx}
+
+                className="text-sm text-gray-600">
                       • {example}
                     </li>
                   ))}
@@ -295,8 +308,11 @@ export default function E2InvestorVisasPage() {
           </h2>
           <div className="max-w-4xl mx-auto">
             {e2Process.map((phase, index) => (
-              <div key={index} className="flex items-start mb-8">
-                <div className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold flex-shrink-0">
+              <div key={index}
+
+                className="flex items-start mb-8">
+                <div
+                className="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold flex-shrink-0">
                   {phase.step}
                 </div>
                 <div className="ml-6 flex-grow">

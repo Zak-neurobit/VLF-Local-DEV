@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { ArrowRight, Phone } from 'lucide-react';
 import Link from 'next/link';
 
@@ -40,8 +40,7 @@ export function PageHero({
       {backgroundImage && (
         <div
           className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(${backgroundImage})`,
+         )`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -53,23 +52,11 @@ export function PageHero({
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[url('/images/justice-pattern.svg')] opacity-5" />
-        <motion.div
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-white/5 blur-3xl"
+        <div
+className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-white/5 blur-3xl"
         />
-        <motion.div
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-white/5 blur-3xl"
+        <div
+className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-white/5 blur-3xl"
         />
       </div>
 
@@ -77,10 +64,8 @@ export function PageHero({
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumbs */}
         {breadcrumbs && breadcrumbs.length > 0 && (
-          <motion.nav
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="mb-6"
+          <nav
+className="mb-6"
           >
             <ol className="flex items-center space-x-2 text-sm">
               <li>
@@ -97,7 +82,8 @@ export function PageHero({
                     ) : (
                       <Link
                         href={crumb.href}
-                        className="text-white/70 hover:text-white transition-colors"
+
+                className="text-white/70 hover:text-white transition-colors"
                       >
                         {crumb.label}
                       </Link>
@@ -106,15 +92,12 @@ export function PageHero({
                 </React.Fragment>
               ))}
             </ol>
-          </motion.nav>
+          </nav>
         )}
 
         {/* Main Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-4xl mx-auto"
+        <div
+className="text-center max-w-4xl mx-auto"
         >
           {/* Title */}
           <h1
@@ -140,34 +123,28 @@ export function PageHero({
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href={primaryButtonLink}>
-              <motion.button
-                // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 bg-white text-[#6B1F2E] px-8 py-4 rounded-full font-bold text-lg shadow-2xl hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all"
+              <button
+className="inline-flex items-center gap-2 bg-white text-[#6B1F2E] px-8 py-4 rounded-full font-bold text-lg shadow-2xl hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all"
               >
                 {primaryButtonText}
                 <ArrowRight className="w-5 h-5" />
-              </motion.button>
+              </button>
             </Link>
 
-            <motion.a
+            <a
               href={`tel:${secondaryButtonPhone}`}
-              // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-3 border-2 border-white bg-white/10 text-white px-8 py-4 rounded-full font-bold text-lg backdrop-blur-sm hover:bg-white hover:text-[#6B1F2E] transition-all"
+
+                className="inline-flex items-center gap-3 border-2 border-white bg-white/10 text-white px-8 py-4 rounded-full font-bold text-lg backdrop-blur-sm hover:bg-white hover:text-[#6B1F2E] transition-all"
             >
               <Phone className="w-6 h-6" />
               {secondaryButtonText}
-            </motion.a>
+            </a>
           </div>
-        </motion.div>
+        </div>
 
         {/* Trust Badges */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-12 flex flex-wrap justify-center gap-6"
+        <div
+className="mt-12 flex flex-wrap justify-center gap-6"
         >
           <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-3 border border-white/20">
             <p className="text-white font-semibold">24/7 Available</p>
@@ -181,7 +158,7 @@ export function PageHero({
           <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-3 border border-white/20">
             <p className="text-white font-semibold">Se Habla Español</p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

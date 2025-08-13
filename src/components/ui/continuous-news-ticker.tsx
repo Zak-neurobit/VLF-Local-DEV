@@ -102,8 +102,9 @@ export function ContinuousNewsTicker({
         <div className="ml-[140px] overflow-hidden">
           <div
             ref={contentRef}
-            className="flex items-center whitespace-nowrap"
-            style={{
+
+                className="flex items-center whitespace-nowrap"
+                style={{
               paddingRight: '100vw', // Ensure smooth loop
             }}
           >
@@ -111,12 +112,13 @@ export function ContinuousNewsTicker({
               const displayTitle = locale === 'es' && item.titleEs ? item.titleEs : item.title;
               return (
                 <Link
-                  key={`${item.id}-${index}`}
-                  href={item.url}
-                  className="inline-flex items-center mx-8 hover:text-[#C9974D] transition-colors group"
+                  key={`${item.id}-${index}` href={item.url}
+
+                className="inline-flex items-center mx-8 hover:text-[#C9974D] transition-colors group"
                 >
                   {item.urgent && (
-                    <AlertCircle className="w-4 h-4 text-[#C9974D] animate-pulse mr-2" />
+                    <AlertCircle
+                className="w-4 h-4 text-[#C9974D] animate-pulse mr-2" />
                   )}
                   <span className="text-sm">{displayTitle}</span>
                   <span className="mx-4 text-white/30">•</span>

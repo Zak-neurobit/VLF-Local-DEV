@@ -167,37 +167,40 @@ export default function Test500Comprehensive() {
       </div>
 
       <div className="mb-6 space-y-4">
-        <button
-          onClick={runTests}
-          className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        <button onClick={runTests className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
           Run All Tests
         </button>
 
-        <div className="space-y-2">
-          <h3 className="font-semibold">Test Specific Routes:</h3>
-          <div className="flex gap-2 flex-wrap">
+        <div}
+      className="space-y-2">
+          <h3} className="font-semibold">Test Specific Routes:</h3>
+          <div} className="flex gap-2 flex-wrap">
             <button
               onClick={() => testSpecificRoute('/contact')}
-              className="px-4 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-700"
+
+                className="px-4 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-700"
             >
               Test /contact
             </button>
             <button
               onClick={() => testSpecificRoute('/attorneys')}
-              className="px-4 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-700"
+
+                className="px-4 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-700"
             >
               Test /attorneys
             </button>
             <button
               onClick={() => testSpecificRoute('/practice-areas')}
-              className="px-4 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-700"
+
+                className="px-4 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-700"
             >
               Test /practice-areas
             </button>
             <button
               onClick={() => testSpecificRoute('/blog')}
-              className="px-4 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-700"
+
+                className="px-4 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-700"
             >
               Test /blog
             </button>
@@ -232,6 +235,7 @@ export default function Test500Comprehensive() {
             testResults.map((result, index) => (
               <div
                 key={index}
+
                 className={`p-2 rounded ${
                   result.result === 'error'
                     ? 'bg-red-100 border border-red-300'

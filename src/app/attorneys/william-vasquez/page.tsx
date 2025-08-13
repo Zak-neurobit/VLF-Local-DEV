@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { AttorneyPageTemplate } from '@/components/attorneys/AttorneyPageTemplate';
+import { OptimizedAttorneyTemplate } from '@/components/attorneys/OptimizedAttorneyTemplate';
 import { getAttorneyBySlug } from '@/data/attorneys';
 import { notFound } from 'next/navigation';
 import { generateAttorneyMetadata } from '@/lib/seo/hreflang-metadata';
@@ -15,7 +15,7 @@ export const metadata: Metadata = generateAttorneyMetadata({
   descriptionEs:
     'William J. Vásquez es el socio fundador de Vasquez Law Firm. Veterano de la Fuerza Aérea de EE.UU. con más de 35 años de experiencia en derecho de inmigración y defensa criminal. YO PELEO POR TI™',
   slug: 'william-vasquez',
-  photo: '/images/attorneys/WV-Headshot.JPEG',
+  photo: '/images/attorneys/william-vasquez.jpg',
   specialties: [
     'immigration law',
     'criminal defense',
@@ -34,7 +34,7 @@ export default function Page() {
   return (
     <>
       <AttorneyPageHreflang slug="william-vasquez" />
-      <AttorneyPageTemplate attorney={attorney} language="en" />
+      <OptimizedAttorneyTemplate attorney={attorney} language="en" />
     </>
   );
 }

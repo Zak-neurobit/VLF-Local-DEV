@@ -35,7 +35,8 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
       {schemas.reviews.map((review, index) => (
         <script
           key={index}
-          type="application/ld+json"
+
+                type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(review) }}
         />
       ))}
@@ -124,8 +125,10 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
               {data.practiceAreaFocus.map((area, index) => (
                 <Link
                   key={index}
-                  href={`/practice-areas/${area.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all group"
+
+                href={`/practice-areas/${area.toLowerCase().replace(/\s+/g, '-')}`}
+
+                className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all group"
                 >
                   <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">
                     {area === 'Immigration Law' && '🌎'}
@@ -156,8 +159,10 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
                 {['overview', 'courts', 'practice-areas', 'testimonials'].map(tab => (
                   <button
                     key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`py-2 px-1 border-b-2 font-medium text-sm capitalize ${
+
+                onClick={() => setActiveTab(tab)}
+
+                className={`py-2 px-1 border-b-2 font-medium text-sm capitalize ${
                       activeTab === tab
                         ? 'border-[#C9974D] text-[#6B1F2E]'
                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -234,8 +239,10 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
                         {data.nearbyCity.map((city, index) => (
                           <Link
                             key={index}
-                            href={`/locations/nc/${city.toLowerCase().replace(/\s+/g, '-')}`}
-                            className="text-[#C9974D] hover:underline"
+
+                href={`/locations/nc/${city.toLowerCase().replace(/\s+/g, '-')}`}
+
+                className="text-[#C9974D] hover:underline"
                           >
                             • {city}
                           </Link>
@@ -311,13 +318,16 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
                     {data.practiceAreaFocus.map((area, index) => (
                       <div
                         key={index}
-                        className="bg-white border-l-4 border-[#C9974D] shadow-lg p-6"
+
+                className="bg-white border-l-4 border-[#C9974D] shadow-lg p-6"
                       >
-                        <h3 className="text-xl font-bold text-[#6B1F2E] mb-3">{area}</h3>
+                        <h3
+                className="text-xl font-bold text-[#6B1F2E] mb-3">{area}</h3>
                         <p className="text-gray-700 mb-4">{getAreaDescription(area, data.city)}</p>
                         <Link
                           href={`/practice-areas/${area.toLowerCase().replace(/\s+/g, '-')}`}
-                          className="text-[#C9974D] font-semibold hover:underline"
+
+                className="text-[#C9974D] font-semibold hover:underline"
                         >
                           Learn More About {area} →
                         </Link>
@@ -334,9 +344,12 @@ export function LocationPageTemplate({ data, schemas }: LocationPageProps) {
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {getLocalTestimonials(data.city).map((testimonial, index) => (
-                      <div key={index} className="bg-white rounded-lg shadow-lg p-6">
+                      <div key={index}
+
+                className="bg-white rounded-lg shadow-lg p-6">
                         <div className="text-yellow-400 text-xl mb-3">★★★★★</div>
-                        <p className="text-gray-700 mb-4 italic">&ldquo;{testimonial.text}&rdquo;</p>
+                        <p
+                className="text-gray-700 mb-4 italic">&ldquo;{testimonial.text}&rdquo;</p>
                         <p className="font-semibold text-[#6B1F2E]">- {testimonial.author}</p>
                         <p className="text-sm text-gray-500">{testimonial.case}</p>
                       </div>

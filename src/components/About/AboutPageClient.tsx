@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import Script from 'next/script';
 import {
   Phone,
@@ -295,19 +295,16 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
           {/* Animated Background */}
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-secondary/10" />
-            <motion.div
+            <div
               className="absolute inset-0"
-              animate={{ opacity: 1 }}
-              transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+             }
+             }
             />
           </div>
 
           <div className="container mx-auto px-4 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center max-w-4xl mx-auto"
+            <div
+className="text-center max-w-4xl mx-auto"
             >
               <h1 className="text-5xl md:text-7xl font-black mb-6 text-white">{t.title}</h1>
               <p className="text-xl md:text-2xl mb-4 font-semibold text-primary">{t.subtitle}</p>
@@ -316,21 +313,19 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
               {/* Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
                 {stats.map((stat, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-primary/30 transition-all"
+
+                className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-primary/30 transition-all"
                   >
-                    <div className="text-primary mb-3 flex justify-center">{stat.icon}</div>
+                    <div
+                className="text-primary mb-3 flex justify-center">{stat.icon}</div>
                     <p className="text-4xl font-bold text-white mb-2">{stat.number}</p>
                     <p className="text-sm text-gray-400">{stat.label}</p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -338,11 +333,8 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
         <section className="py-20 bg-neutral-950">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-center mb-16"
+              <div
+className="text-center mb-16"
               >
                 <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                   {t.ourStory.split(' ')[0]}{' '}
@@ -353,14 +345,14 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                     ? 'De un solo abogado con una visión a una firma de servicios completos sirviendo a miles en el sureste'
                     : 'From a single attorney with a vision to a full-service law firm serving thousands across the Southeast'}
                 </p>
-              </motion.div>
+              </div>
 
               <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
+                <div
+                 }
+                 }
+                 }
+                 }
                 >
                   <div className="prose prose-lg prose-invert max-w-none">
                     <p className="text-gray-300 leading-relaxed mb-6">{t.storyText1}</p>
@@ -374,21 +366,18 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                     </h3>
                     <p className="text-gray-300">{t.tagline}</p>
                   </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="relative"
+                <div
+className="relative"
                 >
                   <Image
                     src="/images/about/team-photo.jpg"
                     alt="Vasquez Law Firm Team"
                     width={600}
                     height={400}
-                    className="rounded-2xl shadow-2xl w-full object-cover"
+
+                className="rounded-2xl shadow-2xl w-full object-cover"
                   />
                   <div className="absolute -bottom-6 -right-6 bg-primary rounded-2xl p-6 shadow-xl">
                     <p className="text-black font-bold text-xl">
@@ -398,7 +387,7 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                       {isSpanish ? 'Sirviendo a Nuestra Comunidad' : 'Serving Our Community'}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               </div>
 
               {/* Timeline */}
@@ -409,13 +398,10 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                 </h3>
                 <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20"></div>
                 {t.milestones.map((milestone, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
+
+                className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
                   >
                     <div className="flex-1" />
                     <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full border-4 border-black z-10" />
@@ -428,7 +414,7 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                         <p className="text-gray-400">{milestone.description}</p>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -440,12 +426,8 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
               {/* Mission */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="text-center mb-20"
+              <div
+className="text-center mb-20"
               >
                 <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                   {t.ourMission.split(' ')[0]}{' '}
@@ -454,7 +436,7 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                 <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
                   {t.missionText}
                 </p>
-              </motion.div>
+              </div>
 
               {/* Core Values */}
               <div className="mb-20">
@@ -467,32 +449,24 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {coreValues.map((value, index) => (
-                    <motion.div
+                    <div
                       key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                      className={`bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-primary/30 transition-all ${
+
+                className={`bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-primary/30 transition-all ${
                         index === 4 ? 'lg:col-span-3 lg:max-w-2xl lg:mx-auto' : ''
                       }`}
                     >
                       <div className="text-primary mb-4">{value.icon}</div>
                       <h3 className="text-2xl font-bold text-white mb-3">{value.title}</h3>
                       <p className="text-gray-300 leading-relaxed">{value.description}</p>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>
 
               {/* Commitment to Excellence */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-12 border border-primary/20"
+              <div
+className="bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-12 border border-primary/20"
               >
                 <h2 className="text-3xl font-bold text-white mb-6 text-center">
                   {t.ourCommitment.split(' ').slice(0, -1).join(' ')}{' '}
@@ -501,7 +475,7 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                 <p className="text-lg text-gray-300 leading-relaxed text-center max-w-3xl mx-auto">
                   {t.commitmentText}
                 </p>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -510,18 +484,15 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
         <section className="py-20 bg-neutral-950">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-center mb-16"
+              <div
+className="text-center mb-16"
               >
                 <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                   {t.meetTeam.split(' ').slice(0, -1).join(' ')}{' '}
                   <span className="text-primary">{t.meetTeam.split(' ').slice(-1)[0]}</span>
                 </h2>
                 <p className="text-xl text-gray-300 max-w-3xl mx-auto">{t.teamDesc}</p>
-              </motion.div>
+              </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 {[
@@ -556,18 +527,16 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                     image: '/images/attorneys/mark-kelsey.jpg',
                   },
                 ].map((attorney, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-primary/30 transition-all group"
+
+                className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-primary/30 transition-all group"
                   >
                     <div className="aspect-[4/5] relative overflow-hidden">
                       <Image
                         src={attorney.image}
-                        alt={attorney.name}
+
+                alt={attorney.name}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
@@ -576,7 +545,7 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                       <h3 className="text-xl font-bold text-white mb-1">{attorney.name}</h3>
                       <p className="text-primary">{attorney.title}</p>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -597,15 +566,12 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {offices.map((office, index) => (
-                  <motion.a
+                  <a
                     key={index}
-                    href={`/${isSpanish ? 'es/' : ''}locations/${office.city.toLowerCase()}`}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-primary/30 transition-all cursor-pointer group"
+
+                href={`/${isSpanish ? 'es/' : ''}locations/${office.city.toLowerCase()}`}
+
+                className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-primary/30 transition-all cursor-pointer group"
                   >
                     {office.isMainOffice && (
                       <div className="bg-primary text-black text-xs font-bold px-3 py-1 rounded-full inline-block mb-4">
@@ -618,7 +584,7 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                     </h3>
                     <p className="text-gray-400 text-sm mb-3">{office.address}</p>
                     <p className="text-primary font-semibold">{office.phone}</p>
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </div>
@@ -629,18 +595,15 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
         <section className="py-20 bg-neutral-950">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-center mb-16"
+              <div
+className="text-center mb-16"
               >
                 <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                   {t.recognition.split(' ').slice(0, -1).join(' ')}{' '}
                   <span className="text-primary">{t.recognition.split(' ').slice(-1)[0]}</span>
                 </h2>
                 <p className="text-xl text-gray-300 max-w-3xl mx-auto">{t.recognitionDesc}</p>
-              </motion.div>
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
                 {[
@@ -649,19 +612,16 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                   { title: t.award3, icon: '❤️', year: '2022-2023' },
                   { title: t.award4, icon: '⭐', year: t.award4Years },
                 ].map((award, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                    className="text-center bg-gradient-to-b from-primary/10 to-transparent backdrop-blur-sm rounded-2xl p-8 border border-primary/20 hover:border-primary/40 transition-all"
+
+                className="text-center bg-gradient-to-b from-primary/10 to-transparent backdrop-blur-sm rounded-2xl p-8 border border-primary/20 hover:border-primary/40 transition-all"
                   >
-                    <div className="text-5xl mb-4">{award.icon}</div>
+                    <div
+                className="text-5xl mb-4">{award.icon}</div>
                     <p className="text-lg font-bold text-white mb-2">{award.title}</p>
                     <p className="text-sm text-primary">{award.year}</p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
@@ -673,18 +633,15 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {[t.assoc1, t.assoc2, t.assoc3, t.assoc4].map((association, index) => (
-                    <motion.div
+                    <div
                       key={index}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                      className="bg-white/5 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10 hover:border-primary/30 transition-all"
+
+                className="bg-white/5 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10 hover:border-primary/30 transition-all"
                     >
                       <Shield className="h-8 w-8 text-primary mx-auto mb-4" />
-                      <p className="text-white font-medium">{association}</p>
-                    </motion.div>
+                      <p
+                className="text-white font-medium">{association}</p>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -699,24 +656,21 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
               <h2 className="text-4xl font-bold mb-6 text-black">{t.readyToJoin}</h2>
               <p className="text-xl mb-8 text-black/80">{t.readyDesc}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <motion.a
+                <a
                   href={isSpanish ? '/es/contacto' : '/contact'}
-                  // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-black text-primary font-bold rounded-lg shadow-lg hover:bg-gray-900 transition-all inline-flex items-center justify-center"
+
+                className="px-8 py-4 bg-black text-primary font-bold rounded-lg shadow-lg hover:bg-gray-900 transition-all inline-flex items-center justify-center"
                 >
                   {t.scheduleFree}
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </motion.a>
-                <motion.a
+                </a>
+                <a
                   href="tel:1-844-967-3536"
-                  // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-white text-black font-bold rounded-lg shadow-lg hover:bg-gray-100 transition-all inline-flex items-center justify-center"
+className="px-8 py-4 bg-white text-black font-bold rounded-lg shadow-lg hover:bg-gray-100 transition-all inline-flex items-center justify-center"
                 >
                   <Phone className="mr-2 h-5 w-5" />
                   {t.callNow}
-                </motion.a>
+                </a>
               </div>
             </div>
           </div>

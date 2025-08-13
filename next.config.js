@@ -36,16 +36,17 @@ const nextConfig = {
   poweredByHeader: false,
 
   // Build optimizations for large projects with limited memory
-  experimental: {
-    // Enable turbo for faster builds and navigation
-    turbo: {
-      resolveAlias: {
-        '@': './src',
-      },
+  // Turbopack configuration for faster dev builds
+  turbopack: {
+    resolveAlias: {
+      '@': './src',
     },
-    // Optimize for speed
+  },
+  
+  experimental: {
+    // Optimize for speed with reduced memory usage
     workerThreads: true,
-    cpus: 4,
+    cpus: 2, // Reduced from 4 to save memory
     serverMinification: true,
     serverSourceMaps: false,
     // Optimize package imports (removed framer-motion)
@@ -83,7 +84,7 @@ const nextConfig = {
     }
 
     // Reduce parallelism to save memory
-    config.parallelism = 1;
+    config.parallelism = 2; // Increased slightly for better performance
 
     // Additional memory optimizations
     config.optimization = {
@@ -456,13 +457,7 @@ const nextConfig = {
               priority: 33,
               reuseExistingChunk: true,
             },
-            // Three.js and 3D libraries
-            three: {
-              name: 'three',
-              test: /[\\/]node_modules[\\/](three|@react-three)[\\/]/,
-              priority: 32,
-              reuseExistingChunk: true,
-            },
+            // Removed Three.js chunk (library not used)
             // Date utilities
             date: {
               name: 'date',
@@ -483,12 +478,16 @@ const nextConfig = {
 
       // Module Federation removed - causing eager consumption errors in production
 
-      // Add caching for better build performance
+      // Optimized caching to prevent big string warnings
       config.cache = {
-        type: 'filesystem',
+        type: dev ? 'memory' : 'filesystem', // Use memory cache in dev
+        maxMemoryGenerations: 1, // Limit memory usage
+        memoryCacheUnaffected: true,
         buildDependencies: {
           config: [__filename],
         },
+        // Prevent big string serialization issues
+        compression: false,
       };
     }
 

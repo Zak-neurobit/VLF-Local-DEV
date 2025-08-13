@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Sparkles,
   MessageSquare,
@@ -77,63 +76,47 @@ export default function ConsultaIAClient() {
         {/* Animated background particles */}
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(20)].map((_, i) => (
-            <motion.div
+            <div
               key={i}
-              className="absolute w-2 h-2 bg-white/10 rounded-full"
-              initial={{
-                x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : 0,
-                y: typeof window !== 'undefined' ? Math.random() * window.innerHeight : 0,
-              }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{
-                duration: Math.random() * 20 + 10,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
+
+                className="absolute w-2 h-2 bg-white/10 rounded-full"
+             }
+             }
+             }
             />
           ))}
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
+            <div
+className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
             >
               <Sparkles className="w-5 h-5 text-secondary-400" />
               <span className="text-sm font-medium">
                 Tecnología de Inteligencia Artificial Avanzada
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-bold mb-6"
+            <h1
+className="text-5xl md:text-7xl font-bold mb-6"
             >
               Consulta Legal con <span className="text-secondary-400">IA</span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto"
+            <p
+className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto"
             >
               Obtenga respuestas legales instantáneas las 24 horas. Nuestra IA está entrenada en
               inmigración, lesiones personales, y más.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+            <div
+className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <button
                 onClick={() => setShowChat(true)}
+
                 className="bg-secondary-500 hover:bg-secondary-600 text-black font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105 text-lg"
               >
                 <MessageSquare className="w-6 h-6" />
@@ -145,16 +128,13 @@ export default function ConsultaIAClient() {
               >
                 Prefiero Hablar con un Abogado
               </Link>
-            </motion.div>
+            </div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="mt-6 text-sm text-gray-300"
+            <p
+className="mt-6 text-sm text-gray-300"
             >
               Sin costo • Sin obligación • Respuesta inmediata
-            </motion.p>
+            </p>
           </div>
         </div>
       </section>
@@ -165,20 +145,18 @@ export default function ConsultaIAClient() {
           <h2 className="text-3xl font-bold text-center mb-12">¿Por Qué Usar Nuestra IA Legal?</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
+
                 className="text-center group"
               >
-                <div className="mx-auto w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary-50 transition-colors">
+                <div
+                className="mx-auto w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary-50 transition-colors">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -195,14 +173,11 @@ export default function ConsultaIAClient() {
             </p>
             <div className="grid md:grid-cols-2 gap-4">
               {useCases.map((useCase, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all cursor-pointer group"
-                  onClick={() => setShowChat(true)}
+
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all cursor-pointer group"
+                onClick={() => setShowChat(true)}
                 >
                   <div className="flex items-center justify-between">
                     <p className="text-lg text-gray-700 group-hover:text-primary-600 transition-colors">
@@ -210,7 +185,7 @@ export default function ConsultaIAClient() {
                     </p>
                     <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary-600 transition-colors" />
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -224,17 +199,15 @@ export default function ConsultaIAClient() {
             <h2 className="text-3xl font-bold text-center mb-12">Cómo Funciona</h2>
             <div className="grid md:grid-cols-3 gap-8">
               {process.map((step, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                  className="relative"
+
+                className="relative"
                 >
                   <div className="text-center">
                     <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-primary-600">{step.step}</span>
+                      <span
+                className="text-2xl font-bold text-primary-600">{step.step}</span>
                     </div>
                     <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
                     <p className="text-gray-600">{step.description}</p>
@@ -244,7 +217,7 @@ export default function ConsultaIAClient() {
                       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-gray-200 rotate-45" />
                     </div>
                   )}
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -254,10 +227,8 @@ export default function ConsultaIAClient() {
       {/* Chat Interface */}
       {showChat && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden"
+          <div
+className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden"
           >
             <div className="p-6 border-b bg-primary-900 text-white">
               <div className="flex items-center justify-between">
@@ -270,7 +241,8 @@ export default function ConsultaIAClient() {
                 </div>
                 <button
                   onClick={() => setShowChat(false)}
-                  className="text-white/80 hover:text-white transition-colors"
+
+                className="text-white/80 hover:text-white transition-colors"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -286,7 +258,7 @@ export default function ConsultaIAClient() {
             <div className="h-[60vh]">
               <UnifiedModernChatbot language="es" />
             </div>
-          </motion.div>
+          </div>
         </div>
       )}
 
@@ -319,7 +291,8 @@ export default function ConsultaIAClient() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => setShowChat(true)}
-              className="bg-secondary-500 hover:bg-secondary-600 text-black font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105"
+
+                className="bg-secondary-500 hover:bg-secondary-600 text-black font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 transition-all transform hover:scale-105"
             >
               <MessageSquare className="w-5 h-5" />
               Iniciar Chat con IA

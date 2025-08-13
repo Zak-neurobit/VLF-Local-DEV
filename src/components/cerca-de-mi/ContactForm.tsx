@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { Send, Loader, CheckCircle, AlertCircle, Phone, Mail, User, FileText } from 'lucide-react';
 
 interface ContactFormProps {
@@ -226,9 +226,9 @@ export default function ContactForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="text-center mb-8">
-        <h3 className="text-2xl font-bold mb-2">{t.title}</h3>
+    <form onSubmit={handleSubmit className="space-y-6">
+      <div} className="text-center mb-8">
+        <h3} className="text-2xl font-bold mb-2">{t.title}</h3>
         <p className="text-white/80">{t.subtitle}</p>
       </div>
 
@@ -240,13 +240,9 @@ export default function ContactForm({
         </label>
         <input
           type="text"
-          value={formData.name}
-          onChange={e => handleChange('name', e.target.value)}
-          placeholder={t.placeholders.name}
-          className={`w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white placeholder-white/50 border ${
+          value={formData.name} onChange={e => handleChange('name', e.target.value)} placeholder={t.placeholders.name} className={`w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white placeholder-white/50 border ${
             errors.name ? 'border-red-400' : 'border-white/20'
-          } focus:outline-none focus:border-white transition-colors`}
-          disabled={isSubmitting}
+          } focus:outline-none focus:border-white transition-colors` disabled={isSubmitting}
         />
         {errors.name && <p className="mt-1 text-sm text-red-300">{errors.name}</p>}
       </div>
@@ -259,13 +255,9 @@ export default function ContactForm({
         </label>
         <input
           type="email"
-          value={formData.email}
-          onChange={e => handleChange('email', e.target.value)}
-          placeholder={t.placeholders.email}
-          className={`w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white placeholder-white/50 border ${
+          value={formData.email} onChange={e => handleChange('email', e.target.value)} placeholder={t.placeholders.email} className={`w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white placeholder-white/50 border ${
             errors.email ? 'border-red-400' : 'border-white/20'
-          } focus:outline-none focus:border-white transition-colors`}
-          disabled={isSubmitting}
+          } focus:outline-none focus:border-white transition-colors` disabled={isSubmitting}
         />
         {errors.email && <p className="mt-1 text-sm text-red-300">{errors.email}</p>}
       </div>
@@ -278,13 +270,9 @@ export default function ContactForm({
         </label>
         <input
           type="tel"
-          value={formData.phone}
-          onChange={e => handleChange('phone', e.target.value)}
-          placeholder={t.placeholders.phone}
-          className={`w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white placeholder-white/50 border ${
+          value={formData.phone} onChange={e => handleChange('phone', e.target.value)} placeholder={t.placeholders.phone} className={`w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white placeholder-white/50 border ${
             errors.phone ? 'border-red-400' : 'border-white/20'
-          } focus:outline-none focus:border-white transition-colors`}
-          disabled={isSubmitting}
+          } focus:outline-none focus:border-white transition-colors` disabled={isSubmitting}
         />
         {errors.phone && <p className="mt-1 text-sm text-red-300">{errors.phone}</p>}
       </div>
@@ -294,8 +282,7 @@ export default function ContactForm({
         <label className="block text-sm font-medium mb-2">{t.fields.urgency}</label>
         <select
           value={formData.urgency}
-          onChange={e => handleChange('urgency', e.target.value)}
-          className="w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white border border-white/20 focus:outline-none focus:border-white transition-colors"
+      onChange={e => handleChange('urgency', e.target.value)} className="w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white border border-white/20 focus:outline-none focus:border-white transition-colors"
           disabled={isSubmitting}
         >
           <option value="immediate" className="text-gray-800">
@@ -320,14 +307,12 @@ export default function ContactForm({
           {t.fields.message}
         </label>
         <textarea
-          value={formData.message}
-          onChange={e => handleChange('message', e.target.value)}
-          placeholder={t.placeholders.message}
+          value={formData.message} onChange={e => handleChange('message', e.target.value)} placeholder={t.placeholders.message}
           rows={4}
-          className={`w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white placeholder-white/50 border ${
+
+                className={`w-full px-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white placeholder-white/50 border ${
             errors.message ? 'border-red-400' : 'border-white/20'
-          } focus:outline-none focus:border-white transition-colors resize-none`}
-          disabled={isSubmitting}
+          } focus:outline-none focus:border-white transition-colors resize-none` disabled={isSubmitting}
         />
         {errors.message && <p className="mt-1 text-sm text-red-300">{errors.message}</p>}
       </div>
@@ -340,9 +325,7 @@ export default function ContactForm({
             <input
               type="radio"
               value="phone"
-              checked={formData.preferredContact === 'phone'}
-              onChange={e => handleChange('preferredContact', e.target.value)}
-              className="mr-2"
+              checked={formData.preferredContact === 'phone'} onChange={e => handleChange('preferredContact', e.target.value)} className="mr-2"
               disabled={isSubmitting}
             />
             <Phone className="w-4 h-4 mr-1" />
@@ -352,9 +335,7 @@ export default function ContactForm({
             <input
               type="radio"
               value="email"
-              checked={formData.preferredContact === 'email'}
-              onChange={e => handleChange('preferredContact', e.target.value)}
-              className="mr-2"
+              checked={formData.preferredContact === 'email'} onChange={e => handleChange('preferredContact', e.target.value)} className="mr-2"
               disabled={isSubmitting}
             />
             <Mail className="w-4 h-4 mr-1" />
@@ -364,12 +345,9 @@ export default function ContactForm({
       </div>
 
       {/* Submit Button */}
-      <motion.button
+      <button
         type="submit"
-        disabled={isSubmitting}
-        // TODO: Convert whileHover={{ scale: 1.02 }} to react-spring
-        whileTap={{ scale: 0.98 }}
-        className={`w-full py-4 px-6 rounded-lg font-bold text-lg transition-all ${
+        disabled={isSubmitting} className={`w-full py-4 px-6 rounded-lg font-bold text-lg transition-all ${
           isSubmitting
             ? 'bg-white/50 cursor-not-allowed'
             : 'bg-white text-[#6B1F2E] hover:bg-gray-100'
@@ -386,29 +364,25 @@ export default function ContactForm({
             {t.submit}
           </>
         )}
-      </motion.button>
+      </button>
 
       {/* Status Messages */}
       {submitStatus === 'success' && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          className="bg-green-500/20 border border-green-400 text-green-100 px-4 py-3 rounded-lg flex items-center gap-2"
+        <div
+className="bg-green-500/20 border border-green-400 text-green-100 px-4 py-3 rounded-lg flex items-center gap-2"
         >
           <CheckCircle className="w-5 h-5" />
           {t.success}
-        </motion.div>
+        </div>
       )}
 
       {submitStatus === 'error' && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          className="bg-red-500/20 border border-red-400 text-red-100 px-4 py-3 rounded-lg flex items-center gap-2"
+        <div
+className="bg-red-500/20 border border-red-400 text-red-100 px-4 py-3 rounded-lg flex items-center gap-2"
         >
           <AlertCircle className="w-5 h-5" />
           {t.error}
-        </motion.div>
+        </div>
       )}
     </form>
   );

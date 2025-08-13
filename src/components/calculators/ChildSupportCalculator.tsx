@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface ChildSupportInputs {
   custodialIncome: number;
@@ -120,9 +119,8 @@ export function ChildSupportCalculator() {
             </span>
             <input
               type="number"
-              value={inputs.custodialIncome}
-              onChange={e => setInputs({ ...inputs, custodialIncome: Number(e.target.value) })}
-              className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
+              value={inputs.custodialIncome} onChange={e => setInputs({ ...inputs, custodialIncome: Number(e.target.value) })
+        className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
               placeholder="0"
             />
           </div>
@@ -139,9 +137,8 @@ export function ChildSupportCalculator() {
             </span>
             <input
               type="number"
-              value={inputs.nonCustodialIncome}
-              onChange={e => setInputs({ ...inputs, nonCustodialIncome: Number(e.target.value) })}
-              className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
+              value={inputs.nonCustodialIncome} onChange={e => setInputs({ ...inputs, nonCustodialIncome: Number(e.target.value) })
+        className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
               placeholder="0"
             />
           </div>
@@ -153,12 +150,13 @@ export function ChildSupportCalculator() {
             Number of Children
           </label>
           <select
-            value={inputs.numberOfChildren}
-            onChange={e => setInputs({ ...inputs, numberOfChildren: Number(e.target.value) })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
+            value={inputs.numberOfChildren} onChange={e => setInputs({ ...inputs, numberOfChildren: Number(e.target.value) })
+        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
           >
             {[1, 2, 3, 4, 5, 6].map(n => (
-              <option key={n} value={n}>
+              <option key={n}
+
+                value={n}>
                 {n}
               </option>
             ))}
@@ -172,11 +170,9 @@ export function ChildSupportCalculator() {
           </label>
           <input
             type="number"
-            value={inputs.overnightsWithNonCustodial}
-            onChange={e =>
+            value={inputs.overnightsWithNonCustodial} onChange={e =>
               setInputs({ ...inputs, overnightsWithNonCustodial: Number(e.target.value) })
-            }
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
+        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
             placeholder="0"
             max="365"
           />
@@ -196,9 +192,8 @@ export function ChildSupportCalculator() {
             </span>
             <input
               type="number"
-              value={inputs.healthInsurance}
-              onChange={e => setInputs({ ...inputs, healthInsurance: Number(e.target.value) })}
-              className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
+              value={inputs.healthInsurance} onChange={e => setInputs({ ...inputs, healthInsurance: Number(e.target.value) })
+        className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
               placeholder="0"
             />
           </div>
@@ -215,9 +210,8 @@ export function ChildSupportCalculator() {
             </span>
             <input
               type="number"
-              value={inputs.childcare}
-              onChange={e => setInputs({ ...inputs, childcare: Number(e.target.value) })}
-              className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
+              value={inputs.childcare} onChange={e => setInputs({ ...inputs, childcare: Number(e.target.value) })
+        className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9974D] focus:border-transparent"
               placeholder="0"
             />
           </div>
@@ -226,16 +220,15 @@ export function ChildSupportCalculator() {
 
       <button
         onClick={() => setShowResults(true)}
-        className="w-full mt-8 px-6 py-3 bg-[#6B1F2E] text-white font-bold rounded-lg hover:bg-[#8B2635] transition-all"
+
+                className="w-full mt-8 px-6 py-3 bg-[#6B1F2E] text-white font-bold rounded-lg hover:bg-[#8B2635] transition-all"
       >
         Calculate Child Support
       </button>
 
       {showResults && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          className="mt-8 bg-gray-50 rounded-lg p-6"
+        <div
+className="mt-8 bg-gray-50 rounded-lg p-6"
         >
           <h3 className="text-xl font-bold text-[#6B1F2E] mb-4">
             Estimated Child Support Obligation
@@ -315,7 +308,7 @@ export function ChildSupportCalculator() {
               Schedule a Consultation
             </a>
           </div>
-        </motion.div>
+        </div>
       )}
     </div>
   );

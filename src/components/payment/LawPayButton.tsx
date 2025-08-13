@@ -85,7 +85,7 @@ export function LawPayButton({
   };
 
   return (
-    <Button onClick={handlePayment} disabled={isLoading} className={className} size="lg">
+    <Button onClick={handlePayment disabled={isLoading} className={className} size="lg">
       {isLoading ? 'Processing...' : children}
     </Button>
   );

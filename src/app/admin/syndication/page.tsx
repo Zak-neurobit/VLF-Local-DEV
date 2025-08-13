@@ -292,12 +292,14 @@ export default function SyndicationManagementPage() {
                 {platforms.map(platform => (
                   <div
                     key={platform.id}
-                    className="flex items-center justify-between p-4 border rounded-lg"
+
+                className="flex items-center justify-between p-4 border rounded-lg"
                   >
                     <div className="flex items-center space-x-4">
                       <Switch
-                        checked={platform.enabled}
-                        onCheckedChange={checked => handlePlatformToggle(platform.id, checked)}
+                       }
+                checked={platform.enabled}
+                onCheckedChange={checked => handlePlatformToggle(platform.id, checked)}
                       />
                       <div>
                         <h3 className="font-medium">{platform.name}</h3>
@@ -331,10 +333,13 @@ export default function SyndicationManagementPage() {
             <CardContent>
               <div className="space-y-4">
                 {strategies.map(strategy => (
-                  <div key={strategy.id} className="p-4 border rounded-lg">
+                  <div key={strategy.id}
+
+                className="p-4 border rounded-lg">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-medium">{strategy.name}</h3>
+                        <h3
+                className="font-medium">{strategy.name}</h3>
                         <p className="text-sm text-gray-600 mt-1">
                           {strategy.sourceType} → {strategy.targetPlatforms.join(', ')}
                         </p>
@@ -370,8 +375,7 @@ export default function SyndicationManagementPage() {
               <div>
                 <label className="block text-sm font-medium mb-2">Select Content</label>
                 <Select
-                  value={selectedContent}
-                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  value={selectedContent} onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                     setSelectedContent(e.target.value)
                   }
                 >
@@ -388,20 +392,20 @@ export default function SyndicationManagementPage() {
                   {platforms
                     .filter(p => p.enabled)
                     .map(platform => (
-                      <label key={platform.id} className="flex items-center space-x-2">
+                      <label key={platform.id}
+
+                className="flex items-center space-x-2">
                         <input
                           type="checkbox"
                           checked={selectedPlatforms.includes(platform.id)}
-                          onChange={e => {
+
+                onChange={e => {
                             if (e.target.checked) {
                               setSelectedPlatforms([...selectedPlatforms, platform.id]);
                             } else {
                               setSelectedPlatforms(
                                 selectedPlatforms.filter(p => p !== platform.id)
-                              );
-                            }
-                          }}
-                          className="rounded"
+                              ); className="rounded"
                         />
                         <span className="text-sm">{platform.name}</span>
                       </label>
@@ -461,10 +465,12 @@ export default function SyndicationManagementPage() {
                       {schedulerStatus.jobs?.map(job => (
                         <div
                           key={job.name}
-                          className="flex items-center justify-between p-3 border rounded"
+
+                className="flex items-center justify-between p-3 border rounded"
                         >
                           <div>
-                            <p className="font-medium text-sm">{job.name}</p>
+                            <p
+                className="font-medium text-sm">{job.name}</p>
                             {job.nextRun && (
                               <p className="text-xs text-gray-600">
                                 Next run: {new Date(job.nextRun).toLocaleString()}

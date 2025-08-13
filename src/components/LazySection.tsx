@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState, ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface LazySectionProps {
   children: ReactNode;
@@ -51,28 +50,30 @@ export default function LazySection({
   }, [isInView, threshold, rootMargin, onInView]);
 
   return (
-    <div ref={ref} className={className}>
-      <AnimatePresence mode="wait">
+    <div ref={ref}
+
+                className={className}>
+      <>
         {!isInView ? (
-          <motion.div
+          <div
             key="fallback"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+           }
+           }
+           }
           >
             {fallback}
-          </motion.div>
+          </div>
         ) : (
-          <motion.div
+          <div
             key="content"
-            initial={animateIn ? { opacity: 0, y: 20 } : false}
-            animate={animateIn ? { opacity: 1, y: 0 } : false}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            : false}
+            : false}
+           }
           >
             {children}
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
     </div>
   );
 }

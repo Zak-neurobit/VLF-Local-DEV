@@ -85,33 +85,35 @@ export default function Debug500Page() {
         <h2 className="text-xl font-semibold mb-2">Test Actions</h2>
         <button
           onClick={() => testNavigation('/contact')}
-          className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+
+                className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
           Navigate to /contact
         </button>
         <button
           onClick={() => testNavigation('/attorneys')}
-          className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+
+                className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
           Navigate to /attorneys
         </button>
         <button
           onClick={() => (window.location.href = '/contact')}
-          className="block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+
+                className="block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
         >
           Hard Navigate to /contact (window.location)
         </button>
         <button
-          onClick={checkWindowState}
-          className="block px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+          onClick={checkWindowState} className="block px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
         >
           Check Window State
         </button>
         <button
           onClick={() => {
             throw new Error('Test Error - This is intentional');
-          }}
-          className="block px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+        }}
+ className="block px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
         >
           Trigger Test Error
         </button>
@@ -125,7 +127,9 @@ export default function Debug500Page() {
           ) : (
             <pre className="text-xs font-mono whitespace-pre-wrap">
               {errors.map((error, index) => (
-                <div key={index} className="mb-2 pb-2 border-b border-gray-700">
+                <div key={index}
+
+                className="mb-2 pb-2 border-b border-gray-700">
                   [{new Date().toISOString()}] {error}
                 </div>
               ))}
@@ -134,7 +138,8 @@ export default function Debug500Page() {
         </div>
         <button
           onClick={() => setErrors([])}
-          className="mt-2 px-4 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-700"
+
+                className="mt-2 px-4 py-1 bg-gray-600 text-white rounded text-sm hover:bg-gray-700"
         >
           Clear Errors
         </button>

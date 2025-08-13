@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { BlogAnalytics, BlogReadingProgress, trackSocialShare } from './BlogAnalytics';
@@ -201,18 +201,20 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
 
       {/* Article Header */}
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+        <div
+         }
+         }
+         }
         >
           {/* Breadcrumb */}
           <nav className="mb-8" aria-label="Breadcrumb">
             <Link
               href={language === 'es' ? '/es/blog' : '/blog'}
-              className="text-[#C9974D] hover:underline flex items-center gap-2"
+
+                className="text-[#C9974D] hover:underline flex items-center gap-2"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -305,8 +307,10 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
               {post.translations.map(translation => (
                 <Link
                   key={translation.id}
-                  href={`/${translation.language === 'es' ? 'es/' : ''}blog/${translation.slug}`}
-                  className="inline-flex items-center gap-2 text-[#C9974D] hover:underline"
+
+                href={`/${translation.language === 'es' ? 'es/' : ''}blog/${translation.slug}`}
+
+                className="inline-flex items-center gap-2 text-[#C9974D] hover:underline"
                 >
                   🌐 {translation.language === 'es' ? t.readInSpanish : t.readInEnglish}
                 </Link>
@@ -319,6 +323,7 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
             <div className="relative w-full h-96 mb-8 rounded-lg overflow-hidden bg-gray-200">
               <Image
                 src={post.featuredImage}
+
                 alt={post.title}
                 fill
                 className="object-cover"
@@ -338,7 +343,8 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
                     <li key={item.id}>
                       <a
                         href={`#${item.id}`}
-                        className={`text-[#C9974D] hover:underline block ${
+
+                className={`text-[#C9974D] hover:underline block ${
                           item.level === 3 ? 'ml-4' : item.level === 4 ? 'ml-8' : ''
                         }`}
                       >
@@ -357,6 +363,7 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
             <div className="flex items-center gap-2">
               <button
                 onClick={() => sharePost('twitter')}
+
                 className="p-2 text-gray-600 hover:text-[#1DA1F2] transition-colors rounded-full hover:bg-blue-50"
                 aria-label="Share on Twitter"
               >
@@ -366,6 +373,7 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
               </button>
               <button
                 onClick={() => sharePost('facebook')}
+
                 className="p-2 text-gray-600 hover:text-[#1877F2] transition-colors rounded-full hover:bg-blue-50"
                 aria-label="Share on Facebook"
               >
@@ -375,6 +383,7 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
               </button>
               <button
                 onClick={() => sharePost('linkedin')}
+
                 className="p-2 text-gray-600 hover:text-[#0A66C2] transition-colors rounded-full hover:bg-blue-50"
                 aria-label="Share on LinkedIn"
               >
@@ -384,6 +393,7 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
               </button>
               <button
                 onClick={() => sharePost('whatsapp')}
+
                 className="p-2 text-gray-600 hover:text-[#25D366] transition-colors rounded-full hover:bg-green-50"
                 aria-label="Share on WhatsApp"
               >
@@ -393,6 +403,7 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
               </button>
               <button
                 onClick={() => sharePost('copy')}
+
                 className="p-2 text-gray-600 hover:text-gray-900 transition-colors rounded-full hover:bg-gray-50"
                 aria-label="Copy link"
               >
@@ -444,8 +455,11 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
               <h2 className="text-2xl font-bold text-gray-900 mb-6">{t.faq}</h2>
               <div className="space-y-6">
                 {post.faqSection.map((faq, index) => (
-                  <div key={index} className="border-b border-gray-200 pb-4 last:border-0">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
+                  <div key={index}
+
+                className="border-b border-gray-200 pb-4 last:border-0">
+                    <h3
+                className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
                     <p className="text-gray-600">{faq.answer}</p>
                   </div>
                 ))}
@@ -461,7 +475,8 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
                 {post.keywords.map((keyword, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200 transition-colors cursor-pointer"
+
+                className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200 transition-colors cursor-pointer"
                   >
                     #{keyword}
                   </span>
@@ -491,7 +506,7 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </article>
 
       {/* Related Articles */}
@@ -503,18 +518,17 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {relatedPosts.map(related => (
-                <motion.article
+                <article
                   key={related.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+
+                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
                 >
                   {related.featuredImage && (
                     <div className="relative h-48">
                       <Image
                         src={related.featuredImage}
-                        alt={related.title}
+
+                alt={related.title}
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -525,7 +539,8 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
                     <h3 className="text-xl font-bold text-gray-900 mb-2">
                       <Link
                         href={`/${language === 'es' ? 'es/' : ''}blog/${related.slug}`}
-                        className="hover:text-[#C9974D] transition-colors"
+
+                className="hover:text-[#C9974D] transition-colors"
                       >
                         {related.title}
                       </Link>
@@ -537,13 +552,14 @@ export function EnhancedBlogPost({ post, relatedPosts, language }: EnhancedBlogP
                       </span>
                       <Link
                         href={`/${language === 'es' ? 'es/' : ''}blog/${related.slug}`}
-                        className="text-[#C9974D] font-medium hover:underline"
+
+                className="text-[#C9974D] font-medium hover:underline"
                       >
                         {language === 'es' ? 'Leer Más →' : 'Read More →'}
                       </Link>
                     </div>
                   </div>
-                </motion.article>
+                </article>
               ))}
             </div>
           </div>

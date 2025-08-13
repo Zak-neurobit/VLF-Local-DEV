@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { useMultiLayerParallax } from '@/hooks/useParallax';
 
 interface ParallaxSectionProps {
@@ -18,14 +18,13 @@ export function ParallaxSection({ children, className = '', layers = 3 }: Parall
   const gradientOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 0.6, 0.3]);
 
   return (
-    <section ref={containerRef as React.RefObject<HTMLElement>} className={`relative overflow-hidden ${className}`}>
+    <section ref={containerRef as React.RefObject<HTMLElement>}
+
+                className={`relative overflow-hidden ${className}`}>
       {/* Animated gradient background */}
-      <motion.div
+      <div
         className="absolute inset-0 bg-gradient-to-b from-[#6B1F2E] via-[#8B2635] to-[#C9974D]"
-        style={{
-          y: gradientY,
-          opacity: gradientOpacity,
-        }}
+       }
       />
 
       {/* Parallax layers */}
@@ -35,17 +34,13 @@ export function ParallaxSection({ children, className = '', layers = 3 }: Parall
         if (!effect) return null;
 
         return (
-          <motion.div
+          <div
             className="relative"
-            style={{
-              y: effect.y,
-              scale: effect.scale,
-              opacity: effect.opacity,
-              filter: `blur(${effect.blur}px)`,
+           px)`,
             }}
           >
             {child}
-          </motion.div>
+          </div>
         );
       })}
     </section>
@@ -75,62 +70,50 @@ export function ParallaxHero({
   return (
     <div className="relative h-screen overflow-hidden">
       {/* Background image with parallax */}
-      <motion.div
+      <div
         className="absolute inset-0"
-        style={{
-          y,
-          scale,
-        }}
+
       >
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
+         )` }}
         />
-        <div className="absolute inset-0 bg-black" style={{ opacity: overlayOpacity }} />
-      </motion.div>
+        <div className="absolute inset-0 bg-black"} />
+      </div>
 
       {/* Content */}
-      <motion.div
+      <div
         className="relative z-10 flex h-full items-center justify-center text-center"
-        style={{
-          y: textY,
-          opacity,
-        }}
+
       >
         <div className="max-w-4xl px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="mb-6 text-5xl font-bold text-white md:text-7xl"
+          <h1
+className="mb-6 text-5xl font-bold text-white md:text-7xl"
           >
             {title}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.7 }}
-            className="text-xl text-white/90 md:text-2xl"
+          </h1>
+          <p
+className="text-xl text-white/90 md:text-2xl"
           >
             {subtitle}
-          </motion.p>
+          </p>
         </div>
-      </motion.div>
+      </div>
 
       {/* Scroll indicator */}
-      <motion.div
+      <div
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ repeat: Infinity, duration: 1.5 }}
+       }
+       }
       >
         <div className="h-16 w-8 rounded-full border-2 border-white/50">
-          <motion.div
+          <div
             className="mx-auto mt-2 h-3 w-3 rounded-full bg-white"
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
+           }
+           }
           />
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

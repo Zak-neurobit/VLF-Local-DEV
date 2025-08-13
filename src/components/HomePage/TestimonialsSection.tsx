@@ -60,15 +60,18 @@ export function TestimonialsSection({}: TestimonialsSectionProps = {}) {
           {testimonials.slice(0, 3).map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-primary/30 transition-all animate-slideUp"
-              style={{ animationDelay: `${index * 100}ms` }}
+
+                className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-primary/30 transition-all animate-slideUp"
+                style={{ animationDelay: `${index * 100}ms` }}
             >
               <Quote className="h-8 w-8 text-gold-400/30 mb-4" />
 
               {/* Rating */}
               <div className="flex mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-primary fill-current" />
+                  <Star key={i}
+
+                className="w-5 h-5 text-primary fill-current" />
                 ))}
               </div>
 
@@ -107,7 +110,9 @@ export function TestimonialsSection({}: TestimonialsSectionProps = {}) {
               {/* Rating */}
               <div className="flex mb-4">
                 {[...Array(currentTestimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-primary fill-current" />
+                  <Star key={i}
+
+                className="w-5 h-5 text-primary fill-current" />
                 ))}
               </div>
 
@@ -138,6 +143,7 @@ export function TestimonialsSection({}: TestimonialsSectionProps = {}) {
           <div className="flex justify-center items-center gap-4 mt-6">
             <button
               onClick={handlePrevious}
+
               className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
               aria-label="Previous testimonial"
             >
@@ -148,10 +154,13 @@ export function TestimonialsSection({}: TestimonialsSectionProps = {}) {
               {testimonials.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
+
+                onClick={() => setCurrentIndex(index)}
+
+                className={`w-2 h-2 rounded-full transition-all ${
                     index === currentIndex ? 'bg-primary w-8' : 'bg-white/30'
                   }`}
+
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}
@@ -159,6 +168,7 @@ export function TestimonialsSection({}: TestimonialsSectionProps = {}) {
 
             <button
               onClick={handleNext}
+
               className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
               aria-label="Next testimonial"
             >
@@ -172,8 +182,9 @@ export function TestimonialsSection({}: TestimonialsSectionProps = {}) {
           {testimonials.slice(3, 5).map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className="bg-gradient-to-br from-burgundy-900/10 to-gold-900/10 backdrop-blur-sm rounded-xl p-6 border border-white/10 animate-slideUp"
-              style={{ animationDelay: `${(index + 3) * 100}ms` }}
+
+                className="bg-gradient-to-br from-burgundy-900/10 to-gold-900/10 backdrop-blur-sm rounded-xl p-6 border border-white/10 animate-slideUp"
+                style={{ animationDelay: `${(index + 3) * 100}ms` }}
             >
               <div className="flex items-start gap-4">
                 <MessageSquare className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
@@ -186,7 +197,9 @@ export function TestimonialsSection({}: TestimonialsSectionProps = {}) {
                     </div>
                     <div className="flex">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-primary fill-current" />
+                        <Star key={i}
+
+                className="w-4 h-4 text-primary fill-current" />
                       ))}
                     </div>
                   </div>

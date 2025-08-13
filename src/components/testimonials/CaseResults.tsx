@@ -87,10 +87,13 @@ export default function CaseResults() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {caseResults.map(result => (
-              <Card key={result.id} className="h-full hover:shadow-lg transition-shadow">
+              <Card key={result.id}
+
+                className="h-full hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <div className="p-3 bg-brand-skyblue/10 rounded-lg text-brand-skyblue">
+                    <div
+                className="p-3 bg-brand-skyblue/10 rounded-lg text-brand-skyblue">
                       {result.icon}
                     </div>
                     <span className="text-sm font-medium text-gray-500">{result.practiceArea}</span>

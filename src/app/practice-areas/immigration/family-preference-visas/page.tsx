@@ -297,11 +297,13 @@ export default function FamilyPreferenceVisasPage() {
               {content.preferenceCategories.categories.map((cat, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
                   <div className="grid md:grid-cols-4 gap-4 items-center mb-4">
                     <div>
-                      <div className="text-2xl font-bold text-primary mb-1">{cat.category}</div>
+                      <div
+                className="text-2xl font-bold text-primary mb-1">{cat.category}</div>
                       <div className="text-sm text-gray-400">Category</div>
                     </div>
                     <div>
@@ -322,8 +324,11 @@ export default function FamilyPreferenceVisasPage() {
                     <h4 className="font-semibold text-white mb-2">Includes:</h4>
                     <ul className="text-gray-300 text-sm">
                       {cat.includes.map((include, iIndex) => (
-                        <li key={iIndex} className="flex items-start gap-2">
-                          <span className="text-primary mt-1">•</span>
+                        <li key={iIndex}
+
+                className="flex items-start gap-2">
+                          <span
+                className="text-primary mt-1">•</span>
                           {include}
                         </li>
                       ))}

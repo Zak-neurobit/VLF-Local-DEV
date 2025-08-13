@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { ChevronDown, HelpCircle } from 'lucide-react';
 
 interface FAQSectionProps {
@@ -182,77 +182,64 @@ export default function FAQSection({ service, city, language = 'en' }: FAQSectio
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
+        <div
+className="text-center mb-12"
         >
           <HelpCircle className="w-12 h-12 text-[#6B1F2E] mx-auto mb-4" />
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.title}</h2>
           <p className="text-gray-600">{t.subtitle}</p>
-        </motion.div>
+        </div>
 
         <div className="max-w-3xl mx-auto">
           {currentFAQs.map((faq, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="mb-4"
+
+                className="mb-4"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
+
                 className="w-full text-left p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-[#6B1F2E]"
               >
                 <div className="flex justify-between items-center">
                   <h3 className="text-lg font-semibold pr-4">{faq.question}</h3>
-                  <motion.div
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
+                  <div
+                   }
+                   }
                   >
                     <ChevronDown className="w-5 h-5 text-[#6B1F2E] flex-shrink-0" />
-                  </motion.div>
+                  </div>
                 </div>
               </button>
 
-              <AnimatePresence>
+              <>
                 {openIndex === index && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
+                  <div
+className="overflow-hidden"
                   >
                     <div className="p-6 pt-0">
                       <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
-              </AnimatePresence>
-            </motion.div>
+              </>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
+        <div
+className="text-center mt-12"
         >
           <p className="text-lg font-semibold mb-4">{t.stillHaveQuestions}</p>
           <a
             href={language === 'es' ? '/es/contacto' : '/contact'}
-            className="inline-flex items-center px-6 py-3 bg-[#6B1F2E] text-white font-bold rounded-lg hover:bg-[#8B2635] transition-colors"
+
+                className="inline-flex items-center px-6 py-3 bg-[#6B1F2E] text-white font-bold rounded-lg hover:bg-[#8B2635] transition-colors"
           >
             {t.contactUs}
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

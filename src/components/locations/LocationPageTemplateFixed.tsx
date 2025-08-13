@@ -127,6 +127,7 @@ export const LocationPageTemplateFixed: React.FC<LocationPageProps> = ({
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href={language === 'es' ? '/es/contacto' : '/contact'}
+
                 className="px-8 py-4 bg-[#C9974D] hover:bg-[#D4A574] text-white font-bold rounded-lg transition-all transform hover:scale-105"
               >
                 {t.hero.cta1}
@@ -153,9 +154,11 @@ export const LocationPageTemplateFixed: React.FC<LocationPageProps> = ({
               return (
                 <div
                   key={key}
-                  className="text-center p-6 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+
+                className="text-center p-6 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
                 >
-                  <h3 className="font-semibold text-lg mb-2">{value}</h3>
+                  <h3
+                className="font-semibold text-lg mb-2">{value}</h3>
                 </div>
               );
             })}
@@ -171,9 +174,12 @@ export const LocationPageTemplateFixed: React.FC<LocationPageProps> = ({
             {Object.entries(t.whyChoose).map(([key, value]) => {
               if (key === 'title') return null;
               return (
-                <div key={key} className="flex items-start gap-3">
+                <div key={key}
+
+                className="flex items-start gap-3">
                   <CheckCircle className="h-6 w-6 text-[#C9974D] flex-shrink-0 mt-1" />
-                  <p className="text-lg">{value}</p>
+                  <p
+                className="text-lg">{value}</p>
                 </div>
               );
             })}
@@ -200,7 +206,8 @@ export const LocationPageTemplateFixed: React.FC<LocationPageProps> = ({
                   <Phone className="h-5 w-5 text-[#6B1F2E]" />
                   <a
                     href={`tel:${nearbyOffice.phone.replace(/[^0-9]/g, '')}`}
-                    className="text-[#6B1F2E] font-semibold hover:underline"
+
+                className="text-[#6B1F2E] font-semibold hover:underline"
                   >
                     {nearbyOffice.phone}
                   </a>
@@ -213,7 +220,8 @@ export const LocationPageTemplateFixed: React.FC<LocationPageProps> = ({
               <div className="mt-8">
                 <Link
                   href={language === 'es' ? '/es/contacto' : '/contact'}
-                  className="block w-full text-center px-6 py-3 bg-[#6B1F2E] text-white font-semibold rounded-lg hover:bg-[#8B2635] transition-colors"
+
+                className="block w-full text-center px-6 py-3 bg-[#6B1F2E] text-white font-semibold rounded-lg hover:bg-[#8B2635] transition-colors"
                 >
                   {t.contact.schedule}
                 </Link>

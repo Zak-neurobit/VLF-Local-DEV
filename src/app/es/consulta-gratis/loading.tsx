@@ -12,12 +12,15 @@ export default function ConsultaGratisLoading() {
         {/* Benefits grid skeleton */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-gray-900 rounded-lg p-6">
+            <div key={i}
+
+                className="bg-gray-900 rounded-lg p-6">
               <div className="h-12 w-12 bg-gray-800 rounded-full mb-4 animate-pulse" />
               <div className="h-6 bg-gray-800 rounded w-32 mb-2 animate-pulse" />
               <div className="space-y-2">
                 <div className="h-4 bg-gray-800 rounded animate-pulse" />
-                <div className="h-4 bg-gray-800 rounded w-5/6 animate-pulse" />
+                <div
+                className="h-4 bg-gray-800 rounded w-5/6 animate-pulse" />
               </div>
             </div>
           ))}
@@ -44,9 +47,12 @@ export default function ConsultaGratisLoading() {
               <div className="h-6 bg-gray-800 rounded w-48 mb-4 animate-pulse" />
               <div className="space-y-2">
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="flex items-center">
+                  <div key={i}
+
+                className="flex items-center">
                     <div className="h-4 w-4 bg-gray-800 rounded-full mr-2 animate-pulse" />
-                    <div className="h-4 bg-gray-800 rounded w-48 animate-pulse" />
+                    <div
+                className="h-4 bg-gray-800 rounded w-48 animate-pulse" />
                   </div>
                 ))}
               </div>

@@ -70,7 +70,8 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
           <div className="absolute inset-0 opacity-20">
             <Image
               src={post.featuredImage}
-              alt={postTitle}
+
+                alt={postTitle}
               fill
               className="object-cover"
               priority
@@ -80,9 +81,11 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <Link
             href={isSpanish ? '/es/blog' : '/blog'}
-            className="inline-flex items-center gap-2 text-primary hover:text-primary-300 transition-colors mb-8"
+
+                className="inline-flex items-center gap-2 text-primary hover:text-primary-300 transition-colors mb-8"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft
+                className="w-4 h-4" />
             {isSpanish ? 'Volver al Blog' : 'Back to Blog'}
           </Link>
 
@@ -118,6 +121,7 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
             {post.category && (
               <Link
                 href={`/${isSpanish ? 'es/' : ''}blog/category/${post.category}`}
+
                 className="bg-primary/20 hover:bg-primary/30 px-3 py-1 rounded-full text-xs font-medium transition-colors"
               >
                 {post.category.charAt(0).toUpperCase() + post.category.slice(1).replace('-', ' ')}
@@ -126,6 +130,7 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
             {post.practiceArea && (
               <Link
                 href={`/${isSpanish ? 'es/' : ''}practice-areas/${post.practiceArea}`}
+
                 className="bg-primary/20 hover:bg-primary/30 px-3 py-1 rounded-full text-xs font-medium transition-colors"
               >
                 {post.practiceArea.charAt(0).toUpperCase() + post.practiceArea.slice(1).replace('-', ' ')}
@@ -144,7 +149,8 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
               <div className="relative w-full h-96 mb-8 rounded-lg overflow-hidden">
                 <Image
                   src={post.featuredImage}
-                  alt={postTitle}
+
+                alt={postTitle}
                   fill
                   className="object-cover"
                 />
@@ -160,10 +166,13 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
             {post.images.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
                 {post.images.map((image, index) => (
-                  <div key={index} className="relative h-64 rounded-lg overflow-hidden">
+                  <div key={index}
+
+                className="relative h-64 rounded-lg overflow-hidden">
                     <Image
                       src={image}
-                      alt={`${postTitle} - Image ${index + 1}`}
+
+                alt={`${postTitle} - Image ${index + 1}`}
                       fill
                       className="object-cover"
                     />
@@ -182,8 +191,10 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
                   {post.tags.map((tag, index) => (
                     <Link
                       key={index}
-                      href={`/${isSpanish ? 'es/' : ''}blog/tag/${tag}`}
-                      className="bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full text-sm text-gray-700 transition-colors"
+
+                href={`/${isSpanish ? 'es/' : ''}blog/tag/${tag}`}
+
+                className="bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-full text-sm text-gray-700 transition-colors"
                     >
                       #{tag}
                     </Link>
@@ -194,11 +205,9 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
 
             {/* Share Button */}
             <div className="mt-8 pt-8 border-t border-gray-200">
-              <button
-                onClick={handleShare}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-600 text-white rounded-lg transition-colors"
+              <button onClick={handleShare} className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-600 text-white rounded-lg transition-colors"
               >
-                <Share2 className="w-4 h-4" />
+                <Share2} className="w-4 h-4" />
                 {isSpanish ? 'Compartir' : 'Share'}
               </button>
             </div>
@@ -218,6 +227,7 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
               </p>
               <Link
                 href={isSpanish ? '/es/contacto' : '/contact'}
+
                 className="block w-full text-center bg-primary hover:bg-primary-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
               >
                 {isSpanish ? 'Consulta Gratis' : 'Free Consultation'}
@@ -236,8 +246,10 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
                     return (
                       <Link
                         key={relatedPost.id}
-                        href={`/${isSpanish ? 'es/' : ''}blog/${relatedPost.slug}`}
-                        className="block group"
+
+                href={`/${isSpanish ? 'es/' : ''}blog/${relatedPost.slug}`}
+
+                className="block group"
                       >
                         <h4 className="font-semibold text-gray-800 group-hover:text-primary transition-colors mb-2">
                           {relatedTitle}

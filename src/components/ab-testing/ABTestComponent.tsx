@@ -38,14 +38,12 @@ export function ABTestHeroSection({ className = '' }: HeroSectionProps) {
 
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <button
-              onClick={handleCTAClick}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+              onClick={handleCTAClick} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
             >
               {content.ctaText}
             </button>
             <button
-              onClick={handleSecondaryClick}
-              className="border border-white text-white hover:bg-white hover:text-gray-900 font-semibold py-3 px-8 rounded-lg transition-colors"
+              onClick={handleSecondaryClick} className="border border-white text-white hover:bg-white hover:text-gray-900 font-semibold py-3 px-8 rounded-lg transition-colors"
             >
               {content.ctaSecondary}
             </button>
@@ -100,16 +98,18 @@ export function ABTestPricingSection({ className = '' }: PricingSectionProps) {
 
           <ul className="space-y-3 mb-8">
             {(content.features as string[]).map((feature, index) => (
-              <li key={index} className="flex items-center">
-                <span className="text-green-500 mr-2">✓</span>
+              <li key={index}
+
+                className="flex items-center">
+                <span
+                className="text-green-500 mr-2">✓</span>
                 {feature}
               </li>
             ))}
           </ul>
 
           <button
-            onClick={handleConsultationClick}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors"
+            onClick={handleConsultationClick} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors"
           >
             {content.ctaText}
           </button>
@@ -161,10 +161,10 @@ export function ABTestContactForm({ className = '' }: ContactFormProps) {
             )}
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <form onSubmit={handleSubmit className="bg-white rounded-lg shadow-lg p-8">
+            <div} className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label} className="block text-sm font-medium text-gray-700 mb-2">
                   {content.nameLabel}
                 </label>
                 <input

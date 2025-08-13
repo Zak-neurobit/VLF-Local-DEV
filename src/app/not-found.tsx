@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Home, Phone, MessageCircle, ArrowLeft, Search } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
@@ -69,21 +68,15 @@ export default function NotFound() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-4">
       <div className="max-w-4xl w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div
           className="text-center"
         >
           {/* 404 Code */}
-          <motion.h1
-            initial={{ scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-9xl font-bold text-primary-600 mb-4"
+          <h1
+            className="text-9xl font-bold text-primary-600 mb-4 animate-fadeIn"
           >
             {content.code}
-          </motion.h1>
+          </h1>
 
           {/* Title */}
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -99,17 +92,21 @@ export default function NotFound() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link
               href={isSpanish ? '/es' : '/'}
-              className="inline-flex items-center justify-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+
+                className="inline-flex items-center justify-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
-              <Home className="w-5 h-5 mr-2" />
+              <Home
+                className="w-5 h-5 mr-2" />
               {content.homeButton}
             </Link>
             
             <Link
               href={isSpanish ? '/es/contacto' : '/contact'}
-              className="inline-flex items-center justify-center px-6 py-3 bg-white text-primary-600 border-2 border-primary-600 rounded-lg hover:bg-primary-50 transition-colors"
+
+                className="inline-flex items-center justify-center px-6 py-3 bg-white text-primary-600 border-2 border-primary-600 rounded-lg hover:bg-primary-50 transition-colors"
             >
-              <MessageCircle className="w-5 h-5 mr-2" />
+              <MessageCircle
+                className="w-5 h-5 mr-2" />
               {content.contactButton}
             </Link>
             
@@ -130,51 +127,45 @@ export default function NotFound() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {suggestedLinks.map((link, index) => (
-                <motion.div
+                <div
                   key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index }}
                 >
                   <Link
                     href={link.href}
-                    className="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group"
+
+                className="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group"
                   >
-                    <h4 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
+                    <h4
+                      className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
                       {link.label}
                     </h4>
                     <p className="text-sm text-gray-600 mt-1">
                       {link.description}
                     </p>
                   </Link>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
 
           {/* Go Back Button */}
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+          <button
             onClick={() => window.history.back()}
-            className="mt-8 inline-flex items-center text-primary-600 hover:text-primary-700 transition-colors"
+
+                className="mt-8 inline-flex items-center text-primary-600 hover:text-primary-700 transition-colors"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             {isSpanish ? 'Volver' : 'Go Back'}
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
 
         {/* Decorative Elements */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
+        <div
           className="absolute inset-0 overflow-hidden pointer-events-none"
         >
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200 rounded-full blur-3xl" />
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-primary-300 rounded-full blur-3xl" />
-        </motion.div>
+        </div>
       </div>
     </div>
   );

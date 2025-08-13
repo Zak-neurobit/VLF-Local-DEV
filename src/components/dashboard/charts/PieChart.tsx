@@ -75,11 +75,13 @@ export function PieChart({
               label={renderLabel}
               outerRadius={Math.min(height * 0.35, 100)}
               innerRadius={innerRadius}
+
               fill="#8884d8"
               dataKey="value"
             >
               {dataWithColors.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
+                <Cell key={`cell-${index}`}
+ fill={entry.color} />
               ))}
             </Pie>
             <Tooltip 

@@ -42,7 +42,8 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
     return (
       <Comp
         ref={ref}
-        className={cn(cardVariants({ variant, padding, interactive, className }))}
+
+                className={cn(cardVariants({ variant, padding, interactive, className }))}
         {...props}
       />
     );
@@ -54,7 +55,9 @@ Card.displayName = 'Card';
 // Card Header Component
 const CardHeader = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('space-y-1.5 p-6 pb-4', className)} {...props} />
+    <div ref={ref}
+
+                className={cn('space-y-1.5 p-6 pb-4', className)} {...props} />
   )
 );
 
@@ -65,7 +68,8 @@ const CardTitle = forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadin
   ({ className, ...props }, ref) => (
     <h3
       ref={ref}
-      className={cn(
+
+                className={cn(
         'text-2xl font-semibold leading-none tracking-tight text-neutral-900',
         className
       )}
@@ -81,7 +85,9 @@ const CardDescription = forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn('text-sm text-neutral-600', className)} {...props} />
+  <p ref={ref}
+
+                className={cn('text-sm text-neutral-600', className)} {...props} />
 ));
 
 CardDescription.displayName = 'CardDescription';
@@ -89,7 +95,9 @@ CardDescription.displayName = 'CardDescription';
 // Card Content Component
 const CardContent = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('p-6 pt-0', className)} {...props} />
+    <div ref={ref}
+
+                className={cn('p-6 pt-0', className)} {...props} />
   )
 );
 
@@ -98,7 +106,9 @@ CardContent.displayName = 'CardContent';
 // Card Footer Component
 const CardFooter = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('flex items-center p-6 pt-0', className)} {...props} />
+    <div ref={ref}
+
+                className={cn('flex items-center p-6 pt-0', className)} {...props} />
   )
 );
 
@@ -149,10 +159,12 @@ export const TestimonialCard = forwardRef<
           {[...Array(5)].map((_, i) => (
             <svg
               key={i}
-              className={cn(
+
+                className={cn(
                 'h-5 w-5',
                 i < rating ? 'fill-gold-500 text-gold-500' : 'fill-neutral-200 text-neutral-200'
               )}
+
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >

@@ -264,8 +264,11 @@ export default function DeportationRemovalDefensePage() {
                 </h3>
                 <ul className="space-y-2 text-gray-300">
                   {content.emergencyInfo.items.map((item, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <span className="text-red-400 mt-1">•</span>
+                    <li key={index}
+
+                className="flex items-start gap-2">
+                      <span
+                className="text-red-400 mt-1">•</span>
                       {item}
                     </li>
                   ))}
@@ -319,9 +322,11 @@ export default function DeportationRemovalDefensePage() {
               ].map((court, index) => (
                 <div
                   key={index}
-                  className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
+
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20"
                 >
-                  <h3 className="text-lg font-bold text-primary mb-2">{court.city}</h3>
+                  <h3
+                className="text-lg font-bold text-primary mb-2">{court.city}</h3>
                   <p className="text-gray-300 text-sm mb-1">{court.address}</p>
                   <p className="text-gray-400 text-sm">{court.judges}</p>
                 </div>

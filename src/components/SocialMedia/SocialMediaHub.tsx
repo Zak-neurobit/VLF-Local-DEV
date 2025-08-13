@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { 
   Facebook, 
   Instagram, 
@@ -139,15 +139,14 @@ export function SocialMediaHub({ className }: { className?: string }) {
             <h3 className="text-lg font-semibold text-gray-900">Follow Us</h3>
             <div className="flex items-center gap-2">
               {socialPlatforms.map((platform) => (
-                <motion.a
+                <a
                   key={platform.id}
-                  href={platform.url}
+
+                href={platform.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  // TODO: Convert whileHover={{ scale: 1.1 }} to react-spring
-                  whileTap={{ scale: 0.95 }}
-                  className="relative group"
-                  style={{ color: platform.color }}
+className="relative group"
+
                 >
                   <div className="p-2 rounded-full bg-gray-100 group-hover:bg-gray-200 transition-colors">
                     {platform.icon}
@@ -155,7 +154,7 @@ export function SocialMediaHub({ className }: { className?: string }) {
                   <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs bg-gray-900 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                     {platform.username}
                   </span>
-                </motion.a>
+                </a>
               ))}
             </div>
           </div>
@@ -172,11 +171,10 @@ export function SocialMediaHub({ className }: { className?: string }) {
               const platform = socialPlatforms.find(p => p.id === post.platform);
               
               return (
-                <motion.div
+                <div
                   key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow"
+
+                className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow"
                 >
                   {/* Post Header */}
                   <div className="p-4 border-b border-gray-100">
@@ -184,7 +182,7 @@ export function SocialMediaHub({ className }: { className?: string }) {
                       <div className="flex items-center gap-2">
                         <div 
                           className="p-1.5 rounded-full"
-                          style={{ backgroundColor: platform?.color + '20', color: platform?.color }}
+
                         >
                           {platform?.icon}
                         </div>
@@ -208,21 +206,21 @@ export function SocialMediaHub({ className }: { className?: string }) {
                     <div className="relative aspect-square bg-gray-100">
                       {post.mediaType === 'image' ? (
                         <Image
-                          src={post.mediaUrl}
-                          alt="Social media post"
+                          src={post.mediaUrl alt="Social media post"
                           fill
                           className="object-cover"
                         />
                       ) : post.mediaType === 'video' && post.platform === 'youtube' ? (
                         <iframe
-                          src={post.mediaUrl}
-                          className="absolute inset-0 w-full h-full"
+                          src={post.mediaUrl className="absolute inset-0 w-full h-full"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
                         />
                       ) : (
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <Play className="w-12 h-12 text-gray-400" />
+                        <div
+      className="absolute inset-0 flex items-center justify-center">
+                          <Play
+               } className="w-12 h-12 text-gray-400" />
                         </div>
                       )}
                     </div>
@@ -253,7 +251,7 @@ export function SocialMediaHub({ className }: { className?: string }) {
                       {new Date(post.timestamp).toLocaleDateString()}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>
@@ -322,17 +320,16 @@ export function SocialMediaHub({ className }: { className?: string }) {
           </p>
           <div className="flex items-center justify-center gap-4">
             {socialPlatforms.map((platform) => (
-              <motion.a
+              <a
                 key={platform.id}
+
                 href={platform.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                // TODO: Convert whileHover={{ scale: 1.1 }} to react-spring
-                whileTap={{ scale: 0.95 }}
-                className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors"
+className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors"
               >
                 {platform.icon}
-              </motion.a>
+              </a>
             ))}
           </div>
         </div>

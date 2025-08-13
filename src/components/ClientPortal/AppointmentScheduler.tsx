@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { logger } from '@/lib/safe-logger';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import {
   Calendar,
   Clock,
@@ -227,7 +227,8 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
         <div className="flex gap-2">
           <button
             onClick={() => setShowScheduleModal(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
+
+                className="flex items-center gap-2 px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
           >
             <Plus className="w-4 h-4" />
             Schedule Appointment
@@ -242,6 +243,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setCurrentMonth(addDays(currentMonth, -30))}
+
                 className="p-2 hover:bg-gray-100 rounded-lg"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -251,6 +253,7 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
               </h3>
               <button
                 onClick={() => setCurrentMonth(addDays(currentMonth, 30))}
+
                 className="p-2 hover:bg-gray-100 rounded-lg"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -260,8 +263,10 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
               {['month', 'week', 'day'].map(v => (
                 <button
                   key={v}
-                  onClick={() => setView(v as 'month' | 'week' | 'day')}
-                  className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+
+                onClick={() => setView(v as 'month' | 'week' | 'day')}
+
+                className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                     view === v
                       ? 'bg-[#6B1F2E] text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -278,7 +283,9 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
           <div className="p-4">
             <div className="grid grid-cols-7 gap-1 mb-2">
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                <div key={day} className="text-center text-sm font-medium text-gray-600 py-2">
+                <div key={day}
+
+                className="text-center text-sm font-medium text-gray-600 py-2">
                   {day}
                 </div>
               ))}
@@ -291,12 +298,12 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                 return (
                   <div
                     key={index}
-                    className={`min-h-[100px] p-2 border rounded-lg ${
+
+                className={`min-h-[100px] p-2 border rounded-lg ${
                       isToday(day) ? 'bg-blue-50 border-blue-300' : 'border-gray-200'
                     } ${!isCurrentMonth ? 'bg-gray-50' : 'bg-white'} ${
                       isSameDay(day, selectedDate) ? 'ring-2 ring-[#6B1F2E]' : ''
-                    } hover:bg-gray-50 cursor-pointer`}
-                    onClick={() => setSelectedDate(day)}
+                    } hover:bg-gray-50 cursor-pointer` onClick={() => setSelectedDate(day)}
                   >
                     <div className="flex justify-between items-start mb-1">
                       <span
@@ -322,8 +329,9 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                         return (
                           <div
                             key={apt.id}
-                            className={`text-xs p-1 rounded truncate ${getAppointmentColor(apt.type)}`}
-                            onClick={e => {
+
+                className={`text-xs p-1 rounded truncate ${getAppointmentColor(apt.type)}`}
+      onClick={e => {
                               e.stopPropagation();
                               setSelectedAppointment(apt);
                             }}
@@ -362,10 +370,13 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
             .map(appointment => {
               const Icon = getAppointmentTypeIcon(appointment.type);
               return (
-                <div key={appointment.id} className="p-6 hover:bg-gray-50 transition-colors">
+                <div key={appointment.id}
+
+                className="p-6 hover:bg-gray-50 transition-colors">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start gap-4">
-                      <div className={`p-3 rounded-lg ${getAppointmentColor(appointment.type)}`}>
+                      <div
+                className={`p-3 rounded-lg ${getAppointmentColor(appointment.type)}`}>
                         <Icon className="w-5 h-5" />
                       </div>
                       <div>
@@ -392,7 +403,8 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                               <Video className="w-4 h-4" />
                               <a
                                 href={appointment.videoLink}
-                                className="text-[#6B1F2E] hover:underline"
+
+                className="text-[#6B1F2E] hover:underline"
                               >
                                 Join Video Call
                               </a>
@@ -404,13 +416,15 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => setSelectedAppointment(appointment)}
-                        className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+
+                className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
                       >
                         <Edit className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleCancelAppointment(appointment.id)}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
+
+                className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -428,7 +442,8 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
             <p className="text-gray-600 mb-4">You don&apos;t have any scheduled appointments.</p>
             <button
               onClick={() => setShowScheduleModal(true)}
-              className="px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
+
+                className="px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors"
             >
               Schedule Your First Appointment
             </button>
@@ -437,20 +452,14 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
       </div>
 
       {/* Schedule Appointment Modal */}
-      <AnimatePresence>
+      <>
         {showScheduleModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          <div
+className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
             onClick={() => setShowScheduleModal(false)}
           >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ scale: 0.9 }}
-              className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            <div
+className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
               onClick={e => e.stopPropagation()}
             >
               <div className="p-6 border-b">
@@ -458,7 +467,8 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                   <h3 className="text-xl font-bold text-gray-900">Schedule Appointment</h3>
                   <button
                     onClick={() => setShowScheduleModal(false)}
-                    className="p-2 hover:bg-gray-100 rounded-lg"
+
+                className="p-2 hover:bg-gray-100 rounded-lg"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -477,8 +487,10 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                       return (
                         <button
                           key={type.value}
-                          onClick={() => setFormData({ ...formData, type: type.value })}
-                          className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
+
+                onClick={() => setFormData({ ...formData, type: type.value })}
+
+                className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
                             formData.type === type.value
                               ? 'border-[#6B1F2E] bg-[#6B1F2E] bg-current/5'
                               : 'border-gray-300 hover:border-gray-400'
@@ -510,14 +522,15 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                     Select Attorney
                   </label>
                   <select
-                    value={formData.attorneyId}
-                    onChange={e => setFormData({ ...formData, attorneyId: e.target.value })}
-                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+                    value={formData.attorneyId} onChange={e => setFormData({ ...formData, attorneyId: e.target.value })
+        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
                   >
                     <option value="">Choose an attorney...</option>
                     {clientData?.attorneys?.map(
                       (attorney: { id: string; name: string; specialty: string }) => (
-                        <option key={attorney.id} value={attorney.id}>
+                        <option key={attorney.id}
+
+                value={attorney.id}>
                           {attorney.name} - {attorney.specialty}
                         </option>
                       )
@@ -532,10 +545,8 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                   </label>
                   <input
                     type="date"
-                    value={formData.date}
-                    onChange={e => setFormData({ ...formData, date: e.target.value })}
-                    min={format(new Date(), 'yyyy-MM-dd')}
-                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+                    value={formData.date} onChange={e => setFormData({ ...formData, date: e.target.value })}
+                    min={format(new Date(), 'yyyy-MM-dd') className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
                   />
                 </div>
 
@@ -549,9 +560,10 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                       {availableSlots.map(slot => (
                         <button
                           key={slot.time}
-                          onClick={() => setFormData({ ...formData, time: slot.time })}
-                          disabled={!slot.available}
-                          className={`p-2 rounded-lg text-sm transition-colors ${
+
+                onClick={() => setFormData({ ...formData, time: slot.time })}
+
+                disabled={!slot.available} className={`p-2 rounded-lg text-sm transition-colors ${
                             formData.time === slot.time
                               ? 'bg-[#6B1F2E] text-white'
                               : slot.available
@@ -572,9 +584,8 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                     Additional Notes (Optional)
                   </label>
                   <textarea
-                    value={formData.notes}
-                    onChange={e => setFormData({ ...formData, notes: e.target.value })}
-                    placeholder="Please describe the reason for your appointment..."
+                    value={formData.notes} onChange={e => setFormData({ ...formData, notes: e.target.value })
+        placeholder="Please describe the reason for your appointment..."
                     className="w-full px-4 py-2 border rounded-lg resize-none focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
                     rows={4}
                   />
@@ -584,41 +595,34 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                 <div className="flex gap-3">
                   <button
                     onClick={() => setShowScheduleModal(false)}
-                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleScheduleAppointment}
-                    disabled={
-                      !formData.type || !formData.attorneyId || !formData.date || !formData.time
-                    }
-                    className="flex-1 px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      disabled={
+                      !formData.type || !formData.attorneyId || !formData.date || !formData.time} className="flex-1 px-4 py-2 bg-[#6B1F2E] text-white rounded-lg hover:bg-[#8B2635] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Schedule Appointment
                   </button>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
 
       {/* Appointment Details Modal */}
-      <AnimatePresence>
+      <>
         {selectedAppointment && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          <div
+className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
             onClick={() => setSelectedAppointment(null)}
           >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ scale: 0.9 }}
-              className="bg-white rounded-lg shadow-xl max-w-lg w-full"
+            <div
+className="bg-white rounded-lg shadow-xl max-w-lg w-full"
               onClick={e => e.stopPropagation()}
             >
               <div className="p-6 border-b">
@@ -633,7 +637,8 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                   </div>
                   <button
                     onClick={() => setSelectedAppointment(null)}
-                    className="p-2 hover:bg-gray-100 rounded-lg"
+
+                className="p-2 hover:bg-gray-100 rounded-lg"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -670,7 +675,8 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                     <p className="text-sm font-medium text-gray-500">Video Conference</p>
                     <a
                       href={selectedAppointment.videoLink}
-                      className="text-[#6B1F2E] hover:underline"
+
+                className="text-[#6B1F2E] hover:underline"
                     >
                       Join Video Call
                     </a>
@@ -692,8 +698,8 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                           onClick={() => {
                             // Implement reschedule logic
                             setSelectedAppointment(null);
-                          }}
-                          className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+        }}
+ className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                         >
                           Reschedule
                         </button>
@@ -701,8 +707,8 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                           onClick={() => {
                             handleCancelAppointment(selectedAppointment.id);
                             setSelectedAppointment(null);
-                          }}
-                          className="flex-1 px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+        }}
+ className="flex-1 px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
                         >
                           Cancel Appointment
                         </button>
@@ -710,10 +716,10 @@ export default function AppointmentScheduler({ clientData }: { clientData: Clien
                     )}
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
     </div>
   );
 }

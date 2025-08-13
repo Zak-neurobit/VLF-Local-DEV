@@ -252,8 +252,11 @@ export default function PERMLaborCertificationPage() {
           </h2>
           <div className="max-w-5xl mx-auto">
             {permProcess.map((phase, index) => (
-              <div key={index} className="flex mb-12">
-                <div className="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-xl flex-shrink-0">
+              <div key={index}
+
+                className="flex mb-12">
+                <div
+                className="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-xl flex-shrink-0">
                   {phase.step}
                 </div>
                 <div className="ml-8 flex-grow">
@@ -266,9 +269,12 @@ export default function PERMLaborCertificationPage() {
                   <p className="text-gray-600 mb-4">{phase.description}</p>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {phase.details.map((detail, idx) => (
-                      <li key={idx} className="flex items-start">
+                      <li key={idx}
+
+                className="flex items-start">
                         <span className="text-blue-600 mr-2 mt-1">•</span>
-                        <span className="text-gray-600 text-sm">{detail}</span>
+                        <span
+                className="text-gray-600 text-sm">{detail}</span>
                       </li>
                     ))}
                   </ul>
@@ -287,13 +293,19 @@ export default function PERMLaborCertificationPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {recruitmentRequirements.map((req, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-md">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">{req.category}</h3>
+              <div key={index}
+
+                className="bg-white rounded-lg p-6 shadow-md">
+                <h3
+                className="text-lg font-bold text-gray-900 mb-4">{req.category}</h3>
                 <ul className="space-y-3">
                   {req.requirements.map((requirement, idx) => (
-                    <li key={idx} className="flex items-start">
+                    <li key={idx}
+
+                className="flex items-start">
                       <span className="text-blue-600 mr-2 mt-1">✓</span>
-                      <span className="text-gray-600 text-sm">{requirement}</span>
+                      <span
+                className="text-gray-600 text-sm">{requirement}</span>
                     </li>
                   ))}
                 </ul>
@@ -311,16 +323,22 @@ export default function PERMLaborCertificationPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {eb2eb3Comparison.map((category, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{category.category}</h3>
+              <div key={index}
+
+                className="bg-gray-50 rounded-lg p-6">
+                <h3
+                className="text-xl font-bold text-gray-900 mb-4">{category.category}</h3>
 
                 <div className="mb-6">
                   <h4 className="font-semibold text-gray-900 mb-3">Requirements:</h4>
                   <ul className="space-y-2">
                     {category.requirements.map((req, idx) => (
-                      <li key={idx} className="flex items-start">
+                      <li key={idx}
+
+                className="flex items-start">
                         <span className="text-blue-600 mr-2 mt-1">•</span>
-                        <span className="text-gray-600 text-sm">{req}</span>
+                        <span
+                className="text-gray-600 text-sm">{req}</span>
                       </li>
                     ))}
                   </ul>
@@ -330,9 +348,12 @@ export default function PERMLaborCertificationPage() {
                   <h4 className="font-semibold text-gray-900 mb-3">Benefits:</h4>
                   <ul className="space-y-2">
                     {category.benefits.map((benefit, idx) => (
-                      <li key={idx} className="flex items-start">
+                      <li key={idx}
+
+                className="flex items-start">
                         <span className="text-green-600 mr-2 mt-1">✓</span>
-                        <span className="text-gray-600 text-sm">{benefit}</span>
+                        <span
+                className="text-gray-600 text-sm">{benefit}</span>
                       </li>
                     ))}
                   </ul>
@@ -351,15 +372,21 @@ export default function PERMLaborCertificationPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {commonChallenges.map((challenge, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-md">
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{challenge.title}</h3>
+              <div key={index}
+
+                className="bg-white rounded-lg p-6 shadow-md">
+                <h3
+                className="text-lg font-bold text-gray-900 mb-3">{challenge.title}</h3>
                 <p className="text-gray-600 mb-4">{challenge.description}</p>
                 <h4 className="font-semibold text-gray-900 mb-2">Our Solutions:</h4>
                 <ul className="space-y-2">
                   {challenge.solutions.map((solution, idx) => (
-                    <li key={idx} className="flex items-start">
+                    <li key={idx}
+
+                className="flex items-start">
                       <span className="text-blue-600 mr-2 mt-1">→</span>
-                      <span className="text-gray-600 text-sm">{solution}</span>
+                      <span
+                className="text-gray-600 text-sm">{solution}</span>
                     </li>
                   ))}
                 </ul>
@@ -382,9 +409,12 @@ export default function PERMLaborCertificationPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {auditConsiderations.map((factor, index) => (
-                <div key={index} className="flex items-start">
+                <div key={index}
+
+                className="flex items-start">
                   <span className="text-red-600 mr-2 mt-1">⚠</span>
-                  <span className="text-red-700">{factor}</span>
+                  <span
+                className="text-red-700">{factor}</span>
                 </div>
               ))}
             </div>

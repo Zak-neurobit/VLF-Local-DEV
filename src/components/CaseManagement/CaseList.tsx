@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { logger } from '@/lib/safe-logger';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import {
   Briefcase,
   Search,
@@ -71,7 +71,6 @@ export default function CaseList() {
     fetchCases();
   }, [fetchCases]);
 
-
   const getStatusColor = (status: CaseStatus) => {
     const colors = {
       [CaseStatus.open]: 'bg-blue-100 text-blue-800',
@@ -82,7 +81,6 @@ export default function CaseList() {
     };
     return colors[status] || 'bg-gray-100 text-gray-800';
   };
-
 
   const formatPracticeArea = (area: PracticeArea) => {
     return area
@@ -126,13 +124,13 @@ export default function CaseList() {
               type="text"
               placeholder="Search by case number, client name, or email..."
               value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+      onChange={e => setSearchQuery(e.target.value)} className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
             />
           </div>
           <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+           } onClick={() => setShowFilters(!showFilters)}
+
+                className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
           >
             <Filter className="w-4 h-4" />
             Filters
@@ -142,26 +140,28 @@ export default function CaseList() {
         {showFilters && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 pt-4 border-t">
             <select
-              value={filters.practiceArea}
-              onChange={e => setFilters({ ...filters, practiceArea: e.target.value })}
-              className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+              value={filters.practiceArea} onChange={e => setFilters({ ...filters, practiceArea: e.target.value })
+        className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
             >
               <option value="">All Practice Areas</option>
               {Object.values(PracticeArea).map(area => (
-                <option key={area} value={area}>
+                <option key={area}
+
+                value={area}>
                   {formatPracticeArea(area)}
                 </option>
               ))}
             </select>
 
             <select
-              value={filters.status}
-              onChange={e => setFilters({ ...filters, status: e.target.value })}
-              className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
+              value={filters.status} onChange={e => setFilters({ ...filters, status: e.target.value })
+        className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#6B1F2E] focus:border-transparent"
             >
               <option value="">All Statuses</option>
               {Object.values(CaseStatus).map(status => (
-                <option key={status} value={status}>
+                <option key={status}
+
+                value={status}>
                   {status.replace(/_/g, ' ').charAt(0).toUpperCase() + status.slice(1)}
                 </option>
               ))}
@@ -170,9 +170,7 @@ export default function CaseList() {
             <button
               onClick={() => {
                 setFilters({ practiceArea: '', status: '', attorneyId: '' });
-                setSearchQuery('');
-              }}
-              className="text-[#6B1F2E] hover:text-[#8B2635] font-medium"
+                setSearchQuery(''); className="text-[#6B1F2E] hover:text-[#8B2635] font-medium"
             >
               Clear Filters
             </button>
@@ -183,13 +181,13 @@ export default function CaseList() {
       {/* Cases List */}
       <div className="space-y-4">
         {cases.map(case_ => (
-          <motion.div
+          <div
             key={case_.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow"
+
+                className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow"
           >
-            <Link href={`/admin/cases/${case_.id}`}>
+            <Link
+                href={`/admin/cases/${case_.id}`}>
               <div className="p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
@@ -230,7 +228,7 @@ export default function CaseList() {
                           <div className="w-24 bg-gray-200 rounded-full h-2">
                             <div
                               className="bg-green-500 h-2 rounded-full"
-                              style={{ width: `${case_.metrics.taskCompletion}%` }}
+                             %` }}
                             />
                           </div>
                           <span className="text-sm text-gray-600">
@@ -263,7 +261,7 @@ export default function CaseList() {
                 </div>
               </div>
             </Link>
-          </motion.div>
+          </div>
         ))}
       </div>
 

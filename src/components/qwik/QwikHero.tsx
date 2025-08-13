@@ -99,8 +99,11 @@ export const QwikHero: React.FC<QwikHeroProps> = ({ language = 'en' }) => {
               {/* Stats */}
               <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
                 {t.stats.map(stat => (
-                  <div key={stat.label} className="text-center">
-                    <div className="text-3xl font-black text-primary">{stat.value}</div>
+                  <div key={stat.label}
+
+                className="text-center">
+                    <div
+                className="text-3xl font-black text-primary">{stat.value}</div>
                     <div className="mt-1 text-sm text-gray-400">{stat.label}</div>
                   </div>
                 ))}
@@ -115,7 +118,8 @@ export const QwikHero: React.FC<QwikHeroProps> = ({ language = 'en' }) => {
                   alt="William Vasquez"
                   width={500}
                   height={600}
-                  className="relative z-10"
+
+                className="relative z-10"
                   loading="eager"
                 />
                 {/* Static Glow Effect */}

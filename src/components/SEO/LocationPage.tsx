@@ -140,8 +140,11 @@ export function LocationPage({ city, state, customContent }: LocationPageProps) 
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {statistics.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl font-bold text-burgundy-700 mb-2">{stat.value}</div>
+              <div key={index}
+
+                className="text-center">
+                <div
+                className="text-4xl font-bold text-burgundy-700 mb-2">{stat.value}</div>
                 <div className="text-gray-600">{stat.label}</div>
               </div>
             ))}
@@ -159,16 +162,20 @@ export function LocationPage({ city, state, customContent }: LocationPageProps) 
             {practiceAreas.map((area, index) => (
               <div
                 key={index}
+
                 className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow"
               >
-                <h3 className="text-2xl font-bold text-burgundy-700 mb-4">{area.title}</h3>
+                <h3
+                className="text-2xl font-bold text-burgundy-700 mb-4">{area.title}</h3>
                 <p className="text-gray-700 mb-6">{area.description}</p>
                 <Link
                   href={area.link}
-                  className="inline-flex items-center text-burgundy-700 font-semibold hover:text-burgundy-900"
+
+                className="inline-flex items-center text-burgundy-700 font-semibold hover:text-burgundy-900"
                 >
                   Learn More
-                  <ArrowRight className="ml-2 w-4 h-4" />
+                  <ArrowRight
+                className="ml-2 w-4 h-4" />
                 </Link>
               </div>
             ))}

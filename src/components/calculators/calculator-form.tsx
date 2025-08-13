@@ -195,17 +195,19 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
     switch (field.type) {
       case 'text':
         return (
-          <div key={key} className="space-y-2">
+          <div key={key}
+
+                className="space-y-2">
             <Label htmlFor={key}>
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </Label>
             <Input
               id={key}
-              type="text"
+
+                type="text"
               value={typeof value === 'boolean' ? '' : value || ''}
-              onChange={e => handleInputChange(key, e.target.value)}
-              className={error ? 'border-red-500' : ''}
+      onChange={e => handleInputChange(key, e.target.value)} className={error ? 'border-red-500' : ''}
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
@@ -213,19 +215,20 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
 
       case 'number':
         return (
-          <div key={key} className="space-y-2">
+          <div key={key}
+
+                className="space-y-2">
             <Label htmlFor={key}>
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </Label>
             <Input
               id={key}
-              type="number"
+
+                type="number"
               min={field.min}
-              max={field.max}
-              value={typeof value === 'boolean' ? '' : value || ''}
-              onChange={e => handleInputChange(key, parseFloat(e.target.value) || 0)}
-              className={error ? 'border-red-500' : ''}
+              max={field.max value={typeof value === 'boolean' ? '' : value || ''}
+      onChange={e => handleInputChange(key, parseFloat(e.target.value) || 0)} className={error ? 'border-red-500' : ''}
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
@@ -233,20 +236,24 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
 
       case 'select':
         return (
-          <div key={key} className="space-y-2">
+          <div key={key}
+
+                className="space-y-2">
             <Label htmlFor={key}>
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </Label>
             <select
               id={key}
-              value={typeof value === 'boolean' ? '' : value || ''}
-              onChange={e => handleInputChange(key, e.target.value)}
-              className={`flex h-10 w-full appearance-none rounded-md border bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${error ? 'border-red-500' : 'border-input'}`}
+
+                value={typeof value === 'boolean' ? '' : value || ''}
+      onChange={e => handleInputChange(key, e.target.value)} className={`flex h-10 w-full appearance-none rounded-md border bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${error ? 'border-red-500' : 'border-input'}`}
             >
               <option value="">Select {field.label}</option>
               {field.options?.map(option => (
-                <option key={option.value} value={option.value}>
+                <option key={option.value}
+
+                value={option.value}>
                   {option.label}
                 </option>
               ))}
@@ -257,7 +264,9 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
 
       case 'boolean':
         return (
-          <div key={key} className="space-y-2">
+          <div key={key}
+
+                className="space-y-2">
             <div className="flex items-center space-x-2">
               <Checkbox
                 id={key}
@@ -275,7 +284,9 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
 
       case 'range':
         return (
-          <div key={key} className="space-y-2">
+          <div key={key}
+
+                className="space-y-2">
             <Label htmlFor={key}>
               {field.label}: {value || field.min || 0}
               {field.required && <span className="text-red-500 ml-1">*</span>}
@@ -285,9 +296,9 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
               min={field.min || 0}
               max={field.max || 100}
               step={1}
-              value={[typeof value === 'number' ? value : field.min || 0]}
-              onValueChange={values => handleInputChange(key, values[0] ?? field.min ?? 0)}
-              className="w-full"
+
+                value={[typeof value === 'number' ? value : field.min || 0]}
+                onValueChange={values => handleInputChange(key, values[0] ?? field.min ?? 0) className="w-full"
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
@@ -295,17 +306,19 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
 
       case 'date':
         return (
-          <div key={key} className="space-y-2">
+          <div key={key}
+
+                className="space-y-2">
             <Label htmlFor={key}>
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </Label>
             <Input
               id={key}
-              type="date"
+
+                type="date"
               value={typeof value === 'boolean' ? '' : value || ''}
-              onChange={e => handleInputChange(key, e.target.value)}
-              className={error ? 'border-red-500' : ''}
+      onChange={e => handleInputChange(key, e.target.value)} className={error ? 'border-red-500' : ''}
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
@@ -369,12 +382,12 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
 
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div} className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {Object.entries(schema).map(([key, field]) => renderField(key, field))}
           </div>
 
           <div className="border-t pt-6">
-            <Button type="submit" disabled={isCalculating} className="w-full" size="lg">
+            <Button type="submit" disabled={isCalculating className="w-full" size="lg">
               {isCalculating ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -382,7 +395,7 @@ export default function CalculatorForm({ calculatorType, onResult }: CalculatorF
                 </>
               ) : (
                 <>
-                  <Calculator className="h-4 w-4 mr-2" />
+                  <Calculator} className="h-4 w-4 mr-2" />
                   Calculate Results
                 </>
               )}
