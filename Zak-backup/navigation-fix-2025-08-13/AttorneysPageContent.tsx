@@ -103,6 +103,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
         {/* Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-secondary/10" />
+          <div className="absolute inset-0 animate-pulse" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

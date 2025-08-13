@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Users, Globe, Award, Clock, Building } from 'lucide-react';
 
 interface FirmHighlightsProps {
@@ -38,7 +39,7 @@ export default function FirmHighlights({ language }: FirmHighlightsProps) {
         {
           icon: Clock,
           title: '24/7 Availability',
-          description: "Round-the-clock support because legal emergencies don't wait",
+          description: "Round-the-clock support because legal emergencies don\'t wait",
         },
         {
           icon: Building,
@@ -98,22 +99,28 @@ export default function FirmHighlights({ language }: FirmHighlightsProps) {
       <div className="gradient-orb-mixed w-64 h-64 top-1/3 right-1/3 opacity-20" />
       
       <div className="max-w-7xl mx-auto px-4 relative z-10">
-        <div
-          className="text-center mb-16 animate-fadeIn"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold heading-serif text-gray-900 mb-4">{t.title}</h2>
           <div className="divider-professional mx-auto"></div>
           <p className="text-xl text-gradient-gold font-semibold">{t.subtitle}</p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {t.highlights.map((highlight, index) => {
             const Icon = highlight.icon;
             return (
-              <div
+              <motion.div
                 key={index}
-                className="card-professional group relative overflow-hidden hover:border-gold-400 animate-slideUp"
-                style={{ animationDelay: `${index * 100}ms` }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="card-professional group relative overflow-hidden hover:border-gold-400"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-gold-50 to-transparent opacity-0 group-hover:opacity-100 transition-professional" />
 
@@ -127,7 +134,7 @@ export default function FirmHighlights({ language }: FirmHighlightsProps) {
                 </div>
 
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-burgundy-700 to-gold-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              </div>
+              </motion.div>
             );
           })}
         </div>

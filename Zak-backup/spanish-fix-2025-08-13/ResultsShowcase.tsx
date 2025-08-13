@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 
@@ -40,7 +41,7 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
           ],
           testimonial: {
             quote:
-              "They made my American dream come true. After 10 years of waiting, I'm finally a citizen!",
+              "They made my American dream come true. After 10 years of waiting, I\'m finally a citizen!",
             author: 'Maria Rodriguez',
             case: 'Citizenship Application',
           },
@@ -309,20 +310,25 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4">
         {/* Header */}
-        <div
-          className="mb-16 text-center animate-fadeIn"
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16 text-center"
         >
           <h2 className="mb-4 text-5xl font-black text-white md:text-6xl font-serif">{t.title}</h2>
           <p className="text-xl text-gray-300">{t.subtitle}</p>
-        </div>
+        </motion.div>
 
         {/* Category Tabs */}
         <div className="mb-12 flex flex-wrap justify-center gap-4">
           {t.categories.map((category, index) => (
-            <button
+            <motion.button
               key={index}
               onClick={() => setActiveCategory(index)}
-              className={`flex items-center gap-2 rounded-full px-6 py-3 font-semibold transition-all transform hover:scale-105 active:scale-95 ${
+              // TODO: Convert whileHover={{ scale: 1.05 }} to react-spring
+              whileTap={{ scale: 0.95 }}
+              className={`flex items-center gap-2 rounded-full px-6 py-3 font-semibold transition-all ${
                 activeCategory === index
                   ? 'bg-[#C9974D] text-black'
                   : 'bg-white/10 text-white hover:bg-white/20'
@@ -330,22 +336,28 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
             >
               <span className="text-2xl">{category.icon}</span>
               <span>{category.name}</span>
-            </button>
+            </motion.button>
           ))}
         </div>
 
-        {activeResults && (
-          <div
-            key={activeCategory}
-            className="animate-fadeIn"
-          >
-            {/* Results Grid */}
-            <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {activeResults.results.map((result, index) => (
-                <div
+        <AnimatePresence mode="wait">
+          {activeResults && (
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Results Grid */}
+              <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                {activeResults.results.map((result, index) => (
+                <motion.div
                   key={index}
-                  className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-6 text-center backdrop-blur-sm animate-slideUp"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-6 text-center backdrop-blur-sm"
                 >
                   <div className="mb-2 text-4xl font-black text-[#C9974D]">
                     {result.amount.includes('$') ||
@@ -360,14 +372,16 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
                   </div>
                   <h4 className="mb-1 font-semibold text-white font-serif">{result.label}</h4>
                   <p className="text-sm text-gray-400">{result.description}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
 
             {/* Testimonial */}
-            <div
-              className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#6B1F2E]/20 to-transparent p-8 backdrop-blur-sm animate-fadeIn"
-              style={{ animationDelay: '500ms' }}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#6B1F2E]/20 to-transparent p-8 backdrop-blur-sm"
             >
               <div className="absolute -top-4 -left-4 text-6xl text-[#C9974D]/20">&quot;</div>
               <blockquote className="relative z-10">
@@ -393,13 +407,17 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
                   </div>
                 </footer>
               </blockquote>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* CTA */}
-        <div
-          className="mt-12 text-center animate-fadeIn"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-12 text-center"
         >
           <p className="mb-4 text-lg text-gray-300">
             {language === 'en'
@@ -412,7 +430,7 @@ export default function ResultsShowcase({ language }: ResultsShowcaseProps) {
             </span>
             <div className="absolute inset-0 bg-white opacity-0 transition-opacity group-hover:opacity-20" />
           </button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

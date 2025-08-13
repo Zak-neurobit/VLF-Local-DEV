@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import Script from 'next/script';
 import Image from 'next/image';
 import {
@@ -103,10 +104,37 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
         {/* Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-secondary/10" />
+          <motion.div
+            className="absolute inset-0"
+            animate={{ opacity: 1 }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+          />
+          {/* Floating particles */}
+          {[...Array(30)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute h-1 w-1 bg-primary/30 rounded-full"
+              initial={{
+                x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
+                y: Math.random() * 600,
+              }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{
+                duration: Math.random() * 10 + 10,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+              }}
+            />
+          ))}
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center animate-fadeIn">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
             <h1 className="text-5xl md:text-7xl font-black mb-6">
               <span className="bg-gradient-to-r from-primary to-primary-300 bg-clip-text text-transparent">
                 {t.title}
@@ -114,7 +142,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
             </h1>
             <p className="text-xl md:text-2xl text-primary font-semibold mb-6">{t.subtitle}</p>
             <p className="max-w-3xl mx-auto text-lg text-gray-300">{t.description}</p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -123,18 +151,27 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {attorneys.map((attorney, index) => (
-              <div
+              <motion.div
                 key={attorney.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 onMouseEnter={() => setHoveredAttorney(attorney.id)}
                 onMouseLeave={() => setHoveredAttorney(null)}
-                className="group relative animate-slideUp"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="group relative"
               >
                 <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20">
                   {/* Glow Effect */}
-                  {hoveredAttorney === attorney.id && (
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent pointer-events-none transition-opacity duration-300" />
-                  )}
+                  <AnimatePresence>
+                    {hoveredAttorney === attorney.id && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent pointer-events-none"
+                      />
+                    )}
+                  </AnimatePresence>
 
                   <div className="h-80 relative overflow-hidden">
                     <Image
@@ -195,7 +232,7 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                     </Link>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -209,14 +246,19 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-fadeIn">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
             <h2 className="text-4xl md:text-5xl font-black mb-4">
               <span className="bg-gradient-to-r from-primary to-primary-300 bg-clip-text text-transparent">
                 {t.teamApproach}
               </span>
             </h2>
             <p className="max-w-3xl mx-auto text-lg text-gray-300">{t.teamDescription}</p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-4 gap-8">
             {[
@@ -245,20 +287,23 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                 metric: 'Cases Won',
               },
             ].map((item, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="relative group animate-slideUp"
-                style={{ animationDelay: `${index * 100}ms` }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="relative group"
               >
                 <div className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 text-center">
                   <div className="text-primary mb-4 flex justify-center">{item.icon}</div>
-                  <div className="text-3xl font-black text-white mb-1">{item.value}</div>
+                  <div className="text-4xl font-black text-primary mb-1">{item.value}</div>
                   <div className="text-xs text-primary uppercase tracking-wider mb-2">
                     {item.metric}
                   </div>
-                  <p className="text-sm text-gray-400">{item.text}</p>
+                  <h3 className="font-bold text-white">{item.text}</h3>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -267,61 +312,79 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
       {/* Why Choose Section */}
       <section className="py-20 bg-gradient-to-b from-neutral-950 to-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-fadeIn">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
             <h2 className="text-4xl md:text-5xl font-black mb-4">
               <span className="bg-gradient-to-r from-primary to-primary-300 bg-clip-text text-transparent">
                 {t.whyChoose}
               </span>
             </h2>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Briefcase className="w-12 h-12" />,
-                title: isSpanish ? 'Experiencia Comprobada' : 'Proven Experience',
+                icon: <Star className="w-12 h-12" />,
+                title: isSpanish ? 'Reconocimiento Elite' : 'Elite Recognition',
                 description: isSpanish
-                  ? 'Décadas de experiencia combinada en múltiples áreas del derecho'
-                  : 'Decades of combined experience across multiple practice areas',
+                  ? 'Abogados de primera categoría con premios prestigiosos y reconocimiento de pares'
+                  : 'Top-rated attorneys with prestigious awards and peer recognition',
+              },
+              {
+                icon: <Briefcase className="w-12 h-12" />,
+                title: isSpanish ? 'Historial Comprobado' : 'Proven Track Record',
+                description: isSpanish
+                  ? 'Miles de casos exitosos con millones recuperados para clientes'
+                  : 'Thousands of successful cases with millions recovered for clients',
               },
               {
                 icon: <Users className="w-12 h-12" />,
-                title: isSpanish ? 'Enfoque Personalizado' : 'Personal Approach',
+                title: isSpanish ? 'Enfoque al Cliente' : 'Client-First Approach',
                 description: isSpanish
-                  ? 'Cada cliente recibe atención individual y estrategias personalizadas'
-                  : 'Every client receives individual attention and customized strategies',
+                  ? 'Disponibilidad 24/7 con atención personalizada a cada caso'
+                  : '24/7 availability with personalized attention to every case',
               },
-              {
-                icon: <Star className="w-12 h-12" />,
-                title: isSpanish ? 'Resultados Excepcionales' : 'Exceptional Results',
-                description: isSpanish
-                  ? 'Historial comprobado de victorias y acuerdos exitosos'
-                  : 'Proven track record of victories and successful settlements',
-              },
-            ].map((feature, index) => (
-              <div
+            ].map((item, index) => (
+              <motion.div
                 key={index}
-                className="text-center animate-slideUp"
-                style={{ animationDelay: `${index * 100}ms` }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
               >
-                <div className="text-primary mb-6 flex justify-center">{feature.icon}</div>
-                <h3 className="text-2xl font-bold text-white mb-4">{feature.title}</h3>
-                <p className="text-gray-400">{feature.description}</p>
-              </div>
+                <div className="inline-flex items-center justify-center mb-6 text-primary">
+                  {item.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
+                <p className="text-gray-400">{item.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-black relative overflow-hidden">
+      {/* CTA Section with Modern Design */}
+      <section className="py-20 bg-gradient-to-b from-black to-neutral-950 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10" />
+          <motion.div
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 4, repeat: Infinity }}
+            className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10"
+          />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <div className="animate-fadeIn">
-            <h2 className="text-4xl md:text-5xl font-black mb-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-5xl font-black mb-4">
               <span className="bg-gradient-to-r from-primary to-primary-300 bg-clip-text text-transparent">
                 {t.cta.title}
               </span>
@@ -331,31 +394,46 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-black rounded-full hover:bg-primary-300 transition-all font-bold text-lg hover:scale-105"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-black rounded-full font-bold hover:bg-primary-300 transition-all transform hover:scale-105"
               >
                 {t.cta.button1}
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
-                href="tel:1-844-965-3536"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white rounded-full hover:bg-white/20 transition-all font-bold text-lg backdrop-blur-sm hover:scale-105"
+                href="tel:18449673536"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-white rounded-full font-bold border-2 border-white hover:bg-white hover:text-black transition-all transform hover:scale-105"
               >
                 <Phone className="w-5 h-5" />
                 {t.cta.button2}
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* JSON-LD Schema */}
+      {/* Structured Data for Attorneys */}
       {attorneys.map(attorney => (
         <Script
           key={attorney.id}
-          id={`attorney-schema-${attorney.id}`}
+          id={`attorney-${attorney.id}-structured-data`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(generateAttorneySchema(attorney)),
+            __html: JSON.stringify(
+              generateAttorneySchema({
+                name: attorney.name,
+                jobTitle: attorney.title,
+                image: `https://www.vasquezlawfirm.com${attorney.image}`,
+                telephone: '1-844-967-3536',
+                email: attorney.email || 'leads@vasquezlawfirm.com',
+                education: attorney.education.map(edu => ({
+                  name: edu.institution,
+                  degree: edu.degree,
+                })),
+                knowsAbout: attorney.practiceAreas,
+                memberOf: attorney.associations.map(assoc => assoc.name),
+                award: attorney.specialAchievements || [],
+              })
+            ),
           }}
         />
       ))}

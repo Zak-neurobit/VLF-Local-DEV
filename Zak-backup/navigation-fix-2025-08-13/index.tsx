@@ -46,7 +46,10 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
 
   return (
     <div className="min-h-screen bg-mesh-dark relative overflow-hidden">
-      {/* Floating gradient orbs removed for performance - backup in navigation-fix-2025-08-13 */}
+      {/* Floating gradient orbs */}
+      <div className="gradient-orb-gold w-96 h-96 top-20 left-10 animate-float-orb" />
+      <div className="gradient-orb-burgundy w-80 h-80 bottom-20 right-10 animate-float-orb-reverse" />
+      <div className="gradient-orb-mixed w-64 h-64 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       {/* Language Toggle - Fixed Position (show on all pages) */}
       {(
         <div

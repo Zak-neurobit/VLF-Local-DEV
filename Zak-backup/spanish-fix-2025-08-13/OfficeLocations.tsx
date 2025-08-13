@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Phone, Clock } from 'lucide-react';
 import Image from 'next/image';
 import MiniMap from '@/components/MiniMap';
@@ -118,8 +119,11 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
       
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         {/* Section Header with Logo */}
-        <div
-          className="text-center mb-16 animate-fadeIn"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
         >
           <div className="flex justify-center mb-8">
             <Image
@@ -132,14 +136,17 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{t.title}</h2>
           <p className="text-xl text-[#C9974D]">{t.subtitle}</p>
-        </div>
+        </motion.div>
 
         {/* Mini Map */}
-        <div
-          className="mb-16 animate-slideUp"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16"
         >
           <MiniMap height="300px" className="rounded-xl shadow-2xl border border-[#C9974D]/30" />
-        </div>
+        </motion.div>
 
         {/* Office Cards */}
         <div className="grid md:grid-cols-2 gap-8">
@@ -152,10 +159,13 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
             };
 
             return (
-              <div
+              <motion.div
                 key={index}
-                className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-[#6B1F2E]/20 to-[#C9974D]/10 border border-[#C9974D]/30 hover:border-[#C9974D] transition-all duration-300 animate-slideUp"
-                style={{ animationDelay: `${index * 100}ms` }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-[#6B1F2E]/20 to-[#C9974D]/10 border border-[#C9974D]/30 hover:border-[#C9974D] transition-all duration-300"
               >
                 {/* Office Photo */}
                 <div className="relative h-48 overflow-hidden">
@@ -221,14 +231,17 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
 
                 {/* Hover Effect */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#C9974D]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
         {/* Call to Action */}
-        <div
-          className="text-center mt-12 animate-fadeIn"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
         >
           <div className="mb-8">
             <p className="text-lg text-gray-300 italic mb-2">
@@ -268,7 +281,7 @@ export default function OfficeLocations({ language }: OfficeLocationsProps) {
             <Phone className="h-6 w-6" />
             1-844-YO-PELEO
           </a>
-        </div>
+        </motion.div>
       </div>
 
       {/* Background Decoration */}

@@ -1,240 +1,178 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-// React Three Fiber removed - 3D not needed;
-// React Three Fiber removed - 3D not needed;
-// Three.js removed - 3D not needed;
+import React, { useState } from 'react';
 import Link from 'next/link';
-
-// 3D Icon Components for each practice area
-function ImmigrationIcon3D({ active }: { active: boolean }) {
-  const meshRef = useRef<THREE.Mesh>(null);
-
-  useFrame(state => {
-    if (meshRef.current && active) {
-      meshRef.current.rotation.y = state.clock.elapsedTime;
-    }
-  });
-
-  return (
-    <Float speed={active ? 2 : 1} rotationIntensity={active ? 1 : 0.5}>
-      <mesh ref={meshRef} scale={active ? 1.2 : 1}>
-        <sphereGeometry args={[1, 32, 32]} />
-        <MeshDistortMaterial
-          color={active ? '#C9974D' : '#6B1F2E'}
-          attach="material"
-          distort={active ? 0.5 : 0.2}
-          speed={2}
-          metalness={0.8}
-        />
-      </mesh>
-      <Text3D position={[0, 0, 1.2]} fontSize={0.5} color="white" anchorX="center" anchorY="middle">
-        🌍
-      </Text3D>
-    </Float>
-  );
-}
-
-function PersonalInjuryIcon3D({ active }: { active: boolean }) {
-  const groupRef = useRef<THREE.Group>(null);
-
-  useFrame(state => {
-    if (groupRef.current && active) {
-      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime) * 0.1;
-      groupRef.current.rotation.z = Math.cos(state.clock.elapsedTime) * 0.1;
-    }
-  });
-
-  return (
-    <group ref={groupRef}>
-      <Box args={[1.5, 0.5, 0.5]} position={[0, 0.5, 0]}>
-        <meshStandardMaterial color={active ? '#C9974D' : '#6B1F2E'} metalness={0.8} />
-      </Box>
-      <Box args={[0.5, 1.5, 0.5]} position={[0, 0, 0]}>
-        <meshStandardMaterial color={active ? '#C9974D' : '#6B1F2E'} metalness={0.8} />
-      </Box>
-    </group>
-  );
-}
 
 interface PracticeAreasShowcaseProps {
   language: 'en' | 'es';
 }
 
 export default function PracticeAreasShowcase({ language }: PracticeAreasShowcaseProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeArea, setActiveArea] = useState<number>(0);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
+  const [activeArea, setActiveArea] = useState(0);
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const areas = [
+    {
+      id: 'immigration',
+      icon: '🌍',
+      color: '#C9974D',
+      title: language === 'en' ? 'Immigration Law' : 'Ley de Inmigración',
+      subtitle: language === 'en' ? 'Your Path to the American Dream' : 'Tu Camino al Sueño Americano',
+      description:
+        language === 'en'
+          ? 'From visa applications to citizenship, we guide you through every step with expertise and compassion.'
+          : 'Desde solicitudes de visa hasta ciudadanía, te guiamos en cada paso con experiencia y compasión.',
+      features:
+        language === 'en'
+          ? ['Green Cards', 'Citizenship', 'Work Visas', 'Family Reunification', 'Deportation Defense']
+          : ['Tarjetas Verdes', 'Ciudadanía', 'Visas de Trabajo', 'Reunificación Familiar', 'Defensa de Deportación'],
+      stats: {
+        cases: language === 'en' ? '5,000+ Cases Won' : '5,000+ Casos Ganados',
+        rate: '98% Success Rate',
+      },
+    },
+    {
+      id: 'personal-injury',
+      icon: '🏥',
+      color: '#6B1F2E',
+      title: language === 'en' ? 'Personal Injury' : 'Lesiones Personales',
+      subtitle:
+        language === 'en' ? 'Maximum Compensation for Your Pain' : 'Máxima Compensación por Tu Dolor',
+      description:
+        language === 'en'
+          ? 'When accidents happen, we fight insurance companies to secure the compensation you deserve.'
+          : 'Cuando ocurren accidentes, luchamos contra las aseguradoras para asegurar la compensación que mereces.',
+      features:
+        language === 'en'
+          ? ['Car Accidents', 'Truck Accidents', 'Slip & Fall', 'Medical Malpractice', 'Product Liability']
+          : ['Accidentes de Auto', 'Accidentes de Camión', 'Resbalones y Caídas', 'Negligencia Médica', 'Responsabilidad del Producto'],
+      stats: {
+        cases: language === 'en' ? '$50M+ Recovered' : '$50M+ Recuperados',
+        rate: language === 'en' ? 'No Win, No Fee' : 'Sin Ganar, Sin Pagar',
+      },
+    },
+    {
+      id: 'criminal-defense',
+      icon: '⚖️',
+      color: '#8B0000',
+      title: language === 'en' ? 'Criminal Defense' : 'Defensa Criminal',
+      subtitle: language === 'en' ? 'Your Freedom Is Our Mission' : 'Tu Libertad Es Nuestra Misión',
+      description:
+        language === 'en'
+          ? 'From misdemeanors to federal cases, we provide aggressive defense when your future is at stake.'
+          : 'Desde delitos menores hasta casos federales, proporcionamos defensa agresiva cuando tu futuro está en juego.',
+      features:
+        language === 'en'
+          ? ['DUI/DWI', 'Drug Charges', 'Federal Crimes', 'White Collar', 'Expungements']
+          : ['DUI/DWI', 'Cargos de Drogas', 'Crímenes Federales', 'Cuello Blanco', 'Eliminación de Antecedentes'],
+      stats: {
+        cases: language === 'en' ? '500+ Dismissals' : '500+ Desestimaciones',
+        rate: language === 'en' ? '24/7 Available' : '24/7 Disponible',
+      },
+    },
+    {
+      id: 'workers-comp',
+      icon: '👷',
+      color: '#FF8C00',
+      title: language === 'en' ? "Workers' Compensation" : 'Compensación Laboral',
+      subtitle:
+        language === 'en' ? 'Protecting Injured Workers' : 'Protegiendo a Trabajadores Lesionados',
+      description:
+        language === 'en'
+          ? 'Workplace injuries can devastate families. We ensure you get medical care and lost wages covered.'
+          : 'Las lesiones laborales pueden devastar familias. Aseguramos que recibas atención médica y salarios perdidos.',
+      features:
+        language === 'en'
+          ? ['Construction Injuries', 'Factory Accidents', 'Repetitive Stress', 'Disability Benefits', 'Third-Party Claims']
+          : ['Lesiones de Construcción', 'Accidentes de Fábrica', 'Estrés Repetitivo', 'Beneficios por Discapacidad', 'Reclamos de Terceros'],
+      stats: {
+        cases: language === 'en' ? '2,500+ Workers Helped' : '2,500+ Trabajadores Ayudados',
+        rate: '95% Approval Rate',
+      },
+    },
+  ];
 
-  const practiceAreas = {
-    en: [
-      {
-        id: 'immigration',
-        title: 'Immigration Law',
-        subtitle: 'Your American Dream, Our Mission',
-        description:
-          'From visas to citizenship, we navigate the complex immigration system with military precision.',
-        features: ['Green Cards', 'Citizenship', 'Deportation Defense', 'DACA/TPS'],
-        stat: '5,000+ families reunited',
-        color: '#C9974D',
-        Icon3D: ImmigrationIcon3D,
-      },
-      {
-        id: 'personal-injury',
-        title: 'Personal Injury',
-        subtitle: 'Maximum Compensation, Guaranteed',
-        description:
-          'When accidents happen, we fight relentlessly to secure the compensation you deserve.',
-        features: ['Car Accidents', 'Truck Accidents', 'Medical Malpractice', 'Wrongful Death'],
-        stat: '$50M+ recovered for clients',
-        color: '#E5B568',
-        Icon3D: PersonalInjuryIcon3D,
-      },
-      {
-        id: 'criminal-defense',
-        title: 'Criminal Defense',
-        subtitle: 'Your Freedom is Our Priority',
-        description: 'Aggressive defense strategies backed by 60+ years of courtroom victories.',
-        features: ['DUI/DWI', 'Drug Crimes', 'Assault', 'Federal Cases'],
-        stat: '98% success rate',
-        color: '#8B3A42',
-        Icon3D: PersonalInjuryIcon3D,
-      },
-      {
-        id: 'workers-compensation',
-        title: "Workers' Compensation",
-        subtitle: 'Protecting Those Who Build America',
-        description: 'We ensure injured workers receive every benefit they deserve under the law.',
-        features: ['Workplace Injuries', 'Disability Benefits', 'Appeals', 'Third-Party Claims'],
-        stat: '3,000+ workers helped',
-        color: '#D4A574',
-        Icon3D: ImmigrationIcon3D,
-      },
-    ],
-    es: [
-      {
-        id: 'immigration',
-        title: 'Ley de Inmigración',
-        subtitle: 'Su Sueño Americano, Nuestra Misión',
-        description:
-          'Desde visas hasta ciudadanía, navegamos el complejo sistema de inmigración con precisión militar.',
-        features: ['Tarjetas Verdes', 'Ciudadanía', 'Defensa contra Deportación', 'DACA/TPS'],
-        stat: '5,000+ familias reunidas',
-        color: '#C9974D',
-        Icon3D: ImmigrationIcon3D,
-      },
-      {
-        id: 'personal-injury',
-        title: 'Lesiones Personales',
-        subtitle: 'Compensación Máxima, Garantizada',
-        description:
-          'Cuando ocurren accidentes, luchamos incansablemente para asegurar la compensación que merece.',
-        features: [
-          'Accidentes de Auto',
-          'Accidentes de Camión',
-          'Negligencia Médica',
-          'Muerte Injusta',
-        ],
-        stat: '$50M+ recuperados',
-        color: '#E5B568',
-        Icon3D: PersonalInjuryIcon3D,
-      },
-      {
-        id: 'criminal-defense',
-        title: 'Defensa Criminal',
-        subtitle: 'Su Libertad es Nuestra Prioridad',
-        description:
-          'Estrategias de defensa agresivas respaldadas por 60+ años de victorias en la corte.',
-        features: ['DUI/DWI', 'Delitos de Drogas', 'Asalto', 'Casos Federales'],
-        stat: '98% tasa de éxito',
-        color: '#8B3A42',
-        Icon3D: PersonalInjuryIcon3D,
-      },
-      {
-        id: 'workers-compensation',
-        title: 'Compensación Laboral',
-        subtitle: 'Protegiendo a Quienes Construyen América',
-        description:
-          'Aseguramos que los trabajadores lesionados reciban todos los beneficios que merecen bajo la ley.',
-        features: [
-          'Lesiones Laborales',
-          'Beneficios por Discapacidad',
-          'Apelaciones',
-          'Reclamos de Terceros',
-        ],
-        stat: '3,000+ trabajadores ayudados',
-        color: '#D4A574',
-        Icon3D: ImmigrationIcon3D,
-      },
-    ],
-  };
-
-  const areas = practiceAreas[language];
+  const currentArea = areas[activeArea];
 
   return (
-    <section ref={containerRef} className="relative bg-mesh-dark py-24 overflow-hidden">
+    <section className="relative overflow-hidden bg-gradient-to-b from-black via-burgundy-950/5 to-black py-24">
       {/* Floating gradient orbs */}
-      <div className="gradient-orb-gold w-96 h-96 top-20 right-10 animate-float-orb opacity-50" />
-      <div className="gradient-orb-burgundy w-80 h-80 bottom-1/3 left-20 animate-float-orb-reverse opacity-40" />
-      <div className="gradient-orb-mixed w-72 h-72 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30" />
+      <div className="gradient-orb-burgundy w-80 h-80 top-20 right-10 animate-float-orb opacity-50" />
+      <div className="gradient-orb-gold w-72 h-72 bottom-20 left-20 animate-float-orb-reverse opacity-40" />
       
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-burgundy-900/5 to-transparent" />
-        <motion.div style={{ y }} className="absolute inset-0 opacity-20">
-          <div className="h-full w-full bg-[url('/images/grid.svg')] bg-center" />
-        </motion.div>
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-7xl px-4">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-16 text-center"
+      <div className="mx-auto max-w-7xl px-4">
+        {/* Header */}
+        <div
+          className="mb-16 text-center animate-fadeIn"
         >
           <h2 className="mb-4 text-5xl font-black text-white md:text-6xl font-serif">
             {language === 'en' ? 'Practice Areas' : 'Áreas de Práctica'}
           </h2>
           <p className="mx-auto max-w-3xl text-xl text-gray-300">
             {language === 'en'
-              ? 'Four pillars of legal excellence, powered by 60+ years of experience and cutting-edge AI technology'
-              : 'Cuatro pilares de excelencia legal, impulsados por 60+ años de experiencia y tecnología IA de vanguardia'}
+              ? 'Four pillars of legal excellence, powered by 60+ years of experience'
+              : 'Cuatro pilares de excelencia legal, impulsados por 60+ años de experiencia'}
           </p>
-        </motion.div>
+        </div>
 
-        {/* 3D Scene and Content */}
+        {/* Main Content Grid */}
         <div className="grid gap-8 lg:grid-cols-2">
-          {/* 3D Visualization */}
-          <div className="relative h-[600px] rounded-2xl bg-gradient-to-br from-gray-900 to-black p-8">
-            <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-              <ambientLight intensity={0.5} />
-              <pointLight position={[10, 10, 10]} />
-              {areas.map((area, index) => {
-                const Icon3D = area.Icon3D;
-                const angle = (index / areas.length) * Math.PI * 2;
-                const x = Math.cos(angle) * 2;
-                const y = Math.sin(angle) * 2;
+          {/* Active Area Display */}
+          <div className="relative rounded-2xl bg-gradient-to-br from-gray-900 to-black p-8 animate-slideUp">
+            <div className="flex h-full flex-col justify-between">
+              {/* Icon and Title */}
+              <div>
+                <div
+                  className="mb-6 inline-flex h-24 w-24 items-center justify-center rounded-full animate-float"
+                  style={{ backgroundColor: currentArea.color + '20' }}
+                >
+                  <span className="text-5xl">{currentArea.icon}</span>
+                </div>
+                
+                <h3 className="mb-2 text-3xl font-bold text-white">{currentArea.title}</h3>
+                <p className="mb-4 text-xl text-[#C9974D]">{currentArea.subtitle}</p>
+                <p className="mb-6 text-lg text-gray-300">{currentArea.description}</p>
+                
+                {/* Features */}
+                <div className="mb-6 flex flex-wrap gap-2">
+                  {currentArea.features.map(feature => (
+                    <span
+                      key={feature}
+                      className="rounded-full bg-white/10 px-3 py-1 text-sm text-white backdrop-blur-sm"
+                    >
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
-                return (
-                  <group key={area.id} position={[x, y, 0]} onClick={() => setActiveArea(index)}>
-                    <Icon3D active={activeArea === index} />
-                  </group>
-                );
-              })}
-            </Canvas>
+              {/* Stats */}
+              <div className="grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+                <div>
+                  <div className="text-2xl font-bold text-[#C9974D]">{currentArea.stats.cases}</div>
+                  <div className="text-sm text-gray-400">
+                    {language === 'en' ? 'Track Record' : 'Historial'}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-[#C9974D]">{currentArea.stats.rate}</div>
+                  <div className="text-sm text-gray-400">
+                    {language === 'en' ? 'Success Metric' : 'Métrica de Éxito'}
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <Link
+                href={`/practice-areas/${currentArea.id}`}
+                className="mt-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#C9974D] to-[#E5B568] px-6 py-3 font-bold text-black transition-all hover:scale-105"
+              >
+                {language === 'en' ? 'Learn More' : 'Aprende Más'} →
+              </Link>
+            </div>
 
             {/* Active Area Indicator */}
-            <div className="absolute bottom-8 left-8 right-8">
-              <div className="flex justify-center gap-2">
+            <div className="absolute bottom-8 right-8">
+              <div className="flex gap-2">
                 {areas.map((_, index) => (
                   <button
                     key={index}
@@ -242,97 +180,76 @@ export default function PracticeAreasShowcase({ language }: PracticeAreasShowcas
                     className={`h-2 w-8 rounded-full transition-all ${
                       activeArea === index ? 'bg-[#C9974D]' : 'bg-white/20'
                     }`}
+                    aria-label={`View ${areas[index].title}`}
                   />
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Content Cards */}
+          {/* Practice Area Cards */}
           <div className="space-y-4">
             {areas.map((area, index) => (
-              <motion.div
+              <div
                 key={area.id}
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
                 onMouseEnter={() => setActiveArea(index)}
-                className={`group relative overflow-hidden rounded-2xl border transition-all ${
+                className={`group relative overflow-hidden rounded-2xl border transition-all cursor-pointer animate-slideUp ${
                   activeArea === index
                     ? 'border-[#C9974D] bg-gradient-to-br from-[#6B1F2E]/20 to-transparent'
-                    : 'border-white/10 bg-white/5'
+                    : 'border-white/10 bg-white/5 hover:border-white/20'
                 }`}
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="p-6">
-                  <div className="mb-4 flex items-start justify-between">
-                    <div>
-                      <h3 className="mb-2 text-2xl font-bold text-white">{area.title}</h3>
-                      <p className="text-[#C9974D]">{area.subtitle}</p>
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <h3 className="mb-2 text-xl font-bold text-white">{area.title}</h3>
+                      <p className="text-sm text-gray-400">{area.subtitle}</p>
                     </div>
                     <div
-                      className="rounded-full p-3"
+                      className="rounded-full p-2"
                       style={{ backgroundColor: area.color + '20' }}
                     >
-                      <span className="text-2xl">
-                        {area.id === 'immigration'
-                          ? '🌍'
-                          : area.id === 'personal-injury'
-                            ? '🏥'
-                            : area.id === 'criminal-defense'
-                              ? '⚖️'
-                              : '👷'}
-                      </span>
+                      <span className="text-2xl">{area.icon}</span>
                     </div>
                   </div>
 
-                  <p className="mb-4 text-gray-300">{area.description}</p>
-
-                  <div className="mb-4 flex flex-wrap gap-2">
-                    {area.features.map(feature => (
-                      <span
-                        key={feature}
-                        className="rounded-full bg-white/10 px-3 py-1 text-xs text-white backdrop-blur-sm"
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-[#C9974D]">{area.stat}</span>
-                    <Link
-                      href={`/practice-areas/${area.id}`}
-                      className="group inline-flex items-center gap-2 text-white transition-colors hover:text-[#C9974D]"
-                    >
-                      {language === 'en' ? 'Learn More' : 'Saber Más'}
-                      <svg
-                        className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </Link>
+                  {/* Quick Stats */}
+                  <div className="mt-4 flex items-center gap-4 text-sm">
+                    <span className="text-[#C9974D]">{area.stats.cases}</span>
+                    <span className="text-gray-500">•</span>
+                    <span className="text-gray-300">{area.stats.rate}</span>
                   </div>
                 </div>
 
                 {/* Hover Effect */}
                 <div
-                  className="absolute inset-0 -z-10 opacity-0 transition-opacity group-hover:opacity-100"
+                  className="absolute inset-0 bg-gradient-to-r opacity-0 transition-opacity group-hover:opacity-10"
                   style={{
-                    background: `radial-gradient(circle at 50% 50%, ${area.color}20 0%, transparent 70%)`,
+                    backgroundImage: `linear-gradient(to right, ${area.color}20, transparent)`,
                   }}
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
+        </div>
+
+        {/* Bottom CTA */}
+        <div
+          className="mt-16 text-center animate-fadeIn"
+        >
+          <p className="mb-6 text-xl text-gray-300">
+            {language === 'en'
+              ? 'Not sure which practice area fits your case?'
+              : '¿No está seguro qué área de práctica se ajusta a su caso?'}
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-full bg-white/10 px-8 py-4 font-bold text-white backdrop-blur-sm transition-all hover:bg-white/20"
+          >
+            {language === 'en' ? 'Get Free Case Evaluation' : 'Obtener Evaluación Gratuita'}
+            <span className="text-[#C9974D]">→</span>
+          </Link>
         </div>
       </div>
     </section>

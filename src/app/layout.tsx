@@ -11,6 +11,7 @@ import { Suspense } from 'react';
 import { UnifiedModernChatbot } from '@/components/ChatWidget/UnifiedModernChatbot';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
+import { NavigationProgress } from '@/components/NavigationProgress';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -104,6 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`${inter.className} font-sans antialiased bg-white text-black min-h-screen`}>
+        <NavigationProgress />
         <ClientSessionProvider>
           <MasterLayout>
             {children}

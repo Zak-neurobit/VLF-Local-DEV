@@ -10,7 +10,6 @@ export function NavigationProgress() {
   const searchParams = useSearchParams();
   const currentPath = useRef(pathname);
   const progressInterval = useRef<NodeJS.Timeout>();
-  const isNavigating = useRef(false);
 
   useEffect(() => {
     // Listen for any link clicks to start loading immediately
@@ -31,15 +30,6 @@ export function NavigationProgress() {
         const isHashOnly = url.pathname === currentUrl.pathname && url.hash;
         
         if (isInternal && !isNewTab && !isSamePage && !isHashOnly) {
-          // Prevent multiple simultaneous navigations
-          if (isNavigating.current) return;
-          isNavigating.current = true;
-          
-          // Clear any existing interval
-          if (progressInterval.current) {
-            clearInterval(progressInterval.current);
-          }
-          
           // Start loading immediately on click
           setIsLoading(true);
           setProgress(10);
@@ -80,7 +70,6 @@ export function NavigationProgress() {
       
       // Complete the progress bar
       setProgress(100);
-      isNavigating.current = false;
       setTimeout(() => {
         setIsLoading(false);
         setProgress(0);
