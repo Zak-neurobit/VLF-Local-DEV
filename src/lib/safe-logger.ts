@@ -77,6 +77,7 @@ const isEdgeRuntime = (): boolean => {
 const isBrowser = typeof window !== 'undefined';
 const isDevelopment = process.env.NODE_ENV === 'development';
 const isTest = process.env.NODE_ENV === 'test';
+const isProduction = process.env.NODE_ENV === 'production';
 
 // Helper to format timestamps
 const getTimestamp = (): string => {
@@ -132,9 +133,13 @@ const sanitizeHeaders = (headers: unknown): unknown => {
 
 // Enhanced logger factory with all features
 const createLogger = (prefix: string) => {
-  // Determine appropriate log level
+  // Determine appropriate log level - SIMPLIFIED FOR PRODUCTION
   const shouldLog = (level: string): boolean => {
     if (isTest) return false;
+    if (isProduction) {
+      // In production, only log errors and critical warnings
+      return level === 'error' || (level === 'warn' && process.env.LOG_LEVEL === 'warn');
+    }
     if (isDevelopment) return true;
 
     const logLevels = { error: 0, warn: 1, info: 2, debug: 3 };
@@ -436,8 +441,9 @@ export const createErrorLogMeta = (
 // Export default logger
 export default logger;
 
-// Cleanup old rate limit entries periodically
-if (typeof globalThis !== 'undefined' && !isTest) {
+// Cleanup old rate limit entries periodically - DISABLED IN PRODUCTION
+if (typeof globalThis !== 'undefined' && !isTest && !isProduction) {
+  // Only run cleanup in development to avoid memory leaks and CPU usage
   setInterval(() => {
     const now = Date.now();
     for (const [key, entry] of rateLimitMap.entries()) {
@@ -446,4 +452,31 @@ if (typeof globalThis !== 'undefined' && !isTest) {
       }
     }
   }, 60000); // Clean up every minute
+}
+
+// In production, clean up rate limit map on each check to prevent memory leaks
+if (isProduction) {
+  // Limit map size in production
+  const MAX_RATE_LIMIT_ENTRIES = 100;
+  const originalShouldRateLimit = shouldRateLimit;
+  (globalThis as any).shouldRateLimit = function(level: string, message: string): boolean {
+    // Clean up old entries if map is getting too large
+    if (rateLimitMap.size > MAX_RATE_LIMIT_ENTRIES) {
+      const now = Date.now();
+      for (const [key, entry] of rateLimitMap.entries()) {
+        if (now > entry.resetTime) {
+          rateLimitMap.delete(key);
+        }
+      }
+      // If still too large, clear oldest half
+      if (rateLimitMap.size > MAX_RATE_LIMIT_ENTRIES) {
+        const entries = Array.from(rateLimitMap.entries());
+        entries.sort((a, b) => a[1].resetTime - b[1].resetTime);
+        entries.slice(0, Math.floor(entries.length / 2)).forEach(([key]) => {
+          rateLimitMap.delete(key);
+        });
+      }
+    }
+    return originalShouldRateLimit(level, message);
+  };
 }

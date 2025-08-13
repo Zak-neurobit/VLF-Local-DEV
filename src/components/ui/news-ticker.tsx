@@ -21,6 +21,10 @@ interface NewsTickerProps {
   locale?: 'en' | 'es';
 }
 
+// Cache news data in memory to avoid repeated API calls
+const newsCache = new Map<string, { data: NewsItem[]; timestamp: number }>();
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
 export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -37,8 +41,18 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
   }, [locale]);
 
   useEffect(() => {
-    // Fetch recent news items
+    // Fetch recent news items with caching
     const fetchNews = async () => {
+      const cacheKey = `news-${locale}`;
+      const cached = newsCache.get(cacheKey);
+      
+      // Use cached data if it's still fresh
+      if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+        setNewsItems(cached.data);
+        setIsLoading(false);
+        return;
+      }
+      
       try {
         setIsLoading(true);
         setError(null);
@@ -56,7 +70,10 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
           if (process.env.NODE_ENV === 'development') {
             componentLogger.debug('Received data', { itemCount: data.posts?.length || 0 });
           }
-          setNewsItems(data.posts || []);
+          const posts = data.posts || [];
+          setNewsItems(posts);
+          // Cache the data
+          newsCache.set(cacheKey, { data: posts, timestamp: Date.now() });
         } else {
           const errorText = await response.text();
           componentLogger.error('Failed to fetch news', {
@@ -68,13 +85,17 @@ export function NewsTicker({ className, locale = 'en' }: NewsTickerProps) {
       } catch (error) {
         componentLogger.error('Error fetching news', error instanceof Error ? error : { error });
         setError(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        // Try to use stale cache if available
+        if (cached) {
+          setNewsItems(cached.data);
+        }
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchNews();
-    const interval = setInterval(fetchNews, 300000); // Refresh every 5 minutes
+    const interval = setInterval(fetchNews, CACHE_DURATION); // Refresh at cache duration
 
     return () => clearInterval(interval);
   }, [locale]);

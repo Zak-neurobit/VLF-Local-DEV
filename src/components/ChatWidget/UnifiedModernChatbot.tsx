@@ -21,7 +21,15 @@ import { sendChatMessage } from '@/services/chat-service';
 import { scheduleGHLAppointment } from '@/services/gohighlevel/appointments';
 import { createGHLContact, addGHLNote } from '@/services/gohighlevel/contacts';
 import { uploadToGHL } from '@/services/gohighlevel/documents';
-import { MinimalRetellClient } from '@/components/Voice/MinimalRetellClient';
+// Lazy load voice component for better performance
+import dynamic from 'next/dynamic';
+const MinimalRetellClient = dynamic(
+  () => import('@/components/Voice/MinimalRetellClient').then(mod => mod.MinimalRetellClient),
+  { 
+    loading: () => <div className="flex items-center justify-center p-4"><Loader2 className="animate-spin" /></div>,
+    ssr: false 
+  }
+);
 
 interface Message {
   id: string;

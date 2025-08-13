@@ -11,8 +11,8 @@ import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
 // Lazy load chat widget to improve performance
-const UnifiedModernChatbot = dynamic(
-  () => import('@/components/ChatWidget/UnifiedModernChatbot').then(mod => mod.UnifiedModernChatbot),
+const LazyChat = dynamic(
+  () => import('@/components/ChatWidget/LazyChat').then(mod => mod.LazyChat),
   { 
     loading: () => null
   }
@@ -119,8 +119,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
             <Toaster position="bottom-right" />
             <Suspense fallback={null}>
-              {/* Chat widget lazy loaded for performance */}
-              <UnifiedModernChatbot />
+              {/* Chat widget lazy loaded for performance - only loads when clicked */}
+              <LazyChat />
             </Suspense>
           </MasterLayout>
         </ClientSessionProvider>
