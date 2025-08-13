@@ -11,14 +11,10 @@ export function NavigationProgress() {
   const currentPath = useRef(pathname);
   const progressInterval = useRef<NodeJS.Timeout>();
   const isNavigating = useRef(false);
-  const isMounted = useRef(true);
 
   useEffect(() => {
-    isMounted.current = true;
-    
     // Listen for any link clicks to start loading immediately
     const handleClick = (e: MouseEvent) => {
-      if (!isMounted.current) return;
       const target = e.target as HTMLElement;
       const link = target.closest('a');
       
@@ -65,13 +61,10 @@ export function NavigationProgress() {
     document.addEventListener('click', handleClick, true);
 
     return () => {
-      isMounted.current = false;
       document.removeEventListener('click', handleClick, true);
       if (progressInterval.current) {
         clearInterval(progressInterval.current);
-        progressInterval.current = undefined;
       }
-      isNavigating.current = false;
     };
   }, []);
 
@@ -83,20 +76,15 @@ export function NavigationProgress() {
       // Clear the interval
       if (progressInterval.current) {
         clearInterval(progressInterval.current);
-        progressInterval.current = undefined;
       }
       
       // Complete the progress bar
-      if (isMounted.current) {
-        setProgress(100);
-        isNavigating.current = false;
-        setTimeout(() => {
-          if (isMounted.current) {
-            setIsLoading(false);
-            setProgress(0);
-          }
-        }, 200);
-      }
+      setProgress(100);
+      isNavigating.current = false;
+      setTimeout(() => {
+        setIsLoading(false);
+        setProgress(0);
+      }, 200);
     }
   }, [pathname, searchParams]);
 

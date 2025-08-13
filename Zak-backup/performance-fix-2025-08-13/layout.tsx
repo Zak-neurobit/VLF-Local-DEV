@@ -8,15 +8,7 @@ import { MasterLayout } from '@/design-system/templates/MasterLayout';
 import { Toaster } from 'react-hot-toast';
 import { Suspense } from 'react';
 // Direct imports for server component
-import dynamic from 'next/dynamic';
-
-// Lazy load chat widget to improve performance
-const UnifiedModernChatbot = dynamic(
-  () => import('@/components/ChatWidget/UnifiedModernChatbot').then(mod => mod.UnifiedModernChatbot),
-  { 
-    loading: () => null
-  }
-);
+import { UnifiedModernChatbot } from '@/components/ChatWidget/UnifiedModernChatbot';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 import { NavigationProgress } from '@/components/NavigationProgress';
@@ -119,7 +111,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
             <Toaster position="bottom-right" />
             <Suspense fallback={null}>
-              {/* Chat widget lazy loaded for performance */}
               <UnifiedModernChatbot />
             </Suspense>
           </MasterLayout>

@@ -6,28 +6,13 @@ import { useRouter } from 'next/navigation';
 
 // Removed framer-motion for performance - using CSS transitions instead
 
-// Critical component loaded immediately
+// Import all components directly for SSR
 import ModernHero from '../hero/ModernHero';
-
-// Lazy load non-critical components for better performance
-const FirmHighlights = dynamic(() => import('./FirmHighlights'), {
-  loading: () => <div className="h-96" />
-});
-const OfficeLocations = dynamic(() => import('./OfficeLocations'), {
-  loading: () => <div className="h-96" />
-});
-const ResultsShowcase = dynamic(() => import('./ResultsShowcase'), {
-  loading: () => <div className="h-96" />
-});
-const TestimonialsSection = dynamic(
-  () => import('./TestimonialsSection').then(mod => ({ default: mod.TestimonialsSection })),
-  {
-    loading: () => <div className="h-96" />
-  }
-);
-const PracticeAreasShowcase = dynamic(() => import('./PracticeAreasShowcase'), {
-  loading: () => <div className="h-96" />
-});
+import FirmHighlights from './FirmHighlights';
+import OfficeLocations from './OfficeLocations';
+import ResultsShowcase from './ResultsShowcase';
+import { TestimonialsSection } from './TestimonialsSection';
+import PracticeAreasShowcase from './PracticeAreasShowcase';
 
 // BACKUP: VirtualParalegal temporarily disabled - component saved in _backup_virtualparalegal/
 // const VirtualParalegal = dynamic(() => import('../VirtualParalegal'), {
@@ -135,7 +120,11 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
         <VirtualParalegal language={language} onClose={() => setShowVirtualParalegal(false)} />
       )} */}
 
-      {/* Background Effects removed for performance */}
+      {/* Background Effects */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
+      </div>
     </div>
   );
 };
