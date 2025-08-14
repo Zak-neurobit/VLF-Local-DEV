@@ -169,8 +169,6 @@ const StandardizedPracticeAreaTemplate: React.FC<StandardizedPracticeAreaTemplat
             <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-black to-primary/10" />
             <div
               className="absolute inset-0"
-             }
-             }
             />
           </div>
 
@@ -228,11 +226,7 @@ className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
         {/* Overview Section */}
         <section className="py-20 bg-gradient-to-b from-black to-neutral-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div
-             }
-             }
-             }
-            >
+            <div>
               <h2 className="text-3xl md:text-4xl font-black text-center text-white mb-12">
                 {overview.title || (isSpanish ? 'Resumen' : 'Overview')}
               </h2>
@@ -433,15 +427,10 @@ className="text-3xl md:text-4xl font-black text-center text-white mb-12"
                 {relatedServices.map((service, index) => (
                   <div
                     key={index}
-                   }
-                   }
-                   }
-                   }
                   >
                     <Link
                       href={service.link}
-
-                className={`block p-6 rounded-lg border transition-all hover:scale-105 ${
+                      className={`block p-6 rounded-lg border transition-all hover:scale-105 ${
                         service.urgency === 'high'
                           ? 'bg-red-900/20 border-red-500/30 hover:border-red-500'
                           : 'bg-white/5 border-white/10 hover:border-primary/50'
@@ -466,11 +455,7 @@ className="text-3xl md:text-4xl font-black text-center text-white mb-12"
         {/* CTA Section */}
         <section className="py-20 bg-gradient-to-r from-primary to-primary-300">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div
-             }
-             }
-             }
-            >
+            <div>
               <h2 className="text-3xl md:text-4xl font-black text-black mb-6">
                 {isSpanish ? 'Obtenga Su Consulta GRATIS Hoy' : 'Get Your FREE Consultation Today'}
               </h2>

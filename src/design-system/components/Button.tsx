@@ -93,9 +93,10 @@ export const Button: React.FC<ButtonProps> = ({
   // Handle button
   return (
     <button
-      className={classes onClick={onClick}
-      disabled={disabled} type={type}
-     }
+      className={classes}
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
     >
       {content}
     </button>
