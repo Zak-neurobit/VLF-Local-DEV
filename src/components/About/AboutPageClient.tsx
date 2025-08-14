@@ -297,8 +297,6 @@ export default function AboutPageClient({ language: propLanguage }: AboutPageCli
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-secondary/10" />
             <div
               className="absolute inset-0"
-             }
-             }
             />
           </div>
 
