@@ -6,6 +6,7 @@ import {
   MessageCircle,
   X,
   Send,
+  ArrowUp,
   Mic,
   MicOff,
   Paperclip,
@@ -18,9 +19,6 @@ import {
 } from 'lucide-react';
 import { useSocket } from '@/hooks/useSocket';
 import { sendChatMessage } from '@/services/chat-service';
-import { scheduleGHLAppointment } from '@/services/gohighlevel/appointments';
-import { createGHLContact, addGHLNote } from '@/services/gohighlevel/contacts';
-import { uploadToGHL } from '@/services/gohighlevel/documents';
 // Lazy load voice component for better performance
 import dynamic from 'next/dynamic';
 const MinimalRetellClient = dynamic(
@@ -42,10 +40,11 @@ interface Message {
 
 interface ChatbotProps {
   language?: 'en' | 'es';
+  initiallyOpen?: boolean;
 }
 
-export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initialLang = 'en' }) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initialLang = 'en', initiallyOpen = false }) => {
+  const [isOpen, setIsOpen] = useState(initiallyOpen);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -56,12 +55,14 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
     {}
   );
   const [ghlContactId, setGhlContactId] = useState<string | null>(null);
+  const [servicesReady, setServicesReady] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
 
+  // Initialize socket lazily after UI is shown
   const { socket } = useSocket();
 
   // Translations
@@ -94,7 +95,7 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
     },
   };
 
-  // Initialize welcome message
+  // Initialize welcome message immediately
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([
@@ -106,8 +107,11 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
           type: 'text',
         },
       ]);
+      
+      // Mark services as ready after a short delay
+      setTimeout(() => setServicesReady(true), 500);
     }
-  }, [isOpen, language, messages.length, t]);
+  }, [isOpen]); // Remove dependencies to run only once when opened
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -131,8 +135,8 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
       setIsLoading(false);
 
       // Send conversation to GHL
-      if (ghlContactId) {
-        addGHLNote(ghlContactId, {
+      if (ghlContactId && ghlServicesRef.current.addGHLNote) {
+        ghlServicesRef.current.addGHLNote(ghlContactId, {
           note: `Bot: ${data.content}`,
         });
       }
@@ -145,11 +149,38 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
     };
   }, [socket, ghlContactId]);
 
+  // Lazy load GHL services
+  const ghlServicesRef = useRef<{
+    createGHLContact?: any;
+    addGHLNote?: any;
+    scheduleGHLAppointment?: any;
+    uploadToGHL?: any;
+  }>({});
+
+  // Load GHL services when needed
+  const loadGHLServices = async () => {
+    if (!ghlServicesRef.current.createGHLContact) {
+      const [contacts, appointments, documents] = await Promise.all([
+        import('@/services/gohighlevel/contacts'),
+        import('@/services/gohighlevel/appointments'),
+        import('@/services/gohighlevel/documents'),
+      ]);
+      ghlServicesRef.current = {
+        createGHLContact: contacts.createGHLContact,
+        addGHLNote: contacts.addGHLNote,
+        scheduleGHLAppointment: appointments.scheduleGHLAppointment,
+        uploadToGHL: documents.uploadToGHL,
+      };
+    }
+    return ghlServicesRef.current;
+  };
+
   // Create or update GHL contact
   const ensureGHLContact = async () => {
     if (!ghlContactId && (contactInfo.email || contactInfo.phone)) {
       try {
-        const contact = await createGHLContact({
+        const services = await loadGHLServices();
+        const contact = await services.createGHLContact({
           firstName: contactInfo.name?.split(' ')[0] || 'Website',
           lastName: contactInfo.name?.split(' ').slice(1).join(' ') || 'Visitor',
           email: contactInfo.email,
@@ -257,7 +288,10 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
       // Upload to GHL if contact exists
       const contactId = await ensureGHLContact();
       if (contactId) {
-        await uploadToGHL(contactId, file);
+        const services = await loadGHLServices();
+        if (services.uploadToGHL) {
+          await services.uploadToGHL(contactId, file);
+        }
       }
 
       // Process document
@@ -368,7 +402,8 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
         throw new Error('Contact information required');
       }
 
-      const appointment = await scheduleGHLAppointment({
+      const services = await loadGHLServices();
+      const appointment = await services.scheduleGHLAppointment({
         contactId,
         title: 'Legal Consultation',
         startTime: new Date(Date.now() + 24 * 60 * 60 * 1000), // Tomorrow
@@ -403,14 +438,23 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
 
   return (
     <>
+      {/* Invisible backdrop to detect clicks outside */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-[9998]"
+          onClick={() => setIsOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Chat Button - Always visible for toggle */}
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           console.log('Chat button clicked, toggling chat...');
           setIsOpen(!isOpen);
         }}
-
-                className="fixed bottom-6 right-6 z-[10000] bg-[#C9974D] text-white p-4 rounded-full shadow-2xl hover:bg-[#E5B568] transition-all duration-300 cursor-pointer animate-fadeInScale"
+        className="fixed bottom-6 right-6 z-[10000] bg-[#C9974D] text-white p-4 rounded-full shadow-2xl hover:bg-[#E5B568] transition-all duration-300 cursor-pointer animate-fadeInScale"
         aria-label="Open chat"
       >
         {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
@@ -420,6 +464,7 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
       {isOpen && (
         <div
           className="fixed bottom-24 right-6 z-[9999] w-[320px] h-[480px] bg-gray-900 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-slideUp"
+          onClick={(e) => e.stopPropagation()}
         >
             {/* Header */}
             <div className="bg-[#C9974D] text-black p-3 flex items-center justify-between">
@@ -427,12 +472,16 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
                 <Bot className="w-5 h-5" />
                 <div>
                   <h3 className="font-semibold text-sm">{t[language].title}</h3>
-                  <p className="text-xs opacity-80">Vasquez Law Firm</p>
+                  <p className="text-xs opacity-80">
+                    Vasquez Law Firm
+                    {!servicesReady && (
+                      <span className="ml-2 text-xs opacity-60">• Connecting...</span>
+                    )}
+                  </p>
                 </div>
               </div>
               <button
                 onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
-
                 className="text-xs px-2 py-1 bg-black/20 rounded-full hover:bg-black/30 transition-colors"
               >
                 {language === 'en' ? 'ES' : 'EN'}
@@ -541,10 +590,9 @@ export const UnifiedModernChatbot: React.FC<ChatbotProps> = ({ language: initial
                 <button
                   type="submit"
                   disabled={!inputValue.trim() || isLoading}
-
-                className="bg-primary text-black p-1.5 rounded-full hover:bg-primary-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-primary text-black p-1.5 rounded-full hover:bg-primary-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Send className="w-4 h-4" />
+                  <ArrowUp className="w-4 h-4" />
                 </button>
               </form>
               <input

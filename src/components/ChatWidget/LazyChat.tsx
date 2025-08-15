@@ -2,7 +2,6 @@
 
 import React, { useState, Suspense, lazy } from 'react';
 import { ChatButton } from './ChatButton';
-import { Loader2 } from 'lucide-react';
 
 // Lazy load the heavy chat component
 const UnifiedModernChatbot = lazy(() => 
@@ -17,15 +16,9 @@ interface LazyChatProps {
 
 export const LazyChat: React.FC<LazyChatProps> = ({ language = 'en' }) => {
   const [shouldLoad, setShouldLoad] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleChatClick = () => {
-    if (!shouldLoad) {
-      setIsLoading(true);
-      setShouldLoad(true);
-      // Preload voice and other heavy dependencies
-      setTimeout(() => setIsLoading(false), 100);
-    }
+    setShouldLoad(true);
   };
 
   // If chat hasn't been clicked yet, show lightweight button
@@ -33,23 +26,10 @@ export const LazyChat: React.FC<LazyChatProps> = ({ language = 'en' }) => {
     return <ChatButton onClick={handleChatClick} language={language} />;
   }
 
-  // Loading state while chat component loads
-  if (isLoading) {
-    return (
-      <div className="fixed bottom-6 right-6 bg-white rounded-full p-4 shadow-2xl z-50">
-        <Loader2 className="w-6 h-6 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  // Render the full chat widget
+  // Render the chat immediately - it will handle its own loading states
   return (
-    <Suspense fallback={
-      <div className="fixed bottom-6 right-6 bg-white rounded-full p-4 shadow-2xl z-50">
-        <Loader2 className="w-6 h-6 animate-spin text-primary" />
-      </div>
-    }>
-      <UnifiedModernChatbot language={language} />
+    <Suspense fallback={null}>
+      <UnifiedModernChatbot language={language} initiallyOpen={true} />
     </Suspense>
   );
 };

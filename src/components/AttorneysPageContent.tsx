@@ -14,6 +14,7 @@ import {
   Shield,
   Star,
   Briefcase,
+  User,
 } from 'lucide-react';
 import { generateAttorneySchema } from '@/components/SEO/schemas';
 import { attorneys } from '@/data/attorneys';
@@ -37,6 +38,7 @@ const attorneySlugMap: Record<string, string> = {
 
 export default function AttorneysPageContent({ language }: AttorneysPageContentProps) {
   const [hoveredAttorney, setHoveredAttorney] = useState<string | null>(null);
+  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
 
   const content = {
     en: {
@@ -127,24 +129,33 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                 key={attorney.id}
                 onMouseEnter={() => setHoveredAttorney(attorney.id)}
                 onMouseLeave={() => setHoveredAttorney(null)}
-
                 className="group relative animate-slideUp"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20">
+                <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 flex flex-col h-full">
                   {/* Glow Effect */}
                   {hoveredAttorney === attorney.id && (
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent pointer-events-none transition-opacity duration-300" />
                   )}
 
-                  <div className="h-80 relative overflow-hidden">
-                    <Image
-                      src={attorney.image}
-
-                alt={attorney.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
+                  <div className="h-80 relative overflow-hidden flex-shrink-0 bg-gray-900">
+                    {!imageErrors.has(attorney.id) ? (
+                      <Image
+                        src={attorney.image}
+                        alt={attorney.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority={index < 3}
+                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        onError={() => {
+                          setImageErrors(prev => new Set(prev).add(attorney.id));
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                        <User className="w-24 h-24 text-gray-600" />
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4">
                       <h3 className="text-2xl font-bold text-white">{attorney.name}</h3>
@@ -154,8 +165,8 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                     </div>
                   </div>
 
-                  <div className="p-6 relative">
-                    <p className="text-gray-400 mb-4 line-clamp-3">
+                  <div className="p-6 relative flex flex-col flex-grow">
+                    <p className="text-gray-400 mb-4 line-clamp-3 min-h-[4.5rem]">
                       {isSpanish ? attorney.bioEs : attorney.bio}
                     </p>
 
@@ -165,12 +176,11 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                         <Scale className="w-4 h-4 mr-2 text-primary" />
                         {t.specialties}
                       </h4>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-2 min-h-[4rem]">
                         {attorney.practiceAreas.slice(0, 3).map(specialty => (
                           <span
                             key={specialty}
-
-                className="px-3 py-1 bg-primary/10 text-xs text-primary rounded-full border border-primary/20"
+                            className="px-3 py-1 bg-primary/10 text-xs text-primary rounded-full border border-primary/20 h-fit"
                           >
                             {specialty}
                           </span>
@@ -179,24 +189,29 @@ export default function AttorneysPageContent({ language }: AttorneysPageContentP
                     </div>
 
                     {/* Languages */}
-                    {attorney.languages.length > 0 && (
-                      <div className="mb-6">
-                        <h4 className="font-semibold text-white mb-1 flex items-center">
-                          <Globe className="w-4 h-4 mr-2 text-primary" />
-                          {t.languages}
-                        </h4>
-                        <p className="text-sm text-gray-400">{attorney.languages.join(', ')}</p>
-                      </div>
-                    )}
+                    <div className="mb-6 min-h-[3rem]">
+                      {attorney.languages.length > 0 ? (
+                        <>
+                          <h4 className="font-semibold text-white mb-1 flex items-center">
+                            <Globe className="w-4 h-4 mr-2 text-primary" />
+                            {t.languages}
+                          </h4>
+                          <p className="text-sm text-gray-400">{attorney.languages.join(', ')}</p>
+                        </>
+                      ) : (
+                        <div className="h-full"></div>
+                      )}
+                    </div>
 
-                    <Link
-                      href={`/attorneys/${attorneySlugMap[attorney.slug || attorney.id] || attorney.slug || attorney.id}`}
-
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-full hover:bg-primary-300 transition-all font-bold group-hover:scale-105"
-                    >
-                      {t.viewProfile}
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
+                    <div className="mt-auto">
+                      <Link
+                        href={`/attorneys/${attorneySlugMap[attorney.slug || attorney.id] || attorney.slug || attorney.id}`}
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-full hover:bg-primary-300 transition-all font-bold group-hover:scale-105 w-full justify-center"
+                      >
+                        {t.viewProfile}
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
