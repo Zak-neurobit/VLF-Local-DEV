@@ -207,7 +207,7 @@ export const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
             <div className="mt-8 pt-8 border-t border-gray-200">
               <button onClick={handleShare} className="inline-flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-600 text-white rounded-lg transition-colors"
               >
-                <Share2} className="w-4 h-4" />
+                <Share2 className="w-4 h-4" />
                 {isSpanish ? 'Compartir' : 'Share'}
               </button>
             </div>
