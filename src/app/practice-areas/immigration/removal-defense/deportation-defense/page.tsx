@@ -106,7 +106,7 @@ export default function DeportationDefensePage() {
     {
       title: 'Emergency Stays & Appeals',
       description:
-        'Ordered removed? NOT SO FAST. We file emergency stays, appeals, and federal court actions that stop deportations cold. Many "final" orders aren\'t final at all.',
+        'Ordered removed? NOT SO FAST. We file emergency stays, appeals, and federal court actions that stop deportations cold. Many "final" orders are not final at all.',
       features: [
         'Emergency stay motions',
         'Administrative stays',

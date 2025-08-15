@@ -212,12 +212,12 @@ export default function AffirmativeImmigrationPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {services.map((service, index) => (
                   <Link key={index}
-
-                href={service.link || '#' className="group block">
+                    href={service.link || '#'}
+                    className="group block">
                     <div
-      className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20 hover:border-primary/40 transition-all duration-300 h-full">
+                      className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-primary/20 hover:border-primary/40 transition-all duration-300 h-full">
                       <h3
-               } className="text-xl font-bold text-primary mb-3 group-hover:text-primary-light transition-colors">
+                        className="text-xl font-bold text-primary mb-3 group-hover:text-primary-light transition-colors">
                         {service.title}
                       </h3>
                       <p className="text-gray-300 mb-4">{service.description}</p>
