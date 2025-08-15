@@ -27,7 +27,7 @@ export const ModernPageWrapper: React.FC<ModernPageWrapperProps> = ({
             {heroBackgroundImage ? (
               <div
                 className="absolute inset-0 bg-cover bg-center"
-               )` }}
+                style={{ backgroundImage: `url(${heroBackgroundImage})` }}
               />
             ) : null}
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black" />
@@ -38,11 +38,7 @@ export const ModernPageWrapper: React.FC<ModernPageWrapperProps> = ({
             {[...Array(20)].map((_, i) => (
               <div
                 key={i}
-
                 className="absolute h-1 w-1 bg-gold-400/30 rounded-full"
-               }
-               }
-               }
               />
             ))}
           </div>
@@ -83,7 +79,7 @@ className="w-1 h-3 bg-gold-400 rounded-full mt-2"
       )}
 
       {/* Main Content */}
-      <div}}>
+      <div>
         {children}
       </div>
 
