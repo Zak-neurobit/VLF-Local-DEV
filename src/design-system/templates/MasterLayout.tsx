@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { ConsistentHeader } from '../components/ConsistentHeader';
 import { ConsistentFooter } from '../components/ConsistentFooter';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { NewsTicker } from '@/components/ui/news-ticker';
 import { ClientOnlyWrapper } from '@/components/ClientOnlyWrapper';
@@ -21,10 +21,42 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
   showBreadcrumbs = true,
 }) => {
   const pathname = usePathname();
+  const router = useRouter();
   const safePathname = pathname || '/';
 
   // Determine current language from pathname
   const currentLanguage: 'en' | 'es' = safePathname.startsWith('/es') ? 'es' : 'en';
+
+  // Language toggle handler
+  const handleLanguageChange = useCallback((lang: 'en' | 'es') => {
+    let newPath = '';
+    
+    if (lang === 'es') {
+      // If already on Spanish site, do nothing
+      if (safePathname.startsWith('/es')) return;
+      
+      // If on English homepage, go to Spanish homepage
+      if (safePathname === '/') {
+        newPath = '/es';
+      } else {
+        // For other pages, prepend /es to the path
+        newPath = `/es${safePathname}`;
+      }
+    } else {
+      // If already on English site (not starting with /es), do nothing
+      if (!safePathname.startsWith('/es')) return;
+      
+      // If on Spanish homepage, go to English homepage
+      if (safePathname === '/es') {
+        newPath = '/';
+      } else {
+        // For other pages, remove /es from the path
+        newPath = safePathname.replace('/es', '') || '/';
+      }
+    }
+    
+    router.push(newPath);
+  }, [router, safePathname]);
 
   // Debug: Log when MasterLayout renders (only in development)
   React.useEffect(() => {
@@ -80,22 +112,23 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
         <ConsistentHeader
           language={currentLanguage}
           variant={variant === 'hero' ? 'transparent' : 'solid'}
+          showLanguageToggle={true}
+          onLanguageChange={handleLanguageChange}
         />
       </div>
 
       {/* Main content area with padding to account for fixed header + ticker */}
-      <div className={variant === 'hero' ? 'pt-0' : 'pt-[116px]'}>
+      <div className={variant === 'hero' ? 'pt-0' : 'pt-[180px]'}>
         {/* Hero variant starts from top, normal needs ticker + header space */}
-        {/* Breadcrumbs */}
+        
+        {/* Breadcrumbs - Only show on non-homepage pages */}
         {showBreadcrumbs && safePathname !== '/' && variant !== 'hero' && (
           <div className="bg-black/50 border-b border-primary/20 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
               <nav className="flex" aria-label="Breadcrumb">
                 <ol className="flex items-center space-x-2 text-sm">
                   {getBreadcrumbs().map((crumb, index, array) => (
-                    <li key={crumb.href}
-
-                className="flex items-center">
+                    <li key={crumb.href} className="flex items-center">
                       {index > 0 && (
                         <svg
                           className="flex-shrink-0 h-4 w-4 text-gray-400 mx-2"
@@ -114,8 +147,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
                       ) : (
                         <Link
                           href={crumb.href}
-
-                className="text-gray-400 hover:text-primary transition-colors"
+                          className="text-gray-400 hover:text-primary transition-colors"
                         >
                           {crumb.name}
                         </Link>
@@ -127,6 +159,7 @@ export const MasterLayout: React.FC<MasterLayoutProps> = ({
             </div>
           </div>
         )}
+
         <main className="flex-grow relative">
           <div className="animate-fadeIn">
             {children}

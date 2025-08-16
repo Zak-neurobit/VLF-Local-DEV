@@ -76,40 +76,6 @@ const HomePage: React.FC<HomePageProps> = ({ language: initialLanguage = 'en' })
 
   return (
     <div className="min-h-screen bg-mesh-dark relative overflow-hidden">
-      {/* Floating gradient orbs removed for performance - backup in navigation-fix-2025-08-13 */}
-      {/* Language Toggle - Fixed Position (show on all pages) */}
-      {(
-        <div
-          className="fixed right-2 sm:right-4 top-32 sm:top-36 z-40 flex gap-1 sm:gap-2 rounded-full bg-black/70 p-1 backdrop-blur-md border border-gold-400/20 animate-fadeIn"
-        >
-          <button
-            onClick={() => handleLanguageChange('en')}
-
-                className={`rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${
-              language === 'en' ? 'bg-primary text-black' : 'text-white hover:text-primary'
-            }`}
-
-            aria-pressed={language === 'en'}
-
-            aria-label="Switch to English"
-          >
-            EN
-          </button>
-          <button
-            onClick={() => handleLanguageChange('es')}
-
-                className={`rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold transition-all ${
-              language === 'es' ? 'bg-primary text-black' : 'text-white hover:text-primary'
-            }`}
-
-            aria-pressed={language === 'es'}
-
-            aria-label="Cambiar a Español"
-          >
-            ES
-          </button>
-        </div>
-      )}
 
       {/* Virtual Paralegal Trigger - Removed to prevent duplicate chat widgets */}
 
